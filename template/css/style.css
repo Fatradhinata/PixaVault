@@ -1476,7 +1476,7 @@ portfolio
   align-items: center;
   text-align: center;
   padding: 60px;
-  background-color: rgb(188, 255, 0);
+  background-color: rgba(0, 0, 0, 0.3);
   transform: translateY(30px) scale(0.9);
   opacity: 0;
   transition: 0.4s cubic-bezier(0, 0, 0.3642, 1);
