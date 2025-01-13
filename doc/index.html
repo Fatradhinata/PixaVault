@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Ruizarch – Architecture HTML Template</title>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" href="assets/style.css">
+	<link rel="stylesheet" href="assets/table.css">
+</head>
+<body>
+	<header class="dt-header dt-header_blue">
+		<span class="dt-logo">Ruizarch – Architecture HTML Template</span>
+	</header>
+	<div class="dt-container dt-container_flex">
+		<aside class="dt-navbar">
+			<nav class="dt-navbar__nav">
+				<div class="dt-navbar__section">
+					<ul class="dt-navbar__list">
+						<li><a href="#files_structure" class="dt-navbar__link">File structure</a></li>
+						<li>
+							<a href="#settings" class="dt-navbar__link">Settings</a>
+							<ul class="dt-navbar__list">
+								<li><a href="#include_set" class="dt-navbar__link dt-navbar__link_nested">Template Settings</a></li>
+								<li><a href="#include_fonts" class="dt-navbar__link dt-navbar__link_nested">Include Fonts</a></li>
+								<li><a href="#include_icons" class="dt-navbar__link dt-navbar__link_nested">Edit Icons</a></li>
+							</ul>
+						</li>
+						<li><a href="#conts" class="dt-navbar__link">Contact Form PHP</a></li>
+						<li>
+							<a href="#html_structure" class="dt-navbar__link">HTML structure</a>
+							<ul class="dt-navbar__list">
+								<li><a href="#html_structure_header" class="dt-navbar__link dt-navbar__link_nested">"Header" Section</a></li>
+								<li><a href="#html_structure_footer" class="dt-navbar__link dt-navbar__link_nested">"Footer" Section</a></li>
+								<li><a href="#html_structure_home" class="dt-navbar__link dt-navbar__link_nested">"Wrapper" Section</a></li>
+							</ul>
+						</li>
+						<li><a href="#icons" class="dt-navbar__link">Icons</a></li>
+						<li><a href="#credits" class="dt-navbar__link">Credits</a></li>
+					</ul>
+				</div>
+			</nav>
+		</aside>
+		<div class="dt-content dt-content_scroll-bar-yes">
+			<div class="dt-section">
+				<h2 class="dt-title">Ruizarch – Architecture HTML Template</h2>
+				<p>by: bslthemes</p>
+				<p>Thank you for your purchase. If you have any questions, mail me to - <a href="mailto:beshleyua@gmail.com">beshleyua@gmail.com</a></p>
+			</div>
+			<article id="files_structure" class="dt-section">
+				<h2 class="dt-title">File structure</h2>
+				<p>After unpacking archive, you'll see this structure:</p>
+				<div class="dt-info-block">
+					<pre class="code language-html">
+						<code>
+html/
+│
+├──doc/
+├──template/
+│──│──css/
+│──│──img/
+│──│──fonts/
+│──│──js/
+│──│──scss/
+│──│──mailer/
+│──│──404.html
+│──│──about.html
+│──│──blog.html
+│──│──coming-soon.html
+│──│──contact.html
+│──│──home-1.html
+│──│──home-2.html
+│──│──home-3.html
+│──│──portfolio.html
+│──│──project.html
+│──│──publication.html
+│──│──service.html
+│──│──services.html
+│──│──team-member.html
+│──│──team.html
+						</code>
+					</pre>
+				</div>
+				<ul class="dt-list dt-list_nested dt-info-block">
+					<li>
+						<span class="dt-label dt-label_bold">css/</span> - compiled css styles for template
+					</li>
+					<li>
+						<span class="dt-label dt-label_bold">scss/</span> - main .scss styles for template
+					</li>
+					<li>
+						<span class="dt-label dt-label_bold">js/</span> - all JS library for template
+						<ul class="dt-list dt-list_nested">
+							<li><span class="dt-label dt-label_bold">main.js</span> - main JS for template</li>
+						</ul>
+					</li>
+					<li>
+						<span class="dt-label dt-label_bold">mailer/</span> - PHP forms and mail settings for template
+						<ul class="dt-list dt-list_nested">
+							<li><span class="dt-label dt-label_bold">forms_settings.php</span> - email settings for forms</li>
+							<li><span class="dt-label dt-label_bold">feedback.php</span> - contact form settings</li>
+						</ul>
+					</li>
+				</ul>
+			</article>
+			<article id="settings" class="dt-section">
+				<h2 class="dt-title">Settings</h2>
+			</article>
+			<article id="include_fonts" class="dt-section">
+				<h2 class="dt-title">Template Settings</h2>
+				<p>For editing styling, colors, sizes, etc of the template you can use following settings, folder "/scss/_variables.scss". You need to compile the .sсss files to "/css" folder. You can use the "Visual Studio Code" app -> "Live Sass Compiler".</p>
+				<pre class="code language-html">
+					<code>
+/* ---
+	Settings Begin
+---*/
+
+$font-1: 'Sora', sans-serif;
+$font-2: 'Caveat', cursive;
+
+$dark: rgba(0, 0, 0, 1);
+$light: rgba(255, 255, 255, 1);
+$accent: rgba(188, 255, 0, 1);
+
+$dt-5: rgba(0, 0, 0, .05);
+$dt-10: rgba(0, 0, 0, .1);
+$dt-20: rgba(0, 0, 0, .2);
+$dt-30: rgba(0, 0, 0, .3);
+$dt-40: rgba(0, 0, 0, .4);
+$dt-50: rgba(0, 0, 0, .5);
+$dt-60: rgba(0, 0, 0, .6);
+$dt-70: rgba(0, 0, 0, .7);
+$dt-80: rgba(0, 0, 0, .8);
+$dt-90: rgba(0, 0, 0, .9);
+$dt-95: rgba(0, 0, 0, .95);
+
+$lt-5: rgba(255, 255, 255, .05);
+$lt-10: rgba(255, 255, 255, .1);
+$lt-20: rgba(255, 255, 255, .2);
+$lt-30: rgba(255, 255, 255, .3);
+$lt-40: rgba(255, 255, 255, .4);
+$lt-50: rgba(255, 255, 255, .5);
+$lt-60: rgba(255, 255, 255, .6);
+$lt-70: rgba(255, 255, 255, .7);
+$lt-80: rgba(255, 255, 255, .8);
+$lt-90: rgba(255, 255, 255, .9);
+$lt-95: rgba(255, 255, 255, .95);
+
+$gs-5: rgba(242, 242, 242, 1);
+$gs-10: rgba(229, 229, 229, 1);
+$gs-20: rgba(204, 204, 204, 1);
+$gs-30: rgba(178, 178, 178, 1);
+$gs-40: rgba(153, 153, 153, 1);
+$gs-50: rgba(128, 128, 128, 1);
+$gs-60: rgba(102, 102, 102, 1);
+$gs-70: rgba(77, 77, 77, 1);
+$gs-80: rgba(51, 51, 51, 1);
+$gs-90: rgba(26, 26, 26, 1);
+$gs-95: rgba(13, 13, 13, 1);
+
+$h1: 60px;
+$h2: 46px;
+$h3: 26px;
+$h4: 22px;
+$h5: 18px;
+$h6: 15px;
+
+$text: 15px;
+
+$t-sm: .2s cubic-bezier(0, 0, 0.3642, 1);
+$t-md: .4s cubic-bezier(0, 0, 0.3642, 1);
+$t-lg: .6s cubic-bezier(0, 0, 0.3642, 1);
+
+/* ---
+	Settings End
+---*/
+					</code>
+				</pre>
+			</article>
+			<article id="include_fonts" class="dt-section">
+				<h2 class="dt-title">Include of fonts</h2>
+				<p>To load/use fonts, you need edit @import in start "/scss/_variables.scss" file:</p>
+				<pre class="code language-html">
+					<code>
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Sora:wght@100;200;300;400;500;600;700;800&display=swap');
+					</code>
+				</pre>
+				<p>
+					Next step is to replace "font-family: '...';" to your fonts names "$font-1", "$font-2".
+				</p>
+			</article>
+			<article id="include_icons" class="dt-section">
+				<h2 class="dt-title">Edit Icons</h2>
+				<p>This template use .svg icons and fontawesome icons - <a href="https://fontawesome.com/v5/search">https://fontawesome.com/v5/search</a>, use search and select icons.</p>
+				<p>Copy icon class (for example "fas fa-code") and add to tag in html file like this:</p>
+				<pre class="code language-html">
+					<code>
+&lt;i class="fas fa-pencil-ruler"&gt;&lt;/i&gt;
+					</code>
+				</pre>
+			</article>
+			<article id="conts" class="dt-section">
+				<h2 class="dt-title">Contact Form PHP</h2>
+				<p>To modify the form is submitted, you can use the following settings, folders "/mailer/forms_settings.php" and "/mailer/feedback.php"</p>
+			</article>
+			<article id="html_structure" class="dt-section">
+				<h2 class="dt-title">HTML structure</h2>
+				<pre class="code language-html">
+					<code>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en-US"&gt;
+
+&lt;head&gt;
+
+	&lt;meta charset="UTF-8"&gt;
+	&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+	&lt;meta http-equiv="X-UA-Compatible" content="ie=edge"&gt;
+
+	&lt;!-- bootstrap grid css --&gt;
+	&lt;link rel="stylesheet" href="css/plugins/bootstrap-grid.css"&gt;
+	&lt;!-- font awesome css --&gt;
+	&lt;link rel="stylesheet" href="css/plugins/font-awesome.min.css"&gt;
+	&lt;!-- swiper css --&gt;
+	&lt;link rel="stylesheet" href="css/plugins/swiper.min.css"&gt;
+	&lt;!-- magnific css --&gt;
+	&lt;link rel="stylesheet" href="css/plugins/magnific-popup.css"&gt;
+	&lt;!-- ruizarch css --&gt;
+	&lt;link rel="stylesheet" href="css/style.css"&gt;
+	&lt;!-- page name --&gt;
+	&lt;title&gt;Ruizarch&lt;/title&gt;
+
+&lt;/head&gt;
+
+&lt;body&gt;
+
+	&lt;!-- wrapper --&gt;
+	&lt;div class="mil-wrapper"&gt;
+
+		&lt;div class="mil-progress-track"&gt;
+			&lt;div class="mil-progress"&gt;&lt;/div&gt;
+		&lt;/div&gt;
+
+		&lt;!-- top bar --&gt;
+		&lt;div class="mil-top-panel"&gt;
+			...
+		&lt;/div&gt;
+		&lt;!-- top bar end --&gt;
+
+		&lt;!-- content --&gt;
+		&lt;div id="content"&gt;
+
+			...
+
+			&lt;!-- footer --&gt;
+			&lt;footer class="mil-relative"&gt;
+				...
+			&lt;/footer&gt;
+			&lt;!-- footer end --&gt;
+
+		&lt;/div&gt;
+		&lt;!-- content --&gt;
+	&lt;/div&gt;
+	&lt;!-- wrapper end --&gt;
+
+	&lt;!-- jQuery js --&gt;
+	&lt;script src="js/plugins/jquery.min.js"&gt;&lt;/script&gt;
+	&lt;!-- swiper js --&gt;
+	&lt;script src="js/plugins/swiper.min.js"&gt;&lt;/script&gt;
+	&lt;!-- gsap js --&gt;
+	&lt;script src="js/plugins/gsap.min.js"&gt;&lt;/script&gt;
+	&lt;!-- imagesloaded js --&gt;
+	&lt;script src="js/plugins/imagesloaded.pkgd.js"&gt;&lt;/script&gt;
+	&lt;!-- isotope js --&gt;
+	&lt;script src="js/plugins/isotope.min.js"&gt;&lt;/script&gt;
+	&lt;!-- scroll smoother --&gt;
+	&lt;script src="js/plugins/smooth-scroll.js"&gt;&lt;/script&gt;
+	&lt;!-- scroll trigger js --&gt;
+	&lt;script src="js/plugins/ScrollTrigger.min.js"&gt;&lt;/script&gt;
+	&lt;!-- magnific js --&gt;
+	&lt;script src="js/plugins/magnific-popup.js"&gt;&lt;/script&gt;
+	&lt;!-- ruizarch js --&gt;
+	&lt;script src="js/main.js"&gt;&lt;/script&gt;
+
+&lt;/body&gt;
+
+&lt;/html&gt;
+					</code>
+				</pre>
+			</article>
+			<article id="html_structure_header" class="dt-section">
+				<h2 class="dt-title">HTML structure of "Header"</h2>
+				<pre class="code language-html">
+					<code>
+&lt;!-- top bar --&gt;
+&lt;div class="mil-top-panel"&gt;
+	&lt;div class="container-fluid"&gt;
+		&lt;div class="mil-top-panel-content"&gt;
+			&lt;a href="home-1.html" class="mil-logo"&gt;
+				...
+			&lt;/a&gt;
+
+			&lt;div class="mil-navigation"&gt;
+				...
+			&lt;/div&gt;
+
+			&lt;!-- right buttons --&gt;
+			&lt;div class="mil-top-panel-buttons"&gt;
+				...
+			&lt;/div&gt;
+			&lt;!-- right buttons end --&gt;
+
+		&lt;/div&gt;
+
+	&lt;/div&gt;
+&lt;/div&gt;
+&lt;!-- top bar end --&gt;
+					</code>
+				</pre>
+			</article>
+			<article id="html_structure_footer" class="dt-section">
+				<h2 class="dt-title">HTML structure of "Footer"</h2>
+				<pre class="code language-html">
+					<code>
+&lt;!-- footer --&gt;
+&lt;footer class="mil-relative"&gt;
+	&lt;img src="img/photo/4.jpg" class="mil-bg-img mil-parallax" alt="image" style="object-position: top;" data-value-1="-25%" data-value-2="23%"&gt;
+	&lt;div class="mil-overlay"&gt;&lt;/div&gt;
+	&lt;div class="container mil-p-120-90"&gt;
+		&lt;div class="mil-background-grid"&gt;&lt;/div&gt;
+		&lt;div class="row align-items-end"&gt;
+			&lt;div class="col-lg-8"&gt;
+				&lt;div class="row"&gt;
+					&lt;div class="col-12"&gt;
+
+						...
+
+					&lt;/div&gt;
+					&lt;div class="col-md-6 col-lg-6 col-xl-3"&gt;
+
+						...
+
+					&lt;/div&gt;
+					&lt;div class="col-md-6 col-lg-6 col-xl-3"&gt;
+
+						...
+
+					&lt;/div&gt;
+					&lt;div class="col-md-6 col-lg-6 col-xl-3"&gt;
+
+						...
+
+					&lt;/div&gt;
+					&lt;div class="col-md-6 col-lg-6 col-xl-3"&gt;
+
+						...
+
+					&lt;/div&gt;
+				&lt;/div&gt;
+			&lt;/div&gt;
+			&lt;div class="col-lg-4"&gt;
+
+				...
+
+			&lt;/div&gt;
+
+		&lt;/div&gt;
+	&lt;/div&gt;
+	&lt;div class="container-fluid"&gt;
+
+		...
+
+	&lt;/div&gt;
+&lt;/footer&gt;
+&lt;!-- footer end --&gt;
+					</code>
+				</pre>
+			</article>
+			<article id="html_structure_home" class="dt-section">
+				<h2 class="dt-title">HTML structure of "Wrapper"</h2>
+				<pre class="code language-html">
+					<code>
+&lt;!-- banner --&gt;
+&lt;section class="mil-banner"&gt;
+	...
+&lt;/section&gt;
+&lt;!-- banner end --&gt;
+
+&lt;!-- partners --&gt;
+&lt;div class="mil-partners"&gt;
+	...
+&lt;/div&gt;
+&lt;!-- partners end --&gt;
+
+&lt;!-- about --&gt;
+&lt;section&gt;
+	...
+&lt;/section&gt;
+&lt;!-- about end --&gt;
+
+&lt;!-- ideas --&gt;
+&lt;section&gt;
+	...
+&lt;/section&gt;
+&lt;!-- ideas end --&gt;
+
+&lt;!-- services --&gt;
+&lt;section class="mil-soft-bg mil-relative"&gt;
+	...
+&lt;/section&gt;
+&lt;!-- services end --&gt;
+
+&lt;!-- advantages --&gt;
+&lt;section&gt;
+	...
+&lt;/section&gt;
+&lt;!-- advantages end --&gt;
+
+&lt;!-- portfolio --&gt;
+&lt;section&gt;
+	...
+&lt;/section&gt;
+&lt;!-- portfolio end --&gt;
+
+&lt;!-- how we work --&gt;
+&lt;section&gt;
+	...
+&lt;/section&gt;
+&lt;!-- how we work end --&gt;
+
+&lt;!-- blog --&gt;
+&lt;section&gt;
+	...
+&lt;/section&gt;
+&lt;!-- blog end --&gt;
+
+&lt;!-- core --&gt;
+&lt;section class="mil-dark-bg mil-relative mil-o-hidden"&gt;
+	...
+&lt;/section&gt;
+&lt;!-- core end --&gt;
+					</code>
+				</pre>
+			</article>
+			<article id="icons" class="dt-section">
+				<h2 class="dt-title">Icons</h2>
+				<p>
+					This template use .svg icons and fontawesome icons - <a href="https://fontawesome.com/v5/search">https://fontawesome.com/v5/search</a>, use search and select icons.
+				</p>
+			</article>
+			<article id="credits" class="dt-section">
+				<h2 class="dt-title">Source & Credits</h2>
+				<h3>Scripts</h3>
+				<ul class="dt-list dt-list_nested dt-info-block">
+					<li>
+						<span class="dt-label dt-label_bold">jQuery</span> <a target="_blank" href="https://jquery.com/">https://jquery.com/</a>
+					</li>
+					<li>
+						<span class="dt-label dt-label_bold">Isotope</span> <a target="_blank" href="https://isotope.metafizzy.co/">https://isotope.metafizzy.co/</a>
+					</li>
+					<li>
+						<span class="dt-label dt-label_bold">imagesLoaded</span> <a target="_blank" href="http://imagesloaded.desandro.com/">http://imagesloaded.desandro.com/</a>
+					</li>
+					<li>
+						<span class="dt-label dt-label_bold">jQuery Validation Plugin</span> <a target="_blank" href="http://jqueryvalidation.org/">http://jqueryvalidation.org/</a>
+					</li>
+					<li>
+						<span class="dt-label dt-label_bold">Magnific Popup</span> <a target="_blank" href="http://dimsemenov.com/plugins/magnific-popup/">http://dimsemenov.com/plugins/magnific-popup/</a>
+					</li>
+					<li>
+						<span class="dt-label dt-label_bold">Swiper</span> <a target="_blank" href="https://swiperjs.com/">https://swiperjs.com/</a>
+					</li>
+					<li>
+						<span class="dt-label dt-label_bold">Bootstrap</span> <a target="_blank" href="https://getbootstrap.com/">https://getbootstrap.com/</a>
+					</li>
+				</ul>
+				<h3>Fonts</h3>
+				<ul class="dt-list dt-list_nested dt-info-block">
+					<li>
+						<span class="dt-label dt-label_bold">Caveat, Sora</span>
+					</li>
+					<li>
+						<span class="dt-label dt-label_bold">FontAwesome</span>
+					</li>
+				</ul>
+				<h3>Images</h3>
+				<p>Any Images or logos used in previews are not included in this item or final purchase.</p>
+				<ul class="dt-list dt-list_nested dt-info-block">
+					<li>
+						<span class="dt-label dt-label_bold">Pexels, Unsplash, Pixabay</span>
+					</li>
+				</ul>
+			</article>
+		</div>
+	</div>
+<script src="assets/rainbow-custom.min.js"></script>
+</body>
+</html>
