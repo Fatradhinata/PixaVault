@@ -747,6 +747,11 @@ portfolio
             transform: translateY(0px);
         }
     }
+
+    // -------------------------------------------
+    &.p-30 {
+        padding-bottom: 30% !important;
+    }
 }
 
 .mil-portfolio-item-2 {
@@ -2634,4 +2639,15 @@ load more
         left: 0;
         z-index: 0;
     }
+}
+
+// ------- Custom --------
+.gap-1 {
+    gap: 10%;
+}
+.gap-2 {
+    gap: 20%;
+}
+.gap-3 {
+    gap: 30%;
 }
