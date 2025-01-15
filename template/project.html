@@ -13,6 +13,14 @@
     <link rel="stylesheet" href="css/plugins/swiper.min.css" />
     <!-- ruizarch css -->
     <link rel="stylesheet" href="css/style.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
     <!-- page name -->
     <title>Ruizarch</title>
   </head>
@@ -102,128 +110,330 @@
       <div id="content">
         <!-- banner -->
         <section class="mil-banner mil-banner-sm">
-          <img
-            src="img/covers/8.jpg"
-            class="mil-bg-img mil-scale"
-            data-value-1=".4"
-            data-value-2="1.4"
-            alt="image"
-            style="object-position: top"
-          />
+         
           <div class="mil-overlay"></div>
           <div class="container">
-            <div class="mil-background-grid mil-top-space"></div>
+           
             <div class="mil-banner-content">
-              <img
-                src="img/foto/1.jpg"
-                class="container"
-                style="max-width: 40%"
-              />
+              <!-- Lightbox untuk gambar -->
+              <a
+                href="img/foto/3.jpg"
+                data-lightbox="image-1"
+                data-title="Gambar di-upload"
+              >
+                <img
+                  src="img/foto/3.jpg"
+                  class="container"
+                  style="max-width: 42%; cursor: zoom-in"
+                  alt="Zoomable Image"
+                />
+              </a>
             </div>
           </div>
         </section>
+
         <!-- banner end -->
 
         <!-- description -->
         <section>
-          <div class="container mil-p-120-90">
+          <div class="container mt-5">
             <div class="mil-background-grid mil-softened"></div>
             <div class="row justify-content-between">
-              <div class="col-lg-4">
-                <div class="mil-mb-60">
-                  <span class="mil-suptitle mil-upper mil-up mil-mb-30"
-                    >Overview</span
-                  >
-                  <h2 class="mil-upper mil-up mil-mb-30">
-                    Construction and
-                    <span class="mil-marker">interior</span> design
-                  </h2>
+              <div class="col-lg-6">
+                <div class="d-flex my-3">
+                  <!-- Bagian Views -->
+                  <div class="mil-up">
+                    <p style="margin: 0; font-size: 14px; color: #6c757d">
+                      Views
+                    </p>
+                    <p style="margin: 0; font-size: 18px; font-weight: bold">
+                      1,234
+                    </p>
+                  </div>
+
+                  <!-- Bagian Download -->
+                  <div class="ms-5 mil-up">
+                    <p style="margin: 0; font-size: 14px; color: #6c757d">
+                      Downloads
+                    </p>
+                    <p style="margin: 0; font-size: 18px; font-weight: bold">
+                      567
+                    </p>
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <h4 class="mil-up">Background Furniture</h4>
+                </div>
+                <!-- deskripsi -->
+                <p class="mil-up mil-mb-30">
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                  Velit voluptates provident est numquam earum et perspiciatis
+                  veniam libero quidem, doloremque quasi laborum dolore minus
+                  enim animi nostrum sequi fugiat sunt?
+                </p>
+                <!-- Tambahkan div untuk gambar profil, username, dan nama -->
+                <div class="d-flex align-items-center mb-3 mil-up">
+                  <!-- Gambar profil -->
+                  <img
+                    src="img/faces/user.jpg"
+                    alt="Profile Picture"
+                    class="rounded-circle"
+                    style="
+                      width: 50px;
+                      height: 50px;
+                      object-fit: cover;
+                      margin-right: 15px;
+                      border-radius: 100%;
+                    "
+                  />
+                  <!-- Username dan nama -->
+                  <div>
+                    <p class="mb-0" style="font-weight: bold">Gracy Even</p>
+                    <p class="mb-0 text-muted">gracyindy_</p>
+                  </div>
+                </div>
+                <!-- Icon publish dan teks -->
+                <div class="d-flex align-items-center my-1 mil-up">
+                  <!-- Icon publish -->
+                  <i
+                    class="fas fa-upload"
+                    style="font-size: 14px; margin-right: 10px; color: #6c757d"
+                  ></i>
+                  <!-- Teks -->
+                  <p class="mb-0" style="color: #6c757d; font-size: 14px">
+                    10-01-2025
+                  </p>
+                </div>
+                <div class="d-flex align-items-center my-1 mil-up">
+                  <!-- Icon publish -->
+                  <i
+                    class="fas fa-camera"
+                    style="font-size: 14px; margin-right: 10px; color: #6c757d"
+                  ></i>
+                  <!-- Teks -->
+                  <p class="mb-0" style="color: #6c757d; font-size: 14px">
+                    Iphone XR
+                  </p>
+                </div>
+                <div class="d-flex align-items-center my-1 mil-up">
+                  <!-- Icon publish -->
+                  <i
+                    class="fas fa-certificate"
+                    style="font-size: 14px; margin-right: 10px; color: #6c757d"
+                  ></i>
+                  <!-- Teks -->
+                  <p class="mb-0" style="color: #6c757d; font-size: 14px">
+                    Free to use
+                  </p>
                 </div>
               </div>
-              <div class="col-lg-7 mil-mt-suptitle-offset">
-                <p class="mil-up mil-mb-30">
-                  It is a long established fact that a reader will be distracted
-                  by the readable content of a page when looking at its layout.
-                  The point of using Lorem Ipsum is that it has a more-or-less
-                  normal distribution of letters, as opposed to using 'Content
-                  here, content here', making it look like readable English.
-                  Many desktop publishing packages and web page editors now use
-                  Lorem Ipsum as their default model text, and a search for
-                  'lorem ipsum' will uncover many web sites still in their
-                  infancy. Various versions have evolved over the years,
-                  sometimes by accident, sometimes on purpose (injected humour
-                  and the like).
-                </p>
 
-                <div class="row">
-                  <div class="col-lg-4">
-                    <div class="mil-item-frame mil-up mil-mb-30">
-                      <div class="mil-about-counter mil-center">
-                        <div class="mil-avatar mil-mb-30">
-                          <img src="img/faces/1.jpg" alt="face" />
-                        </div>
-                        <h5 class="mil-upper mil-mb-10">Joe French</h5>
-                        <p class="mil-text-sm mil-dark-soft">Project Agent</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-8">
-                    <p class="mil-up mil-mb-30">
-                      Contrary to popular belief, Lorem Ipsum is not simply
-                      random text. It has roots in a piece of classical Latin
-                      literature from 45 BC, making it over 2000 years old.
-                    </p>
+              <div class="col-lg-6">
+                <div
+                  class="d-flex align-items-center gap-2 my-3 justify-content-end"
+                >
+                  <!-- Button Favorit -->
+                  <button
+                    type="button"
+                    class="btn btn-outline-secondary custom-btn"
+                  >
+                    <i class="fas fa-heart"></i>
+                  </button>
 
-                    <p class="mil-up mil-mb-30">
-                      Richard McClintock, a Latin professor at Hampden - Sydney
-                      College in Virginia, looked up one of the more obscure
-                      Latin words, consectetur, from a Lorem Ipsum passage, and
-                      going through the cites of the word in classical
-                      literature, discovered the undoubtable source.
-                    </p>
+                  <div class="position-relative">
+                    <!-- Button Option -->
+                    <button
+                      type="button"
+                      class="btn btn-outline-secondary custom-btn"
+                      onclick="toggleReport(this)"
+                    >
+                      <i class="fas fa-ellipsis-h"></i>
+                    </button>
+
+                    <!-- Teks Report -->
+                    <a href="#" class="report-text mb-2">Report</a>
                   </div>
                 </div>
+                <div
+                  class="d-flex align-items-center gap-2 my-3 justify-content-end"
+                >
+                  <!-- Button Favorit -->
+                  <button type="button" class="btn btn-success">
+                    Download
+                  </button>
+                </div>
+              </div>
+
+              <div class="d-flex flex-wrap gap-2 mt-4">
+                <!-- Tombol untuk setiap tag -->
+                <button
+                  type="button"
+                  class="btn btn-secondary btn-sm btn-tag"
+                >
+                  Modern
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-secondary btn-sm btn-tag"
+                >
+                  Furniture
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-secondary btn-sm btn-tag"
+                >
+                  Technology
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-secondary btn-sm btn-tag"
+                >
+                  Design
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-secondary btn-sm btn-tag"
+                >
+                  Home Decor
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-secondary btn-sm btn-tag"
+                >
+                  Background
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-secondary btn-sm btn-tag"
+                >
+                  Lamp
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-secondary btn-sm btn-tag"
+                >
+                  Chair
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-secondary btn-sm btn-tag"
+                >
+                  Table
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-secondary btn-sm btn-tag"
+                >
+                  Living Room
+                </button>
               </div>
             </div>
           </div>
         </section>
         <!-- description end -->
 
-        <div class="container">
-          <div class="mil-divider-lg"></div>
-        </div>
-
-        <!-- info -->
+        <!-- Related -->
         <section>
-          <div class="container mil-p-120-60">
+          <div class="container mt-5">
             <div class="mil-background-grid mil-softened"></div>
             <div class="mil-mb-90">
-              <h2 class="mil-upper mil-up">Info Project</h2>
+              <h2 class="mil-upper mil-up">Related Images</h2>
             </div>
-            <div class="row mil-mb-30">
-              <div class="col-lg-3">
-                <h6 class="mil-upper mil-up mil-mb-30">Location</h6>
-                <ul class="mil-list mil-dark mil-up mil-mb-60">
-                  <li>Los Angeles, California</li>
-                </ul>
+            <div class="row">
+              <div class="col-md-6 col-lg-3">
+                <a
+                  href="project.html"
+                  class="mil-portfolio-item mil-square-item mil-up mil-mb-30"
+                >
+                  <img src="img/foto/1.jpg" alt="cover" />
+                  <div class="mil-project-descr">
+                    <h4 class="mil-upper mil-mb-20">Modern architecture</h4>
+                    <div class="mil-divider-sm mil-mb-20"></div>
+                    <p>
+                      Consectetur adipiscing elit, sed do eiusmod tempor
+                      incididunt ut labore aliqua.
+                    </p>
+                  </div>
+                </a>
+
+                <a
+                  href="project.html"
+                  class="mil-portfolio-item mil-square-item mil-up mil-mb-30"
+                >
+                  <img src="img/foto/2.jpg" alt="cover" />
+                  <div class="mil-project-descr">
+                    <h4 class="mil-upper mil-mb-20">Ice castle</h4>
+                    <div class="mil-divider-sm mil-mb-20"></div>
+                    <p>
+                      Consectetur adipiscing elit, sed do eiusmod tempor
+                      incididunt ut labore aliqua.
+                    </p>
+                  </div>
+                </a>
               </div>
-              <div class="col-lg-3">
-                <h6 class="mil-upper mil-up mil-mb-30">Square Feet</h6>
-                <ul class="mil-list mil-dark mil-up mil-mb-60">
-                  <li>Based Upon Qualifications</li>
-                </ul>
+              <div class="col-md-6 col-lg-3">
+                <a
+                  href="project.html"
+                  class="mil-portfolio-item mil-long-item mil-up mil-mb-30"
+                >
+                  <img src="img/foto/3.jpg" alt="cover" />
+                  <div class="mil-project-descr">
+                    <h4 class="mil-upper mil-mb-20">Cubism</h4>
+                    <div class="mil-divider-sm mil-mb-20"></div>
+                    <p>
+                      Consectetur adipiscing elit, sed do eiusmod tempor
+                      incididunt ut labore aliqua.
+                    </p>
+                  </div>
+                </a>
               </div>
-              <div class="col-lg-3">
-                <h6 class="mil-upper mil-up mil-mb-30">Completion Date</h6>
-                <ul class="mil-list mil-dark mil-up mil-mb-60">
-                  <li>May 6, 2025</li>
-                </ul>
+              <div class="col-md-6 col-lg-3">
+                <a
+                  href="project.html"
+                  class="mil-portfolio-item mil-square-item mil-up mil-mb-30"
+                >
+                  <img src="img/foto/4.jpg" alt="cover" />
+                  <div class="mil-project-descr">
+                    <h4 class="mil-upper mil-mb-20">Horizontal elevator</h4>
+                    <div class="mil-divider-sm mil-mb-20"></div>
+                    <p>
+                      Consectetur adipiscing elit, sed do eiusmod tempor
+                      incididunt ut labore aliqua.
+                    </p>
+                  </div>
+                </a>
+
+                <a
+                  href="project.html"
+                  class="mil-portfolio-item mil-square-item mil-up mil-mb-30"
+                >
+                  <img src="img/foto/5.jpg" alt="cover" />
+                  <div class="mil-project-descr">
+                    <h4 class="mil-upper mil-mb-20">Home Decor</h4>
+                    <div class="mil-divider-sm mil-mb-20"></div>
+                    <p>
+                      Consectetur adipiscing elit, sed do eiusmod tempor
+                      incididunt ut labore aliqua.
+                    </p>
+                  </div>
+                </a>
               </div>
-              <div class="col-lg-3">
-                <h6 class="mil-upper mil-up mil-mb-30">Project Component</h6>
-                <ul class="mil-list mil-dark mil-up mil-mb-30">
-                  <li>Architectural Services</li>
-                </ul>
+              <div class="col-md-6 col-lg-3">
+                <a
+                  href="project.html"
+                  class="mil-portfolio-item mil-long-item mil-up mil-mb-30"
+                >
+                  <img src="img/foto/6.jpg" alt="cover" />
+                  <div class="mil-project-descr">
+                    <h4 class="mil-upper mil-mb-20">Modern architecture</h4>
+                    <div class="mil-divider-sm mil-mb-20"></div>
+                    <p>
+                      Consectetur adipiscing elit, sed do eiusmod tempor
+                      incididunt ut labore aliqua.
+                    </p>
+                  </div>
+                </a>
               </div>
             </div>
           </div>
@@ -231,7 +441,7 @@
         <!-- info end -->
 
         <!-- portfolio -->
-        <div class="mil-illustration-slider-frame mil-up">
+        <!-- <div class="mil-illustration-slider-frame mil-up">
           <div class="swiper-container mil-illustration-slider">
             <div class="swiper-wrapper">
               <div class="swiper-slide">
@@ -281,11 +491,11 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
         <!-- portfolio end -->
 
         <!-- about -->
-        <section>
+        <!-- <section>
           <div class="container mil-p-120-90">
             <div class="mil-background-grid mil-softened"></div>
             <div class="row justify-content-between align-items-center">
@@ -390,7 +600,7 @@
               </div>
             </div>
           </div>
-        </section>
+        </section> -->
         <!-- about end -->
 
         <div class="container">
@@ -398,7 +608,7 @@
         </div>
 
         <!-- resume -->
-        <section>
+        <!-- <section>
           <div class="container mil-p-120-90">
             <div class="row justify-content-between">
               <div class="col-lg-6">
@@ -464,15 +674,15 @@
               </div>
             </div>
           </div>
-        </section>
+        </section> -->
         <!-- resume end -->
 
-        <div class="container">
+        <!-- <div class="container">
           <div class="mil-divider-lg"></div>
-        </div>
+        </div> -->
 
         <!-- next/prev project -->
-        <section>
+        <!-- <section>
           <div class="container mil-p-120-60">
             <div class="row">
               <div class="col-md-6 col-lg-6">
@@ -499,7 +709,7 @@
               </div>
             </div>
           </div>
-        </section>
+        </section> -->
         <!-- next/prev project end -->
 
         <!-- footer -->
@@ -617,6 +827,23 @@
       <!-- content -->
     </div>
     <!-- wrapper end -->
+
+    <script>
+      function toggleReport(button) {
+        const reportText = button.nextElementSibling; // Ambil elemen berikutnya (teks report)
+
+        // Toggle class 'show' dan 'd-none'
+        if (reportText.classList.contains("d-none")) {
+          reportText.classList.remove("d-none");
+          reportText.classList.add("show");
+        } else {
+          reportText.classList.remove("show");
+          reportText.classList.add("d-none");
+        }
+      }
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
 
     <!-- jQuery js -->
     <script src="js/plugins/jquery.min.js"></script>
