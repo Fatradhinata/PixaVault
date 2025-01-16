@@ -65,6 +65,10 @@ main
   margin: 0;
 }
 
+/* * {
+  border: 2px solid red;
+} */
+
 html,
 body {
   padding: 0;
@@ -3067,6 +3071,77 @@ load more
   left: 0;
   z-index: 0;
 }
+
+.lb-close {
+  top: 10px;
+  right: 15px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  text-align: center;
+  line-height: 35px;
+  font-size: 18px;
+  transition: background 0.3s ease;
+}
+
+.lb-close:hover {
+  background: rgba(255, 0, 0, 0.8);
+  color: white;
+}
+
+.btn-tag {
+  border-radius: 5px; /* Membuat tombol berbentuk oval */
+  padding: 5px 15px; /* Mengatur padding */
+  font-size: 14px; /* Ukuran font */
+}
+
+/* Custom button class */
+.custom-btn {
+  border-width: 2px; /* Ketebalan border default */
+  color: #6c757d; /* Warna teks dan ikon */
+  background-color: transparent; /* Latar belakang transparan */
+  transition: border-width 0.2s ease, transform 0.2s ease; /* Transisi untuk animasi */
+}
+
+/* Hover tanpa perubahan warna */
+.custom-btn:hover {
+  color: #6c757d; /* Warna teks tetap sama */
+  background-color: transparent; /* Latar belakang tetap transparan */
+  border-color: #6c757d; /* Warna border tetap */
+  border-width: 1px; /* Border lebih tebal saat hover */
+  transform: scale(1.02); /* Opsional: sedikit memperbesar tombol */
+}
+
+/* Posisi tulisan Report */
+.report-text {
+  position: absolute;
+  bottom: 100%; /* Tempatkan di atas tombol */
+  left: 50%; /* Pusatkan secara horizontal */
+  transform: translateX(-50%);
+  background-color: #ffff;
+  color: #000; /* Warna teks */
+  padding: 5px 10px; /* Padding untuk area teks */
+  border-radius: 4px; /* Membulatkan sudut */
+  font-size: 12px; /* Ukuran teks */
+  white-space: nowrap; /* Hindari teks terpotong */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); /* Bayangan */
+}
+
+.report-text:hover {
+  color : rgba(255, 0, 0, 0.8);
+}
+/* Tambahkan animasi transisi */
+.report-text.show {
+  display: block;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+
+
+
 
 /* ---------------------------------------------------------------- */
 
