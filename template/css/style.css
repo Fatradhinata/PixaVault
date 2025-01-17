@@ -3107,11 +3107,7 @@ load more
 
 /* Hover tanpa perubahan warna */
 .custom-btn:hover {
-  color: #6c757d; /* Warna teks tetap sama */
-  background-color: transparent; /* Latar belakang tetap transparan */
-  border-color: #6c757d; /* Warna border tetap */
-  border-width: 1px; /* Border lebih tebal saat hover */
-  transform: scale(1.02); /* Opsional: sedikit memperbesar tombol */
+  border-color: black; /* Mengubah border menjadi hitam saat hover */
 }
 
 /* Posisi tulisan Report */
