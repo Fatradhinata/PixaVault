@@ -3304,3 +3304,11 @@ load more
 }
 
 
+
+
+/* ---------------------------------------------------------------- */
+
+.p-30 { padding-bottom: 30% !important } .p-50 { padding-bottom: 50% !important } .p-70 { padding-bottom: 70% !important }
+.gap-02 { gap: 2% } .gap-05 { gap: 5% } .gap-1 { gap: 10% } .gap-2 { gap: 20% } .gap-3 { gap: 30% }
+.rounded-1 { border-radius: 5%;}
+.f-black { color: #000;}
