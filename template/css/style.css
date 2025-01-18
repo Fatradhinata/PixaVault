@@ -3117,7 +3117,7 @@ load more
   left: 50%; /* Pusatkan secara horizontal */
   transform: translateX(-50%);
   background-color: #ffff;
-  color: #000; /* Warna teks */
+  color: red; /* Warna teks */
   padding: 5px 10px; /* Padding untuk area teks */
   border-radius: 4px; /* Membulatkan sudut */
   font-size: 12px; /* Ukuran teks */
@@ -3126,7 +3126,7 @@ load more
 }
 
 .report-text:hover {
-  color : rgba(255, 0, 0, 0.8);
+  color : rgba(255, 37, 37, 0.8);
 }
 /* Tambahkan animasi transisi */
 .report-text.show {
@@ -3303,7 +3303,91 @@ load more
   object-fit: cover;
 }
 
+/* Container untuk item */
+.mil-portfolio-item {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  text-decoration: none;
+}
 
+.mil-image {
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+/* Efek hover untuk membuat gambar sedikit gelap */
+.mil-portfolio-item:hover .mil-image {
+  filter: brightness(0.8); /* Gelapkan gambar */
+  
+}
+
+/* Profil di kiri bawah */
+.mil-profile {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 10px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.mil-profile img.mil-profile-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.mil-profile .mil-username {
+  font-size: 14px;
+  font-weight: bold;
+  margin-left: 40px;
+}
+
+/* Tombol di kanan atas */
+.mil-buttons {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 10px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.mil-buttons button {
+  background: white;
+  border: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.mil-buttons button:hover {
+  background: #f0f0f0;
+}
+
+/* Tampilkan profil dan tombol saat hover */
+.mil-portfolio-item:hover .mil-profile,
+.mil-portfolio-item:hover .mil-buttons {
+  opacity: 1;
+}
+
+.no-save {
+  pointer-events: none; /* Disable pointer untuk drag */
+}
 
 
 /* ---------------------------------------------------------------- */
