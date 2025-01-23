@@ -17,10 +17,62 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css"
       rel="stylesheet"
     />
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
+    <style>
+      .btn {
+        display: inline-block;
+        font-weight: 400;
+        text-align: center;
+        vertical-align: middle;
+        cursor: pointer;
+        padding: 0.375rem 0.75rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        border: 1px solid transparent;
+        border-radius: 0.375rem;
+        transition: all 0.2s ease-in-out;
+      }
+
+      .btn-outline-secondary {
+        color: #6c757d;
+        background-color: transparent;
+        border-color: #6c757d;
+      }
+
+      .btn-outline-secondary:hover {
+        color: #fff;
+        background-color: #6c757d;
+        border-color: #6c757d;
+      }
+
+      .btn-dark {
+        color: #fff;
+        background-color: #343a40;
+        border-color: #343a40;
+      }
+
+      .btn-dark:hover {
+        color: #fff;
+        background-color: #23272b;
+        border-color: #1d2124;
+      }
+
+      .btn i {
+        margin-right: 5px;
+      }
+
+      .custom-btn {
+        border-width: 2px; /* Ketebalan border default */
+        color: #6c757d; /* Warna teks dan ikon */
+        background-color: transparent; /* Latar belakang transparan */
+        transition: border-width 0.2s ease, transform 0.2s ease; /* Transisi untuk animasi */
+      }
+
+      /* Hover tanpa perubahan warna */
+      .custom-btn:hover {
+        border-color: black; /* Mengubah border menjadi hitam saat hover */
+      }
+    </style>
+
     <!-- page name -->
     <title>Ruizarch</title>
   </head>
@@ -37,13 +89,17 @@
         <div class="container-fluid">
           <div class="mil-top-panel-content">
             <a href="home-1.html" class="mil-logo">
-              <img src="img/logo/logo.png" alt="Logo" style="width: 130px" />
+              <img
+                src="img/logo/logo-light.png"
+                alt="Logo"
+                style="width: 130px"
+              />
             </a>
 
             <div class="mil-navigation">
               <nav>
                 <ul>
-                  <li class="mil-has-children mil-active">
+                  <li class="mil-has-children">
                     <a href="home-1.html">Home</a>
                     <ul>
                       <li><a href="home-1.html">Type 1</a></li>
@@ -52,7 +108,7 @@
                     </ul>
                   </li>
                   <li class="mil-has-children">
-                    <a href="services.html">Product</a>
+                    <a href="services.html">Services</a>
                     <ul>
                       <li><a href="services.html">Services</a></li>
                       <li><a href="service.html">Single Service</a></li>
@@ -73,7 +129,7 @@
                     </ul>
                   </li>
                   <li><a href="contact.html">Contact Us</a></li>
-                  <li class="mil-has-children">
+                  <li class="mil-has-children mil-active">
                     <a href="#.">Other</a>
                     <ul>
                       <li><a href="about.html">About</a></li>
@@ -89,7 +145,9 @@
 
             <!-- right buttons -->
             <div class="mil-top-panel-buttons">
-              <a href="contact.html" class="mil-button mil-sm">Sign In</a>
+              <a href="contact.html" class="mil-button mil-sm"
+                >Start A Project</a
+              >
               <div class="mil-menu-btn">
                 <span></span>
               </div>
@@ -102,6 +160,7 @@
 
       <!-- content -->
       <div id="content">
+        <!-- banner -->
         <section class="mil-banner mil-banner-sm">
           <img
             src="img/foto/1.jpg"
@@ -113,26 +172,27 @@
           <div class="mil-overlay"></div>
           <div class="container">
             <div class="mil-background-grid mil-top-space"></div>
-
             <div class="mil-banner-content mil-center">
-              <!-- Lightbox untuk gambar -->
-              <a
-                href="img/foto/3.jpg"
-                data-lightbox="image-1"
-                data-title="Gambar di-upload"
-              >
-                <img
-                  src="img/foto/3.jpg"
-                  style="max-width: 42%; cursor: zoom-in"
-                  alt="Zoomable Image"
-                />
-              </a>
+              <div>
+                <!-- Lightbox untuk gambar -->
+                <a
+                  href="img/foto/3.jpg"
+                  data-lightbox="image-1"
+                  data-title="Gambar di-upload"
+                >
+                  <img
+                    src="img/foto/3.jpg"
+                    style="max-width: 42%; cursor: zoom-in"
+                    alt="Zoomable Image"
+                  />
+                </a>
+              </div>
             </div>
           </div>
         </section>
         <!-- banner end -->
 
-        <!-- description -->
+        <!-- team -->
         <section>
           <div class="container">
             <div class="mil-background-grid mil-softened"></div>
@@ -228,66 +288,94 @@
               </div>
 
               <div class="col-lg-6">
-                <div
-                  class="d-flex align-items-center gap-2 my-3 justify-content-end"
-                >
-                  <!-- Button Favorit -->
-                  <button type="button" class="btn btn-outline-dark custom-btn">
-                    <i class="fas fa-heart"></i>
-                  </button>
-
-                  <div class="position-relative">
-                    <!-- Button Option -->
-                    <button
-                      type="button"
-                      class="btn btn-outline-dark"
-                      onclick="toggleReport(this)"
-                    >
-                      <i class="fas fa-ellipsis-h"></i>
+                <!-- Kontainer untuk tombol -->
+                <div class="row justify-content-end my-3">
+                  <div class="col-auto d-flex gap-2">
+                    <!-- Button Favorit -->
+                    <button type="button" class="btn btn-outline-secondary">
+                      <i class="fas fa-heart"></i>
                     </button>
-                    <!-- Teks Report -->
-                    <a href="#" class="report-text mb-2" style="display: none"
-                      >Report</a
-                    >
+                    <div class="position-relative">
+                      <!-- Button Option -->
+                      <button
+                        type="button"
+                        class="btn btn-outline-secondary"
+                        onclick="toggleReport(this)"
+                      >
+                        <i class="fas fa-ellipsis-h"></i>
+                      </button>
+                      <!-- Teks Report -->
+                      <a href="#" class="report-text mb-2" style="display: none"
+                        >Report</a
+                      >
+                    </div>
                   </div>
                 </div>
-                <div
-                  class="d-flex align-items-center gap-2 my-3 justify-content-end"
-                >
-                  <!-- Button Favorit -->
-                  <button type="button" class="btn btn-dark">
-                    Download Now
-                  </button>
+
+                <div class="row justify-content-end">
+                  <div class="col-auto">
+                    <!-- Button Download -->
+                    <button type="button" class="btn btn-dark">
+                      Download Now
+                    </button>
+                  </div>
                 </div>
               </div>
 
-              <div class="d-flex flex-wrap gap-2 mt-4">
+              <div class="d-flex flex-nowrap mt-4">
                 <!-- Tombol untuk setiap tag -->
-                <button type="button" class="btn btn-secondary btn-sm btn-tag">
+                <button
+                  type="button"
+                  class="btn btn-secondary btn-sm btn-tag me-0"
+                >
                   Modern
                 </button>
-                <button type="button" class="btn btn-secondary btn-sm btn-tag">
+                <button
+                  type="button"
+                  class="btn btn-secondary btn-sm btn-tag me-0"
+                >
                   Furniture
                 </button>
-                <button type="button" class="btn btn-secondary btn-sm btn-tag">
+                <button
+                  type="button"
+                  class="btn btn-secondary btn-sm btn-tag me-0"
+                >
                   Technology
                 </button>
-                <button type="button" class="btn btn-secondary btn-sm btn-tag">
+                <button
+                  type="button"
+                  class="btn btn-secondary btn-sm btn-tag me-0"
+                >
                   Design
                 </button>
-                <button type="button" class="btn btn-secondary btn-sm btn-tag">
+                <button
+                  type="button"
+                  class="btn btn-secondary btn-sm btn-tag me-0"
+                >
                   Home Decor
                 </button>
-                <button type="button" class="btn btn-secondary btn-sm btn-tag">
+                <button
+                  type="button"
+                  class="btn btn-secondary btn-sm btn-tag me-0"
+                >
                   Background
                 </button>
-                <button type="button" class="btn btn-secondary btn-sm btn-tag">
+                <button
+                  type="button"
+                  class="btn btn-secondary btn-sm btn-tag me-0"
+                >
                   Lamp
                 </button>
-                <button type="button" class="btn btn-secondary btn-sm btn-tag">
+                <button
+                  type="button"
+                  class="btn btn-secondary btn-sm btn-tag me-0"
+                >
                   Chair
                 </button>
-                <button type="button" class="btn btn-secondary btn-sm btn-tag">
+                <button
+                  type="button"
+                  class="btn btn-secondary btn-sm btn-tag me-0"
+                >
                   Table
                 </button>
                 <button type="button" class="btn btn-secondary btn-sm btn-tag">
@@ -297,118 +385,7 @@
             </div>
           </div>
         </section>
-        <!-- description end -->
-
-        <!-- Related -->
-        <section>
-          <div class="container mt-5">
-            <div class="mil-background-grid mil-softened"></div>
-            <div class="mil-mb-90">
-              <h2 class="mil-upper mil-up">Related Images</h2>
-            </div>
-            <div class="row">
-              <div class="col-md-6 col-lg-3">
-                <a
-                  href="project.html"
-                  class="mil-portfolio-item mil-square-item mil-up mil-mb-30"
-                >
-                  <img src="img/foto/1.jpg" alt="cover" />
-                  <div class="mil-project-descr">
-                    <h4 class="mil-upper mil-mb-20">Modern architecture</h4>
-                    <div class="mil-divider-sm mil-mb-20"></div>
-                    <p>
-                      Consectetur adipiscing elit, sed do eiusmod tempor
-                      incididunt ut labore aliqua.
-                    </p>
-                  </div>
-                </a>
-
-                <a
-                  href="project.html"
-                  class="mil-portfolio-item mil-square-item mil-up mil-mb-30"
-                >
-                  <img src="img/foto/2.jpg" alt="cover" />
-                  <div class="mil-project-descr">
-                    <h4 class="mil-upper mil-mb-20">Ice castle</h4>
-                    <div class="mil-divider-sm mil-mb-20"></div>
-                    <p>
-                      Consectetur adipiscing elit, sed do eiusmod tempor
-                      incididunt ut labore aliqua.
-                    </p>
-                  </div>
-                </a>
-              </div>
-              <div class="col-md-6 col-lg-3">
-                <a
-                  href="project.html"
-                  class="mil-portfolio-item mil-long-item mil-up mil-mb-30"
-                >
-                  <img src="img/foto/3.jpg" alt="cover" />
-                  <div class="mil-project-descr">
-                    <h4 class="mil-upper mil-mb-20">Cubism</h4>
-                    <div class="mil-divider-sm mil-mb-20"></div>
-                    <p>
-                      Consectetur adipiscing elit, sed do eiusmod tempor
-                      incididunt ut labore aliqua.
-                    </p>
-                  </div>
-                </a>
-              </div>
-              <div class="col-md-6 col-lg-3">
-                <a
-                  href="project.html"
-                  class="mil-portfolio-item mil-square-item mil-up mil-mb-30"
-                >
-                  <img src="img/foto/4.jpg" alt="cover" />
-                  <div class="mil-project-descr">
-                    <h4 class="mil-upper mil-mb-20">Horizontal elevator</h4>
-                    <div class="mil-divider-sm mil-mb-20"></div>
-                    <p>
-                      Consectetur adipiscing elit, sed do eiusmod tempor
-                      incididunt ut labore aliqua.
-                    </p>
-                  </div>
-                </a>
-
-                <a
-                  href="project.html"
-                  class="mil-portfolio-item mil-square-item mil-up mil-mb-30"
-                >
-                  <img src="img/foto/5.jpg" alt="cover" />
-                  <div class="mil-project-descr">
-                    <h4 class="mil-upper mil-mb-20">Home Decor</h4>
-                    <div class="mil-divider-sm mil-mb-20"></div>
-                    <p>
-                      Consectetur adipiscing elit, sed do eiusmod tempor
-                      incididunt ut labore aliqua.
-                    </p>
-                  </div>
-                </a>
-              </div>
-              <div class="col-md-6 col-lg-3">
-                <a
-                  href="project.html"
-                  class="mil-portfolio-item mil-long-item mil-up mil-mb-30"
-                >
-                  <img src="img/foto/6.jpg" alt="cover" />
-                  <div class="mil-project-descr">
-                    <h4 class="mil-upper mil-mb-20">Modern architecture</h4>
-                    <div class="mil-divider-sm mil-mb-20"></div>
-                    <p>
-                      Consectetur adipiscing elit, sed do eiusmod tempor
-                      incididunt ut labore aliqua.
-                    </p>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
-        <!-- info end -->
-
-        <div class="container">
-          <div class="mil-divider-lg"></div>
-        </div>
+        <!-- team end -->
 
         <!-- footer -->
         <footer class="mil-relative">
@@ -537,9 +514,6 @@
         }
       }
     </script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
-
     <!-- jQuery js -->
     <script src="js/plugins/jquery.min.js"></script>
     <!-- swiper js -->

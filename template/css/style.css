@@ -3553,16 +3553,11 @@ load more
 
 /* Hover tanpa perubahan warna */
 .custom-btn:hover {
-  color: #6c757d;
-  /* Warna teks tetap sama */
-  background-color: transparent;
-  /* Latar belakang tetap transparan */
-  border-color: #6c757d;
-  /* Warna border tetap */
-  border-width: 1px;
-  /* Border lebih tebal saat hover */
-  transform: scale(1.02);
-  /* Opsional: sedikit memperbesar tombol */
+  color: #6c757d; /* Warna teks tetap sama */
+  background-color: transparent; /* Latar belakang tetap transparan */
+  border-color: #6c757d; /* Warna border tetap */
+  border-width: 1px; /* Border lebih tebal saat hover */
+  transform: scale(1.02); /* Opsional: sedikit memperbesar tombol */
 }
 
 /* Posisi tulisan Report */
@@ -3574,22 +3569,16 @@ load more
   /* Pusatkan secara horizontal */
   transform: translateX(-50%);
   background-color: #ffff;
-  color: #000;
-  /* Warna teks */
-  padding: 5px 10px;
-  /* Padding untuk area teks */
-  border-radius: 4px;
-  /* Membulatkan sudut */
-  font-size: 12px;
-  /* Ukuran teks */
-  white-space: nowrap;
-  /* Hindari teks terpotong */
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-  /* Bayangan */
+  color: #000; /* Warna teks */
+  padding: 5px 10px; /* Padding untuk area teks */
+  border-radius: 4px; /* Membulatkan sudut */
+  font-size: 12px; /* Ukuran teks */
+  white-space: nowrap; /* Hindari teks terpotong */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); /* Bayangan */
 }
 
 .report-text:hover {
-  color: rgba(255, 0, 0, 0.8);
+  color : rgba(255, 0, 0, 0.8);
 }
 
 /* Tambahkan animasi transisi */
@@ -3599,121 +3588,207 @@ load more
   transition: opacity 0.3s ease;
 }
 
-/* -------------------------------------------
 
-Upload images
 
-------------------------------------------- */
+.mil-leaderboard-table td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
 
-.modal-selection {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 90vw;
-  height: 90vh;
-  padding: 15px;
-  font-family: 'Sora';
+.mil-leaderboard-table tbody tr:hover {
+  background-color: #f9f9f9;
+}
 
-  .modal-selection-content {
-    display: flex;
-    overflow: auto;
-    justify-content: space-between;
-    margin-bottom: 10px;
-    
-    button {
-      box-sizing: border-box;
-      background-color: #008CFF;
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
-      border: none;
-      outline: none;
-      padding: 10px 78px;
-      font-family: 'Sora';
-      color: white;
-      border-radius: 8px;
-      gap: 15px;
-      cursor: pointer;
+.mil-top-rank {
+  background-color: rgb(188, 255, 0);
+  font-weight: bold;
+}
 
-      &:hover {
-        background-color: rgba(0, 140, 255, 0.8);
-      }      
-      /* max-width: 335px; */
-    }
+/* Rank Icon Styles */
+.mil-rank-icon {
+  font-size: 1.2rem;
+  margin-right: 5px;
+}
 
-    .modal-selection-column {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .mil-leaderboard-table {
+    font-size: 0.9rem;
   }
 
-  .button-bottom {
-    justify-content: end;
-    gap: 15px;
-    border-top: 1px solid #4e4e4e;
-    padding-top: 15px;
-
-    .btn {          
-      font-family: 'Sora';
-      padding: 5px 15px;
-      cursor: pointer;
-      border-radius: 5px;
-      outline: none;
-      border: none;
-    }
-
-    .btn-primary {
-      background-color: #4e4e4e;
-      color: white;
-      &:hover {
-        background-color: rgba(78, 78, 78, 0.9);
-      }
-
-    }
-    
-    .btn-outline {
-      border: 1px solid #4e4e4e;
-      color: #4e4e4e;
-      background-color: transparent;
-
-      &:hover {
-        background-color: rgba(78, 78, 78, 0.05);
-      }
-    }
+  .mil-leaderboard-title {
+    font-size: 1.3rem;
   }
 }
 
-.selection-card {
-  display: flex;
-  flex-direction: column;
-  width: 335px;
-  min-width: 335px;
-  border: 1px solid #7F7F7F;
-  /* overflow: hidden; */
-  border-radius: 8px 8px 0px 0px;
-
-  img {
-    border-radius: 8px 8px 0px 0px;
-  }
-
-  input {
-    width: 100%;
-    font-family: 'Sora';
-    padding: 10px 5px;
-    outline: none;
-    border: none;
-    border-bottom: 1px solid black;
-  }
-
-  input:last-child {
-    border: none;
-  }
+/* Wrapper and General Styles */
+.mil-leaderboard-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+  font-family: Arial, sans-serif;
 }
 
+/* Header Styles */
+.mil-leaderboard-header {
+  margin-bottom: 20px;
+}
+
+.mil-league-icons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.mil-league-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+
+.mil-league-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.mil-league-description {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+
+/* Table Styles */
+.mil-leaderboard-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.mil-leaderboard-table thead th {
+  text-transform: uppercase;
+  background: #f4f4f4;
+  padding: 10px;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.mil-leaderboard-table tbody td {
+  padding: 15px 10px;
+  border-bottom: 1px solid #ddd;
+  font-size: 0.9rem;
+}
+
+.mil-leaderboard-table tbody tr:hover {
+  background: #f9f9f9;
+}
+
+.mil-top-rank {
+  background: #fff4e0; /* Highlight for top rank */
+  font-weight: bold;
+}
+
+.mil-topavatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Container untuk item */
+.mil-portfolio-item {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.mil-image {
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+/* Efek hover untuk membuat gambar sedikit gelap */
+.mil-portfolio-item:hover .mil-image {
+  filter: brightness(0.8); /* Gelapkan gambar */
+  
+}
+
+/* Profil di kiri bawah */
+.mil-profile {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 10px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.mil-profile img.mil-profile-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.mil-profile .mil-username {
+  font-size: 14px;
+  font-weight: bold;
+  margin-left: 40px;
+}
+
+/* Tombol di kanan atas */
+.mil-buttons {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 10px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.mil-buttons button {
+  background: white;
+  border: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.mil-buttons button:hover {
+  background: #f0f0f0;
+}
+
+/* Tampilkan profil dan tombol saat hover */
+.mil-portfolio-item:hover .mil-profile,
+.mil-portfolio-item:hover .mil-buttons {
+  opacity: 1;
+}
+
+.no-save {
+  pointer-events: none; /* Disable pointer untuk drag */
+}
 
 
 /* ---------------------------------------------------------------- */
