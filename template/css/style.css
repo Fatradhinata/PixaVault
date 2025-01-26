@@ -3584,9 +3584,254 @@ load more
   transition: opacity 0.3s ease;
 }
 
+/* leaderbord */
+/* Wrapper and General Styles */
+.mil-leaderboard-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+/* Header Styles */
+.mil-leaderboard-header {
+  margin-bottom: 20px;
+}
 
 
 
+.mil-league-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.mil-league-description {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.mil-timer {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #ff5e57;
+}
+
+/* Table Styles */
+.mil-leaderboard-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.mil-leaderboard-table thead th {
+  text-transform: uppercase;
+  background: #f4f4f4;
+  padding: 10px;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.mil-leaderboard-table tbody td {
+  padding: 15px 10px;
+  border-bottom: 1px solid #ddd;
+  font-size: 0.9rem;
+}
+
+.mil-leaderboard-table tbody tr:hover {
+  background: #f9f9f9;
+}
+
+.mil-top-rank {
+  background: #fff4e0; /* Highlight for top rank */
+  font-weight: bold;
+}
+
+.mil-topavatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%; /* Membuat avatar menjadi lingkaran */
+  object-fit: cover; /* Agar gambar tetap proporsional */
+}
+
+/* modal detail photo */
+
+
+.mil-image {
+  width: 100%;
+  display: block;
+}
+
+.mil-profile {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  display: flex;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: white;
+}
+
+.mil-profile-img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.mil-buttons {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.mil-love-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  
+
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  max-width: 1200px; 
+  width: 100%;
+  text-align: left;
+  position: relative;
+  position: relative; /* Pastikan kontainer modal menjadi referensi untuk posisi sticky */
+  overflow-y: auto; 
+  max-height: 100vh; /* Mengatur tinggi maksimum modal agar tidak meluas terlalu banyak */
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  top: 0; /* Tetap di atas modal */
+  z-index: 10; /* Menjaga header tetap di atas konten lainnya dalam modal */
+  background-color: white; /* Memberikan latar belakang putih agar konten lainnya tidak terlihat lewat */
+  padding: 10px 20px; /* Menambahkan padding untuk memberikan jarak di dalam modal */
+}
+
+.modal-header .user-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.modal-header .user-info img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.modal-header .user-info .username {
+  font-weight: bold;
+}
+
+.modal-header .actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.modal-header .actions i {
+  font-size: 1.2em;
+  cursor: pointer;
+}
+
+.modal-header .download-btn {
+  background: rgb(188, 255, 0);
+  color: black;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.modal-header .download-btn:hover {
+  filter: brightness(110%);
+}
+
+
+
+.modal img {
+  width: 80%;
+  max-width: 500px; /* Membatasi ukuran maksimum gambar */
+  display: block;
+  margin-left: auto;
+  margin-right: auto; /* Menempatkan gambar di tengah */
+}
+.modal .details {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.modal .details span {
+  font-size: 14px;
+  color: #555;
+}
+
+.modal .tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px
+}
+
+.modal .tags span {
+  background: #f1f1f1;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 12px;
+  color: #555;
+  
+}
+
+.modal .close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: black;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+.modal .line {
+  width: 100%;
+  height: 2px;
+  background-color: #ddd;
+  margin-top: 20px;
+}
+
+.modal p {
+max-width: 70%;
+font-size: small;
+}
 
 /* ---------------------------------------------------------------- */
 
