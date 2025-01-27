@@ -1629,6 +1629,7 @@ portfolio
   display: block;
   position: relative;
   overflow: hidden;
+
 }
 
 .mil-portfolio-item img {
@@ -3023,6 +3024,7 @@ sidebar
 
 .mil-sidebar-search {
   position: relative;
+  
 }
 
 .mil-sidebar-search input {
@@ -3032,15 +3034,18 @@ sidebar
   font-size: 15px;
   font-family: "Sora", sans-serif;
   border: solid 1px rgba(0, 0, 0, 0.1);
+  
 }
 
 .mil-sidebar-search input::placeholder {
   font-size: 15px;
   font-family: "Sora", sans-serif;
+  
 }
 
 .mil-sidebar-search input:focus {
   outline: inherit;
+  
 }
 
 .mil-sidebar-search button {
@@ -3052,7 +3057,6 @@ sidebar
   height: 70px;
   background-color: rgb(188, 255, 0);
 }
-
 /* -------------------------------------------
 
 map
@@ -3659,7 +3663,6 @@ load more
 
 /* modal detail photo */
 
-
 .mil-image {
   width: 100%;
   display: block;
@@ -3884,7 +3887,7 @@ font-size: small;
 }
 
 .gap-lg {
-  gap: 54px
+  gap: 100px;
 }
 
 .rounded-1 {
