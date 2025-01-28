@@ -4080,3 +4080,7 @@ Upload images
 .pos-absolute {
   position: absolute;
 }
+
+.background-secondary {
+  background-color: #464646;
+}
