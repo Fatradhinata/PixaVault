@@ -3969,6 +3969,84 @@ Upload images
     }
   }
 }
+/* ------------------------------------------- */
+
+/* ---------------- History Download ----------------- */
+
+/* ------------------------------------------- */
+
+.history {
+  height: fit-content !important;
+  .background-content-image {    
+    height: 424px;
+  }
+
+  .history-overlay {
+    height: 500px;
+  }
+
+  .history-parent {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    min-height: 100vh;
+    height: fit-content;
+    margin-top: 100px;
+    .history-content {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+      gap: 120px;
+      position: relative;
+      margin-top: 200px;
+      padding: 26px;
+      background-color: white;
+      max-width: 1137px;
+      width: 1137px;
+      border-radius: 10px 10px 0px 0px;
+      z-index: 9;
+
+      .row {
+        gap: 0;
+        & > div {
+          width: 33.33%;
+        }
+      }
+
+      .history-search {
+        border: 1px solid black;
+        padding: 15px;
+        border-radius: 30px;
+        
+        .input-group {
+          display: flex;
+          justify-content: space-between;
+          input {
+            border: none;
+            outline: none;
+            font-family: 'Sora';
+            font-size: 14px;                        
+          }
+
+          img {
+            cursor: pointer;
+            filter: brightness(0.9);
+          }
+        }
+
+      }
+
+      div {
+        gap: 10px;
+        height: fit-content;
+
+        p {
+          color: black;
+        }
+      }
+    }
+  }
+}
 
 
 /* ---------------------------------------------------------------- */
