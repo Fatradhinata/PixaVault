@@ -1,5 +1,8 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
+import dotenv from 'dotenv';
+
+dotenv.config();  // Pastikan dotenv di-load
 
 export default defineConfig({
     plugins: [
@@ -8,4 +11,9 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    server: {
+        proxy: {
+            '/app': process.env.APP_URL, // Proxy ke APP_URL
+        },
+    },
 });

@@ -22,4 +22,12 @@ class HomeController extends Controller
     {
         return view('user/leaderboard');
     }
+    public function favorites()
+    {
+        return view('user/favorites');
+    }
+    public function history_download()
+    {
+        return view('user/history_download');
+    }
 }
