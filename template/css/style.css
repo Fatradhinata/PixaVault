@@ -51,7 +51,7 @@ Developer:	Nazar Miller (millerDigitalDesign), email: miller.themes@gmail.com
     - load more
 
 --------------------------------------------*/
-@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Sora:wght@100;200;300;400;500;600;700;800&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 /* -------------------------------------------
 
@@ -74,7 +74,8 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: "Sora", sans-serif;
+  font-family: : "Poppins", sans-serif;
+  font-family: "Figtree", sans-serif;
   font-size: 15px;
   font-weight: 400;
   color: rgba(0, 0, 0, 0.7);
@@ -149,7 +150,7 @@ h5,
 .mil-h5,
 h6,
 .mil-h6 {
-  font-family: "Sora", sans-serif;
+  font-family: "Poppins", sans-serif;
   color: rgb(0, 0, 0);
   font-weight: 700;
   line-height: 120%;
@@ -303,7 +304,7 @@ h6,
 }
 
 .mil-font-2 {
-  font-family: "Caveat", cursive;
+  font-family: "Poppins", sans-serif;
 }
 
 .mil-shortened {
@@ -340,7 +341,7 @@ blockquote .mil-quote-text {
   border-left: solid 5px rgba(0, 0, 0, 0.05);
   border-image: repeating-linear-gradient(-45deg, transparent, transparent 1px, rgba(0, 0, 0, 0.05) 1px, rgba(0, 0, 0, 0.05) 3px) 5;
   width: calc(100% - 80px);
-  font-family: "Caveat", cursive;
+  font-family: "Poppins", sans-serif;
   font-size: 30px;
   color: rgb(0, 0, 0);
 }
@@ -505,6 +506,7 @@ link
   justify-content: center;
   align-items: center;
   transition: 0.2s cubic-bezier(0, 0, 0.3642, 1);
+  border-radius: 8px;
 }
 
 .mil-link .mil-arrow.mil-light {
@@ -1053,6 +1055,12 @@ banner
   height: 100vh;
 }
 
+.mil-banner-custom {
+  position: relative;
+  overflow: hidden;
+  height: 50vh;
+}
+
 .mil-banner .mil-banner-slider {
   width: 100%;
   height: 100%;
@@ -1269,7 +1277,7 @@ counters
 
 .mil-counter-frame.mil-light {
   border: 5px solid rgba(255, 255, 255, 0.2);
-  border-image: repeating-linear-gradient(-45deg, transparent, transparent 1px, rgba(255, 255, 255, 0.2) 1px, rgba(255, 255, 255, 0.2) 3px) 5;
+  border-radius: 8px;
 }
 
 .mil-infinite-show .swiper-wrapper {
@@ -1629,7 +1637,12 @@ portfolio
   display: block;
   position: relative;
   overflow: hidden;
+  border-radius: 8px;
+  transition: filter 0.3s ease-in-out;
+}
 
+.mil-portfolio-item:hover img {
+    filter: brightness(80%);
 }
 
 .mil-portfolio-item img {
@@ -1642,6 +1655,44 @@ portfolio
   object-position: center;
   transform: scale(1.1);
   transition: 0.4s cubic-bezier(0, 0, 0.3642, 1);
+  border-radius: 8px;
+}
+
+
+/* Tombol Favorite dan Download */
+.image-buttons {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* Tombol default */
+.image-buttons button {
+  background-color: rgba(0, 0, 0, 0.6);
+  border: none;
+  padding: 10px;
+  border-radius: 50%;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Hover efek untuk tombol */
+.image-buttons button:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #333;
+  transform: scale(1.1);
+}
+
+/* Tampilkan tombol saat hover */
+.image-container:hover .image-buttons {
+  opacity: 1;
 }
 
 .mil-portfolio-item.mil-square-item {
@@ -2032,7 +2083,7 @@ footer .mil-bg-img {
 }
 
 .mil-footer-navigation nav ul li a {
-  font-family: "Sora", sans-serif;
+  font-family: "Poppins", sans-serif;
   text-decoration: none;
   text-transform: uppercase;
   color: rgb(255, 255, 255);
@@ -2201,7 +2252,7 @@ top panel
 }
 
 .mil-navigation nav ul li a {
-  font-family: "Sora", sans-serif;
+  font-family: "Poppins", sans-serif;
   text-decoration: none;
   text-transform: uppercase;
   color: rgb(255, 255, 255);
@@ -2597,7 +2648,7 @@ inputs
 .mil-input-frame label {
   color: rgb(0, 0, 0);
   display: block;
-  font-family: "Sora", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 600;
 }
 
@@ -2612,7 +2663,7 @@ inputs
 .mil-input-frame input {
   width: 100%;
   height: 70px;
-  font-family: "Sora", sans-serif;
+  font-family: "Poppins", sans-serif;
   color: rgb(255, 255, 255);
   font-size: 15px;
   font-weight: 400;
@@ -2636,7 +2687,7 @@ inputs
   width: 100%;
   height: 200px;
   font-size: 15px;
-  font-family: "Sora", sans-serif;
+  font-family: "Poppins", sans-serif;
   color: rgb(255, 255, 255);
   background-color: transparent;
   border: none;
@@ -3024,39 +3075,42 @@ sidebar
 
 .mil-sidebar-search {
   position: relative;
-  
+  border-radius: 8px;
+  display: flex; /* Menjadikan input dan button dalam satu baris */
+  align-items: center;
+  overflow: hidden;
 }
 
 .mil-sidebar-search input {
   height: 70px;
   width: 100%;
-  padding: 0 30px;
+  padding: 0 80px 0 30px; /* Tambahkan padding kanan agar teks tidak tertutup tombol */
   font-size: 15px;
-  font-family: "Sora", sans-serif;
+  font-family: "Poppins", sans-serif;
   border: solid 1px rgba(0, 0, 0, 0.1);
-  
-}
-
-.mil-sidebar-search input::placeholder {
-  font-size: 15px;
-  font-family: "Sora", sans-serif;
-  
-}
-
-.mil-sidebar-search input:focus {
-  outline: inherit;
-  
+  border-radius: 8px;
+  outline: none;
 }
 
 .mil-sidebar-search button {
   border: none;
   position: absolute;
-  right: 0;
-  top: 0;
+  right: 0; /* Beri jarak sedikit dari tepi */
+  top: 0; /* Supaya tidak menempel ke atas */
   width: 70px;
   height: 70px;
   background-color: rgb(188, 255, 0);
+  border-radius: 8px;
+  cursor: pointer; /* Pastikan tombol bisa diklik */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
+.mil-tren {
+  margin-top : 150px;
+}
+
 /* -------------------------------------------
 
 map
@@ -3595,7 +3649,7 @@ load more
   margin: 0 auto;
   padding: 20px;
   text-align: center;
-  font-family: Arial, sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 /* Header Styles */
@@ -3713,6 +3767,7 @@ load more
   align-items: center;
   z-index: 1000;
   
+  
 
 }
 
@@ -3726,6 +3781,7 @@ load more
   position: relative; /* Pastikan kontainer modal menjadi referensi untuk posisi sticky */
   overflow-y: auto; 
   max-height: 100vh; /* Mengatur tinggi maksimum modal agar tidak meluas terlalu banyak */
+  border-radius: 10px;
 }
 
 .modal-header {
@@ -3836,6 +3892,189 @@ max-width: 70%;
 font-size: small;
 }
 
+.mil-subheading {
+  font-family: "Figtree", sans-serif;
+}
+
+.mil-menu {
+  max-height: 200px; /* Batasi tinggi dropdown */
+  overflow-y: auto; /* Tambahkan scrollbar jika melebihi batas */
+}
+
+/* .card {
+  border: none;
+  border-radius: 10px;
+  text-align: center;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background: #fff;
+  position: relative;
+  height: 300px;
+}
+.profile-wrapper {
+  position: relative;
+  display: inline-block;
+}
+.profile-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #fff;
+  margin-top: 50px;
+}
+.profile-badge {
+  position: absolute;
+  bottom: 10px;
+  right: 0;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 50%;
+}
+.gold {
+  background-color: #ffc107;
+}
+.silver {
+  background-color: #b0b0b0;
+}
+.bronze {
+  background-color: #cd7f32;
+}
+.stats {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+  font-size: 14px;
+  color: #6c757d;
+}
+
+ .downloads {
+            background-color: rgb(188, 255, 0, 0.5);
+            
+            border-radius: 15px;
+            font-weight: bold;
+           
+        } */
+
+        .top-contributors {
+          display: flex;
+          justify-content: center;
+          gap: 30px;
+          margin-bottom: 20px;
+      }
+      .card {
+          background: white;
+          padding: 30px;
+          border-radius: 15px;
+          box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+          text-align: center;
+          width: auto;
+          position: relative;
+      }
+      .card img {
+          border-radius: 50%;
+          width: 80px;
+          height: 80px;
+      }
+      .rank-badge {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          background: rgb(188, 255, 0);
+          padding: 5px 10px;
+          border-radius: 50%;
+          font-weight: bold;
+      }
+      .contributions {
+          display: inline-block;
+          background: rgb(188, 255, 0, 0.5);
+          padding: 5px 10px;
+          border-radius: 20px;
+          margin: 10px 0;
+          font-weight: bold;
+      }
+      .stats {
+          display: flex;
+          justify-content: space-around;
+          margin-top: 10px;
+          color: gray;
+      }
+      .contributors-table {
+          width: 100%;
+          border-collapse: collapse;
+          background: white;
+          margin-top: 20px;
+          border-radius: 10px;
+          overflow: hidden;
+      }
+      .contributors-table-header, .contributors-table-data {
+          padding: 12px;
+          border-bottom: 1px solid #ddd;
+      }
+      .contributors-table-header {
+          background: #f8f9fa;
+          color: #555;
+      }
+      .contributors-table-row:hover {
+          background-color: #f1f1f1;
+      }
+
+      .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+      .dropdown-button {
+        background-color: white;
+        border: 1px solid #ccc;
+        padding: 8px 12px;
+        cursor: pointer;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        width: fit-content;
+        max-width: 200px;
+        justify-content: start-end;
+    }
+        .dropdown-button::after {
+            content: '\25BC';
+            font-size: 12px;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            background-color: white;
+            border: 1px solid #ccc;
+            min-width: 160px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            z-index: 1;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .dropdown-menu.show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .dropdown-menu div {
+            padding: 10px;
+            cursor: pointer;
+        }
+        .dropdown-menu div:hover {
+            background-color: #f0f0f0;
+        }
+        .selected {
+            font-weight: bold;
+        }
 /* ---------------------------------------------------------------- */
 
 .p-30 {
