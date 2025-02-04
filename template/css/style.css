@@ -136,6 +136,18 @@ typography
   font-size: 24px;
 }
 
+.l-height-normal {
+  line-height: normal;
+}
+
+.l-height-15 {
+  line-height: 15px;
+}
+
+.l-height-30 {
+  line-height: 30px;
+}
+
 /* -- CUSTOM -- */
 
 h1,
@@ -158,7 +170,7 @@ h6,
 
 h1,
 .mil-h1 {
-  font-size: 60px;
+  font-size: 64px;
 }
 
 @media screen and (max-width: 992px) {
@@ -187,7 +199,7 @@ h1,
 
 h2,
 .mil-h2 {
-  font-size: 46px;
+  font-size: 48px;
 }
 
 @media screen and (max-width: 992px) {
@@ -216,7 +228,7 @@ h2,
 
 h3,
 .mil-h3 {
-  font-size: 26px;
+  font-size: 40px;
 }
 
 h4,
@@ -291,7 +303,7 @@ h6,
 }
 
 .mil-text-lg {
-  font-size: 17px;
+  font-size: 16px;
   line-height: 220%;
 }
 
@@ -2859,6 +2871,13 @@ reviews
 price
 
 ------------------------------------------- */
+.price {
+  font-family: 'Poppins';
+
+  & > * {
+    font-family: 'Poppins';
+  }
+}
 .mil-price-card {
   padding: 50px;
   border: 5px solid rgb(229, 229, 229);
@@ -4230,6 +4249,10 @@ font-size: small;
 
 .rounded-1 {
   border-radius: 5%;
+}
+
+.radius-8 {
+  border-radius: 8px;
 }
 
 .f-black {
