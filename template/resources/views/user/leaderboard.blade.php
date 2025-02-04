@@ -89,173 +89,174 @@
                 </div>
 
                 <!-- <div class="col-sm-6 col-lg-3 mil-up">
-                    <a href="team-member.html" class="mil-team-member">
-                      <div class="mil-avatar mil-mb-30">
-                        <img src="img/faces/4.jpg" alt="Team Member" />
-                      </div>
-                      <h6 class="mil-upper mil-mb-10">Peter Stanbridge</h6>
-                      <p class="mil-dark-soft">President</p>
-                    </a>
-                  </div>
-                  <div class="col-sm-6 col-lg-3 mil-up">
-                    <a href="team-member.html" class="mil-team-member">
-                      <div class="mil-avatar mil-mb-30">
-                        <img src="img/faces/3.jpg" alt="Team Member" />
-                      </div>
-                      <h6 class="mil-upper mil-mb-10">Nguta Ithya</h6>
-                      <p class="mil-dark-soft">President</p>
-                    </a>
-                  </div>
-                  <div class="col-sm-6 col-lg-3 mil-up">
-                    <a href="team-member.html" class="mil-team-member">
-                      <div class="mil-avatar mil-mb-30">
-                        <img src="img/faces/2.jpg" alt="Team Member" />
-                      </div>
-                      <h6 class="mil-upper mil-mb-10">Tamzyn French</h6>
-                      <p class="mil-dark-soft">President</p>
-                    </a>
-                  </div>
-                  <div class="col-sm-6 col-lg-3 mil-up">
-                    <a href="team-member.html" class="mil-team-member">
-                      <div class="mil-avatar mil-mb-30">
-                        <img src="img/faces/1.jpg" alt="Team Member" />
-                      </div>
-                      <h6 class="mil-upper mil-mb-10">Salome Simoes</h6>
-                      <p class="mil-dark-soft">President</p>
-                    </a>
-                  </div>
-                  <div class="col-sm-6 col-lg-3 mil-up">
-                    <a href="team-member.html" class="mil-team-member">
-                      <div class="mil-avatar mil-mb-30">
-                        <img src="img/faces/6.jpg" alt="Team Member" />
-                      </div>
-                      <h6 class="mil-upper mil-mb-10">Trevor Virtue</h6>
-                      <p class="mil-dark-soft">President</p>
-                    </a>
-                  </div>
-                  <div class="col-sm-6 col-lg-3 mil-up">
-                    <a href="team-member.html" class="mil-team-member">
-                      <div class="mil-avatar mil-mb-30">
-                        <img src="img/faces/7.jpg" alt="Team Member" />
-                      </div>
-                      <h6 class="mil-upper mil-mb-10">Eugenia Anders</h6>
-                      <p class="mil-dark-soft">President</p>
-                    </a>
-                  </div>
-                  <div class="col-sm-6 col-lg-3 mil-up">
-                    <a href="team-member.html" class="mil-team-member">
-                      <div class="mil-avatar mil-mb-30">
-                        <img src="img/faces/8.jpg" alt="Team Member" />
-                      </div>
-                      <h6 class="mil-upper mil-mb-10">Audrey Miller</h6>
-                      <p class="mil-dark-soft">President</p>
-                    </a>
-                  </div>
-                  <div class="col-sm-6 col-lg-3 mil-up">
-                    <a href="team-member.html" class="mil-team-member">
-                      <div class="mil-avatar mil-mb-30">
-                        <img src="img/faces/9.jpg" alt="Team Member" />
-                      </div>
-                      <h6 class="mil-upper mil-mb-10">Verona Blair</h6>
-                      <p class="mil-dark-soft">President</p>
-                    </a>
-                  </div>
-                  <div class="col-sm-6 col-lg-3 mil-up">
-                    <a href="team-member.html" class="mil-team-member">
-                      <div class="mil-avatar mil-mb-30">
-                        <img src="img/faces/10.jpg" alt="Team Member" />
-                      </div>
-                      <h6 class="mil-upper mil-mb-10">Jane Meldrum</h6>
-                      <p class="mil-dark-soft">President</p>
-                    </a>
-                  </div>
-                  <div class="col-sm-6 col-lg-3 mil-up">
-                    <a href="team-member.html" class="mil-team-member">
-                      <div class="mil-avatar mil-mb-30">
-                        <img src="img/faces/11.jpg" alt="Team Member" />
-                      </div>
-                      <h6 class="mil-upper mil-mb-10">Maureen Smith</h6>
-                      <p class="mil-dark-soft">President</p>
-                    </a>
-                  </div>
-                  <div class="col-sm-6 col-lg-3 mil-up">
-                    <a href="team-member.html" class="mil-team-member">
-                      <div class="mil-avatar mil-mb-30">
-                        <img src="img/faces/12.jpg" alt="Team Member" />
-                      </div>
-                      <h6 class="mil-upper mil-mb-10">Desiree Burch</h6>
-                      <p class="mil-dark-soft">President</p>
-                    </a>
-                  </div> -->
+                            <a href="team-member.html" class="mil-team-member">
+                              <div class="mil-avatar mil-mb-30">
+                                <img src="img/faces/4.jpg" alt="Team Member" />
+                              </div>
+                              <h6 class="mil-upper mil-mb-10">Peter Stanbridge</h6>
+                              <p class="mil-dark-soft">President</p>
+                            </a>
+                          </div>
+                          <div class="col-sm-6 col-lg-3 mil-up">
+                            <a href="team-member.html" class="mil-team-member">
+                              <div class="mil-avatar mil-mb-30">
+                                <img src="img/faces/3.jpg" alt="Team Member" />
+                              </div>
+                              <h6 class="mil-upper mil-mb-10">Nguta Ithya</h6>
+                              <p class="mil-dark-soft">President</p>
+                            </a>
+                          </div>
+                          <div class="col-sm-6 col-lg-3 mil-up">
+                            <a href="team-member.html" class="mil-team-member">
+                              <div class="mil-avatar mil-mb-30">
+                                <img src="img/faces/2.jpg" alt="Team Member" />
+                              </div>
+                              <h6 class="mil-upper mil-mb-10">Tamzyn French</h6>
+                              <p class="mil-dark-soft">President</p>
+                            </a>
+                          </div>
+                          <div class="col-sm-6 col-lg-3 mil-up">
+                            <a href="team-member.html" class="mil-team-member">
+                              <div class="mil-avatar mil-mb-30">
+                                <img src="img/faces/1.jpg" alt="Team Member" />
+                              </div>
+                              <h6 class="mil-upper mil-mb-10">Salome Simoes</h6>
+                              <p class="mil-dark-soft">President</p>
+                            </a>
+                          </div>
+                          <div class="col-sm-6 col-lg-3 mil-up">
+                            <a href="team-member.html" class="mil-team-member">
+                              <div class="mil-avatar mil-mb-30">
+                                <img src="img/faces/6.jpg" alt="Team Member" />
+                              </div>
+                              <h6 class="mil-upper mil-mb-10">Trevor Virtue</h6>
+                              <p class="mil-dark-soft">President</p>
+                            </a>
+                          </div>
+                          <div class="col-sm-6 col-lg-3 mil-up">
+                            <a href="team-member.html" class="mil-team-member">
+                              <div class="mil-avatar mil-mb-30">
+                                <img src="img/faces/7.jpg" alt="Team Member" />
+                              </div>
+                              <h6 class="mil-upper mil-mb-10">Eugenia Anders</h6>
+                              <p class="mil-dark-soft">President</p>
+                            </a>
+                          </div>
+                          <div class="col-sm-6 col-lg-3 mil-up">
+                            <a href="team-member.html" class="mil-team-member">
+                              <div class="mil-avatar mil-mb-30">
+                                <img src="img/faces/8.jpg" alt="Team Member" />
+                              </div>
+                              <h6 class="mil-upper mil-mb-10">Audrey Miller</h6>
+                              <p class="mil-dark-soft">President</p>
+                            </a>
+                          </div>
+                          <div class="col-sm-6 col-lg-3 mil-up">
+                            <a href="team-member.html" class="mil-team-member">
+                              <div class="mil-avatar mil-mb-30">
+                                <img src="img/faces/9.jpg" alt="Team Member" />
+                              </div>
+                              <h6 class="mil-upper mil-mb-10">Verona Blair</h6>
+                              <p class="mil-dark-soft">President</p>
+                            </a>
+                          </div>
+                          <div class="col-sm-6 col-lg-3 mil-up">
+                            <a href="team-member.html" class="mil-team-member">
+                              <div class="mil-avatar mil-mb-30">
+                                <img src="img/faces/10.jpg" alt="Team Member" />
+                              </div>
+                              <h6 class="mil-upper mil-mb-10">Jane Meldrum</h6>
+                              <p class="mil-dark-soft">President</p>
+                            </a>
+                          </div>
+                          <div class="col-sm-6 col-lg-3 mil-up">
+                            <a href="team-member.html" class="mil-team-member">
+                              <div class="mil-avatar mil-mb-30">
+                                <img src="img/faces/11.jpg" alt="Team Member" />
+                              </div>
+                              <h6 class="mil-upper mil-mb-10">Maureen Smith</h6>
+                              <p class="mil-dark-soft">President</p>
+                            </a>
+                          </div>
+                          <div class="col-sm-6 col-lg-3 mil-up">
+                            <a href="team-member.html" class="mil-team-member">
+                              <div class="mil-avatar mil-mb-30">
+                                <img src="img/faces/12.jpg" alt="Team Member" />
+                              </div>
+                              <h6 class="mil-upper mil-mb-10">Desiree Burch</h6>
+                              <p class="mil-dark-soft">President</p>
+                            </a>
+                          </div> -->
             </div>
         </section>
         <!-- team end -->
 
         <!-- pagination -->
         <!-- <div class="container">
-              <div class="mil-background-grid mil-softened"></div>
-              <div class="mil-pagination mil-up">
-                <div class="mil-nav-buttons">
-                  <div class="mil-slider-button mil-banner-prev">Prev</div>
-                  <div class="mil-slider-button mil-banner-next">Next</div>
-                </div>
-                <ul class="mil-page-numbers">
-                  <li class="mil-active"><a href="#.">01</a></li>
-                  <li><a href="#.">02</a></li>
-                  <li><a href="#.">...</a></li>
-                  <li><a href="#.">06</a></li>
-                </ul>
-              </div>
-            </div> -->
+                      <div class="mil-background-grid mil-softened"></div>
+                      <div class="mil-pagination mil-up">
+                        <div class="mil-nav-buttons">
+                          <div class="mil-slider-button mil-banner-prev">Prev</div>
+                          <div class="mil-slider-button mil-banner-next">Next</div>
+                        </div>
+                        <ul class="mil-page-numbers">
+                          <li class="mil-active"><a href="#.">01</a></li>
+                          <li><a href="#.">02</a></li>
+                          <li><a href="#.">...</a></li>
+                          <li><a href="#.">06</a></li>
+                        </ul>
+                      </div>
+                    </div> -->
         <!-- pagination end -->
 
         <!-- recruit -->
         <!-- <section>
-              <div class="container mil-p-120-30">
-                <div class="mil-background-grid mil-softened"></div>
-                <div
-                  class="row justify-content-between align-items-center flex-sm-row-reverse"
-                >
-                  <div class="col-lg-5">
-                    <div class="mil-mb-90">
-                      <span class="mil-suptitle mil-upper mil-up mil-mb-30"
-                        >Your Future</span
-                      >
-                      <h2 class="mil-upper mil-up mil-mb-30">
-                        Interested in Working Together?
-                      </h2>
-                      <p class="mil-up mil-mb-30">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                        do eiusmod tempor incididunt ut labore et dolore magna
-                        aliqua quis ipsum suspendisse ultrices gravida.
-                      </p>
-                      <a href="contact.html" class="mil-button mil-upper mil-up"
-                        >Sign up now</a
-                      >
-                    </div>
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="mil-illustration mil-up mil-mb-90">
-                      <div class="mil-image-frame">
-                        <img
-                          src="img/photo/13.jpg"
-                          alt="image"
-                          class="mil-scale"
-                          data-value-1="1"
-                          data-value-2="1.3"
-                        />
-                      </div>
-                      <div class="mil-about-counter mil-center">
-                        <div class="mil-avatar mil-mb-30">
-                          <img src="img/faces/2.jpg" alt="face" />
+                      <div class="container mil-p-120-30">
+                        <div class="mil-background-grid mil-softened"></div>
+                        <div
+                          class="row justify-content-between align-items-center flex-sm-row-reverse"
+                        >
+                          <div class="col-lg-5">
+                            <div class="mil-mb-90">
+                              <span class="mil-suptitle mil-upper mil-up mil-mb-30"
+                                >Your Future</span
+                              >
+                              <h2 class="mil-upper mil-up mil-mb-30">
+                                Interested in Working Together?
+                              </h2>
+                              <p class="mil-up mil-mb-30">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                                do eiusmod tempor incididunt ut labore et dolore magna
+                                aliqua quis ipsum suspendisse ultrices gravida.
+                              </p>
+                              <a href="contact.html" class="mil-button mil-upper mil-up"
+                                >Sign up now</a
+                              >
+                            </div>
+                          </div>
+                          <div class="col-lg-6">
+                            <div class="mil-illustration mil-up mil-mb-90">
+                              <div class="mil-image-frame">
+                                <img
+                                  src="img/photo/13.jpg"
+                                  alt="image"
+                                  class="mil-scale"
+                                  data-value-1="1"
+                                  data-value-2="1.3"
+                                />
+                              </div>
+                              <div class="mil-about-counter mil-center">
+                                <div class="mil-avatar mil-mb-30">
+                                  <img src="img/faces/2.jpg" alt="face" />
+                                </div>
+                                <h5 class="mil-upper mil-mb-10">Joe French</h5>
+                                <p class="mil-text-sm mil-dark-soft">Recruit</p>
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                        <h5 class="mil-upper mil-mb-10">Joe French</h5>
-                        <p class="mil-text-sm mil-dark-soft">Recruit</p>
                       </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section> -->
+                    </section> -->
         <!-- recruit end -->
-    @endsection
+    </div>
+@endsection

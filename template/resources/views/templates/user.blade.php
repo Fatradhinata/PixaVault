@@ -6,18 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
-    <!-- bootstrap grid css -->
     <link rel="stylesheet" href="{{ asset('css/plugins/bootstrap-grid.css') }}" />
-    <!-- font awesome css -->
     <link rel="stylesheet" href="{{ asset('css/plugins/font-awesome.min.css') }}" />
-    <!-- swiper css -->
     <link rel="stylesheet" href="{{ asset('css/plugins/swiper.min.css') }}" />
-    <!-- magnific css -->
     <link rel="stylesheet" href="{{ asset('css/plugins/magnific-popup.css') }}" />
-    <!-- ruizarch css -->
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
-    <!-- custom css -->
-    @yield('customcss')
+
+    @yield('styles')
 
     <!-- page name -->
     <title>Pixel Vault</title>
@@ -30,11 +25,13 @@
             <div class="mil-progress"></div>
         </div>
 
+        @include('template.flasher')
+
         <!-- top bar -->
         <div class="mil-top-panel">
             <div class="container-fluid">
                 <div class="mil-top-panel-content">
-                    <a href="home-1.html" class="mil-logo">
+                    <a href="{{ route('home') }}" class="mil-logo">
                         <img src="{{ asset('img/logo/logo.png') }}" alt="Logo" style="width: 130px" />
                     </a>
 
@@ -54,14 +51,12 @@
                         </nav>
                     </div>
 
-                    <!-- right buttons -->
                     <div class="mil-top-panel-buttons">
                         <a href="contact.html" class="mil-button mil-sm">Sign In</a>
                         <div class="mil-menu-btn">
                             <span></span>
                         </div>
                     </div>
-                    <!-- right buttons end -->
                 </div>
             </div>
         </div>
@@ -167,32 +162,23 @@
         // Menonaktifkan klik kanan pada elemen gambar
         document.querySelectorAll("img").forEach((img) => {
             img.addEventListener("contextmenu", (event) => {
-                event.preventDefault(); // Mencegah menu konteks default
+                event.preventDefault();
                 alert("Fitur penyimpanan gambar telah dinonaktifkan!");
             });
         });
     </script>
-    <!-- jQuery js -->
+
     <script src="{{ asset('js/plugins/jquery.min.js') }}"></script>
-    <!-- swiper js -->
     <script src="{{ asset('js/plugins/swiper.min.js') }}"></script>
-    <!-- gsap js -->
     <script src="{{ asset('js/plugins/gsap.min.js') }}"></script>
-    <!-- imagesloaded js -->
     <script src="{{ asset('js/plugins/imagesloaded.pkgd.js') }}"></script>
-    <!-- isotope js -->
     <script src="{{ asset('js/plugins/isotope.min.js') }}"></script>
-    <!-- scroll smoother -->
     <script src="{{ asset('js/plugins/smooth-scroll.js') }}"></script>
-    <!-- scroll trigger js -->
     <script src="{{ asset('js/plugins/ScrollTrigger.min.js') }}"></script>
-    <!-- magnific js -->
     <script src="{{ asset('js/plugins/magnific-popup.js') }}"></script>
-    <!-- ruizarch js -->
     <script src="{{ asset('js/main.js') }}"></script>
 
-    <!-- custom js -->
-    @yield('customjs')
+    @yield('scripts')
 
 </body>
 

@@ -8,26 +8,26 @@ class HomeController extends Controller
 {
     public function index()
     {
-        return view('user/home');
+        return view('user.home');
     }
     public function content()
     {
-        return view('user/content');
+        return view('user.content');
     }
     public function blog()
     {
-        return view('user/blog');
+        return view('user.blog');
     }
     public function leaderboard()
     {
-        return view('user/leaderboard');
+        return view('user.leaderboard');
     }
     public function favorites()
     {
-        return view('user/favorites');
+        return view('user.favorites');
     }
     public function history_download()
     {
-        return view('user/history_download');
+        return view('user.history_download');
     }
 }
