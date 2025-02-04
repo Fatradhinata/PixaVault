@@ -57,9 +57,7 @@ class AuthController extends Controller
 
     public function sendEmailVerification(Request $req) {
         $email = $req->user()->email;
-
         Mail::to($email)->send(new SendVerificationLink());
-        
         return redirect('/contact')->with('success', "Email sent successfully!");
     }
 
@@ -67,5 +65,12 @@ class AuthController extends Controller
         $id->verified = true;
         $id->save();
         return redirect()->route('home')->with('success', "Email Verification successful!");
+    }
+
+    function logout(Request $req) {
+        Auth::logout();
+        $req->session()->invalidate();
+        $req->session()->regenerate();
+        return redirect()->to('login')->with('success', "Logout successful!");
     }
 }

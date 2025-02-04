@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -24,15 +22,15 @@ class SocialiteController extends Controller
         ], [
             'google_token' => $socialUser->token,
             'google_refresh_token' => $socialUser->refreshToken,
-            'name' => $socialUser->name,
+            'name' => explode(' ',$socialUser->name)[0],
             'email' => $socialUser->email,
             'password' => bcrypt($socialUser->token),
             'role' => 'user',
-            'verified_at' => Carbon::now()->timestamp
+            'verified_at' => date('Y-m-d H:i:s')
         ]);
 
         Auth::login($user);
 
-        return redirect('/dashboard');
+        return redirect()->route('home');
     }
 }

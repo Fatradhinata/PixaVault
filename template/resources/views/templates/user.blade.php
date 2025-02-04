@@ -25,7 +25,7 @@
             <div class="mil-progress"></div>
         </div>
 
-        @include('template.flasher')
+        @include('templates.flasher')
 
         <!-- top bar -->
         <div class="mil-top-panel">
@@ -52,7 +52,7 @@
                     </div>
 
                     <div class="mil-top-panel-buttons">
-                        <a href="contact.html" class="mil-button mil-sm">Sign In</a>
+                        <a href="{{ route('login') }}" class="mil-button mil-sm">Sign In</a>
                         <div class="mil-menu-btn">
                             <span></span>
                         </div>
