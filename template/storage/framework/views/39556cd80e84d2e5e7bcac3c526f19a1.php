@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <!-- bootstrap grid css -->
+    <link rel="stylesheet" href="<?php echo e(asset('css/plugins/bootstrap-grid.css')); ?>" />
+    <!-- font awesome css -->
+    <link rel="stylesheet" href="<?php echo e(asset('css/plugins/font-awesome.min.css')); ?>" />
+    <!-- swiper css -->
+    <link rel="stylesheet" href="<?php echo e(asset('css/plugins/swiper.min.css')); ?>" />
+    <!-- magnific css -->
+    <link rel="stylesheet" href="<?php echo e(asset('css/plugins/magnific-popup.css')); ?>" />
+    <!-- ruizarch css -->
+    <link rel="stylesheet" href="<?php echo e(asset('css/style.css')); ?>" />
+    <!-- custom css -->
+    <?php echo $__env->yieldContent('customcss'); ?>
+
+    <!-- page name -->
+    <title>Pixel Vault</title>
+</head>
+
+<body>
+    <!-- wrapper -->
+    <div class="mil-wrapper">
+        <div class="mil-progress-track">
+            <div class="mil-progress"></div>
+        </div>
+
+        <!-- top bar -->
+        <div class="mil-top-panel">
+            <div class="container-fluid">
+                <div class="mil-top-panel-content">
+                    <a href="home-1.html" class="mil-logo">
+                        <img src="<?php echo e(asset('img/logo/logo.png')); ?>" alt="Logo" style="width: 130px" />
+                    </a>
+
+                    <div class="mil-navigation">
+                        <nav>
+                            <ul>
+                                <li class="mil-has-children <?php echo e(Route::is('home') ? 'mil-active' : ''); ?>">
+                                    <a href="<?php echo e(url('/')); ?>">Home</a>
+                                </li>
+                                <li class="mil-has-children <?php echo e(Route::is('leaderboard') ? 'mil-active' : ''); ?>">
+                                    <a href="<?php echo e(url('/leaderboard')); ?>">Leaderboard</a>
+                                </li>
+                                <li class="mil-has-children <?php echo e(Route::is('blog') ? 'mil-active' : ''); ?>">
+                                    <a href="<?php echo e(url('/blog')); ?>">Blog</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <!-- right buttons -->
+                    <div class="mil-top-panel-buttons">
+                        <a href="contact.html" class="mil-button mil-sm">Sign In</a>
+                        <div class="mil-menu-btn">
+                            <span></span>
+                        </div>
+                    </div>
+                    <!-- right buttons end -->
+                </div>
+            </div>
+        </div>
+        <!-- top bar end -->
+
+        <?php echo $__env->yieldContent('content'); ?>
+
+        <!-- footer -->
+        <footer class="mil-relative">
+            <img src="<?php echo e(asset('img/foto/4.jpg')); ?>" class="mil-bg-img mil-parallax" alt="image"
+                style="object-position: top" data-value-1="-25%" data-value-2="23%" />
+            <div class="mil-overlay"></div>
+            <div class="container mil-p-120-90">
+                <div class="mil-background-grid"></div>
+                <div class="row align-items-end">
+                    <div class="col-lg-8">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="mil-footer-navigation mil-up mil-mb-90">
+                                    <nav>
+                                        <ul>
+                                            <li>
+                                                <a href="about.html">About</a>
+                                            </li>
+                                            <li class="mil-active">
+                                                <a href="services.html">Services</a>
+                                            </li>
+                                            <li>
+                                                <a href="portfolio.html">Projects</a>
+                                            </li>
+                                            <li>
+                                                <a href="blog.html">Blog</a>
+                                            </li>
+                                            <li>
+                                                <a href="contact.html">Contact</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-xl-3">
+                                <span class="mil-suptitle mil-light mil-upper mil-up mil-mb-30">Wills Point</span>
+                                <p class="mil-text-sm mil-up mil-light-soft mil-mb-30">
+                                    8619 S Wolcott Avenue <br />Floor 202 <br />Chicago, IL
+                                    60620 <br />(773) 238 - 7162
+                                </p>
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-xl-3">
+                                <span class="mil-suptitle mil-light mil-upper mil-up mil-mb-30">Chicago</span>
+                                <p class="mil-text-sm mil-up mil-light-soft mil-mb-30">
+                                    10233 Gaillard Lake Est <br />Suite 420 <br />Houston, TX
+                                    75169 <br />(903) 560 - 9830
+                                </p>
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-xl-3">
+                                <span class="mil-suptitle mil-light mil-upper mil-up mil-mb-30">Harriman</span>
+                                <p class="mil-text-sm mil-up mil-light-soft mil-mb-30">
+                                    5 Harriman Woods Dr <br />Suite 702 <br />New York, NY
+                                    10926 <br />(570) 253 - 2853
+                                </p>
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-xl-3">
+                                <span class="mil-suptitle mil-light mil-upper mil-up mil-mb-30">Largo</span>
+                                <p class="mil-text-sm mil-up mil-light-soft mil-mb-30">
+                                    1071 Donegan Rd <br />Suite 1300 <br />Florida, FL 33771
+                                    <br />(727) 223 - 5371
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <a href="home-1.html" class="mil-footer-logo mil-up mil-mb-30">
+                            <img src="<?php echo e(asset('img/logo/logo.png')); ?>" alt="Logo" style="width: 130px" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="mil-footer-bottom">
+                    <p class="mil-light-soft mil-mb-15">
+                        © 2023. All rights reserved.
+                    </p>
+                    <ul class="mil-light-soft mil-mb-15">
+                        <li><a href="#.">Facebook</a></li>
+                        <li><a href="#.">Twitter</a></li>
+                        <li><a href="#.">Instagram</a></li>
+                        <li><a href="#.">Youtube</a></li>
+                    </ul>
+                    <ul class="mil-light-soft mil-mb-15">
+                        <li><a href="#.">Our App</a></li>
+                        <li><a href="#.">Sitemap</a></li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
+        <!-- footer end -->
+    </div>
+    <!-- content -->
+    </div>
+    <!-- wrapper end -->
+
+    <script>
+        // Menonaktifkan klik kanan pada elemen gambar
+        document.querySelectorAll("img").forEach((img) => {
+            img.addEventListener("contextmenu", (event) => {
+                event.preventDefault(); // Mencegah menu konteks default
+                alert("Fitur penyimpanan gambar telah dinonaktifkan!");
+            });
+        });
+    </script>
+    <!-- jQuery js -->
+    <script src="<?php echo e(asset('js/plugins/jquery.min.js')); ?>"></script>
+    <!-- swiper js -->
+    <script src="<?php echo e(asset('js/plugins/swiper.min.js')); ?>"></script>
+    <!-- gsap js -->
+    <script src="<?php echo e(asset('js/plugins/gsap.min.js')); ?>"></script>
+    <!-- imagesloaded js -->
+    <script src="<?php echo e(asset('js/plugins/imagesloaded.pkgd.js')); ?>"></script>
+    <!-- isotope js -->
+    <script src="<?php echo e(asset('js/plugins/isotope.min.js')); ?>"></script>
+    <!-- scroll smoother -->
+    <script src="<?php echo e(asset('js/plugins/smooth-scroll.js')); ?>"></script>
+    <!-- scroll trigger js -->
+    <script src="<?php echo e(asset('js/plugins/ScrollTrigger.min.js')); ?>"></script>
+    <!-- magnific js -->
+    <script src="<?php echo e(asset('js/plugins/magnific-popup.js')); ?>"></script>
+    <!-- ruizarch js -->
+    <script src="<?php echo e(asset('js/main.js')); ?>"></script>
+
+    <!-- custom js -->
+    <?php echo $__env->yieldContent('customjs'); ?>
+
+</body>
+
+</html>
+<?php /**PATH C:\Users\FATRA\OneDrive\Documents\SMK\PAS\PixaVault\template\resources\views/templates/user.blade.php ENDPATH**/ ?>
