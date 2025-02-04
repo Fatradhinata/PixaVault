@@ -18,6 +18,8 @@
     <!-- page name -->
     <title>Pixel Vault</title>
     <style>
+      
+    
       .mil-top-panel {
         position: fixed;
         top: 20px;
@@ -34,11 +36,12 @@
         z-index: 1000;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
       }
-
+    
       .mil-logo img {
+        
         max-width: 120px;
       }
-
+    
       .mil-navigation nav ul {
         display: flex;
         gap: 20px;
@@ -46,11 +49,11 @@
         padding: 0;
         margin: 0;
       }
-
+    
       .mil-navigation nav ul li {
         position: relative;
       }
-
+    
       .mil-navigation nav ul li a {
         text-decoration: none;
         color: #ffffff;
@@ -60,12 +63,13 @@
         transition: color 0.3s, background 0.3s;
         position: relative;
       }
-
+    
       .mil-navigation nav ul li a:hover,
       .mil-navigation nav ul li a.active {
         color: #bcff00; /* Warna teks hover dan aktif */
       }
 
+    
       .mil-navigation nav ul li a::after {
         content: "";
         position: absolute;
@@ -77,12 +81,12 @@
         border-radius: 2px;
         transition: all 0.3s ease;
       }
-
+    
       .mil-navigation nav ul li a:hover::after {
         left: 0;
         right: 0;
       }
-
+    
       .mil-navigation nav ul li ul {
         display: none;
         position: absolute;
@@ -94,31 +98,33 @@
         list-style: none;
         z-index: 2000;
       }
-
+    
       .mil-navigation nav ul li:hover ul {
         display: block;
       }
-
+    
       .mil-navigation nav ul li ul li a {
         padding: 8px 12px;
         color: #ffffff;
         display: block;
       }
-
+    
       .mil-top-panel-buttons a {
         text-decoration: none;
-
+        
         background: rgb(188, 255, 0);
         padding: 10px 20px;
         border-radius: 20px;
         font-weight: bold;
         transition: background 0.3s;
       }
-
+    
       .mil-top-panel-buttons a:hover {
         filter: brightness(110%);
       }
     </style>
+    
+    
   </head>
 
   <body>
@@ -139,21 +145,19 @@
               <li><a href="home-1.html" class="active">Home</a></li>
               <li class="mil-has-children">
                 <a href="#">Category</a>
-                <ul class="mil-menu">
-                  <li><a href="#">Natures</a></li>
-                  <li><a href="#">Landscapes</a></li>
-                  <li><a href="#">urban-cityscape</a></li>
-                  <li><a href="#">Wildlife</a></li>
-                  <li><a href="#">Portraits</a></li>
-                  <li><a href="#">Abstract</a></li>
-                  <li><a href="#">black-white</a></li>
-                  <li><a href="#">Minimalism</a></li>
+                <ul>
+                  <li><a href="#">Type 1</a></li>
+                  <li><a href="#">Type 2</a></li>
                 </ul>
               </li>
-              <li>
-                <a href="leaderboard.html">Leaderboard</a>
+              <li class="mil-has-children">
+                <a href="#">Leaderboard</a>
+                <ul>
+                  <li><a href="#">Blog</a></li>
+                  <li><a href="#">Help Center</a></li>
+                </ul>
               </li>
-              <li><a href="pricing.html">Pricing</a></li>
+              <li><a href="#">Pricing</a></li>
             </ul>
           </nav>
         </div>
@@ -161,7 +165,8 @@
           <a href="#">Sign Up</a>
         </div>
       </div>
-
+      
+      
       <!-- top bar end -->
 
       <!-- content -->
@@ -177,10 +182,12 @@
           />
           <div class="mil-overlay"></div>
           <div class="container">
+            
             <div class="mil-banner-content">
               <div class="row align-items-end">
                 <div class="col-xl-7">
                   <div class="mil-mb-90">
+                   
                     <h1 class="mil-upper mil-light mil-mb-60">
                       Unlocking<br /><span class="mil-accent">the Future</span
                       ><br />of Digital Assets
@@ -497,7 +504,7 @@
 
         <!-- portfolio -->
         <section>
-          <div class="container mil-p-0-60">
+          <div class="container-fluid mil-p-0-60">
             <div class="col-12">
               <div class="mil-center mil-mb-90 mt-5">
                 <span class="mil-suptitle mil-upper mil-up mil-mb-30"
@@ -518,20 +525,30 @@
                   class="mil-portfolio-item mil-square-item mil-up mil-mb-30"
                   id="photo-trigger"
                 >
-                  <div class="image-container">
+                  <!-- Gambar -->
+                  <img
+                    src="img/foto/1.jpg"
+                    alt="cover"
+                    class="mil-image no-save"
+                  />
+
+                  <!-- Profil di kiri bawah -->
+                  <div class="mil-profile">
                     <img
-                      src="img/foto/1.jpg"
-                      alt="cover"
-                      class="mil-image no-save"
+                      src="img/faces/user.jpg"
+                      alt="Profile Picture"
+                      class="mil-profile-img"
                     />
-                    <div class="image-buttons">
-                      <button class="btn-favorite">
-                        <i class="far fa-heart"></i>
-                      </button>
-                      <button class="btn-download">
-                        <i class="fas fa-download"></i>
-                      </button>
+                    <div>
+                      <p class="mil-username mt-1">Leo_Visions</p>
                     </div>
+                  </div>
+
+                  <!-- Tombol di kanan atas -->
+                  <div class="mil-buttons">
+                    <button class="mil-love-btn">
+                      <i class="fas fa-heart"></i>
+                    </button>
                   </div>
                 </a>
 
@@ -543,10 +560,7 @@
                     <!-- Modal Header -->
                     <div class="modal-header">
                       <div class="user-info">
-                        <img
-                          src="https://randomuser.me/api/portraits/men/1.jpg"
-                          alt="User Avatar"
-                        />
+                        <img src="img/faces/user.jpg" alt="User Avatar" />
                         <div>
                           <div class="username">storyset</div>
                           <div class="follow">storyset1_</div>
@@ -750,239 +764,19 @@
                 </div>
 
                 <a
-                  href=""
+                  href="project.html"
                   class="mil-portfolio-item mil-square-item mil-up mil-mb-30"
                 >
-                  <div class="image-container">
-                    <img
-                      src="img/foto/2.jpg"
-                      alt="cover"
-                      class="mil-image no-save"
-                    />
-                    <div class="image-buttons">
-                      <button class="btn-favorite">
-                        <i class="far fa-heart"></i>
-                      </button>
-                      <button class="btn-download">
-                        <i class="fas fa-download"></i>
-                      </button>
-                    </div>
+                  <img src="img/foto/2.jpg" alt="cover" />
+                  <div class="mil-project-descr">
+                    <h4 class="mil-upper mil-mb-20">Ice castle</h4>
+                    <div class="mil-divider-sm mil-mb-20"></div>
+                    <p>
+                      Consectetur adipiscing elit, sed do eiusmod tempor
+                      incididunt ut labore aliqua.
+                    </p>
                   </div>
                 </a>
-
-                <!-- Modal -->
-                <div class="modal" id="photo-modal">
-                  <div class="modal-content">
-                    <span class="close" id="close-modal">&times;</span>
-                    <div class="line"></div>
-                    <!-- Modal Header -->
-                    <div class="modal-header">
-                      <div class="user-info">
-                        <img
-                          src="https://randomuser.me/api/portraits/men/1.jpg"
-                          alt="User Avatar"
-                        />
-                        <div>
-                          <div class="username">storyset</div>
-                          <div class="follow">storyset1_</div>
-                        </div>
-                      </div>
-                      <div class="actions">
-                        <i class="fas fa-folder-plus"></i>
-                        <i class="far fa-heart"></i>
-                        <button class="download-btn">Download</button>
-                      </div>
-                    </div>
-                    <img src="img/foto/1.jpg" alt="Photo Detail" />
-                    <div class="d-flex my-3">
-                      <!-- Bagian Views -->
-                      <div class="mil-up">
-                        <p style="margin: 0; font-size: 14px; color: #6c757d">
-                          Views
-                        </p>
-                        <p
-                          style="margin: 0; font-size: 18px; font-weight: bold"
-                        >
-                          1,234
-                        </p>
-                      </div>
-
-                      <!-- Bagian Download -->
-                      <div class="ms-5 mil-up">
-                        <p style="margin: 0; font-size: 14px; color: #6c757d">
-                          Downloads
-                        </p>
-                        <p
-                          style="margin: 0; font-size: 18px; font-weight: bold"
-                        >
-                          567
-                        </p>
-                      </div>
-                    </div>
-                    <div class="details">
-                      <div class="mb-1">
-                        <h4 class="mil-up">Background Furniture</h4>
-                      </div>
-                    </div>
-                    <!-- deskripsi -->
-                    <p class="mil-up mil-mb-30">
-                      Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                      Velit voluptates provident est numquam earum et
-                      perspiciatis veniam libero quidem, doloremque quasi
-                      laborum dolore minus enim animi nostrum sequi fugiat sunt?
-                    </p>
-
-                    <div class="d-flex align-items-center my-1 mil-up">
-                      <!-- Icon publish -->
-                      <i
-                        class="fas fa-upload"
-                        style="margin-right: 10px; color: #6c757d"
-                      ></i>
-                      <!-- Teks -->
-                      <p class="mb-0" style="color: #6c757d">10-01-2025</p>
-                    </div>
-                    <div class="d-flex align-items-center my-1 mil-up">
-                      <!-- Icon publish -->
-                      <i
-                        class="fas fa-camera"
-                        style="margin-right: 10px; color: #6c757d"
-                      ></i>
-                      <!-- Teks -->
-                      <p class="mb-0" style="color: #6c757d">Iphone XR</p>
-                    </div>
-                    <div class="d-flex align-items-center my-1 mil-up">
-                      <!-- Icon publish -->
-                      <i
-                        class="fas fa-certificate"
-                        style="margin-right: 10px; color: #6c757d"
-                      ></i>
-                      <!-- Teks -->
-                      <p class="mb-0" style="color: #6c757d">Free to use</p>
-                    </div>
-
-                    <div class="tags">
-                      <a href=""><span class="tag">Beach</span></a>
-                      <a href=""><span class="tag">Coast</span></a>
-                      <a href=""><span class="tag">Nature</span></a>
-                      <a href=""><span class="tag">Ocean</span></a>
-                      <a href=""><span class="tag">Outdoors</span></a>
-                      <a href=""><span class="tag">Sea</span></a>
-                      <a href=""><span class="tag">Shoreline</span></a>
-                      <a href=""><span class="tag">Water</span></a>
-                      <a href=""><span class="tag">Foam</span></a>
-                      <a href=""><span class="tag">Free Stock Photos</span></a>
-                    </div>
-                    <section>
-                      <div class="mt-5">
-                        <div class="mil-mb-90">
-                          <h4 class="mil-upper mil-up">Related Images</h4>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-6 col-lg-3">
-                            <a
-                              href="project.html"
-                              class="mil-portfolio-item mil-square-item mil-up mil-mb-30"
-                            >
-                              <img src="img/foto/1.jpg" alt="cover" />
-                              <div class="mil-project-descr">
-                                <h4 class="mil-upper mil-mb-20">
-                                  Modern architecture
-                                </h4>
-                                <div class="mil-divider-sm mil-mb-20"></div>
-                                <p>
-                                  Consectetur adipiscing elit, sed do eiusmod
-                                  tempor incididunt ut labore aliqua.
-                                </p>
-                              </div>
-                            </a>
-
-                            <a
-                              href="project.html"
-                              class="mil-portfolio-item mil-square-item mil-up mil-mb-30"
-                            >
-                              <img src="img/foto/2.jpg" alt="cover" />
-                              <div class="mil-project-descr">
-                                <h4 class="mil-upper mil-mb-20">Ice castle</h4>
-                                <div class="mil-divider-sm mil-mb-20"></div>
-                                <p>
-                                  Consectetur adipiscing elit, sed do eiusmod
-                                  tempor incididunt ut labore aliqua.
-                                </p>
-                              </div>
-                            </a>
-                          </div>
-                          <div class="col-md-6 col-lg-3">
-                            <a
-                              href="project.html"
-                              class="mil-portfolio-item mil-long-item mil-up mil-mb-30"
-                            >
-                              <img src="img/foto/3.jpg" alt="cover" />
-                              <div class="mil-project-descr">
-                                <h4 class="mil-upper mil-mb-20">Cubism</h4>
-                                <div class="mil-divider-sm mil-mb-20"></div>
-                                <p>
-                                  Consectetur adipiscing elit, sed do eiusmod
-                                  tempor incididunt ut labore aliqua.
-                                </p>
-                              </div>
-                            </a>
-                          </div>
-                          <div class="col-md-6 col-lg-3">
-                            <a
-                              href="project.html"
-                              class="mil-portfolio-item mil-square-item mil-up mil-mb-30"
-                            >
-                              <img src="img/foto/4.jpg" alt="cover" />
-                              <div class="mil-project-descr">
-                                <h4 class="mil-upper mil-mb-20">
-                                  Horizontal elevator
-                                </h4>
-                                <div class="mil-divider-sm mil-mb-20"></div>
-                                <p>
-                                  Consectetur adipiscing elit, sed do eiusmod
-                                  tempor incididunt ut labore aliqua.
-                                </p>
-                              </div>
-                            </a>
-
-                            <a
-                              href="project.html"
-                              class="mil-portfolio-item mil-square-item mil-up mil-mb-30"
-                            >
-                              <img src="img/foto/5.jpg" alt="cover" />
-                              <div class="mil-project-descr">
-                                <h4 class="mil-upper mil-mb-20">Home Decor</h4>
-                                <div class="mil-divider-sm mil-mb-20"></div>
-                                <p>
-                                  Consectetur adipiscing elit, sed do eiusmod
-                                  tempor incididunt ut labore aliqua.
-                                </p>
-                              </div>
-                            </a>
-                          </div>
-                          <div class="col-md-6 col-lg-3">
-                            <a
-                              href="project.html"
-                              class="mil-portfolio-item mil-long-item mil-up mil-mb-30"
-                            >
-                              <img src="img/foto/6.jpg" alt="cover" />
-                              <div class="mil-project-descr">
-                                <h4 class="mil-upper mil-mb-20">
-                                  Modern architecture
-                                </h4>
-                                <div class="mil-divider-sm mil-mb-20"></div>
-                                <p>
-                                  Consectetur adipiscing elit, sed do eiusmod
-                                  tempor incididunt ut labore aliqua.
-                                </p>
-                              </div>
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </div>
               </div>
               <div class="col-md-6 col-lg-3">
                 <a
@@ -1205,7 +999,7 @@
         <!-- how we work end -->
         <!-- Random Image -->
         <section>
-          <div class="container mil-p-120-120">
+          <div class="container-fluid mil-p-0-60">
             <div class="mil-background-grid mil-softened"></div>
 
             <div class="row">
@@ -1236,7 +1030,7 @@
                         href="project.html"
                         class="mil-portfolio-item mil-square-item mil-up mil-mb-30 p-50"
                       >
-                        <img src="" alt="cover" class="mil-randomimage" />
+                        <img src="img/foto/1.jpg" alt="cover" />
                       </a>
                     </div>
                     <div class="">
@@ -1253,7 +1047,7 @@
                       href="project.html"
                       class="mil-portfolio-item mil-square-item mil-up mil-mb-30"
                     >
-                      <img src="" alt="cover" class="mil-randomimage" />
+                      <img src="img/foto/4.jpg" alt="cover" />
                       <div class="mil-project-descr">
                         <h4 class="mil-upper mil-mb-20">Horizontal elevator</h4>
                         <div class="mil-divider-sm mil-mb-20"></div>
@@ -1268,7 +1062,7 @@
                       href="project.html"
                       class="mil-portfolio-item mil-square-item mil-up mil-mb-30"
                     >
-                      <img src="" alt="cover" class="mil-randomimage" />
+                      <img src="img/foto/5.jpg" alt="cover" />
                       <div class="mil-project-descr">
                         <h4 class="mil-upper mil-mb-20">Home Decor</h4>
                         <div class="mil-divider-sm mil-mb-20"></div>
@@ -1284,7 +1078,7 @@
                       href="project.html"
                       class="mil-portfolio-item mil-long-item mil-up mil-mb-30"
                     >
-                      <img src="" alt="cover" class="mil-randomimage" />
+                      <img src="img/foto/3.jpg" alt="cover" />
                       <div class="mil-project-descr">
                         <h4 class="mil-upper mil-mb-20">Cubism</h4>
                         <div class="mil-divider-sm mil-mb-20"></div>
@@ -1300,7 +1094,7 @@
                       href="project.html"
                       class="mil-portfolio-item mil-square-item mil-up mil-mb-30"
                     >
-                      <img src="" alt="cover" class="mil-randomimage" />
+                      <img src="img/foto/4.jpg" alt="cover" />
                       <div class="mil-project-descr">
                         <h4 class="mil-upper mil-mb-20">Horizontal elevator</h4>
                         <div class="mil-divider-sm mil-mb-20"></div>
@@ -1315,7 +1109,7 @@
                       href="project.html"
                       class="mil-portfolio-item mil-square-item mil-up mil-mb-30"
                     >
-                      <img src="" alt="cover" class="mil-randomimage" />
+                      <img src="img/foto/5.jpg" alt="cover" />
                       <div class="mil-project-descr">
                         <h4 class="mil-upper mil-mb-20">Home Decor</h4>
                         <div class="mil-divider-sm mil-mb-20"></div>
@@ -1331,7 +1125,7 @@
                       href="project.html"
                       class="mil-portfolio-item mil-long-item mil-up mil-mb-30"
                     >
-                      <img src="" alt="cover" class="mil-randomimage" />
+                      <img src="img/foto/6.jpg" alt="cover" />
                       <div class="mil-project-descr">
                         <h4 class="mil-upper mil-mb-20">Modern architecture</h4>
                         <div class="mil-divider-sm mil-mb-20"></div>
@@ -1349,7 +1143,7 @@
         </section>
         <!-- Category Image -->
         <section>
-          <div class="container mil-p-120-120">
+          <div class="container-fluid mil-p-0-60">
             <div class="mil-background-grid mil-softened"></div>
 
             <div class="row">
@@ -1515,92 +1309,6 @@
             </div>
           </div>
         </section>
-
-        <!-- top contributors-->
-        <section>
-          <div class="container mil-p-120-120">
-            <div class="mil-center mil-mb-90">
-              <h2 class="mil-upper mil-up">TOP PUBLIC Contributions</h2>
-              <p class="mil-mb-30">
-                A place where random photos roam, ready to give you a visual
-                surprise with every click.
-              </p>
-            </div>
-            <div class="top-contributors">
-              <div class="card first">
-                <div class="rank-badge">1st</div>
-                <img
-                  src="https://randomuser.me/api/portraits/men/1.jpg
-                    "
-                  alt="Michal Krajewski"
-                />
-                <h4>Michal Krajewski</h4>
-                <p>mkojrawski</p>
-                <span class="contributions">785 Contributions</span>
-              </div>
-              <div class="card second">
-                <div class="rank-badge">2nd</div>
-                <img
-                  src="https://randomuser.me/api/portraits/men/2.jpg
-                    "
-                  alt="Sebastian Mechel"
-                />
-                <h4>Sebastian Mechel</h4>
-                <p>sebamechel</p>
-                <span class="contributions">562 Contributions</span>
-              </div>
-              <div class="card third">
-                <div class="rank-badge">3rd</div>
-                <img
-                  src="https://randomuser.me/api/portraits/men/3.jpg
-                    "
-                  alt="Milosz Pasternak"
-                />
-                <h4>Milosz Pasternak</h4>
-                <p>mlymilosz</p>
-                <span class="contributions">550 Contributions</span>
-              </div>
-            </div>
-            <!-- <table class="contributors-table">
-                <tr class="contributors-table-row">
-                    <th class="contributors-table-header">User</th>
-                    <th class="contributors-table-header">Contributions</th>
-                    <th class="contributors-table-header">Open Issues</th>
-                    <th class="contributors-table-header">Comments</th>
-                    <th class="contributors-table-header">Pull Requests</th>
-                </tr>
-                <tr class="contributors-table-row">
-                    <td class="contributors-table-data">Tomasz Porostowski</td>
-                    <td class="contributors-table-data">413</td>
-                    <td class="contributors-table-data">72</td>
-                    <td class="contributors-table-data">245</td>
-                    <td class="contributors-table-data">103</td>
-                </tr>
-                <tr class="contributors-table-row">
-                    <td class="contributors-table-data">Jakub Bartczak</td>
-                    <td class="contributors-table-data">390</td>
-                    <td class="contributors-table-data">69</td>
-                    <td class="contributors-table-data">236</td>
-                    <td class="contributors-table-data">97</td>
-                </tr>
-                <tr class="contributors-table-row">
-                    <td class="contributors-table-data">Grzegorz Zasada</td>
-                    <td class="contributors-table-data">357</td>
-                    <td class="contributors-table-data">64</td>
-                    <td class="contributors-table-data">211</td>
-                    <td class="contributors-table-data">85</td>
-                </tr>
-                <tr class="contributors-table-row">
-                    <td class="contributors-table-data">Krzysztof Zawaja</td>
-                    <td class="contributors-table-data">290</td>
-                    <td class="contributors-table-data">85</td>
-                    <td class="contributors-table-data">135</td>
-                    <td class="contributors-table-data">70</td>
-                </tr>
-            </table> -->
-          </div>
-        </section>
-
         <!-- blog -->
         <section>
           <div class="container mil-p-0-60">
@@ -1923,53 +1631,6 @@
         }
       });
     </script>
-
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const searchInput = document.querySelector(".mil-sidebar-search input");
-        const searchButton = document.querySelector(
-          ".mil-sidebar-search button"
-        );
-
-        searchButton.addEventListener("click", function () {
-          let query = searchInput.value.trim(); // Ambil teks input
-          if (query) {
-            alert("Mencari: " + query); // Gantilah ini dengan fungsi pencarian yang sesuai
-            // Misalnya, bisa diarahkan ke halaman pencarian
-            // window.location.href = `search.html?q=${encodeURIComponent(query)}`;
-          } else {
-            alert("Masukkan kata kunci pencarian!");
-          }
-        });
-
-        // Jika tekan Enter dalam input, pencarian juga bisa berjalan
-        searchInput.addEventListener("keypress", function (event) {
-          if (event.key === "Enter") {
-            searchButton.click();
-          }
-        });
-      });
-    </script>
-
-    <!-- js random images -->
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        // Ambil semua elemen dengan kelas .mil-randomimage
-        const randomImageElements =
-          document.querySelectorAll(".mil-randomimage");
-
-        randomImageElements.forEach((imgElement) => {
-          // Mengambil gambar acak dari Picsum dengan ukuran 600x400 (sesuaikan ukuran sesuai kebutuhan)
-          const randomImageUrl = `https://picsum.photos/600/400?random=${Math.floor(
-            Math.random() * 1000
-          )}`;
-
-          // Ganti atribut src dengan URL gambar acak dari Picsum
-          imgElement.src = randomImageUrl;
-        });
-      });
-    </script>
-
     <!-- jQuery js -->
     <script src="js/plugins/jquery.min.js"></script>
     <!-- swiper js -->
