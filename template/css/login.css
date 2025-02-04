@@ -45,6 +45,10 @@
     align-items: center;
     text-align: center;
 
+    .content-subheading {
+      color: #7F7F7F;
+    }
+
     .login-input {
       width: 100%;
       flex-direction: column;
@@ -54,7 +58,7 @@
       .input-group {
         width: 100%;
         display: flex;
-        border: 1px solid #7F7F7F;
+        border: 2px solid #7F7F7F;
         border-radius:100px;
         padding: 15px 30px;
         gap: 10px;
@@ -66,6 +70,13 @@
           font-family: 'Figtree';
           font-size: 18px;
           font-weight: 500;
+          color: #000 !important;
+        }
+        img {
+          cursor: pointer;
+          &:hover {
+            filter: brightness(0);
+          }
         }
       }
 
