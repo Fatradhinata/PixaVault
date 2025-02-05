@@ -4153,9 +4153,74 @@ load more
   display: inline-block;
 }
 
-<<<<<<< HEAD
+/* ------------------------------------------- */
+/* ---------------- Favorite ----------------- */
+/* ------------------------------------------- */
+.favorites {
+  height: fit-content !important;
+  .background-content-image {    
+    height: 424px;
+  }
+  .favorites-overlay {
+    height: 500px;
+  }
+  .favorites-parent {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    min-height: 100vh;
+    height: fit-content;
+    margin-top: 100px;
+    .favorites-content {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+      gap: 24px;
+      position: relative;
+      margin-top: 100px;
+      padding: 26px;
+      background-color: white;
+      max-width: 1137px;
+      width: 1137px;
+      border-radius: 10px 10px 0px 0px;
+      z-index: 9;
+      .row {
+        gap: 0;
+        & > div {
+          width: 33.33%;
+        }
+      }
+      .favorites-search {
+        border: 1px solid black;
+        padding: 15px;
+        border-radius: 30px;
+        
+        .input-group {
+          display: flex;
+          justify-content: space-between;
+          input {
+            border: none;
+            outline: none;
+            font-family: 'Sora';
+            font-size: 14px;                        
+          }
+          img {
+            cursor: pointer;
+            filter: brightness(0.9);
+          }
+        }
+      }
+      div {
+        gap: 10px;
+        height: fit-content;
+        p {
+          color: black;
+        }
+      }
+    }
+  }
 }
-}
+
 
 /* ------------------------------------------- */
 
@@ -4251,7 +4316,7 @@ load more
   }
 }
 
-=======.dropdown-button {
+.dropdown-button {
   background-color: white;
   border: 1px solid #ccc;
   padding: 8px 12px;
@@ -4270,7 +4335,7 @@ load more
   font-size: 12px;
 }
 
->>>>>>>5717f2260839f3f172189a825f166255c4db3472 .dropdown-menu {
+.dropdown-menu {
   display: none;
   position: absolute;
   background-color: white;
