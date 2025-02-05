@@ -108,14 +108,14 @@
           <div class="mil-overlay history-overlay"></div>
           <div class="history-parent">
             <div class="history-content">
-              <div class="d-flex justify-content-between">  
+              <div class="align-items-center d-flex justify-content-between">  
                 <div class="d-flex flex-column" style="gap: 10px">
                   <p class="text-xl font-700">History</p>
                   <p class="mil-text-sm">
                     Track and revisit everything you've downloaded here.
                   </p>
                 </div>
-                <div class="background-secondary p-3 d-flex ms-auto" style="border-radius: 100%; margin-right: 56px;">
+                <div class="history-icon-container background-secondary p-3 d-flex ms-auto pointer" style="border-radius: 100%; margin-right: 56px;" >
                   <img src="img/icons/calendar-solid.svg" alt="">
                 </div>
                 <div class="history-search">
@@ -133,11 +133,11 @@
                   <h5>Today - Thursday, January 23, 2025</h5>
                   <div class="row-content p-2 d-flex">
                     <div class="d-flex">
-                        <input type="checkbox" />
+                        <input type="checkbox" class="pointer" style="width: 18px;" />
                     </div>
-                    <img src="./img/foto/1.jpg" width="200px" alt="">
+                    <img src="./img/foto/1.jpg" class="pointer" width="200px" alt="">
                     <div class="row-content-core d-flex flex-column">
-                      <p class="mil-bold">The bird on the lake<span class="text-dark-gray mil-extra-thin"> - 11.32 AM</span></p>                      
+                      <p class="mil-bold pointer">The bird on the lake<span class="text-dark-gray mil-extra-thin"> - 11.32 AM</span></p>                      
                       <div class="d-flex row-name">
                         <img src="./img/foto/category/potraits.JPG" width="25px" height="25px" alt="" style="border-radius: 100%; object-fit: cover;">
                         <p class="text-dark-gray">Nopal Bin Ajaib</p>
@@ -149,11 +149,11 @@
                   </div>
                   <div class="row-content p-2 d-flex">
                     <div class="d-flex">
-                        <input type="checkbox" />
+                        <input type="checkbox" class="pointer" style="width: 18px;" />
                     </div>
-                    <img src="./img/foto/1.jpg" width="200px" alt="">
+                    <img src="./img/foto/1.jpg" class="pointer" width="200px" alt="">
                     <div class="row-content-core d-flex flex-column">
-                      <p class="mil-bold">The bird on the lake<span class="text-dark-gray mil-extra-thin"> - 11.32 AM</span></p>      
+                      <p class="mil-bold pointer">The bird on the lake<span class="text-dark-gray mil-extra-thin"> - 11.32 AM</span></p>      
                       <div class="d-flex row-name">
                         <img src="./img/foto/category/potraits.JPG" width="25px" height="25px" alt="" style="border-radius: 100%; object-fit: cover;">
                         <p class="text-dark-gray">Nopal Bin Ajaib</p>
@@ -168,11 +168,11 @@
                   <h5>Today - Thursday, January 23, 2025</h5>
                   <div class="row-content p-2 d-flex">
                     <div class="d-flex">
-                        <input type="checkbox" />
+                        <input type="checkbox" class="pointer" style="width: 18px;" />
                     </div>
-                    <img src="./img/foto/1.jpg" width="200px" alt="">
+                    <img src="./img/foto/1.jpg" class="pointer" width="200px" alt="">
                     <div class="row-content-core d-flex flex-column">
-                      <p class="mil-bold">The bird on the lake<span class="text-dark-gray mil-extra-thin"> - 11.32 AM</span></p>      
+                      <p class="mil-bold pointer">The bird on the lake<span class="text-dark-gray mil-extra-thin"> - 11.32 AM</span></p>      
                       <div class="d-flex row-name">
                         <img src="./img/foto/category/potraits.JPG" width="25px" height="25px" alt="" style="border-radius: 100%; object-fit: cover;">
                         <p class="text-dark-gray">Nopal Bin Ajaib</p>
@@ -320,5 +320,16 @@
     <script src="js/plugins/magnific-popup.js"></script>
     <!-- ruizarch js -->
     <script src="js/main.js"></script>
+    <!-- custom js -->
+    <script>
+      var calendarIconContainer = document.querySelector('.history-icon-container');
+
+      calendarIconContainer.addEventListener('mouseover', function () {
+        calendarIconContainer.firstElementChild.src = 'img/icons/calendar-solid-hover.svg'
+      })
+      calendarIconContainer.addEventListener('mouseleave', function () {
+        calendarIconContainer.firstElementChild.src = 'img/icons/calendar-solid.svg'
+      })
+    </script>
   </body>
 </html>

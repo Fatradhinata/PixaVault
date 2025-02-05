@@ -4201,7 +4201,6 @@ load more
           input {
             border: none;
             outline: none;
-            font-family: 'Sora';
             font-size: 14px;                        
           }
           img {
@@ -4231,6 +4230,10 @@ load more
 .history {
   height: fit-content !important;
 
+  & > * {
+    font-family: 'Poppins';
+  }
+
   .background-content-image {
     height: 424px;
   }
@@ -4251,9 +4254,9 @@ load more
       display: flex;
       justify-content: space-between;
       flex-direction: column;
-      gap: 120px;
+      gap: 60px;
       position: relative;
-      margin-top: 200px;
+      margin-top: 100px;
       padding: 26px;
       background-color: white;
       max-width: 1137px;
@@ -4269,19 +4272,27 @@ load more
         }
       }
 
+      h5 {
+        font-weight: 600;
+      }
+
       .history-search {
+        display: flex;
+        align-items: center;
         border: 1px solid black;
         padding: 15px;
         border-radius: 30px;
+        height: fit-content;
 
         .input-group {
           display: flex;
           justify-content: space-between;
+          align-items: center;
+          gap: 10px;
 
           input {
             border: none;
             outline: none;
-            font-family: 'Sora';
             font-size: 14px;
           }
 
