@@ -20,6 +20,8 @@
   <link rel="stylesheet" href="css/style.css">
   <!-- custom login css -->
   <link rel="stylesheet" href="css/login.css">
+  <!-- custom modal css -->
+  <link rel="stylesheet" href="css/modal.css">
   <!-- page name -->
   <title>Pixel Vault</title>
 
@@ -29,7 +31,8 @@
   <div class="wrapper login-wrapper">
     <div class="left-content d-flex">
       <h1>Welcome Back</h1>
-      <p class="content-subheading">Welcome back to <span class="font-700">PixaVault!</span> Discover stunning photography, upload your best shots,
+      <p class="content-subheading">Welcome back to <span class="font-700">PixaVault!</span> Discover stunning
+        photography, upload your best shots,
         and be inspired by visual stories from around the world.</p>
       <div class="login-input d-flex">
         <div class="input-group">
@@ -37,7 +40,8 @@
         </div>
         <div class="input-group">
           <input type="password" id="password-input" placeholder="Password" autocomplete="off">
-          <img id="password-icon" src="img/icons/fa_eye.svg" class="password-hidden" alt="password icon" width="28px" height="28px">
+          <img id="password-icon" src="img/icons/fa_eye.svg" class="password-hidden" alt="password icon" width="28px"
+            height="28px">
         </div>
         <p>Forgot Password?</p>
       </div>
@@ -55,6 +59,38 @@
     </div>
     <div class="right-content">
       <img src="img/illustration/Login-amico (1) 1.png" alt="login illustration">
+    </div>
+  </div>
+  <div class="custom-modal-wrapper">
+    <div class="custom-modal custom-modal-danger">
+      <div class="custom-modal-content">
+        <img class="left-icon" src="img/icons/danger.svg" alt="success">
+        <div>
+          <p class="mil-bold" style="font-size: 18px">Error</p>
+          <p>There's something wrong, i can feel it...</p>
+        </div>
+      </div>
+      <img class="cancel-icon" src="img/icons/cancel.svg" alt="">
+    </div>
+    <div class="custom-modal custom-modal-warning">
+      <div class="custom-modal-content">
+        <img class="left-icon" src="img/icons/warning.svg" alt="success">
+        <div>
+          <p class="mil-bold" style="font-size: 18px">Warning</p>
+          <p>User and password is wrong.</p>
+        </div>
+      </div>
+      <img class="cancel-icon" src="img/icons/cancel.svg" alt="">
+    </div>
+    <div class="custom-modal custom-modal-success">
+      <div class="custom-modal-content">
+        <img class="left-icon" src="img/icons/checklist-original.svg" alt="success">
+        <div>
+          <p class="mil-bold" style="font-size: 18px">Success</p>
+          <p>You can access this website as user now.</p>
+        </div>
+      </div>
+      <img class="cancel-icon" src="img/icons/cancel.svg" alt="">
     </div>
   </div>
   <!-- jQuery js -->
