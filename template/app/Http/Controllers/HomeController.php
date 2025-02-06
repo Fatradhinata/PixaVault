@@ -9,9 +9,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        if (Auth::user()->verified_at) return view('user.home');
-
-        return redirect('/need-to-verify');
+        return view('user.home');
     }
     public function content()
     {

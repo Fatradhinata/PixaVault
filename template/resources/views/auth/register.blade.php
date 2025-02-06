@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 
     <link rel="stylesheet" href="{{ asset('css/plugins/bootstrap-grid.css') }}">
     <link rel="stylesheet" href="{{ asset('css/plugins/font-awesome.min.css') }}">
@@ -29,13 +30,13 @@
                 <p class="content-subheading">Create an account to discover high-quality photos, share your own work, and connect with talented photographers around the globe.</p>
                 <div class="login-input d-flex">
                     <div class="input-group">
-                        <input type="text" placeholder="Username" name="name">
+                        <input type="text" placeholder="Username" name="name" required>
                     </div>
                     <div class="input-group">
-                        <input type="text" placeholder="Email" name="email">
+                        <input type="text" placeholder="Email" name="email" required>
                     </div>
                     <div class="input-group input-password">
-                        <input type="password" placeholder="Password" name="password">
+                        <input type="password" placeholder="Password" name="password" required>
                         <img src="{{ asset('img/icons/eye-close.svg') }}" alt="password close" width="28px">
                         <img src="{{ asset('img/icons/eye-open.svg') }}" alt="password open" width="28px" style="display: none">
                     </div>

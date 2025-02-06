@@ -23,6 +23,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'signed' => \App\Http\Middleware\ValidateSignature::class,
             'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
             'verified' => \App\Http\Middleware\AuthVerified::class,
+            'unverified' => \App\Http\Middleware\AuthUnverified::class,
             'admin' => \App\Http\Middleware\Admin::class,
         ]);
     })

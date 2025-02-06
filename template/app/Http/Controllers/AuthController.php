@@ -32,7 +32,8 @@ class AuthController extends Controller
         if ($attemp) {
             $req->session()->regenerate();
 
-            if (!Auth::user()->verified_at) return redirect('/need-to-verify')->with('success', "Login Successful! Please verify your email first.");
+            if (!Auth::user()->verified_at) 
+                return redirect('/need-to-verify')->with('success', "Login Successful! Please verify your email first.");
 
             return redirect()->route('home')->with('success', "Login Successful!");
         }
@@ -58,7 +59,7 @@ class AuthController extends Controller
             "username" => $user->name,
         ]));
 
-        return redirect()->route('login')->with('success', "Registration Successful! <br>We send you a verification email, please check your inbox.");
+        return redirect()->route('login')->with('success', "Registration Successful! <br>We send you a verification email. Please check your inbox.");
     }
 
 
@@ -89,7 +90,7 @@ class AuthController extends Controller
             $id->save();
     
             if (!Auth::check()) Auth::login($id);
-            return redirect('/need-to-verify')->with('success', "Email Verification Successful!");
+            return redirect()->route('home')->with('success', "Email Verification Successful!");
         }
         abort(404);
     }

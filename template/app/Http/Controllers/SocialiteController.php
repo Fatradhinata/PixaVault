@@ -20,9 +20,12 @@ class SocialiteController extends Controller
 
         if ($user) {
             $auth = $user->update([
+                'google_id' => $socialUser->id,
                 'google_token' => $socialUser->token,
                 'google_refresh_token' => $socialUser->refreshToken,
             ]);
+
+            $auth = $user;
         } else {
             $auth = User::create([
                 'google_id' => $socialUser->id,
@@ -37,6 +40,9 @@ class SocialiteController extends Controller
         }
 
         Auth::login($auth);
+
+        if (!Auth::user()->verified_at) 
+            return redirect('/need-to-verify')->with('success', "Login Successful! Please verify your email first.");
 
         return redirect()->route('home')->with('success', 'Login successful!');
     }
