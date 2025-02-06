@@ -3561,68 +3561,6 @@ timer
   }
 }
 
-/* -------------------------------------------
-
-Email Verify
-
-------------------------------------------- */
-
-.email-verify {
-  align-items: center;
-  margin: 116px auto 80px auto;
-  width: 90%;
-  gap: 30px;
-
-  .email-verify-content {
-    display: flex;
-    flex-direction: column;
-    width: 60%;
-    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.5);
-    padding: 20px;
-    gap: 50px;
-    border-radius: 8px;
-
-    p {
-      color: #7F7F7F;
-      font-weight: 500;
-      font-size: 16px;
-    }
-    
-    div {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      
-      button {
-        background-color: #000;        
-        padding: 10px 40px;
-        color: #fff;
-        font-family: 'Poppins';
-        font-weight: 500;
-        font-size: 16px;
-        border-radius: 8px;
-        cursor: pointer;
-        border: none;
-        
-        &:hover {
-          background-color: #7F7F7F;
-          border: none;
-        }
-      }
-      
-      a {
-        text-decoration: underline;
-        font-size: 16px;
-        font-weight: 600;
-        color: #7F7F7F;
-
-        &:hover {
-          color: rgba(127, 127, 127, .7);
-        }
-      }
-    }
-  }
-}
 
 /* -------------------------------------------
 
