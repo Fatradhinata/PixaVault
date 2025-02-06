@@ -24,34 +24,20 @@
     <div class="wrapper login-wrapper">
         <form action="{{ route('login') }}" method="post">
             @csrf
-            <div class="left-content d-flex">
-                <h1>Welcome Back</h1>
-                <p class="content-subheading">Welcome back to <b>PixaVault</b>! Discover stunning photography, upload your best shots, and be inspired by visual stories from around the world.</p>
-                <div class="login-input d-flex">
-                    <div class="input-group">
-                        <input type="text" placeholder="Email" name="email">
-                    </div>
-                    <div class="input-group input-password">
-                        <input type="password" placeholder="Password" name="password">
-                        <img src="{{ asset('img/icons/eye-close.svg') }}" alt="password close" width="28px">
-                        <img src="{{ asset('img/icons/eye-open.svg') }}" alt="password open" width="28px" style="display: none">
-                    </div>
+            <div class="left-content d-flex email-verify">
+                <h1>Thank You for Signing Up!</h1>
+                <p>
+                    Before you get started, please verify your email address by clicking the 
+                    link we just sent to your email. If you didn't receive the email, we'll be happy to send another one.
+                </p>
+                <div class="d-flex justify-content-start" style="width: 100%">
+                    <a href="{{ url('/send-verification-email') }}">Resend Verification Email</a>
+                    <a class="logout" href="{{ route('logout') }}">Log Out</a>
                 </div>
-                <button class="btn btn-login">Login</button>
-                <div class="continue-text-bar">
-                    <div></div>
-                    <p>or continue with</p>
-                    <div></div>
-                </div>
-                <a href="{{ route('google-auth') }}" class="btn-outline btn-google d-flex">
-                    <img src="{{ asset('img/icons/google.svg') }}" alt="google">
-                    <p>Log In with Google</p>
-                </a>
-                <p class="register-text text-dark-gray">Don't have an account? <a href="{{ route('register') }}">Register now</a></p>
             </div>
         </form>
         <div class="right-content">
-            <img src="{{ asset('img/illustration/login.png') }}" alt="login illustration">
+            <img src="{{ asset('img/illustration/verify.png') }}" alt="login illustration">
         </div>
     </div>
 

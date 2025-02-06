@@ -11,16 +11,16 @@ use Illuminate\Support\Facades\Mail;
 class AuthController extends Controller
 {
     public function login() {
-        return view('auth/login');
+        return view('auth.login');
     }
 
     public function register() {
-        return view('auth/register');
+        return view('auth.register');
     }
 
     public function processLogin(Request $req) {
         $credential = $req->validate([
-            'email' => 'required|email:dns',
+            'email' => 'required|email:dns|max:50',
             'password' => 'required',
         ]);
 
@@ -31,7 +31,10 @@ class AuthController extends Controller
 
         if ($attemp) {
             $req->session()->regenerate();
-            return redirect()->intended()->with('success', "Login successful!");
+
+            if (!Auth::user()->verified_at) return redirect('/need-to-verify')->with('success', "Login Successful! Please verify your email first.");
+
+            return redirect()->route('home')->with('success', "Login Successful!");
         }
 
         return back()->with("warning", "Username or Password Wrong!");
@@ -40,37 +43,61 @@ class AuthController extends Controller
     public function processRegister(Request $req) {
         $credential = $req->validate([
             'name' =>'required|max:20',
-            'email' => 'required|max:20|email:dns|unique:users',
+            'email' => 'required|max:50|email:dns|unique:users',
             'password' => 'required',
         ]);
 
-        User::create([
+        $user = User::create([
             'name' => $credential['name'],
             'email' => $credential['email'],
             'password' => bcrypt($credential['password']),
         ]);
 
-        Mail::to($credential['email'])->send(new SendVerificationLink());
+        Mail::to($user->email)->send(new SendVerificationLink([ 
+            "user_id" => $user->id,
+            "username" => $user->name,
+        ]));
 
-        return redirect()->route('login')->with('success', "Registration successful!");
+        return redirect()->route('login')->with('success', "Registration Successful! <br>We send you a verification email, please check your inbox.");
+    }
+
+
+    public function needToVerify() {
+        if (Auth::user()->verified_at) return redirect()->route('home');
+        
+        return view('auth.verify');
     }
 
     public function sendEmailVerification(Request $req) {
-        $email = $req->user()->email;
-        Mail::to($email)->send(new SendVerificationLink());
-        return redirect('/contact')->with('success', "Email sent successfully!");
+        $user = $req->user();
+
+        if (!$user->verified_at) {
+            Mail::to($user->email)->send(new SendVerificationLink([ 
+                "user_id" => $user->id,
+                "username" => $user->name,
+            ]));
+    
+            return redirect()->route('home')->with('success', "Email Sent Successfully! Please check your inbox.");
+        }
+        
+        return redirect()->route('home')->with('warning', "Email already verified!");
     }
 
     public function verify(User $id) {
-        $id->verified = true;
-        $id->save();
-        return redirect()->route('home')->with('success', "Email Verification successful!");
+        if (!$id->verified_at) {
+            $id->verified_at = date('Y-m-d H:i:s');
+            $id->save();
+    
+            if (!Auth::check()) Auth::login($id);
+            return redirect('/need-to-verify')->with('success', "Email Verification Successful!");
+        }
+        abort(404);
     }
 
     function logout(Request $req) {
         Auth::logout();
         $req->session()->invalidate();
         $req->session()->regenerate();
-        return redirect()->to('login')->with('success', "Logout successful!");
+        return redirect()->route('login')->with('success', "Logout successful!");
     }
 }

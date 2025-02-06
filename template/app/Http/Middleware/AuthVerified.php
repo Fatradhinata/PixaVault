@@ -17,6 +17,7 @@ class AuthVerified
     public function handle(Request $request, Closure $next): Response
     {
         if (Auth::user()->verified_at) return $next($request);
-        return redirect()->route('home');
+        
+        return redirect('/need-to-verify');
     }
 }

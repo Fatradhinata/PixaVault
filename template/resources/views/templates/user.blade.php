@@ -15,7 +15,7 @@
     @yield('styles')
 
     <!-- page name -->
-    <title>Pixel Vault</title>
+    <title>PixaVault</title>
 </head>
 
 <body>
@@ -32,7 +32,7 @@
             <div class="container-fluid">
                 <div class="mil-top-panel-content">
                     <a href="{{ route('home') }}" class="mil-logo">
-                        <img src="{{ asset('img/logo/logo.png') }}" alt="Logo" style="width: 130px" />
+                        <img src="{{ asset('img/logo/logo.png') }}" alt="Logo" style="height: 64px; filter: invert(1);" />
                     </a>
 
                     <div class="mil-navigation">
@@ -52,7 +52,11 @@
                     </div>
 
                     <div class="mil-top-panel-buttons">
-                        <a href="{{ route('login') }}" class="mil-button mil-sm">Sign In</a>
+                        @if (auth()->check())
+                            <a href="{{ route('logout') }}" class="mil-button mil-sm">Log Out</a>
+                        @else
+                            <a href="{{ route('login') }}" class="mil-button mil-sm">Sign In</a>
+                        @endif
                         <div class="mil-menu-btn">
                             <span></span>
                         </div>

@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        return view('user.home');
+        if (Auth::user()->verified_at) return view('user.home');
+
+        return redirect('/need-to-verify');
     }
     public function content()
     {

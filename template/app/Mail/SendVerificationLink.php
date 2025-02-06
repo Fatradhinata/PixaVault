@@ -13,12 +13,14 @@ class SendVerificationLink extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $mailData;
+
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct($data)
     {
-        //
+        $this->mailData = $data;
     }
 
     /**
@@ -27,7 +29,7 @@ class SendVerificationLink extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'User Verification',
+            subject: 'PixaVault - Email Verification',
         );
     }
 
