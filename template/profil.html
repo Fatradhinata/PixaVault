@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+  <!-- bootstrap grid css -->
+  <link rel="stylesheet" href="css/plugins/bootstrap-grid.css" />
+  <!-- font awesome css -->
+  <link rel="stylesheet" href="css/plugins/font-awesome.min.css" />
+  <!-- swiper css -->
+  <link rel="stylesheet" href="css/plugins/swiper.min.css" />
+  <!-- magnific css -->
+  <link rel="stylesheet" href="css/plugins/magnific-popup.css" />
+  <!-- ruizarch css -->
+  <link rel="stylesheet" href="css/style.css" />
+  <!-- profile css -->
+  <link rel="stylesheet" href="css/profile.css" />
+  <!-- page name -->
+  <title>Pixel Vault</title>
+  <style>
+    .mil-top-panel {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      max-width: 1200px;
+      background: #282c34;
+      border-radius: 30px;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .mil-logo img {
+      max-width: 120px;
+    }
+
+    .mil-navigation nav ul {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .mil-navigation nav ul li {
+      position: relative;
+    }
+
+    .mil-navigation nav ul li a {
+      text-decoration: none;
+      color: #ffffff;
+      font-weight: bold;
+      padding: 10px 15px;
+      border-radius: 20px;
+      transition: color 0.3s, background 0.3s;
+      position: relative;
+    }
+
+    .mil-navigation nav ul li a:hover,
+    .mil-navigation nav ul li a.active {
+      color: #bcff00;
+      /* Warna teks hover dan aktif */
+    }
+
+    .mil-navigation nav ul li a::after {
+      content: "";
+      position: absolute;
+      bottom: -4px;
+      left: 50%;
+      right: 50%;
+      height: 2px;
+      background-color: transparent;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .mil-navigation nav ul li a:hover::after {
+      left: 0;
+      right: 0;
+    }
+
+    .mil-navigation nav ul li ul {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: #282c34;
+      border-radius: 10px;
+      padding: 10px;
+      list-style: none;
+      z-index: 2000;
+    }
+
+    .mil-navigation nav ul li:hover ul {
+      display: block;
+    }
+
+    .mil-navigation nav ul li ul li a {
+      padding: 8px 12px;
+      color: #ffffff;
+      display: block;
+    }
+
+    .mil-top-panel-buttons a {
+      text-decoration: none;
+
+      background: rgb(188, 255, 0);
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .mil-top-panel-buttons a:hover {
+      filter: brightness(110%);
+    }
+
+    .card {
+      width: 350px;
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    h3 {
+      font-size: 16px;
+      color: gray;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .dropdown {
+      background: #eee;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- wrapper -->
+  <div class="mil-wrapper">
+    <div class="mil-progress-track">
+      <div class="mil-progress"></div>
+    </div>
+
+    <!-- top bar -->
+    <div class="mil-top-panel">
+      <a href="home-1.html" class="mil-logo">
+        <img src="img/logo/logo_pixavault.png" alt="Logo" />
+      </a>
+      <div class="mil-navigation">
+        <nav>
+          <ul>
+            <li><a href="home-1.html" class="active">Home</a></li>
+            <li class="mil-has-children">
+              <a href="#">Category</a>
+              <ul class="mil-menu">
+                <li><a href="#">Natures</a></li>
+                <li><a href="#">Landscapes</a></li>
+                <li><a href="#">urban-cityscape</a></li>
+                <li><a href="#">Wildlife</a></li>
+                <li><a href="#">Portraits</a></li>
+                <li><a href="#">Abstract</a></li>
+                <li><a href="#">black-white</a></li>
+                <li><a href="#">Minimalism</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="leaderboard.html">Leaderboard</a>
+            </li>
+            <li><a href="pricing.html">Pricing</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="mil-top-panel-buttons">
+        <a href="#">Sign Up</a>
+      </div>
+    </div>
+
+    <!-- top bar end -->
+
+    <!-- content -->
+    <div id="content">
+      <div class="profile">
+        <div class="profile-detail d-flex align-items-center">
+          <div class="profile-image d-flex align-items-center">
+            <img src="img/icons/user-elipse.svg" alt="user">
+          </div>
+          <div class="profile-info d-flex flex-column">
+            <div class="profile-header d-flex">
+              <h3>My Profile</h3>
+              <div class="profile-actions d-flex">
+                <div class="d-flex align-items-center">
+                  <button class="btn-follow">Follow</button>
+                  <button class="btn-options"><img src="img/icons/horiz-dots.svg" alt=""></button>
+                  <button class="btn-report d-none">Report</button>
+                </div>
+              </div>
+            </div>
+            <p class="profile-email">pixavault1@email.com</p>
+            <p class="profile-bio">👋Hey there!<br>
+              I'm a Commercial Photographer <br>
+              & Product Designer with a BA in Software Engineering.</p>
+          </div>
+        </div>
+      </div>
+      <div class="profile-content">
+        <div class="profile-tab-nav">
+          <button class="tab-btn active" data-tab="photos">
+            <img src="img/icons/multi-image.svg" alt="multiple image">Photos 10
+          </button>
+          <button class="tab-btn" data-tab="likes">
+            <img src="img/icons/love-black.svg" alt="likes">Likes 66
+          </button>
+          <button class="tab-btn" data-tab="stats">
+            <img src="img/icons/stats.svg" alt="stats">Stats
+          </button>
+        </div>
+        <div class="tab-content-container">
+          <div class="tab-content active" id="photos">Photo content goes here...</div>
+          <div class="tab-content" id="likes">Likes content goes here...</div>
+          <div class="tab-content" id="stats">
+            No Content Yet...
+            <!-- <div class="card">
+              <div class="header">
+                <div class="d-flex flex-column">
+                  <h3>Views</h3>
+                  <h1 id="view-count">2,313</h1>
+                </div>
+                <button class="dropdown">Weekly ▼</button>
+              </div>
+              <canvas id="viewsChart"></canvas>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- footer -->
+    <footer class="mil-relative">
+      <img src="img/foto/4.jpg" class="mil-bg-img mil-parallax" alt="image" style="object-position: top"
+        data-value-1="-25%" data-value-2="23%" />
+      <div class="mil-overlay"></div>
+      <div class="container mil-p-120-90">
+        <div class="mil-background-grid"></div>
+        <div class="row align-items-end">
+          <div class="col-lg-8">
+            <div class="row">
+              <div class="col-12">
+                <div class="mil-footer-navigation mil-up mil-mb-90">
+                  <nav>
+                    <ul>
+                      <li>
+                        <a href="about.html">About</a>
+                      </li>
+                      <li class="mil-active">
+                        <a href="services.html">Services</a>
+                      </li>
+                      <li>
+                        <a href="portfolio.html">Projects</a>
+                      </li>
+                      <li>
+                        <a href="blog.html">Blog</a>
+                      </li>
+                      <li>
+                        <a href="contact.html">Contact</a>
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-6 col-xl-3">
+                <span class="mil-suptitle mil-light mil-upper mil-up mil-mb-30">Wills Point</span>
+                <p class="mil-text-sm mil-up mil-light-soft mil-mb-30">
+                  8619 S Wolcott Avenue <br />Floor 202 <br />Chicago, IL
+                  60620 <br />(773) 238 - 7162
+                </p>
+              </div>
+              <div class="col-md-6 col-lg-6 col-xl-3">
+                <span class="mil-suptitle mil-light mil-upper mil-up mil-mb-30">Chicago</span>
+                <p class="mil-text-sm mil-up mil-light-soft mil-mb-30">
+                  10233 Gaillard Lake Est <br />Suite 420 <br />Houston, TX
+                  75169 <br />(903) 560 - 9830
+                </p>
+              </div>
+              <div class="col-md-6 col-lg-6 col-xl-3">
+                <span class="mil-suptitle mil-light mil-upper mil-up mil-mb-30">Harriman</span>
+                <p class="mil-text-sm mil-up mil-light-soft mil-mb-30">
+                  5 Harriman Woods Dr <br />Suite 702 <br />New York, NY
+                  10926 <br />(570) 253 - 2853
+                </p>
+              </div>
+              <div class="col-md-6 col-lg-6 col-xl-3">
+                <span class="mil-suptitle mil-light mil-upper mil-up mil-mb-30">Largo</span>
+                <p class="mil-text-sm mil-up mil-light-soft mil-mb-30">
+                  1071 Donegan Rd <br />Suite 1300 <br />Florida, FL 33771
+                  <br />(727) 223 - 5371
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <a href="home-1.html" class="mil-footer-logo mil-up mil-mb-30">
+              <img src="img/logo/logo.png" alt="Logo" style="width: 130px" />
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="container-fluid">
+        <div class="mil-footer-bottom">
+          <p class="mil-light-soft mil-mb-15">
+            © 2023. All rights reserved.
+          </p>
+          <ul class="mil-light-soft mil-mb-15">
+            <li><a href="#.">Facebook</a></li>
+            <li><a href="#.">Twitter</a></li>
+            <li><a href="#.">Instagram</a></li>
+            <li><a href="#.">Youtube</a></li>
+          </ul>
+          <ul class="mil-light-soft mil-mb-15">
+            <li><a href="#.">Our App</a></li>
+            <li><a href="#.">Sitemap</a></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+    <!-- footer end -->
+  </div>
+  <!-- content -->
+  </div>
+  <!-- wrapper end -->
+
+  <script>
+    // Menonaktifkan klik kanan pada elemen gambar
+    document.querySelectorAll("img").forEach((img) => {
+      img.addEventListener("contextmenu", (event) => {
+        event.preventDefault(); // Mencegah menu konteks default
+        alert("Fitur penyimpanan gambar telah dinonaktifkan!");
+      });
+    });
+  </script>
+
+  <!-- js modal photo -->
+  <script>
+    // Get elements
+    const photoTrigger = document.getElementById("photo-trigger");
+    const photoModal = document.getElementById("photo-modal");
+    const closeModal = document.getElementById("close-modal");
+
+    // Show modal on click
+    photoTrigger.addEventListener("click", (e) => {
+      e.preventDefault();
+      photoModal.style.display = "flex";
+    });
+
+    // Hide modal on close button
+    closeModal.addEventListener("click", () => {
+      photoModal.style.display = "none";
+    });
+
+    // Hide modal on outside click
+    window.addEventListener("click", (e) => {
+      if (e.target === photoModal) {
+        photoModal.style.display = "none";
+      }
+    });
+  </script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const searchInput = document.querySelector(".mil-sidebar-search input");
+      const searchButton = document.querySelector(
+        ".mil-sidebar-search button"
+      );
+
+      searchButton.addEventListener("click", function () {
+        let query = searchInput.value.trim(); // Ambil teks input
+        if (query) {
+          alert("Mencari: " + query); // Gantilah ini dengan fungsi pencarian yang sesuai
+          // Misalnya, bisa diarahkan ke halaman pencarian
+          // window.location.href = `search.html?q=${encodeURIComponent(query)}`;
+        } else {
+          alert("Masukkan kata kunci pencarian!");
+        }
+      });
+
+      // Jika tekan Enter dalam input, pencarian juga bisa berjalan
+      searchInput.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+          searchButton.click();
+        }
+      });
+    });
+  </script>
+
+  <!-- js random images -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Ambil semua elemen dengan kelas .mil-randomimage
+      const randomImageElements =
+        document.querySelectorAll(".mil-randomimage");
+
+      randomImageElements.forEach((imgElement) => {
+        // Mengambil gambar acak dari Picsum dengan ukuran 600x400 (sesuaikan ukuran sesuai kebutuhan)
+        const randomImageUrl = `https://picsum.photos/600/400?random=${Math.floor(
+          Math.random() * 1000
+        )}`;
+
+        // Ganti atribut src dengan URL gambar acak dari Picsum
+        imgElement.src = randomImageUrl;
+      });
+    });
+  </script>
+
+  <!-- jQuery js -->
+  <script src="js/plugins/jquery.min.js"></script>
+  <!-- swiper js -->
+  <script src="js/plugins/swiper.min.js"></script>
+  <!-- gsap js -->
+  <script src="js/plugins/gsap.min.js"></script>
+  <!-- imagesloaded js -->
+  <script src="js/plugins/imagesloaded.pkgd.js"></script>
+  <!-- isotope js -->
+  <script src="js/plugins/isotope.min.js"></script>
+  <!-- scroll smoother -->
+  <script src="js/plugins/smooth-scroll.js"></script>
+  <!-- scroll trigger js -->
+  <script src="js/plugins/ScrollTrigger.min.js"></script>
+  <!-- magnific js -->
+  <script src="js/plugins/magnific-popup.js"></script>
+  <!-- chart cdn js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- ruizarch js -->
+  <script src="js/main.js"></script>
+  <!-- custom js -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const buttons = document.querySelectorAll(".tab-btn");
+      const contents = document.querySelectorAll(".tab-content");
+
+      buttons.forEach((button) => {
+        button.addEventListener("click", function () {
+          buttons.forEach((btn) => btn.classList.remove("active"));
+          contents.forEach((content) => content.classList.remove("active"));
+
+          this.classList.add("active");
+          document.getElementById(this.dataset.tab).classList.add("active");
+        });
+      });
+    });
+
+//    document.addEventListener("DOMContentLoaded", function () {
+//     const ctx = document.getElementById("viewsChart").getContext("2d");
+//     new Chart(ctx, {
+//         type: "bar",
+//         data: {
+//             labels: ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"],
+//             datasets: [{
+//                 label: "Views",
+//                 data: [1500, 700, 900, 1200, 2313, 400, 1300],
+//                 backgroundColor: (ctx) => {
+//                     return ctx.chart.data.labels.map((label, i) =>
+//                         i === 4 ? "#ccff00" : "rgba(0, 0, 0, 0.2)"
+//                     );
+//                 },
+//                 borderRadius: 8,
+//             }],
+//         },
+//         options: {
+//             responsive: true,
+//             scales: {
+//                 y: { beginAtZero: true, ticks: { stepSize: 1000 } }
+//             }
+//         }
+//     });
+// });
+
+
+
+  </script>
+</body>
+
+</html>

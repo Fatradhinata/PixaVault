@@ -1,0 +1,116 @@
+.profile {
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+
+  button {
+    font-family: 'Poppins';
+  }
+
+
+  .profile-detail {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+
+    .profile-image {
+      display: flex;
+      align-items: center;
+      img {
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+      }
+    }
+
+    .profile-info {
+      display: flex;
+      flex-direction: column;
+
+      .profile-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+
+        h3 {
+          font-size: 40px;
+          font-weight: bold;
+          color: #000;
+        }
+
+        .profile-actions {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+
+          div {
+            gap: 10px;
+          }
+
+          .btn-follow {
+            background-color: #D9D9D9;
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            padding: 6px 16px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+          }
+
+          .btn-options {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 34px;
+            background-color: transparent;
+            border: 1px solid #7F7F7F;
+            border-radius: 8px;
+            cursor: pointer;
+
+            img {
+              height: 5px;
+            }
+          }
+
+          .btn-report {
+            background-color: #fff;
+            color: #FF4D4D;
+            border: 1px solid #FF4D4D;
+            border-radius: 8px;
+            padding: 6px 18px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            display: none; 
+          }
+        }
+      }
+
+      .profile-email {
+        font-size: 16px;
+        color: #7F7F7F;
+        margin-top: 5px;
+      }
+
+      .profile-bio {
+        font-size: 16px;
+        color: #7F7F7F;
+        margin-top: 10px;
+        line-height: 1.5;
+      }
+    }
+  }
+}
+
+.profile-content {
+  .profile-tab-nav {
+    
+  }
+}
