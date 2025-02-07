@@ -1102,7 +1102,7 @@ banner
   height: 100%;
 }
 
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 1200px) {
   .mil-banner {
     height: auto;
   }

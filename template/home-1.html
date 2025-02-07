@@ -108,6 +108,10 @@
       &>* {
         cursor: pointer;
       }
+
+      .mil-top-panel-user {
+        position: relative;
+      }
     }
 
     .mil-top-panel-buttons {
@@ -134,22 +138,67 @@
       }
     }
 
-    .nav-horizontal-dot {
+    .nav-horizontal-dot-wrapper {
       position: relative;
+    }
+
+    .mil-nav-dropdown {
+      position: absolute;
+      display: none;
+      left: -120%;
+      transform: translateY(15%);
+      border: 1px solid #D9D9D9;
+      border-radius: 8px;
+      background-color: white;
+      
+      hr {
+        margin: 0px -11px;
+        border: none;
+        border-top: 1px solid #D9D9D9;
+        width: calc(100% + 22px);
+      }
+
+      .mil-nav-dropdown-logout {
+        color: rgba(252, 120, 120, 0.64);
+
+        &:hover {
+          color: #FC7878;
+        }
+      }
+
+      div {
+        display: flex;
+        flex-direction: column;
+        padding: 11px;
+        gap: 10px;
+
+        button {
+          text-align: left;
+          outline: none;
+          border: none;
+          min-width: 145px;
+          padding: 10px;
+          border-radius: 8px;
+          background-color: transparent;
+          cursor: pointer;
+          color: #7F7F7F;
+          
+          &:hover {
+            background-color: #F7F7F7;
+            color: black;
+          }
+        }
+      }
+    }
+
+    .mil-nav-dropdown-user {
+      transform: translateY(6%);
+    }
+
+    .nav-horizontal-dot {
       padding: 10px;
       display: flex;
       transition: background-color 1s, border-radius 1.2s;
-
-      .mil-nav-dropdown {
-        position: absolute;
-        left: -25%;
-        transform: translateY(100%);
-        div {
-          display: flex;
-          flex-direction: column;
-          padding: 11px;
-        }
-      }
 
       &:hover {
         background-color: #000;
@@ -179,18 +228,32 @@
         <nav>
           <div class="mil-top-panel-right">
             <a href="#" class="mil-top-panel-link">Explore</a>
-            <div class="nav-horizontal-dot">
-              <img src="img/icons/horiz-dots-variant-2.svg" width="30px" height="30px" alt="Horizontal-Dot">
-              <div class="mil-nav-dropdown">
+            <div class="nav-horizontal-dot-wrapper">
+              <div class="nav-horizontal-dot toggleDropdown">
+                <img src="img/icons/horiz-dots-variant-2.svg" width="30px" height="30px" alt="Horizontal-Dot">
+              </div>
+              <div class="mil-nav-dropdown dropdownMenu">
                 <div>
-                  <button>Leaderboard</button>
-                  <button>Pricing</button>
+                  <button><a href="#">Leaderboard</a></button>
+                  <button><a href="#">Pricing</a></button>
                 </div>
               </div>
             </div>
+
           </div>
           <div class="mil-top-panel-right">
-            <img src="img/icons/user-elipse.svg" width="46px" height="46px" alt="">
+            <div class="mil-top-panel-user">
+              <img src="img/icons/user-elipse.svg" width="46px" height="46px" alt="" class="toggleDropdown">
+              <div class="mil-nav-dropdown mil-nav-dropdown-user dropdownMenu">
+                <div>
+                  <button><a href="#">View</a> Profile</button>
+                  <button><a href="#">Stats</a></button>
+                  <button><a href="#">Account</a> Settings</button>
+                  <hr>
+                  <button class="mil-nav-dropdown-logout"><a href="#">Logout</a> </button>
+                </div>
+              </div>
+            </div>
             <a href="#" class="mil-top-panel-buttons"><img src="img/icons/upload-icon.svg">UPLOAD</a>
           </div>
         </nav>
@@ -1241,7 +1304,7 @@
           <div class="row">
             <div class="col-12 mb-15">
               <div class="mil-center mil-mb-90">
-                <span class="mil-suptitle mil-upper mil-up mil-mb-30">Category</span>
+                <span class="mil-suptitle mil-upper mil-up mil-mb-30">EXPLORE</span>
                 <h2 class="mil-upper mil-up">Explore Stunning Collections</h2>
                 <p class="mil-mb-30">
                   Dive into a world of creativity with handpicked collections
@@ -1366,63 +1429,6 @@
           </div>
         </div>
       </section>
-
-      <!-- blog -->
-      <section>
-        <div class="container mil-p-0-60">
-          <div class="mil-background-grid mil-softened"></div>
-
-          <div class="row">
-            <div class="col-12">
-              <div class="mil-center mil-mb-90">
-                <span class="mil-suptitle mil-upper mil-up mil-mb-30">Insights</span>
-                <h2 class="mil-upper mil-up mil-mb-30">Ideas and News</h2>
-                <a href="blog.html" class="mil-link mil-upper mil-up">See All
-                  <span class="mil-arrow"><img src="img/icons/1.svg" alt="arrow" /></span></a>
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <a href="publication.html" class="mil-blog-card mil-mb-60">
-                <div class="mil-cover mil-up mil-long">
-                  <img src="img/foto/1.jpg" alt="cover" />
-                  <div class="mil-date">11.09.2023</div>
-                </div>
-                <div class="mil-description">
-                  <span class="mil-suptitle mil-upper mil-up mil-mb-30">Urban</span>
-                  <h4 class="mil-upper mil-up mil-mb-30">
-                    Tips for Planning a Project
-                  </h4>
-                  <p class="mil-up">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore
-                    magna.
-                  </p>
-                </div>
-              </a>
-            </div>
-            <div class="col-lg-6">
-              <a href="publication.html" class="mil-blog-card mil-mb-60">
-                <div class="mil-cover mil-up mil-long">
-                  <img src="img/foto/6.jpg" alt="cover" />
-                  <div class="mil-date">11.09.2023</div>
-                </div>
-                <div class="mil-description">
-                  <span class="mil-suptitle mil-upper mil-up mil-mb-30">Perspectives</span>
-                  <h4 class="mil-upper mil-up mil-mb-30">
-                    Design a perfect home
-                  </h4>
-                  <p class="mil-up">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore
-                    magna.
-                  </p>
-                </div>
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- blog end -->
 
       <!-- core -->
       <!-- <section class="mil-dark-bg mil-relative mil-o-hidden">
@@ -1723,6 +1729,38 @@
   <script src="js/plugins/magnific-popup.js"></script>
   <!-- ruizarch js -->
   <script src="js/main.js"></script>
+  <!-- custom js -->
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+  const toggleButtons = document.querySelectorAll(".toggleDropdown");
+  const dropdownMenus = document.querySelectorAll(".dropdownMenu");
+
+  toggleButtons.forEach((button, index) => {
+    button.addEventListener("click", function (event) {
+      event.stopPropagation(); // Mencegah event bubble
+
+      // Tutup semua dropdown sebelum membuka yang baru
+      dropdownMenus.forEach((menu, i) => {
+        if (i !== index) {
+          menu.style.display = "none";
+        }
+      });
+
+      // Toggle dropdown yang diklik
+      const dropdownMenu = button.nextElementSibling;
+      dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
+    });
+  });
+
+  // Menutup dropdown saat klik di luar
+  document.addEventListener("click", function () {
+    dropdownMenus.forEach(menu => {
+      menu.style.display = "none";
+    });
+  });
+});
+
+  </script>
 </body>
 
 </html>
