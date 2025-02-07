@@ -208,6 +208,21 @@
         font-size: 40px;
       }
     }
+
+  }
+  .tab-content-stats {
+    .dropdown {
+      border-radius: 100px;
+      padding: 10px 20px;
+      color: #615E83;
+      padding-right: 30px; /* Jarak untuk icon arrow */
+      appearance: none; /* Menghilangkan default arrow */
+      background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTEiIGhlaWdodD0iNiIgdmlld0JveD0iMCAwIDExIDYiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xLjA0MTY1IDAuNTU3MDMzQzAuODAwMjQ0IDAuNzk4NDQxIDAuODAwMjQ0IDEuMTg5ODQgMS4wNDE2NSAxLjQzMTI1TDUuMjQ5NjMgNS42MzkyM0M1LjI1Mzc1IDUuNjQzNTkgNS4yNTc5NSA1LjY0NzkxIDUuMjYyMjIgNS42NTIxOUM1LjM4Mjk3IDUuNzcyOTQgNS41NDEyNSA1LjgzMzI5IDUuNjk5NTIgNS44MzMyNEM1Ljg1Nzc4IDUuODMzMjkgNi4wMTYwNiA1Ljc3Mjk0IDYuMTM2ODEgNS42NTIxOUM2LjE0MTA4IDUuNjQ3OTEgNi4xNDUyOCA1LjY0MzU5IDYuMTQ5NCA1LjYzOTIzTDEwLjM1NzQgMS40MzEyNUMxMC41OTg4IDEuMTg5ODQgMTAuNTk4OCAwLjc5ODQ0MSAxMC4zNTc0IDAuNTU3MDMzQzEwLjExNiAwLjMxNTYyNSA5LjcyNDU3IDAuMzE1NjI1IDkuNDgzMTYgMC41NTcwMzNMNS42OTk1MSA0LjM0MDY4TDEuOTE1ODcgMC41NTcwMzNDMS42NzQ0NiAwLjMxNTYyNSAxLjI4MzA2IDAuMzE1NjI1IDEuMDQxNjUgMC41NTcwMzNaIiBmaWxsPSIjNjE1RTgzIi8+PC9zdmc+') no-repeat right 10px center;
+      background-size: 16px;
+      background-color: #D9D9D9;
+      outline: none;
+      border: none;
+    }
   }
 
   .tab-content.active {

@@ -245,7 +245,7 @@
                 <a href="project.html" class="mil-portfolio-item mil-square-item mil-up mil-mb-30 position-relative">
                   <!-- Gambar -->
                   <img src="img/foto/1.jpg" alt="cover" class="mil-image no-save" />
-  
+
                   <!-- Profil di kiri bawah -->
                   <div class="mil-profile">
                     <img src="img/faces/user.jpg" alt="Profile Picture" class="mil-profile-img" />
@@ -253,7 +253,7 @@
                       <p class="mil-username mt-1">Leo_Visions</p>
                     </div>
                   </div>
-  
+
                   <!-- Tombol di kanan atas -->
                   <div class="mil-buttons">
                     <button class="mil-love-btn">
@@ -261,7 +261,7 @@
                     </button>
                   </div>
                 </a>
-  
+
                 <a href="project.html" class="mil-portfolio-item mil-square-item mil-up mil-mb-30">
                   <img src="img/foto/2.jpg" alt="cover" />
                   <div class="mil-project-descr">
@@ -299,7 +299,7 @@
                     </p>
                   </div>
                 </a>
-  
+
                 <a href="project.html" class="mil-portfolio-item mil-square-item mil-up mil-mb-30">
                   <img src="img/foto/5.jpg" alt="cover" />
                   <div class="mil-project-descr">
@@ -337,7 +337,7 @@
                     </p>
                   </div>
                 </a>
-  
+
                 <a href="project.html" class="mil-portfolio-item mil-square-item mil-up mil-mb-30">
                   <img src="img/foto/2.jpg" alt="cover" />
                   <div class="mil-project-descr">
@@ -375,7 +375,7 @@
                     </p>
                   </div>
                 </a>
-  
+
                 <a href="project.html" class="mil-portfolio-item mil-square-item mil-up mil-mb-30">
                   <img src="img/foto/5.jpg" alt="cover" />
                   <div class="mil-project-descr">
@@ -409,8 +409,26 @@
               <h3>This user has not liked any photos</h3>
             </div>
           </div>
-          <div class="tab-content" id="stats">
-            Coming soon mek mumet awak i tak ngeseng disek...
+          <div class="tab-content tab-content-stats" id="stats">
+            <h4>Insights</h4>
+            <div>
+              <div class="card">
+                <div class="header">
+                  <div class="d-flex flex-column">
+                    <h3>Views</h3>
+                    <h1 id="view-count">2,313</h1>
+                  </div>
+                  <select class="dropdown" name="time" id="time">
+                    <option value="daily">Daily</option>
+                    <option value="weekly">Weekly</option>
+                    <option value="monthly">Monthly</option>
+                    <option value="yearly">Yearly</option>
+                  </select>
+                </div>
+                <canvas id="viewsChart"></canvas>
+              </div>
+            </div>
+            Coming soon...
             <!-- <div class="card">
               <div class="header">
                 <div class="d-flex flex-column">
@@ -565,8 +583,7 @@
       searchButton.addEventListener("click", function () {
         let query = searchInput.value.trim(); // Ambil teks input
         if (query) {
-          alert("Mencari: " + query); // Gantilah ini dengan fungsi pencarian yang sesuai
-          // Misalnya, bisa diarahkan ke halaman pencarian
+          alert("Mencari: " + query);
           // window.location.href = `search.html?q=${encodeURIComponent(query)}`;
         } else {
           alert("Masukkan kata kunci pencarian!");
@@ -638,44 +655,44 @@
       });
     });
 
-//    document.addEventListener("DOMContentLoaded", function () {
-//     const ctx = document.getElementById("viewsChart").getContext("2d");
-//     new Chart(ctx, {
-//         type: "bar",
-//         data: {
-//             labels: ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"],
-//             datasets: [{
-//                 label: "Views",
-//                 data: [1500, 700, 900, 1200, 2313, 400, 1300],
-//                 backgroundColor: (ctx) => {
-//                     return ctx.chart.data.labels.map((label, i) =>
-//                         i === 4 ? "#ccff00" : "rgba(0, 0, 0, 0.2)"
-//                     );
-//                 },
-//                 borderRadius: 8,
-//             }],
-//         },
-//         options: {
-//             responsive: true,
-//             scales: {
-//                 y: { beginAtZero: true, ticks: { stepSize: 1000 } }
-//             }
-//         }
-//     });
-// });
+       document.addEventListener("DOMContentLoaded", function () {
+        const ctx = document.getElementById("viewsChart").getContext("2d");
+        new Chart(ctx, {
+            type: "bar",
+            data: {
+                labels: ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"],
+                datasets: [{
+                    label: "Views",
+                    data: [1500, 700, 900, 1200, 2313, 400, 1300],
+                    backgroundColor: (ctx) => {
+                        return ctx.chart.data.labels.map((label, i) =>
+                            i === 4 ? "#ccff00" : "rgba(0, 0, 0, 0.2)"
+                        );
+                    },
+                    borderRadius: 8,
+                }],
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: { beginAtZero: true, ticks: { stepSize: 1000 } }
+                }
+            }
+        });
+    });
 
-  var followBtn = document.getElementById('button-follow');
-  followBtn.addEventListener('click', function () {
-    if (followBtn.className == 'btn-follow') {
-      followBtn.classList.add('btn-followed');
-      followBtn.classList.remove('btn-follow');
-      followBtn.innerText = 'Followed';
-    } else if (followBtn.className == 'btn-followed' ) {
-      followBtn.classList.add('btn-follow');
-      followBtn.classList.remove('btn-followed');
-      followBtn.innerText = 'Follow';
-    }
-  })
+    var followBtn = document.getElementById('button-follow');
+    followBtn.addEventListener('click', function () {
+      if (followBtn.className == 'btn-follow') {
+        followBtn.classList.add('btn-followed');
+        followBtn.classList.remove('btn-follow');
+        followBtn.innerText = 'Followed';
+      } else if (followBtn.className == 'btn-followed') {
+        followBtn.classList.add('btn-follow');
+        followBtn.classList.remove('btn-followed');
+        followBtn.innerText = 'Follow';
+      }
+    })
 
   </script>
 </body>
