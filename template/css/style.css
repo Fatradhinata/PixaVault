@@ -1739,8 +1739,8 @@ portfolio
   text-align: center;
   padding: 60px;
   background-color: rgba(0, 0, 0, 0.3);
-  transform: translateY(30px) scale(0.9);
   opacity: 0;
+  transform: translateY(30px) scale(0.9);
   transition: 0.4s cubic-bezier(0, 0, 0.3642, 1);
 }
 
@@ -1752,6 +1752,47 @@ portfolio
   opacity: 1;
   transform: translateY(0px);
 }
+
+/* ------ Content -------- */
+
+.content-item {
+  display: flex;
+  margin-bottom: 30px;
+  cursor: pointer;
+  transform: translateY(30px) scale(0.9);
+  border-radius: 8px;
+  transition: filter 0.3s ease-in-out;
+  overflow: hidden;
+
+  img {
+    border-radius: 8px;
+    transform: scale(1.1);
+    object-fit: cover;
+    object-position: center;
+    transform: scale(1.1);
+    transition: 0.4s cubic-bezier(0, 0, 0.3642, 1);
+  }
+
+  .mil-buttons,
+  .image-profile {
+    opacity: 0;
+    transition: all 0.2s;
+  }
+
+  &:hover {
+    .mil-buttons,
+    .image-profile {
+      opacity: 1;
+    }
+  }
+}
+
+.content-item:hover img {
+  transform: scale(1);
+  filter: brightness(80%);
+}
+
+/* ------ Content -------- */
 
 .mil-portfolio-item-2 {
   display: block;
@@ -3774,24 +3815,53 @@ load more
   color: white;
 }
 
+.image-profile {
+  position: absolute;
+  bottom: 10px !important;
+  left: 10px !important;
+  top: unset !important;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  
+  p {
+    font-family: 'Poppins';
+    font-size: 14px;
+    color: white;
+    font-weight: 600;
+  }
+
+  img {
+    filter: brightness(100%) !important;
+  }
+}
+
 .mil-profile-img {
-  width: 30px;
-  height: 30px;
+  position: relative !important;
+  width: 24px !important;
+  height: 24px !important;
   border-radius: 50%;
-  margin-right: 10px;
 }
 
 .mil-buttons {
   position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   top: 10px;
   right: 10px;
+  z-index: 10;
 }
 
-.mil-love-btn {
-  background: none;
+.mil-love-btn,
+.mil-download-btn {
+  background: rgba(0, 0, 0, 0.3);
   border: none;
   color: white;
-  font-size: 1.5em;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 1.2em;
   cursor: pointer;
 }
 

@@ -124,7 +124,7 @@
     }
 
     .card {
-      width: 350px;
+      width: 520px;
       background: white;
       border-radius: 10px;
       padding: 20px;
@@ -136,6 +136,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      padding-bottom: 30px;
     }
 
     h3 {
@@ -210,12 +211,16 @@
           </div>
           <div class="profile-info d-flex flex-column">
             <div class="profile-header d-flex">
-              <h3>Pixa</h3>
+              <h3 class="role-own-profile">My Profile</h3>
+              <h3 class="role-other-user d-none">Pixa</h3>
               <div class="profile-actions d-flex">
-                <div class="d-flex align-items-center">
+                <div class="d-flex align-items-center role-other-user d-none">
                   <button id="button-follow" class="btn-follow">Follow</button>
                   <button class="btn-options"><img src="img/icons/horiz-dots.svg" alt=""></button>
                   <button class="btn-report d-none">Report</button>
+                </div>
+                <div class="d-flex align-items-center role-own-profile">
+                  <button class="btn-edit-profile"><img src="img/icons/edit-pen.svg" alt="">Edit Profile</button>
                 </div>
               </div>
             </div>
@@ -234,7 +239,7 @@
           <button class="tab-btn" data-tab="likes">
             <img src="img/icons/love-black.svg" alt="likes">Likes 0
           </button>
-          <button class="tab-btn" data-tab="stats">
+          <button class="tab-btn role-own-profile" data-tab="stats">
             <img src="img/icons/stats.svg" alt="stats">Stats
           </button>
         </div>
@@ -409,26 +414,59 @@
               <h3>This user has not liked any photos</h3>
             </div>
           </div>
-          <div class="tab-content tab-content-stats" id="stats">
+          <div class="tab-content tab-content-stats role-own-profile" id="stats">
             <h4>Insights</h4>
-            <div>
+            <div class="tab-content-stats-diagram d-flex flex-wrap justify-content-between">
               <div class="card">
                 <div class="header">
-                  <div class="d-flex flex-column">
+                  <div class="d-flex flex-column align-items-start">
                     <h3>Views</h3>
                     <h1 id="view-count">2,313</h1>
                   </div>
-                  <select class="dropdown" name="time" id="time">
-                    <option value="daily">Daily</option>
+                  <select class="dropdown tab-content-stats-dropdown" name="time" id="timeViewFilter">
                     <option value="weekly">Weekly</option>
                     <option value="monthly">Monthly</option>
                     <option value="yearly">Yearly</option>
                   </select>
                 </div>
-                <canvas id="viewsChart"></canvas>
+                <canvas id="viewsChart" height="200px"></canvas>
+              </div>
+              <div class="card">
+                <div class="header">
+                  <div class="d-flex flex-column align-items-start">
+                    <h3>Downloads</h3>
+                    <h1 id="download-count">512</h1>
+                  </div>
+                  <select class="dropdown tab-content-stats-dropdown" name="time" id="timeDownloadFilter">
+                    <option value="weekly">Weekly</option>
+                    <option value="monthly">Monthly</option>
+                    <option value="yearly">Yearly</option>
+                  </select>
+                </div>
+                <canvas id="downloadsChart" height="200px"></canvas>
               </div>
             </div>
-            Coming soon...
+            <h4>Badge</h4>
+            <div class="card badge-card">
+              <div class="badge-card-header">
+                <p>Achievements</p>
+                <div>3</div>
+              </div>
+              <div class="badge-card-achievements">
+                <div class="badge-card-achievements-icon">
+                  <img src="img/icons/achievement-icon-1.svg" alt="achievement-icon-1">
+                  <p>Top Like February 2025</p>
+                </div>
+                <div class="badge-card-achievements-icon">
+                  <img src="img/icons/achievement-icon-2.svg" alt="achievement-icon-2">
+                  <p>Top Download February 2025</p>
+                </div>
+                <div class="badge-card-achievements-icon">
+                  <img src="img/icons/achievement-icon-3.svg" alt="achievement-icon-3">
+                  <p>Top Like March 2025</p>
+                </div>
+              </div>
+            </div>
             <!-- <div class="card">
               <div class="header">
                 <div class="d-flex flex-column">
@@ -641,6 +679,9 @@
   <!-- custom js -->
   <script>
     document.addEventListener("DOMContentLoaded", function () {
+      // var role = 'other-user';
+      var role = 'own-profile';
+
       const buttons = document.querySelectorAll(".tab-btn");
       const contents = document.querySelectorAll(".tab-content");
 
@@ -653,32 +694,188 @@
           document.getElementById(this.dataset.tab).classList.add("active");
         });
       });
+
+      if (role == 'own-user') {
+        document.querySelectorAll('.role-own-profile').forEach(el => el.classList.remove("d-none"));
+        document.querySelectorAll('.role-other-user').forEach(el => el.classList.add("d-none"));
+      } else if (role == 'other-user') {
+        document.querySelectorAll('.role-other-user').forEach(el => el.classList.remove("d-none"));
+        document.querySelectorAll('.role-own-profile').forEach(el => el.classList.add("d-none"));
+      }
+
     });
 
-       document.addEventListener("DOMContentLoaded", function () {
-        const ctx = document.getElementById("viewsChart").getContext("2d");
-        new Chart(ctx, {
-            type: "bar",
-            data: {
-                labels: ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"],
-                datasets: [{
-                    label: "Views",
-                    data: [1500, 700, 900, 1200, 2313, 400, 1300],
-                    backgroundColor: (ctx) => {
-                        return ctx.chart.data.labels.map((label, i) =>
-                            i === 4 ? "#ccff00" : "rgba(0, 0, 0, 0.2)"
-                        );
-                    },
-                    borderRadius: 8,
-                }],
+    document.addEventListener("DOMContentLoaded", function () {
+      const statsDropdown = document.querySelectorAll(".tab-content-stats-dropdown");
+      const ctx = document.getElementById("viewsChart").getContext("2d");
+
+      const viewDataSets = {
+        weekly: [1500, 700, 900, 1200, 2313, 400, 1300],
+        monthly: Array.from({ length: 30 }, () => Math.floor(Math.random() * 8000) + 1000), // Random 30 hari
+        yearly: Array.from({ length: 12 }, () => Math.floor(Math.random() * 60000) + 5000) // Random 12 bulan
+      };
+
+      const labels = {
+        weekly: ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"],
+        monthly: Array.from({ length: 30 }, (_, i) => (i + 1).toString()), // Tanggal 1-30
+        yearly: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"] // Nama bulan
+      };
+
+      function getStepSize(data) {
+        const maxVal = Math.max(...data);
+        const magnitude = Math.pow(10, Math.floor(Math.log10(maxVal)));
+        return Math.ceil(maxVal / magnitude) * (magnitude / 5);
+      }
+
+      function createViewChart(data, labelSet) {
+        return new Chart(ctx, {
+          type: "bar",
+          data: {
+            labels: labelSet,
+            datasets: [{
+              label: "Views",
+              data: data,
+              backgroundColor: data.map((val) => (val === Math.max(...data) ? "#ccff00" : "#D9D9D9")),
+              borderRadius: 8,
+              maxBarThickness: 25
+            }]
+          },
+          options: {
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                callbacks: {
+                  title: () => "",
+                  label: (tooltipItem) => tooltipItem.raw.toLocaleString()
+                },
+                yAlign: "bottom",
+                displayColors: false,
+                backgroundColor: "#1e1e38",
+                bodyColor: "#ffffff",
+                padding: 10,
+                cornerRadius: 6,
+                bodyFont: { size: 16, family: "Poppins, Arial, sans-serif" }
+              }
             },
-            options: {
-                responsive: true,
-                scales: {
-                    y: { beginAtZero: true, ticks: { stepSize: 1000 } }
+            responsive: true,
+            scales: {
+              x: { ticks: { display: true }, grid: { display: false } },
+              y: {
+                beginAtZero: true,
+                ticks: {
+                  stepSize: getStepSize(data)
                 }
+              }
             }
+          }
         });
+      }
+
+      let viewChart = createViewChart(viewDataSets.weekly, labels.weekly); // Chart awal
+
+      document.getElementById("timeViewFilter").addEventListener("change", function (e) {
+        const selectedPeriod = e.target.value;
+        const selectedData = viewDataSets[selectedPeriod];
+        viewChart.data.datasets[0].data = selectedData;
+        viewChart.data.labels = labels[selectedPeriod];
+
+        viewChart.data.datasets[0].backgroundColor = selectedData.map((val) => (val === Math.max(...selectedData) ? "#ccff00" : "#D9D9D9"));
+
+        document.getElementById('view-count').innerText = Math.max(...selectedData);
+
+        viewChart.options.scales.y.ticks.stepSize = getStepSize(selectedData);
+        viewChart.update(); // Update chart
+      });
+      ;
+
+      // Data Chart Downloads
+      const downloadsCtx = document.getElementById("downloadsChart").getContext("2d");
+
+      const downloadDataSets = {
+        weekly: [800, 1200, 500, 2300, 4750, 950, 1300],
+        monthly: Array.from({ length: 30 }, () => Math.floor(Math.random() * 8000) + 1000), // Random 30 hari
+        yearly: Array.from({ length: 12 }, () => Math.floor(Math.random() * 60000) + 5000) // Random 12 bulan
+      };
+
+
+      function getStepSize(data) {
+        const maxVal = Math.max(...data);
+        const magnitude = Math.pow(10, Math.floor(Math.log10(maxVal)));
+        return Math.ceil(maxVal / magnitude) * (magnitude / 5);
+      }
+
+      function createDownloadChart(data, labelSet) {
+        return new Chart(downloadsCtx, {
+          type: "bar",
+          data: {
+            labels: labelSet,
+            datasets: [{
+              label: "Downloads",
+              data: data,
+              backgroundColor: data.map((val) => (val === Math.max(...data) ? "#ffcc00" : "#D9D9D9")),
+              borderRadius: 8,
+              maxBarThickness: 25
+            }],
+          },
+          options: {
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                callbacks: {
+                  title: () => "",
+                  label: (tooltipItem) => tooltipItem.raw.toLocaleString()
+                },
+                yAlign: "bottom",
+                displayColors: false,
+                backgroundColor: "#1e1e38",
+                bodyColor: "#ffffff",
+                padding: 10,
+                cornerRadius: 6,
+                bodyFont: { size: 16, family: "Poppins, Arial, sans-serif" }
+              }
+            },
+            responsive: true,
+            scales: {
+              x: { ticks: { display: true }, grid: { display: false } },
+              y: {
+                beginAtZero: true,
+                ticks: {
+                  stepSize: getStepSize(data)
+                }
+              }
+            }
+          }
+        });
+      }
+
+      let downloadChart = createDownloadChart(downloadDataSets.weekly, labels.weekly);
+
+      document.getElementById("timeDownloadFilter").addEventListener("change", function (e) {
+        const selectedPeriod = e.target.value;
+        const selectedData = downloadDataSets[selectedPeriod];
+        downloadChart.data.datasets[0].data = selectedData;
+        downloadChart.data.labels = labels[selectedPeriod];
+        downloadChart.data.datasets[0].backgroundColor = selectedData.map((val) => (val === Math.max(...selectedData) ? "#ffcc00" : "#D9D9D9"));
+        document.getElementById('download-count').innerText = Math.max(...selectedData);
+        downloadChart.options.scales.y.ticks.stepSize = getStepSize(selectedData);
+        downloadChart.update();
+      });
+
+
+
+      statsDropdown.forEach((dropdown) => {
+        dropdown.addEventListener("click", function () {
+          // Toggle class 'open' untuk rotate icon arrow
+          this.classList.toggle("open");
+        });
+
+        // Menutup dropdown saat klik di luar
+        document.addEventListener("click", function (event) {
+          if (!dropdown.contains(event.target)) {
+            dropdown.classList.remove("open");
+          }
+        })
+      });
     });
 
     var followBtn = document.getElementById('button-follow');

@@ -99,9 +99,26 @@
             border: 1px solid #7F7F7F;
             border-radius: 8px;
             cursor: pointer;
-
+            
             img {
               height: 5px;
+            }
+          }
+
+          .btn-edit-profile {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: transparent;
+            border: 1px solid #7F7F7F;
+            border-radius: 8px;
+            cursor: pointer;
+            padding: 5px 18px;
+            gap: 6px;
+            transition: background-color 0.3s ease;
+
+            &:hover {
+              background-color: #d9d9d9;
             }
           }
 
@@ -193,24 +210,79 @@
 
   }
 
-  .tab-content {
-    display: none;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    min-height: 70vh;
+    .tab-content {
+      display: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      min-height: 70vh;
 
-    .unavailable {
-      height: 60vh;
-      justify-content: center;
-      gap: 20px;
+      .unavailable {
+        height: 60vh;
+        justify-content: center;
+        gap: 20px;
 
-      h3 {
-        font-size: 40px;
+        h3 {
+          font-size: 40px;
+        }
+      }
+
+    }
+  .tab-content-stats {
+    display: flex !important;
+    flex-direction: column;
+    gap: 25px;
+
+    .tab-content-stats-diagram {
+      gap: 25px;
+    }
+
+    .badge-card {
+      display: flex;
+      flex-direction: column;
+      gap: 50px;
+
+      .badge-card-header {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        color: black;
+
+        p {
+          font-size: 20px;
+          font-weight: 600;
+        }
+
+        div {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-color: #D9D9D9;
+          border-radius: 100px;
+          height: 34px;
+          width: 34px;
+        }
+      }
+
+      .badge-card-achievements {
+        display: flex;
+        gap: 30px;
+        color: black;
+
+       .badge-card-achievements-icon {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+
+        p {
+          font-family: 'Poppins';
+          font-size: 20px;
+          font-weight: 700;
+        }
+       }
       }
     }
 
-  }
-  .tab-content-stats {
     .dropdown {
       border-radius: 100px;
       padding: 10px 20px;
@@ -222,6 +294,21 @@
       background-color: #D9D9D9;
       outline: none;
       border: none;
+    }
+    .dropdown.open {
+      background: url("data:image/svg+xml,%3Csvg width='11' height='6' viewBox='0 0 11 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M10.3573 5.65195C10.5987 5.41054 10.5987 5.01914 10.3573 4.77774L6.14929 0.569756C6.14517 0.565391 6.14098 0.561071 6.1367 0.556798C6.01595 0.436047 5.85767 0.375695 5.69941 0.375742C5.54115 0.375695 5.38287 0.436048 5.26212 0.556798C5.25785 0.56107 5.25365 0.565391 5.24953 0.569756L1.04155 4.77774C0.80014 5.01914 0.80014 5.41054 1.04155 5.65195C1.28296 5.89336 1.67436 5.89336 1.91576 5.65195L5.69941 1.8683L9.48306 5.65195C9.72447 5.89336 10.1159 5.89336 10.3573 5.65195Z' fill='white'/%3E%3C/svg%3E%0A") no-repeat right 10px center;
+      background-size: 16px;
+      background-color: #7F7F7F;
+      color: white;
+    }
+
+    .tab-content-stats-dropdown {
+      font-family: 'Poppins';
+      font-size: 14px;
+
+      option {
+        cursor: pointer;
+      }
     }
   }
 
