@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+  <!-- bootstrap grid css -->
+  <link rel="stylesheet" href="css/plugins/bootstrap-grid.css" />
+  <!-- font awesome css -->
+  <link rel="stylesheet" href="css/plugins/font-awesome.min.css" />
+  <!-- swiper css -->
+  <link rel="stylesheet" href="css/plugins/swiper.min.css" />
+  <!-- magnific css -->
+  <link rel="stylesheet" href="css/plugins/magnific-popup.css" />
+  <!-- ruizarch css -->
+  <link rel="stylesheet" href="css/style.css" />
+  <!-- page name -->
+  <title>Pixel Vault</title>
+  <style>
+    .mil-top-panel {
+      position: fixed;
+      width: 100%;
+      background: transparent;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      gap: 90px;
+    }
+
+    .mil-logo img {
+      max-width: 120px;
+    }
+
+    .mil-navigation nav {
+      display: flex;
+      gap: 45px;
+    }
+
+    .mil-navigation nav ul li {
+      position: relative;
+    }
+
+    .mil-navigation nav ul li a {
+      text-decoration: none;
+      color: #ffffff;
+      font-weight: bold;
+      padding: 10px 15px;
+      border-radius: 20px;
+      transition: color 0.3s, background 0.3s;
+      position: relative;
+    }
+
+    .mil-navigation nav ul li a:hover,
+    .mil-navigation nav ul li a.active {
+      color: #bcff00;
+      /* Warna teks hover dan aktif */
+    }
+
+    .mil-navigation nav ul li a::after {
+      content: "";
+      position: absolute;
+      bottom: -4px;
+      left: 50%;
+      right: 50%;
+      height: 2px;
+      background-color: transparent;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .mil-navigation nav ul li a:hover::after {
+      left: 0;
+      right: 0;
+    }
+
+    .mil-navigation nav ul li ul {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: #282c34;
+      border-radius: 10px;
+      padding: 10px;
+      list-style: none;
+      z-index: 2000;
+    }
+
+    .mil-navigation nav ul li:hover ul {
+      display: block;
+    }
+
+    .mil-navigation nav ul li ul li a {
+      padding: 8px 12px;
+      color: #ffffff;
+      display: block;
+    }
+
+    .mil-top-panel-right {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      gap: 30px;
+
+      &>* {
+        cursor: pointer;
+      }
+
+      .mil-top-panel-user {
+        position: relative;
+      }
+    }
+
+    .mil-top-panel-buttons {
+
+      background: rgb(188, 255, 0);
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-weight: bold;
+      transition: background 0.3s;
+
+      &:hover {
+        background-color: #CFFF00;
+      }
+    }
+
+    .mil-top-panel-link {
+      color: white;
+      font-size: 18px;
+      font-weight: 700;
+      text-transform: uppercase;
+
+      &:hover {
+        color: rgb(188, 255, 0);
+      }
+    }
+
+    .nav-horizontal-dot-wrapper {
+      position: relative;
+    }
+
+    .mil-nav-dropdown {
+      position: absolute;
+      display: none;
+      left: -120%;
+      transform: translateY(15%);
+      border: 1px solid #D9D9D9;
+      border-radius: 8px;
+      background-color: white;
+
+      hr {
+        margin: 0px -11px;
+        border: none;
+        border-top: 1px solid #D9D9D9;
+        width: calc(100% + 22px);
+      }
+
+      .mil-nav-dropdown-logout {
+        color: rgba(252, 120, 120, 0.64);
+
+        &:hover {
+          color: #FC7878;
+        }
+      }
+
+      div {
+        display: flex;
+        flex-direction: column;
+        padding: 11px;
+        gap: 10px;
+
+        button {
+          text-align: left;
+          outline: none;
+          border: none;
+          min-width: 145px;
+          padding: 10px;
+          border-radius: 8px;
+          background-color: transparent;
+          cursor: pointer;
+          color: #7F7F7F;
+
+          &:hover {
+            background-color: #F7F7F7;
+            color: black;
+          }
+        }
+      }
+    }
+
+    .mil-nav-dropdown-user {
+      transform: translateY(6%);
+    }
+
+    .nav-horizontal-dot {
+      padding: 10px;
+      display: flex;
+      transition: background-color 1s, border-radius 1.2s;
+
+      &:hover {
+        background-color: #000;
+        border-radius: 100px;
+      }
+    }
+
+    .mil-top-panel-buttons a:hover {
+      filter: brightness(110%);
+    }
+
+    .nav-horizontal-dot {
+      background-color: #F7F7F7;
+      border-radius: 100px;
+
+      img {
+        filter: brightness(0);
+      }
+
+      img:hover {
+        filter: brightness(0) saturate(100%) invert(98%) sepia(8%) saturate(71%) hue-rotate(57deg) brightness(115%) contrast(94%);
+      }
+    }
+
+    .search-panel {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #F7F7F7;
+      width: 100%;
+      border-radius: 10px;
+      padding: 6px 7px 6px 15px;
+      gap: 20px;
+
+      input {
+        width: 100%;
+        background-color: transparent;
+        outline: none;
+        border: none;
+        font-family: 'Poppins'
+      }
+
+      button {
+        padding: 10px;
+        border-radius: 10px;
+        background-color: #D9D9D9;
+        outline: none;
+        border: none;
+        cursor: pointer;
+        transition: all .2s;
+
+        &:hover {
+          background-color: #7F7F7F;
+
+          img {
+            filter: brightness(0) saturate(100%) invert(100%) sepia(26%) saturate(1723%) hue-rotate(256deg) brightness(119%) contrast(108%);
+          }
+        }
+      }
+    }
+
+    /* ---------- THIS CONTENT STYLE --------- */
+
+    .container {
+      margin: 0 145px;
+      padding: 180px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      /* padding-top: 180px; */
+
+      @media (max-width: 1400px) {
+        margin: 0 auto;
+      }
+    }
+
+    .tag-row {
+      display: flex;
+      gap: 10px;
+
+      button {
+        padding: 8px 18px;
+        font-size: 16px;
+        color: #7F7F7F;
+        border-radius: 8px;
+        outline: none;
+        background-color: transparent;
+        border: 1px solid #7F7F7F;
+        cursor: pointer;
+
+        &:hover {
+          color: black;
+          border: 1px solid black;
+        }
+      }
+    }
+
+    .tab-header {
+      display: flex;
+      position: relative;
+      justify-content: space-between;
+
+      .tab-nav {
+        display: flex;
+        gap: 38px;
+      }
+
+      &:before {
+        content: "";
+        display: block;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        border-bottom: 2px solid #D9D9D9;
+      }
+
+      button {
+        display: flex;
+        align-items: center;
+        background-color: transparent;
+        border: none;
+        font-family: 'Poppins';
+        gap: 10px;
+        padding: 11px 0;
+        cursor: pointer;
+        z-index: 1;
+        color: #7F7F7F;
+
+        img {
+          filter: brightness(0) saturate(100%) invert(66%) sepia(0%) saturate(7492%) hue-rotate(110deg) brightness(77%) contrast(79%);
+        }
+
+        &:hover {
+          color: black;
+
+          img {
+            filter: none;
+          }
+        }
+      }
+
+      .tab-btn.active {
+        color: black;
+        border-bottom: 2px solid black;
+
+        img {
+          filter: none;
+        }
+      }
+    }
+
+    .filter-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+
+      p {
+        font-size: 16px;
+      }
+
+      .dropdown {
+        border-radius: 8px;
+        padding: 7px 15px;
+        color: #615E83;
+        padding-right: 30px;
+        border: 2px solid #D9D9D9;
+        /* Jarak untuk icon arrow */
+        appearance: none;
+        /* Menghilangkan default arrow */
+        background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTEiIGhlaWdodD0iNiIgdmlld0JveD0iMCAwIDExIDYiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xLjA0MTY1IDAuNTU3MDMzQzAuODAwMjQ0IDAuNzk4NDQxIDAuODAwMjQ0IDEuMTg5ODQgMS4wNDE2NSAxLjQzMTI1TDUuMjQ5NjMgNS42MzkyM0M1LjI1Mzc1IDUuNjQzNTkgNS4yNTc5NSA1LjY0NzkxIDUuMjYyMjIgNS42NTIxOUM1LjM4Mjk3IDUuNzcyOTQgNS41NDEyNSA1LjgzMzI5IDUuNjk5NTIgNS44MzMyNEM1Ljg1Nzc4IDUuODMzMjkgNi4wMTYwNiA1Ljc3Mjk0IDYuMTM2ODEgNS42NTIxOUM2LjE0MTA4IDUuNjQ3OTEgNi4xNDUyOCA1LjY0MzU5IDYuMTQ5NCA1LjYzOTIzTDEwLjM1NzQgMS40MzEyNUMxMC41OTg4IDEuMTg5ODQgMTAuNTk4OCAwLjc5ODQ0MSAxMC4zNTc0IDAuNTU3MDMzQzEwLjExNiAwLjMxNTYyNSA5LjcyNDU3IDAuMzE1NjI1IDkuNDgzMTYgMC41NTcwMzNMNS42OTk1MSA0LjM0MDY4TDEuOTE1ODcgMC41NTcwMzNDMS42NzQ0NiAwLjMxNTYyNSAxLjI4MzA2IDAuMzE1NjI1IDEuMDQxNjUgMC41NTcwMzNaIiBmaWxsPSIjNjE1RTgzIi8+PC9zdmc+') no-repeat right 10px center;
+        background-size: 16px;
+        background-color: transparent;
+        outline: none;
+      }
+
+      .dropdown.open {
+        background: url("data:image/svg+xml,%3Csvg width='11' height='6' viewBox='0 0 11 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M10.3573 5.65195C10.5987 5.41054 10.5987 5.01914 10.3573 4.77774L6.14929 0.569756C6.14517 0.565391 6.14098 0.561071 6.1367 0.556798C6.01595 0.436047 5.85767 0.375695 5.69941 0.375742C5.54115 0.375695 5.38287 0.436048 5.26212 0.556798C5.25785 0.56107 5.25365 0.565391 5.24953 0.569756L1.04155 4.77774C0.80014 5.01914 0.80014 5.41054 1.04155 5.65195C1.28296 5.89336 1.67436 5.89336 1.91576 5.65195L5.69941 1.8683L9.48306 5.65195C9.72447 5.89336 10.1159 5.89336 10.3573 5.65195Z' fill='white'/%3E%3C/svg%3E%0A") no-repeat right 10px center;
+        background-size: 16px;
+        background-color: #7F7F7F;
+        color: white;
+      }
+
+      .tab-btn.active {
+        color: black;
+        border-bottom: 2px solid black;
+
+        img {
+          filter: none;
+        }
+      }
+
+    }
+
+    .tab-content {
+      display: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      min-height: 70vh;
+    }
+
+    .tab-content.active {
+      display: flex;
+      opacity: 1;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- wrapper -->
+  <div class="mil-wrapper">
+    <div class="mil-progress-track">
+      <div class="mil-progress"></div>
+    </div>
+
+    <!-- top bar -->
+    <div class="mil-top-panel">
+      <a href="home-1.html" class="mil-logo">
+        <img src="img/logo/logo_pixavault_black.png" alt="Logo" />
+      </a>
+      <div class="search-panel">
+        <input type="text" autocomplete="on" placeholder="Search for photos">
+        <button>
+          <img src="img/icons/search-button.svg" alt="search-button">
+        </button>
+      </div>
+      <div class="mil-navigation">
+        <nav>
+          <div class="mil-top-panel-right">
+            <a href="#" class="mil-top-panel-link" style="color: black">Explore</a>
+            <div class="nav-horizontal-dot-wrapper">
+              <div class="nav-horizontal-dot toggleDropdown">
+                <img src="img/icons/horiz-dots-variant-2.svg" width="30px" height="30px" alt="Horizontal-Dot">
+              </div>
+              <div class="mil-nav-dropdown dropdownMenu">
+                <div>
+                  <button><a href="#">Leaderboard</a></button>
+                  <button><a href="#">Pricing</a></button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="mil-top-panel-right">
+            <div class="mil-top-panel-user">
+              <img src="img/icons/user-elipse.svg" width="46px" height="46px" alt="" class="toggleDropdown">
+              <div class="mil-nav-dropdown mil-nav-dropdown-user dropdownMenu">
+                <div>
+                  <button><a href="#">View</a> Profile</button>
+                  <button><a href="#">Stats</a></button>
+                  <button><a href="#">Account</a> Settings</button>
+                  <hr>
+                  <button class="mil-nav-dropdown-logout"><a href="#">Logout</a> </button>
+                </div>
+              </div>
+            </div>
+            <a href="#" class="mil-top-panel-buttons"><img src="img/icons/upload-icon.svg">UPLOAD</a>
+          </div>
+        </nav>
+      </div>
+      <!-- <div class="mil-top-panel-buttons">
+          <a href="#">Sign Up</a>
+        </div> -->
+    </div>
+
+    <!-- top bar end -->
+
+    <!-- content -->
+    <div id="content">
+      <div class="container">
+        <h3>Showing result for <span>Bromo</span></h3>
+        <div class="tag-row">
+          <button>Natures</button>
+          <button>Bromo</button>
+          <button>Indonesia</button>
+          <button>Mountain</button>
+          <button>Outdoor</button>
+          <button>East java</button>
+        </div>
+        <div class="tab-header">
+          <div class="tab-nav">
+            <button class="tab-btn active" data-tab="photos">
+              <img src="img/icons/multi-image.svg" alt="multiple image">Photos 12
+            </button>
+            <button class="tab-btn" data-tab="users">
+              <img src="img/icons/people.svg" alt="multiple image">Users 3
+            </button>
+          </div>
+          <div class="filter-wrapper">
+            <p>Sort by :</p>
+            <select class="dropdown select-sort">
+              <option value="newest">Newest</option>
+              <option value="oldest">Oldest</option>
+              <option value="highest-resolution">Highest Resolution</option>
+              <option value="lowest-resolution">Lowest Resolution</option>
+            </select>
+          </div>
+        </div>
+        <!-- Gallery -->
+        <div class="row tab-content active" id="photos">
+          <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+            <div class="content-item mil-up position-relative">
+              <div class="mil-buttons">
+                <button class="mil-love-btn"><i class="fas fa-heart"></i></button>
+                <button class="mil-download-btn"><i class="fas fa-download"></i></button>
+              </div>
+              <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp"
+                class="w-100 shadow-1-strong rounded" alt="Boat on Calm Water" />
+              <div class="image-profile">
+                <img src="img/icons/user-elipse.svg" alt="Profile Picture" class="mil-profile-img" />
+                <p class="mil-username">PixaVault</p>
+              </div>
+            </div>
+
+            <div class="content-item mil-up position-relative">
+              <div class="mil-buttons">
+                <button class="mil-love-btn"><i class="fas fa-heart"></i></button>
+                <button class="mil-download-btn"><i class="fas fa-download"></i></button>
+              </div>
+              <img src="https://mdbcdn.b-cdn.net/img/Photos/Vertical/mountain1.webp"
+                class="w-100 shadow-1-strong rounded" alt="Wintry Mountain Landscape" />
+              <div class="image-profile">
+                <img src="img/icons/user-elipse.svg" alt="Profile Picture" class="mil-profile-img" />
+                <p class="mil-username">PixaVault</p>
+              </div>
+            </div>
+
+            <div class="content-item mil-up position-relative">
+              <div class="mil-buttons">
+                <button class="mil-love-btn"><i class="fas fa-heart"></i></button>
+                <button class="mil-download-btn"><i class="fas fa-download"></i></button>
+              </div>
+              <img src="https://mdbcdn.b-cdn.net/img/Photos/Thumbnails/Vertical/1.webp"
+                class="w-100 shadow-1-strong rounded" alt="Wintry Mountain Landscape" />
+              <div class="image-profile">
+                <img src="img/icons/user-elipse.svg" alt="Profile Picture" class="mil-profile-img" />
+                <p class="mil-username">PixaVault</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 mb-4 mb-lg-0">
+            <div class="content-item mil-up position-relative">
+              <div class="mil-buttons">
+                <button class="mil-love-btn"><i class="fas fa-heart"></i></button>
+                <button class="mil-download-btn"><i class="fas fa-download"></i></button>
+              </div>
+              <img src="https://mdbcdn.b-cdn.net/img/Photos/Vertical/mountain2.webp"
+                class="w-100 shadow-1-strong rounded" alt="Mountains in the Clouds" />
+              <div class="image-profile">
+                <img src="img/icons/user-elipse.svg" alt="Profile Picture" class="mil-profile-img" />
+                <p class="mil-username">PixaVault</p>
+              </div>
+            </div>
+
+            <div class="content-item mil-up position-relative">
+              <div class="mil-buttons">
+                <button class="mil-love-btn"><i class="fas fa-heart"></i></button>
+                <button class="mil-download-btn"><i class="fas fa-download"></i></button>
+              </div>
+              <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp"
+                class="w-100 shadow-1-strong rounded" alt="Boat on Calm Water" />
+              <div class="image-profile">
+                <img src="img/icons/user-elipse.svg" alt="Profile Picture" class="mil-profile-img" />
+                <p class="mil-username">PixaVault</p>
+              </div>
+            </div>
+
+            <div class="content-item mil-up position-relative">
+              <div class="mil-buttons">
+                <button class="mil-love-btn"><i class="fas fa-heart"></i></button>
+                <button class="mil-download-btn"><i class="fas fa-download"></i></button>
+              </div>
+              <img src="https://mdbcdn.b-cdn.net/img/Photos/Thumbnails/Square/1.webp"
+                class="w-100 shadow-1-strong rounded" alt="Boat on Calm Water" />
+              <div class="image-profile">
+                <img src="img/icons/user-elipse.svg" alt="Profile Picture" class="mil-profile-img" />
+                <p class="mil-username">PixaVault</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 mb-4 mb-lg-0">
+            <div class="content-item mil-up position-relative">
+              <div class="mil-buttons">
+                <button class="mil-love-btn"><i class="fas fa-heart"></i></button>
+                <button class="mil-download-btn"><i class="fas fa-download"></i></button>
+              </div>
+              <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(18).webp"
+                class="w-100 shadow-1-strong rounded" alt="Waves at Sea" />
+              <div class="image-profile">
+                <img src="img/icons/user-elipse.svg" alt="Profile Picture" class="mil-profile-img" />
+                <p class="mil-username">PixaVault</p>
+              </div>
+            </div>
+
+            <div class="content-item mil-up position-relative">
+              <div class="mil-buttons">
+                <button class="mil-love-btn"><i class="fas fa-heart"></i></button>
+                <button class="mil-download-btn"><i class="fas fa-download"></i></button>
+              </div>
+              <img src="https://mdbcdn.b-cdn.net/img/Photos/Thumbnails/Slides/1.webp"
+                class="w-100 shadow-1-strong rounded" alt="Waves at Sea" />
+              <div class="image-profile">
+                <img src="img/icons/user-elipse.svg" alt="Profile Picture" class="mil-profile-img" />
+                <p class="mil-username">PixaVault</p>
+              </div>
+            </div>
+
+            <div class="content-item mil-up position-relative">
+              <div class="mil-buttons">
+                <button class="mil-love-btn"><i class="fas fa-heart"></i></button>
+                <button class="mil-download-btn"><i class="fas fa-download"></i></button>
+              </div>
+              <img src="https://mdbcdn.b-cdn.net/img/Photos/Vertical/mountain3.webp"
+                class="w-100 shadow-1-strong rounded" alt="Yosemite National Park" />
+              <div class="image-profile">
+                <img src="img/icons/user-elipse.svg" alt="Profile Picture" class="mil-profile-img" />
+                <p class="mil-username">PixaVault</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-content" is="users"></div>
+        <!-- Gallery -->
+      </div>
+    </div>
+
+    <!-- content -->
+    <!-- wrapper end -->
+
+    <script>
+      // Menonaktifkan klik kanan pada elemen gambar
+      document.querySelectorAll("img").forEach((img) => {
+        img.addEventListener("contextmenu", (event) => {
+          event.preventDefault(); // Mencegah menu konteks default
+          alert("Fitur penyimpanan gambar telah dinonaktifkan!");
+        });
+      });
+    </script>
+
+    <!-- js modal photo -->
+    <script>
+      // Get elements
+      const photoTrigger = document.getElementById("photo-trigger");
+      const photoModal = document.getElementById("photo-modal");
+      const closeModal = document.getElementById("close-modal");
+
+      // Show modal on click
+      photoTrigger.addEventListener("click", (e) => {
+        e.preventDefault();
+        photoModal.style.display = "flex";
+      });
+
+      // Hide modal on close button
+      closeModal.addEventListener("click", () => {
+        photoModal.style.display = "none";
+      });
+
+      // Hide modal on outside click
+      window.addEventListener("click", (e) => {
+        if (e.target === photoModal) {
+          photoModal.style.display = "none";
+        }
+      });
+    </script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const searchInput = document.querySelector(".mil-sidebar-search input");
+        const searchButton = document.querySelector(
+          ".mil-sidebar-search button"
+        );
+
+        searchButton.addEventListener("click", function () {
+          let query = searchInput.value.trim(); // Ambil teks input
+          if (query) {
+            alert("Mencari: " + query);
+            // window.location.href = `search.html?q=${encodeURIComponent(query)}`;
+          } else {
+            alert("Masukkan kata kunci pencarian!");
+          }
+        });
+
+        // Jika tekan Enter dalam input, pencarian juga bisa berjalan
+        searchInput.addEventListener("keypress", function (event) {
+          if (event.key === "Enter") {
+            searchButton.click();
+          }
+        });
+      });
+    </script>
+
+    <!-- js random images -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Ambil semua elemen dengan kelas .mil-randomimage
+        const randomImageElements =
+          document.querySelectorAll(".mil-randomimage");
+
+        randomImageElements.forEach((imgElement) => {
+          // Mengambil gambar acak dari Picsum dengan ukuran 600x400 (sesuaikan ukuran sesuai kebutuhan)
+          const randomImageUrl = `https://picsum.photos/600/400?random=${Math.floor(
+            Math.random() * 1000
+          )}`;
+
+          // Ganti atribut src dengan URL gambar acak dari Picsum
+          imgElement.src = randomImageUrl;
+        });
+      });
+    </script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+
+        const buttons = document.querySelectorAll(".tab-btn");
+        const contents = document.querySelectorAll(".tab-content");
+
+        buttons.forEach((button) => {
+          button.addEventListener("click", function () {
+            buttons.forEach((btn) => btn.classList.remove("active"));
+            contents.forEach((content) => content.classList.remove("active"));
+
+            this.classList.add("active");
+            document.getElementById(this.dataset.tab).classList.add("active");
+          });
+        });
+      });
+    </script>
+
+    <!-- jQuery js -->
+    <script src="js/plugins/jquery.min.js"></script>
+    <!-- swiper js -->
+    <script src="js/plugins/swiper.min.js"></script>
+    <!-- gsap js -->
+    <script src="js/plugins/gsap.min.js"></script>
+    <!-- imagesloaded js -->
+    <script src="js/plugins/imagesloaded.pkgd.js"></script>
+    <!-- isotope js -->
+    <script src="js/plugins/isotope.min.js"></script>
+    <!-- scroll smoother -->
+    <script src="js/plugins/smooth-scroll.js"></script>
+    <!-- scroll trigger js -->
+    <script src="js/plugins/ScrollTrigger.min.js"></script>
+    <!-- magnific js -->
+    <script src="js/plugins/magnific-popup.js"></script>
+    <!-- ruizarch js -->
+    <script src="js/main.js"></script>
+    <!-- custom js -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const toggleButtons = document.querySelectorAll(".toggleDropdown");
+        const dropdownMenus = document.querySelectorAll(".dropdownMenu");
+
+        toggleButtons.forEach((button, index) => {
+          button.addEventListener("click", function (event) {
+            event.stopPropagation(); // Mencegah event bubble
+
+            // Tutup semua dropdown sebelum membuka yang baru
+            dropdownMenus.forEach((menu, i) => {
+              if (i !== index) {
+                menu.style.display = "none";
+              }
+            });
+
+            // Toggle dropdown yang diklik
+            const dropdownMenu = button.nextElementSibling;
+            dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
+          });
+        });
+
+        // Menutup dropdown saat klik di luar
+        document.addEventListener("click", function () {
+          dropdownMenus.forEach(menu => {
+            menu.style.display = "none";
+          });
+        });
+      });
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const menuItems = document.querySelectorAll(".menu-item");
+        const editProfileSection = document.querySelector(".edit-profile");
+        const changePasswordSection = document.querySelector(".change-password");
+
+        // Fungsi untuk menampilkan tab yang dipilih
+        function showTab(tabName) {
+          if (tabName === "Edit Profile") {
+            editProfileSection.classList.remove("d-none");
+            changePasswordSection.classList.add("d-none");
+          } else if (tabName === "Password") {
+            changePasswordSection.classList.remove("d-none");
+            editProfileSection.classList.add("d-none");
+          }
+        }
+
+        // Event listener untuk setiap menu item
+        menuItems.forEach((item) => {
+          item.addEventListener("click", function () {
+            // Hapus class 'active' dari semua menu item
+            menuItems.forEach((menu) => menu.classList.remove("active"));
+
+            // Tambahkan class 'active' ke item yang diklik
+            this.classList.add("active");
+
+            // Tampilkan tab sesuai dengan menu yang diklik
+            showTab(this.textContent.trim());
+          });
+        });
+
+        // Default tampilkan Password
+        showTab("Edit Profile");
+      });
+
+
+    </script>
+</body>
+
+</html>
