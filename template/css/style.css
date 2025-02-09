@@ -3876,9 +3876,6 @@ load more
   justify-content: center;
   align-items: center;
   z-index: 1000;
-
-
-
 }
 
 .modal-content {
@@ -3894,6 +3891,39 @@ load more
   max-height: 100vh;
   /* Mengatur tinggi maksimum modal agar tidak meluas terlalu banyak */
   border-radius: 10px;
+  overflow-x: hidden;
+
+  .more-images {
+    .header {
+      margin-bottom: 25px;
+      h4 {
+        font-family: 'Poppins';
+        font-weight: 600;
+      }
+    }
+  }
+
+  .tag-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 60px;
+  
+    button {
+      padding: 8px 18px;
+      font-size: 16px;
+      color: #7F7F7F;
+      border-radius: 8px;
+      outline: none;
+      background-color: transparent;
+      border: 1px solid #7F7F7F;
+      cursor: pointer;
+  
+      &:hover {
+        color: black;
+        border: 1px solid black;
+      }
+    }
+  }
 }
 
 .modal-header {
@@ -3907,7 +3937,7 @@ load more
   /* Menjaga header tetap di atas konten lainnya dalam modal */
   background-color: white;
   /* Memberikan latar belakang putih agar konten lainnya tidak terlihat lewat */
-  padding: 10px 20px;
+  padding: 30px 20px;
   /* Menambahkan padding untuk memberikan jarak di dalam modal */
 }
 
@@ -3915,22 +3945,64 @@ load more
   display: flex;
   align-items: center;
   gap: 15px;
+
+  p {
+    line-height: 23px;
+    font-family: "Poppins"
+  }
+
+  .follow {
+    font-size: 14px;
+  }
 }
 
 .modal-header .user-info img {
-  width: 40px;
-  height: 40px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
 }
 
 .modal-header .user-info .username {
   font-weight: bold;
+  font-size: 16px;
+  color: #000;
 }
 
 .modal-header .actions {
   display: flex;
   align-items: center;
   gap: 15px;
+
+  button {
+    border-radius: 10px;
+    outline: none;
+    background-color: #D9D9D9;
+    border: none;
+    cursor: pointer;
+  }
+
+  .like-btn {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    
+    &:hover {
+      background-color: #7F7F7F;
+
+      i {
+        color: white;
+      }
+    }
+  }
+
+  .option-icon {
+    filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(7500%) hue-rotate(56deg) brightness(96%) contrast(104%);
+    cursor: pointer;
+
+    &:hover {
+      filter: brightness(0) saturate(100%) invert(46%) sepia(58%) saturate(5%) hue-rotate(325deg) brightness(97%) contrast(93%);
+    }
+  }
 }
 
 .modal-header .actions i {
@@ -3939,23 +4011,51 @@ load more
 }
 
 .modal-header .download-btn {
-  background: rgb(188, 255, 0);
-  color: black;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  font-size: 1em;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  background-color: black !important;
   cursor: pointer;
+  font-family: 'Poppins';
+  padding: 10px 15px;
+  color: white;
+  max-height: 50px;
+  overflow: hidden;
+
+  &:hover {
+    background-color: #7F7F7F !important;
+  }
+
+  div {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    p {
+      line-height: 20px;
+      font-weight: 600;
+      font-size: 16px
+    }
+
+  }
+  .right-part {
+    img {
+      filter: brightness(0) saturate(100%) invert(97%) sepia(17%) saturate(605%) hue-rotate(300deg) brightness(117%) contrast(100%);
+      margin-left: 10px;
+    }
+  }
+
+  hr {
+    height: 100px;
+    border: 1px solid white;
+  }
 }
 
 .modal-header .download-btn:hover {
   filter: brightness(110%);
 }
 
-
-
-.modal img {
-  width: 80%;
+.modal .image-content {
   max-width: 500px;
   /* Membatasi ukuran maksimum gambar */
   display: block;
@@ -3967,6 +4067,33 @@ load more
 .modal .details {
   display: flex;
   margin-bottom: 10px;
+
+  h4 {
+    font-size: 32px;
+  }
+}
+
+.publish-cam {
+  display: flex;
+  gap: 15px;
+}
+
+.created-date {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  
+  i {
+    font-size: 24px;
+    margin: 0 2px !important;
+  }
+}
+
+.content-description {
+  color: black;
+  font-size: 14px;
+  width: 585px;
+  line-height: 20px;
 }
 
 .modal .details span {
@@ -3991,23 +4118,44 @@ load more
 }
 
 .modal .close {
-  position: absolute;
-  top: 10px;
-  right: 10px;
+  display: block;
+  margin-left: auto;
+  margin-right: 0;
   color: black;
-  font-size: 1.5em;
   cursor: pointer;
+  width: 24px;
+  height: 24px;
 }
 
 .modal .line {
-  width: 100%;
-  height: 2px;
-  background-color: #ddd;
+  margin-left: -100px;
+  width: 200%;
+  border: 1px solid #D9D9D9;
   margin-top: 20px;
 }
 
+.share-btn {
+  display: flex;
+  align-items: center;
+  padding: 8px 15px;
+  gap: 10px;
+  border: 2px solid #D9D9D9;
+  font-family: 'Poppins';
+  height: fit-content;
+  border-radius: 8px;
+  margin-left: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  cursor: pointer;
+  color: #7F7F7F;
+  background-color: transparent;
+
+  &:hover {
+    filter: brightness(.8);
+  }
+}
+
 .modal p {
-  max-width: 70%;
   font-size: small;
 }
 

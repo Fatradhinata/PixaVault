@@ -19,7 +19,344 @@
     <link rel="stylesheet" href="css/style.css">
     <!-- page name -->
     <title>Pixel Vault</title>
+    <!-- style -->
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
+        body,
+        button {
+            font-family: "Poppins", "Figtree";
+            background-color: #f8f8f8;
+        }
+
+        input {
+            font-family: 'Figtree', 'Arial'
+        }
+
+        #content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .upload-content {
+            display: flex;
+            flex-direction: column;
+            gap: 34px;
+            max-width: 991px;
+            width: 991px;
+            min-height: 70%;
+            height: fit-content;
+            background: white;
+            padding: 36px 54px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin: auto;
+            overflow: hidden;
+
+            hr {
+                margin-left: -54px;
+                width: 500%;
+                border: 1px solid #D9D9D9;
+            }
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .header h5 {
+            font-size: 28px;
+        }
+
+        .core {
+            display: flex;
+            gap: 55px;
+            flex: 1;
+        }
+
+        .upload {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            text-align: center;
+            width: 47%;
+        }
+
+        .upload-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 17px;
+            background-color: #FDFDFD;
+            cursor: pointer;
+
+            height: 100%;
+            width: 100%;
+
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            padding: 20px 60px;
+
+            overflow: hidden;
+
+            p {
+                line-height: 20px;
+                color: black;
+                font-weight: 500;
+
+                span {
+                    cursor: pointer;
+                    color: #0065B8;
+                    text-decoration: underline;
+
+                    &:hover {
+                        filter: brightness(0.8);
+                    }
+                }
+            }
+        }
+
+        .uploaded {
+            padding: 0;
+            max-height: 300px;
+            border: 2px solid #ccc;
+
+            img {
+                object-fit: contain !important;
+            }
+        }
+
+        .file-detail-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: 3px 10px;
+            border-radius: 8px;
+            background: transparent;
+            border: 2px solid #D9D9D9;
+        }
+
+        .file-detail {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .filename {
+            max-width: 250px;            
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            display: inline-block;            
+            vertical-align: middle;
+        }
+
+        .filename-wrapper {
+            text-align: left;
+            max-width: 100%;            
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            display: block;
+
+
+            .file-size {
+                color: #7F7F7F;
+            }
+        }
+
+        .filename-wrapper p {
+            font-size: 14px;
+            line-height: 20px;
+            font-weight: 500;
+        }
+
+        .upload-detail {
+            width: 53%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .input-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+
+            p {
+                font-size: 16px;
+                font-weight: 600;
+            }
+        }
+
+        .input-wrapper-row {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            width: 100%;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #D9D9D9;
+            border-radius: 5px;
+            font-size: 14px;
+            color: black;
+            font-weight: 600;
+        }
+
+        .upload-submit-wrapper {
+            display: flex;
+            gap: 10px;
+
+            button {
+                border-radius: 8px;
+                cursor: pointer;
+                padding: 8px 30px;
+                font-size: 18px;
+                transition: background-color 0.3s
+            }
+        }
+
+        .trash-icon {
+            cursor: pointer;
+            transition: all .3s;
+            &:hover {
+                filter: brightness(0) saturate(100%) invert(13%) sepia(92%) saturate(5556%) hue-rotate(2deg) brightness(105%) contrast(123%);
+            }
+        }
+
+        .upload-button {
+            background-color: #BCFF00;
+            color: black;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #CFFF00;
+            }
+        }
+
+        .upload-cancel-button {
+            background-color: transparent;
+            color: black;
+            border: none;
+            font-weight: 600;
+
+            &:hover {
+                background-color: #D9D9D9;
+            }
+        }
+
+        /* ---------- Responsive Styles ---------- */
+
+/* For large devices (max-width: 1200px) */
+@media (max-width: 1200px) {
+    .upload-content {
+        max-width: 900px;
+        width: 90%;
+        padding: 30px 40px;
+    }
+    .core {
+        gap: 40px;
+    }
+    .upload {
+        width: 50%;
+    }
+    .upload-detail {
+        width: 50%;
+    }
+}
+
+/* For medium devices (max-width: 992px) */
+@media (max-width: 992px) {
+    #content {
+        height: auto;
+        padding: 20px;
+    }
+    .upload-content {
+        padding: 20px 30px;
+    }
+    .core {
+        flex-direction: column;
+        gap: 20px;
+    }
+    .upload, 
+    .upload-detail {
+        width: 100%;
+    }
+}
+
+/* For small devices (max-width: 768px) */
+@media (max-width: 768px) {
+    .upload-content {
+        padding: 20px 20px;
+    }
+    .header h5 {
+        font-size: 24px;
+    }
+    input {
+        font-size: 13px;
+    }
+    .upload-submit-wrapper button {
+        font-size: 16px;
+        padding: 6px 20px;
+    }
+}
+
+/* For extra small devices (max-width: 576px) */
+@media (max-width: 576px) {
+    .upload-content {
+        padding: 15px 10px;
+        width: 100%;
+    }
+    .header h5 {
+        font-size: 20px;
+    }
+    .core {
+        gap: 15px;
+    }
+    input {
+        font-size: 12px;
+    }
+    .upload-submit-wrapper button {
+        font-size: 14px;
+        padding: 6px 15px;
+    }
+    .filename {
+        max-width: 150px;
+    }
+    .input-wrapper-row {
+        display: flex;
+        flex-direction: column;
+    }
+}
+    </style>
 </head>
 
 <body>
@@ -103,95 +440,57 @@
 
         <!-- content -->
         <div id="content">
-            <section class="mil-banner bg-white">
-                <!-- <img src="img/foto/1.jpg" style="height: 83px" class="mil-bg-img mil-scale" data-value-1=".4"
-                    data-value-2="1.4" alt="image"> -->
-                <div class="mil-overlay"></div>
-                <div class="container d-flex align-items-center">
-                    <!-- <div class="mil-background-grid mil-top-space"></div> -->
-                    <div id="upload-section" class="mil-banner-content dashed-1 h-90">
-                        <div
-                            class="w-100 h-100 mil-flex flex-column align-items-center gap-md pointer justify-content-center">
-                            <div>
-                                <svg width="160" height="160" viewBox="0 0 160 160" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M135.417 64.1666C133.317 64.1666 131.303 65.0007 129.819 66.4854C128.334 67.97 127.5 69.9837 127.5 72.0833V98.8416L115.783 87.125C111.646 83.0205 106.055 80.7174 100.227 80.7174C94.3993 80.7174 88.8078 83.0205 84.6708 87.125L79.1291 92.7458L59.4958 73.0333C55.3587 68.9289 49.7672 66.6258 43.9395 66.6258C38.1118 66.6258 32.5203 68.9289 28.3833 73.0333L16.6666 84.8291V40.4166C16.6666 38.317 17.5007 36.3034 18.9853 34.8187C20.47 33.3341 22.4836 32.5 24.5833 32.5H87.9166C90.0162 32.5 92.0298 31.6659 93.5145 30.1812C94.9992 28.6966 95.8333 26.6829 95.8333 24.5833C95.8333 22.4837 94.9992 20.47 93.5145 18.9854C92.0298 17.5007 90.0162 16.6666 87.9166 16.6666H24.5833C18.2844 16.6666 12.2435 19.1689 7.78947 23.6229C3.33548 28.0768 0.833252 34.1178 0.833252 40.4166V137.158C0.854113 142.989 3.17954 148.575 7.30239 152.698C11.4252 156.82 17.011 159.146 22.8416 159.167H121.325C123.469 159.137 125.6 158.818 127.658 158.217C132.23 156.934 136.254 154.188 139.114 150.398C141.974 146.609 143.512 141.985 143.492 137.237V72.0833C143.492 71.0302 143.282 69.9877 142.874 69.0167C142.466 68.0458 141.869 67.1659 141.117 66.4287C140.365 65.6914 139.474 65.1116 138.495 64.7232C137.516 64.3348 136.469 64.1456 135.417 64.1666ZM24.5833 143.333C22.4836 143.333 20.47 142.499 18.9853 141.015C17.5007 139.53 16.6666 137.516 16.6666 135.417V107.154L39.5457 84.275C40.7028 83.1244 42.2682 82.4785 43.8999 82.4785C45.5317 82.4785 47.0971 83.1244 48.2541 84.275L107.392 143.333H24.5833ZM127.5 135.417C127.449 136.95 126.954 138.435 126.075 139.692L90.2916 103.75L95.9124 98.2083C96.48 97.629 97.1574 97.1688 97.9051 96.8547C98.6528 96.5405 99.4556 96.3787 100.267 96.3787C101.078 96.3787 101.88 96.5405 102.628 96.8547C103.376 97.1688 104.053 97.629 104.621 98.2083L127.5 121.246V135.417ZM151.25 16.6666H143.333V8.74998C143.333 6.65035 142.499 4.63671 141.015 3.15205C139.53 1.66739 137.516 0.833313 135.417 0.833313C133.317 0.833313 131.303 1.66739 129.819 3.15205C128.334 4.63671 127.5 6.65035 127.5 8.74998V16.6666H119.583C117.484 16.6666 115.47 17.5007 113.985 18.9854C112.501 20.47 111.667 22.4837 111.667 24.5833C111.667 26.6829 112.501 28.6966 113.985 30.1812C115.47 31.6659 117.484 32.5 119.583 32.5H127.5V40.4166C127.5 42.5163 128.334 44.5299 129.819 46.0146C131.303 47.4992 133.317 48.3333 135.417 48.3333C137.516 48.3333 139.53 47.4992 141.015 46.0146C142.499 44.5299 143.333 42.5163 143.333 40.4166V32.5H151.25C153.35 32.5 155.363 31.6659 156.848 30.1812C158.333 28.6966 159.167 26.6829 159.167 24.5833C159.167 22.4837 158.333 20.47 156.848 18.9854C155.363 17.5007 153.35 16.6666 151.25 16.6666Z"
-                                        fill="#7F7F7F" />
-                                </svg>
-                            </div>
-                            <div class="d-flex flex-column gap-sm">
-                                <h2 class="f-white">Upload A Photo</h2>
-                                <div class="d-flex justify-content-between">
-                                    <p
-                                        class="d-block p-button-custom-1 rounded-1 mil-marker text-black mil-bold font-lg-24">
-                                        JPEG</p>
-                                    <p
-                                        class="d-block p-button-custom-1 rounded-1 mil-marker text-black mil-bold font-lg-24">
-                                        JPG</p>
-                                    <p
-                                        class="d-block p-button-custom-1 rounded-1 mil-marker text-black mil-bold font-lg-24">
-                                        PNG</p>
+            <div class="upload-content">
+                <div class="header">
+                    <h5>Upload Photo</h5>
+                    <img src="img/icons/cancel.svg" width="35px" height="35px" alt="cancel">
+                </div>
+                <hr>
+                <div class="core">
+                    <div class="upload">
+                        <div class="upload-area">
+                            <img src="img/icons/camera.svg" alt="icon-cam">
+                            <p>Drag & Drop<br>photo to Upload<br>or <span>browse</span></p>
+                        </div>
+                        <div class="file-detail-wrapper" style="display: none;">
+                            <div class="file-detail">
+                                <img src="img/icons/document-jpg.svg" width="46px" height="46px" alt="doc-jpg">
+                                <div class="filename-wrapper">
+                                    <p class="filename">filename.jpg</p>
+                                    <p class="file-size">3MB</p>
                                 </div>
                             </div>
-                            <hr class="w-half">
-                            <p class="f-white text-xl">Drag & drop up to 5 images or <span
-                                    class="font-700 mil-accent pointer">Browse</span> to choose a file</p>
-                            <p class="f-light-gray">Max 50 MB</p>
+                            <img class="trash-icon" src="img/icons/trash.svg" alt="delete">
                         </div>
                     </div>
-                </div>
-            </section>
-            <div id="modal-selection" class="modal-selection pos-absolute bg-white d-none">
-                <div class="modal-selection-content">
-                    <div class="modal-selection-column">
-                        <button><img src="img/icons/button-image.svg" alt="">
-                            <p>Add more image <span>(4)</span></p>
-                        </button>
-                        <div class="selection-card d-flex flex-column">
-                            <img src="img/foto/2.jpg" alt="Image 1">
-                            <input type="text" placeholder="Add a title">
-                            <input type="text" placeholder="Add a description">
-                            <input type="text" placeholder="Add a tag">
-                            <input type="text" placeholder="Shoot by">
+                    <div class="upload-detail">
+                        <div class="input-wrapper">
+                            <p>Title</p>
+                            <input type="text" placeholder="Breathtaking Nature's Beauty">
+                        </div>
+                        <div class="input-wrapper">
+                            <p>Description</p>
+                            <input type="text" placeholder="Immerse yourself in the serene beauty of nature , where...">
+                        </div>
+                        <div class="input-wrapper input-wrapper-row">
+                            <div class="input-group">
+                                <p>Category Tag</p>
+                                <input type="text" placeholder="Natures">
+                            </div>
+                            <div class="input-group">
+                                <p>Shoot by</p>
+                                <input type="text" placeholder="Iphone 16 pro">
+                            </div>
+                        </div>
+                        <div class="upload-submit-wrapper">
+                            <button class="upload-button">
+                                Upload Photo
+                            </button>
+                            <button class="upload-cancel-button">
+                                Cancel
+                            </button>
                         </div>
                     </div>
-                    <div class="modal-selection-column">
-                        <div class="selection-card d-flex flex-column">
-                            <img src="img/foto/1.jpg" alt="Image 1">
-                            <input type="text" placeholder="Add a title">
-                            <input type="text" placeholder="Add a description">
-                            <input type="text" placeholder="Add a tag">
-                            <input type="text" placeholder="Shoot by">
-                        </div>
-                        <div class="selection-card d-flex flex-column">
-                            <img src="img/foto/3.jpg" alt="Image 1">
-                            <input type="text" placeholder="Add a title">
-                            <input type="text" placeholder="Add a description">
-                            <input type="text" placeholder="Add a tag">
-                            <input type="text" placeholder="Shoot by">
-                        </div>
-                    </div>
-                    <div class="modal-selection-column">
-                        <div class="selection-card d-flex flex-column">
-                            <img src="img/foto/1.jpg" alt="Image 1">
-                            <input type="text" placeholder="Add a title">
-                            <input type="text" placeholder="Add a description">
-                            <input type="text" placeholder="Add a tag">
-                            <input type="text" placeholder="Shoot by">
-                        </div>
-                        <div class="selection-card d-flex flex-column">
-                            <img src="img/foto/2.jpg" alt="Image 1">
-                            <input type="text" placeholder="Add a title">
-                            <input type="text" placeholder="Add a description">
-                            <input type="text" placeholder="Add a tag">
-                            <input type="text" placeholder="Shoot by">
-                        </div>
-                    </div>
-                </div>
-                <div class="button-bottom d-flex">
-                    <button class="btn btn-outline cancel-btn">Cancel</button>
-                    <button class="btn btn-primary">Submit</button>
                 </div>
             </div>
         </div>
@@ -219,21 +518,72 @@
     <script src="js/main.js"></script>
     <!-- custom js -->
     <script>
-        const uploadSection = document.getElementById("upload-section");
-        const modalSelection = document.getElementById("modal-selection");
+        document.addEventListener("DOMContentLoaded", function () {
+            const uploadArea = document.querySelector(".upload-area");
+            const fileInput = document.createElement("input");
+            fileInput.type = "file";
+            fileInput.accept = "image/*";
+            fileInput.style.display = "none";
 
-        uploadSection.addEventListener("click", () => {
-            modalSelection.classList.add('d-flex')
-            modalSelection.classList.remove('d-none')
-            console.log('sadsad', modalSelection)
-        })
+            const fileDetailWrapper = document.querySelector(".file-detail-wrapper");
+            const fileNameElement = document.querySelector(".filename");
+            const fileSizeElement = document.querySelector(".file-size");
 
-        modalSelection.querySelector('.cancel-btn').addEventListener("click", () => {
-            modalSelection.classList.add('d-none')
-            modalSelection.classList.remove('d-flex')
-        })
+            uploadArea.addEventListener("click", () => fileInput.click());
+
+            fileInput.addEventListener("change", (event) => {
+                handleFile(event.target.files[0]);
+            });
+
+            uploadArea.addEventListener("dragover", (event) => {
+                event.preventDefault();
+                uploadArea.classList.add("drag-over");
+            });
+
+            uploadArea.addEventListener("dragleave", () => {
+                uploadArea.classList.remove("drag-over");
+            });
+
+            uploadArea.addEventListener("drop", (event) => {
+                event.preventDefault();
+                uploadArea.classList.remove("drag-over");
+                if (event.dataTransfer.files.length > 0) {
+                    handleFile(event.dataTransfer.files[0]);
+                }
+            });
+
+            function handleFile(file) {
+                if (file && file.type.startsWith("image/")) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        uploadArea.innerHTML = `<img src="${e.target.result}" alt="uploaded-image" style="max-width: -webkit-fill-available; max-height: inherit; object-fit: contain; border-radius: 8px;">`;
+
+                        uploadArea.classList.add("uploaded");
+
+                        // **Update filename & file size**
+                        fileNameElement.textContent = file.name;
+
+                        // **Filter size (KB atau MB)**
+                        let fileSize = file.size / 1024; // Convert to KB
+                        if (fileSize < 1024) {
+                            fileSizeElement.textContent = fileSize.toFixed(2) + " KB";
+                        } else {
+                            fileSizeElement.textContent = (fileSize / 1024).toFixed(2) + " MB";
+                        }
+
+                        // **Unhide file details**
+                        fileDetailWrapper.style.display = "flex";
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    alert("Please upload a valid image file.");
+                }
+            }
+
+            document.body.appendChild(fileInput);
+        });
+
     </script>
-
 </body>
 
 </html>
