@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <!-- bootstrap grid css -->
+  <link rel="stylesheet" href="css/plugins/bootstrap-grid.css">
+  <!-- font awesome css -->
+  <link rel="stylesheet" href="css/plugins/font-awesome.min.css">
+  <!-- swiper css -->
+  <link rel="stylesheet" href="css/plugins/swiper.min.css">
+  <!-- magnific css -->
+  <link rel="stylesheet" href="css/plugins/magnific-popup.css">
+  <!-- ruizarch css -->
+  <link rel="stylesheet" href="css/style.css">
+  <!-- page name -->
+  <title>Pixel Vault</title>
+  <!-- style -->
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body,
+    button,
+    select {
+      font-family: "Poppins", "Figtree";
+      background-color: #f8f8f8;
+    }
+
+    input {
+      font-family: 'Poppins', 'Arial'
+    }
+
+    /* Styling untuk container utama */
+    #content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #f5f5f5;
+    }
+
+    .invoice {
+      background: #fff;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      max-width: 600px;
+      width: 100%;
+      margin: 30px 0;
+    }
+
+    /* Icon header */
+    .invoice-header-icon {
+      margin-bottom: 15px;
+    }
+
+    /* Judul dan pesan */
+    .invoice-header h4 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #000;
+      margin-bottom: 5px;
+    }
+
+    .invoice-header p {
+      font-size: 14px;
+      color: #777;
+    }
+
+    /* Styling untuk daftar informasi invoice */
+    .invoice-info {
+      margin-top: 20px;
+    }
+
+    .invoice-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .invoice-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      font-size: 14px;
+      color: #777;
+    }
+
+    .invoice-label {
+      text-align: left;
+    }
+
+    .invoice-value {
+      text-align: right;
+    }
+
+    /* Styling untuk total */
+    .invoice-item:last-child {
+      font-weight: bold;
+      color: #000;
+    }
+
+    /* Tombol */
+    .invoice-btn {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background: none;
+      border: none;
+      font-size: 14px;
+      font-weight: bold;
+      color: #000;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- wrapper -->
+  <div class="mil-wrapper">
+
+    <div class="mil-progress-track">
+      <div class="mil-progress"></div>
+    </div>
+
+    <!-- top bar -->
+    <!-- <div class="mil-top-panel">
+            <div class="container-fluid">
+                <div class="mil-top-panel-content">
+                    <a href="home-1.html" class="mil-logo">
+                        <img src="img/logo/logo.png" alt="Logo" style="width: 130px;">
+                    </a>
+
+                    <div class="mil-navigation">
+                        <nav>
+                            <ul>
+                                <li class="mil-has-children mil-active">
+                                    <a href="home-1.html">Home</a>
+                                    <ul>
+                                        <li><a href="home-1.html">Type 1</a></li>
+                                        <li><a href="home-2.html">Type 2</a></li>
+                                        <li><a href="home-3.html">Type 3</a></li>
+                                    </ul>
+                                </li>
+                                <li class="mil-has-children">
+                                    <a href="services.html">Product</a>
+                                    <ul>
+                                        <li><a href="services.html">Services</a></li>
+                                        <li><a href="service.html">Single Service</a></li>
+                                    </ul>
+                                </li>
+                                <li class="mil-has-children">
+                                    <a href="portfolio.html">Projects</a>
+                                    <ul>
+                                        <li><a href="portfolio.html">Projects list</a></li>
+                                        <li><a href="project.html">Single Project</a></li>
+                                    </ul>
+                                </li>
+                                <li class="mil-has-children">
+                                    <a href="blog.html">Blog</a>
+                                    <ul>
+                                        <li><a href="blog.html">Blog list</a></li>
+                                        <li><a href="publication.html">Single Publication</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="contact.html">Contact Us</a></li>
+                                <li class="mil-has-children">
+                                    <a href="#.">Other</a>
+                                    <ul>
+                                        <li><a href="about.html">About</a></li>
+                                        <li><a href="team.html">Team</a></li>
+                                        <li><a href="team-member.html">Team Member</a></li>
+                                        <li><a href="coming-soon.html">Coming Soon</a></li>
+                                        <li><a href="404.html">404</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div> -->
+
+    <!-- right buttons -->
+    <!-- <div class="mil-top-panel-buttons">
+                        <a href="contact.html" class="mil-button mil-sm">Sign In</a>
+                        <div class="mil-menu-btn">
+                            <span></span>
+                        </div>
+                    </div> -->
+    <!-- right buttons end -->
+
+    <!-- </div>
+
+            </div>
+        </div> -->
+    <!-- top bar end -->
+
+    <!-- content -->
+    <div id="content">
+      <div class="invoice">
+        <div class="invoice-body">
+          <img class="invoice-header-icon invoice-waiting-icon" width="100px" height="100px" src="img/icons/warning-invoice.svg" alt="">
+          <div class="invoice-header invoice-waiting">
+            <h4>Waiting for payment...</h4>
+            <p>Your payment is pending. Please complete the transaction to proceed.</p>
+          </div>
+          <img class="invoice-header-icon invoice-success-icon d-none" src="img/icons/payment-success.svg" width="100px" height="100px" alt="">
+          <div class="invoice-header invoice-success d-none">
+            <h4>Payment Success!</h4>
+            <p>Your payment has been successfully processed. Thank you for your purchase!</p>
+          </div>
+          <div class="invoice-info">
+            <ul class="invoice-list">
+              <li class="invoice-item">
+                <p class="invoice-label">Invoice no</p>
+                <p class="invoice-value">#INV123456</p>
+              </li>
+              <li class="invoice-item">
+                <p class="invoice-label">Invoice date</p>
+                <p class="invoice-value">08-02-2025</p>
+              </li>
+              <li class="invoice-item">
+                <p class="invoice-label">Payment method</p>
+                <p class="invoice-value">Gopay</p>
+              </li>
+              <li class="invoice-item">
+                <p class="invoice-label">Product</p>
+                <p class="invoice-value">Premium Pro 1 Month</p>
+              </li>
+              <li class="invoice-item">
+                <p class="invoice-label">Email</p>
+                <p class="invoice-value">sinih40547@nike4s.com</p>
+              </li>
+              <li class="invoice-item">
+                <p class="invoice-label">Subtotal</p>
+                <p class="invoice-value">$7.00</p>
+              </li>
+              <li class="invoice-item">
+                <p class="invoice-label">Tax</p>
+                <p class="invoice-value">$0.00</p>
+              </li>
+              <li class="invoice-item">
+                <p class="invoice-label">Total</p>
+                <p class="invoice-value">$0.00</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <button class="invoice-btn">Return to Home</button>
+      </div>
+    </div>
+
+    <!-- content -->
+  </div>
+  <!-- wrapper end -->
+
+  <!-- jQuery js -->
+  <script src="js/plugins/jquery.min.js"></script>
+  <!-- swiper js -->
+  <script src="js/plugins/swiper.min.js"></script>
+  <!-- gsap js -->
+  <script src="js/plugins/gsap.min.js"></script>
+  <!-- imagesloaded js -->
+  <script src="js/plugins/imagesloaded.pkgd.js"></script>
+  <!-- isotope js -->
+  <script src="js/plugins/isotope.min.js"></script>
+  <!-- scroll smoother -->
+  <script src="js/plugins/smooth-scroll.js"></script>
+  <!-- scroll trigger js -->
+  <script src="js/plugins/ScrollTrigger.min.js"></script>
+  <!-- magnific js -->
+  <script src="js/plugins/magnific-popup.js"></script>
+  <!-- ruizarch js -->
+  <script src="js/main.js"></script>
+  <!-- custom js -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const uploadArea = document.querySelector(".upload-area");
+      const fileInput = document.createElement("input");
+      fileInput.type = "file";
+      fileInput.accept = "image/*";
+      fileInput.style.display = "none";
+
+      const fileDetailWrapper = document.querySelector(".file-detail-wrapper");
+      const fileNameElement = document.querySelector(".filename");
+      const fileSizeElement = document.querySelector(".file-size");
+
+      uploadArea.addEventListener("click", () => fileInput.click());
+
+      fileInput.addEventListener("change", (event) => {
+        handleFile(event.target.files[0]);
+      });
+
+      uploadArea.addEventListener("dragover", (event) => {
+        event.preventDefault();
+        uploadArea.classList.add("drag-over");
+      });
+
+      uploadArea.addEventListener("dragleave", () => {
+        uploadArea.classList.remove("drag-over");
+      });
+
+      uploadArea.addEventListener("drop", (event) => {
+        event.preventDefault();
+        uploadArea.classList.remove("drag-over");
+        if (event.dataTransfer.files.length > 0) {
+          handleFile(event.dataTransfer.files[0]);
+        }
+      });
+
+      function handleFile(file) {
+        if (file && file.type.startsWith("image/")) {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            uploadArea.innerHTML = `<img src="${e.target.result}" alt="uploaded-image" style="max-width: -webkit-fill-available; max-height: inherit; object-fit: contain; border-radius: 8px;">`;
+
+            uploadArea.classList.add("uploaded");
+
+            // **Update filename & file size**
+            fileNameElement.textContent = file.name;
+
+            // **Filter size (KB atau MB)**
+            let fileSize = file.size / 1024; // Convert to KB
+            if (fileSize < 1024) {
+              fileSizeElement.textContent = fileSize.toFixed(2) + " KB";
+            } else {
+              fileSizeElement.textContent = (fileSize / 1024).toFixed(2) + " MB";
+            }
+
+            // **Unhide file details**
+            fileDetailWrapper.style.display = "flex";
+          };
+          reader.readAsDataURL(file);
+        } else {
+          alert("Please upload a valid image file.");
+        }
+      }
+
+      document.body.appendChild(fileInput);
+    });
+
+  </script>
+</body>
+
+</html>
