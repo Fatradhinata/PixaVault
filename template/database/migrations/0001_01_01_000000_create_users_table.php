@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('name', 20);
             $table->string('email', 50)->unique();
             $table->string('password', 72);
-            $table->enum('role', ['admin', 'user']);
+            $table->enum('role', ['admin', 'user'])->default('user');
             $table->string('phone_number', 72)->nullable()->default(null);
             $table->string('photo', 50)->nullable()->default(null);
             $table->integer('free_limit_upload')->default(20);

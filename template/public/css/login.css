@@ -6,11 +6,15 @@
     height: 100vh;
     gap: 73px;
   
-    @media (max-width: 1400px) {
+    @media (max-width: 768px) {
+      padding: 0 1.5rem;
+    }
+
+    @media (min-width: 1400px) {
       padding: 0 112px;
     }
   
-    @media (max-width: 1200px) {
+    @media (min-width: 1000px) {
       padding: 0 100px;
     }
   
@@ -35,6 +39,48 @@
     @media (max-width: 992px) {
       .right-content {  
         display: none;
+      }
+    }
+
+    .email-verify {
+      h1 {
+        font-size: 3rem;
+        text-align: start;
+        align-self: baseline;
+      }
+      p {
+        color: #7F7F7F;
+        font-size: 1.2rem;
+        text-align: start;
+      }
+      a {
+        align-self: baseline;
+        display: inline-block;
+        border: none;
+        padding: 10px 18px;
+        background-color: #000;
+        color: #FFF;
+        font-size: 1.2rem;
+        border-radius: 6px;
+        transition: 0.3s ease;
+        transition-property: background-color, color;
+
+        &:hover {
+          background-color: #7F7F7F;
+        }
+
+        &.logout {
+          margin-left: 2rem;
+          background-color: transparent;
+          color: #000;
+          box-sizing: border-box;
+          outline: 2px solid #000;
+        }
+
+        &.logout:hover {
+          color: #FFF;
+          background-color: #000;
+        }
       }
     }
   
@@ -168,6 +214,5 @@
     font-family: 'Figtree';
     font-weight: 500;
     color: #000;
-  
   }
 }  
