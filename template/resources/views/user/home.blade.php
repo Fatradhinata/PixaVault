@@ -1,19 +1,216 @@
 @extends('templates.user')
 
+@section('styles')
+    <style>
+        .mil-top-panel {
+            position: fixed;
+            width: 100%;
+            background: transparent;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .mil-logo img {
+            max-width: 120px;
+        }
+
+        .mil-navigation nav {
+            display: flex;
+            gap: 45px;
+        }
+
+        .mil-navigation nav ul li {
+            position: relative;
+        }
+
+        .mil-navigation nav ul li a {
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: bold;
+            padding: 10px 15px;
+            border-radius: 20px;
+            transition: color 0.3s, background 0.3s;
+            position: relative;
+        }
+
+        .mil-navigation nav ul li a:hover,
+        .mil-navigation nav ul li a.active {
+            color: #bcff00;
+            /* Warna teks hover dan aktif */
+        }
+
+        .mil-navigation nav ul li a::after {
+            content: "";
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            right: 50%;
+            height: 2px;
+            background-color: transparent;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .mil-navigation nav ul li a:hover::after {
+            left: 0;
+            right: 0;
+        }
+
+        .mil-navigation nav ul li ul {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #282c34;
+            border-radius: 10px;
+            padding: 10px;
+            list-style: none;
+            z-index: 2000;
+        }
+
+        .mil-navigation nav ul li:hover ul {
+            display: block;
+        }
+
+        .mil-navigation nav ul li ul li a {
+            padding: 8px 12px;
+            color: #ffffff;
+            display: block;
+        }
+
+        .mil-top-panel-right {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            gap: 30px;
+
+            &>* {
+                cursor: pointer;
+            }
+
+            .mil-top-panel-user {
+                position: relative;
+            }
+        }
+
+        .mil-top-panel-buttons {
+
+            background: rgb(188, 255, 0);
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: background 0.3s;
+
+            &:hover {
+                background-color: #CFFF00;
+            }
+        }
+
+        .mil-top-panel-link {
+            color: white;
+            font-size: 18px;
+            font-weight: 700;
+            text-transform: uppercase;
+
+            &:hover {
+                color: rgb(188, 255, 0);
+            }
+        }
+
+        .nav-horizontal-dot-wrapper {
+            position: relative;
+        }
+
+        .mil-nav-dropdown {
+            position: absolute;
+            display: none;
+            left: -120%;
+            transform: translateY(15%);
+            border: 1px solid #D9D9D9;
+            border-radius: 8px;
+            background-color: white;
+
+            hr {
+                margin: 0px -11px;
+                border: none;
+                border-top: 1px solid #D9D9D9;
+                width: calc(100% + 22px);
+            }
+
+            .mil-nav-dropdown-logout {
+                color: rgba(252, 120, 120, 0.64);
+
+                &:hover {
+                    color: #FC7878;
+                }
+            }
+
+            div {
+                display: flex;
+                flex-direction: column;
+                padding: 11px;
+                gap: 10px;
+
+                button {
+                    text-align: left;
+                    outline: none;
+                    border: none;
+                    min-width: 145px;
+                    padding: 10px;
+                    border-radius: 8px;
+                    background-color: transparent;
+                    cursor: pointer;
+                    color: #7F7F7F;
+
+                    &:hover {
+                        background-color: #F7F7F7;
+                        color: black;
+                    }
+                }
+            }
+        }
+
+        .mil-nav-dropdown-user {
+            transform: translateY(6%);
+        }
+
+        .nav-horizontal-dot {
+            padding: 10px;
+            display: flex;
+            transition: background-color 1s, border-radius 1.2s;
+
+            &:hover {
+                background-color: #000;
+                border-radius: 100px;
+            }
+        }
+
+        .mil-top-panel-buttons a:hover {
+            filter: brightness(110%);
+        }
+    </style>
+@endsection
+
+@section('navbar')
+    @include('templates.home-navbar')
+@endsection
+
 @section('content')
-    <!-- content -->
     <div id="content">
         <!-- banner -->
         <section class="mil-banner">
-            <img src="img/foto/1.jpg" class="mil-bg-img mil-scale" data-value-1=".4" data-value-2="1.4" alt="image" />
+            <img src="img/foto/jan-derungs-XMwAnYLHShE-unsplash.jpg" class="mil-bg-img mil-scale" data-value-1=".4"
+                data-value-2="1.4" alt="image" />
             <div class="mil-overlay"></div>
             <div class="container">
-                <div class="mil-background-grid mil-top-space"></div>
                 <div class="mil-banner-content">
                     <div class="row align-items-end">
                         <div class="col-xl-7">
                             <div class="mil-mb-90">
-                                <span class="mil-suptitle mil-light mil-upper mil-mb-60">Pixel Vault</span>
                                 <h1 class="mil-upper mil-light mil-mb-60">
                                     Unlocking<br /><span class="mil-accent">the Future</span><br />of Digital Assets
                                 </h1>
@@ -70,266 +267,266 @@
 
         <!-- partners -->
         <!-- <div class="mil-partners">
-                        <div class="container mil-p-120-120">
-                            <div class="mil-background-grid mil-softened"></div>
-                            <div class="swiper-container mil-infinite-show mil-up">
-                                <div class="swiper-wrapper">
-                                    <div class="swiper-slide">
-                                        <a href="#." class="mil-partner-frame"><img src="img/partners/1.png" alt="logo"></a>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <a href="#." class="mil-partner-frame"><img src="img/partners/2.png" alt="logo"></a>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <a href="#." class="mil-partner-frame"><img src="img/partners/3.png" alt="logo"></a>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <a href="#." class="mil-partner-frame"><img src="img/partners/4.png" alt="logo"></a>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <a href="#." class="mil-partner-frame"><img src="img/partners/5.png" alt="logo"></a>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <a href="#." class="mil-partner-frame"><img src="img/partners/6.png" alt="logo"></a>
+                                <div class="container mil-p-120-120">
+                                    <div class="mil-background-grid mil-softened"></div>
+                                    <div class="swiper-container mil-infinite-show mil-up">
+                                        <div class="swiper-wrapper">
+                                            <div class="swiper-slide">
+                                                <a href="#." class="mil-partner-frame"><img src="img/partners/1.png" alt="logo"></a>
+                                            </div>
+                                            <div class="swiper-slide">
+                                                <a href="#." class="mil-partner-frame"><img src="img/partners/2.png" alt="logo"></a>
+                                            </div>
+                                            <div class="swiper-slide">
+                                                <a href="#." class="mil-partner-frame"><img src="img/partners/3.png" alt="logo"></a>
+                                            </div>
+                                            <div class="swiper-slide">
+                                                <a href="#." class="mil-partner-frame"><img src="img/partners/4.png" alt="logo"></a>
+                                            </div>
+                                            <div class="swiper-slide">
+                                                <a href="#." class="mil-partner-frame"><img src="img/partners/5.png" alt="logo"></a>
+                                            </div>
+                                            <div class="swiper-slide">
+                                                <a href="#." class="mil-partner-frame"><img src="img/partners/6.png" alt="logo"></a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div> -->
+                            </div> -->
         <!-- partners end -->
 
         <!-- about -->
         <!-- <section>
-                        <div class="container mil-p-0-30">
-                            <div class="mil-background-grid mil-softened"></div>
-                            <div class="row justify-content-between align-items-center flex-sm-row-reverse">
-                                <div class="col-lg-5">
+                                <div class="container mil-p-0-30">
+                                    <div class="mil-background-grid mil-softened"></div>
+                                    <div class="row justify-content-between align-items-center flex-sm-row-reverse">
+                                        <div class="col-lg-5">
 
-                                    <div class="mil-mb-90">
-                                        <span class="mil-suptitle mil-upper mil-up mil-mb-30">About Studio</span>
-                                        <h2 class="mil-upper mil-up mil-mb-30">Great experience</h2>
-                                        <p class="mil-up mil-mb-40">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua quis ipsum suspendisse ultrices gravida.</p>
-                                        <a href="https://vimeo.com/25428289" class="mil-link mil-upper mil-up has-popup-video">Watch video <span class="mil-arrow"><img src="img/icons/2.svg" alt="arrow"></span></a>
-                                    </div>
+                                            <div class="mil-mb-90">
+                                                <span class="mil-suptitle mil-upper mil-up mil-mb-30">About Studio</span>
+                                                <h2 class="mil-upper mil-up mil-mb-30">Great experience</h2>
+                                                <p class="mil-up mil-mb-40">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua quis ipsum suspendisse ultrices gravida.</p>
+                                                <a href="https://vimeo.com/25428289" class="mil-link mil-upper mil-up has-popup-video">Watch video <span class="mil-arrow"><img src="img/icons/2.svg" alt="arrow"></span></a>
+                                            </div>
 
-                                </div>
-                                <div class="col-lg-6">
-
-                                    <div class="mil-illustration mil-up mil-mb-90">
-                                        <div class="mil-image-frame">
-                                            <img src="img/foto/2.jpg" alt="image" class="mil-scale" data-value-1="1" data-value-2="1.3">
                                         </div>
-                                        <div class="mil-about-counter">
-                                            <h1 class="mil-counter mil-right mil-mb-10" data-number="17">0</h1>
-                                            <h5 class="mil-upper mil-right"><span class="mil-marker">Years</span> of <br>successful <br>work</h5>
+                                        <div class="col-lg-6">
+
+                                            <div class="mil-illustration mil-up mil-mb-90">
+                                                <div class="mil-image-frame">
+                                                    <img src="img/foto/2.jpg" alt="image" class="mil-scale" data-value-1="1" data-value-2="1.3">
+                                                </div>
+                                                <div class="mil-about-counter">
+                                                    <h1 class="mil-counter mil-right mil-mb-10" data-number="17">0</h1>
+                                                    <h5 class="mil-upper mil-right"><span class="mil-marker">Years</span> of <br>successful <br>work</h5>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
-
                                 </div>
-                            </div>
-                        </div>
-                    </section> -->
+                            </section> -->
         <!-- about end -->
 
         <!-- ideas -->
         <!-- <section>
-                        <div class="container mil-p-0-90">
-                            <div class="mil-background-grid mil-softened"></div>
-                            <div class="row justify-content-between">
-                                <div class="col-lg-6">
+                                <div class="container mil-p-0-90">
+                                    <div class="mil-background-grid mil-softened"></div>
+                                    <div class="row justify-content-between">
+                                        <div class="col-lg-6">
 
-                                    <div>
-                                        <span class="mil-suptitle mil-upper mil-up mil-mb-30">Ruizarch Purpuse</span>
-                                        <h2 class="mil-upper mil-up mil-mb-40">we turn ideas into works of art</h2>
-                                        <a href="about.html" class="mil-link mil-upper mil-up">More About Us <span class="mil-arrow"><img src="img/icons/1.svg" alt="arrow"></span></a>
+                                            <div>
+                                                <span class="mil-suptitle mil-upper mil-up mil-mb-30">Ruizarch Purpuse</span>
+                                                <h2 class="mil-upper mil-up mil-mb-40">we turn ideas into works of art</h2>
+                                                <a href="about.html" class="mil-link mil-upper mil-up">More About Us <span class="mil-arrow"><img src="img/icons/1.svg" alt="arrow"></span></a>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-lg-5 mil-mt-suptitle-offset">
+
+                                            <p class="mil-up mil-mb-60">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua quis ipsum suspendisse ultrices gravida.</p>
+
+                                            <div class="row">
+                                                <div class="col-sm-4">
+
+                                                    <a href="service.html" class="mil-icon-box mil-sm-center mil-mb-30">
+                                                        <div class="mil-icon mil-icon-accent-bg mil-up mil-mb-30">
+                                                            <img src="img/icons/3.svg" alt="icon">
+                                                        </div>
+                                                        <h6 class="mil-upper mil-up">Architecture</h6>
+                                                    </a>
+
+                                                </div>
+                                                <div class="col-sm-4">
+
+                                                    <a href="service.html" class="mil-icon-box mil-sm-center mil-mb-30">
+                                                        <div class="mil-icon mil-icon-accent-bg mil-up mil-mb-30">
+                                                            <img src="img/icons/4.svg" alt="icon">
+                                                        </div>
+                                                        <h6 class="mil-upper mil-up">Interiors</h6>
+                                                    </a>
+
+                                                </div>
+                                                <div class="col-sm-4">
+
+                                                    <a href="service.html" class="mil-icon-box mil-sm-center mil-mb-30">
+                                                        <div class="mil-icon mil-icon-accent-bg mil-up mil-mb-30">
+                                                            <img src="img/icons/5.svg" alt="icon">
+                                                        </div>
+                                                        <h6 class="mil-upper mil-up">Planning</h6>
+                                                    </a>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
                                     </div>
-
                                 </div>
-                                <div class="col-lg-5 mil-mt-suptitle-offset">
-
-                                    <p class="mil-up mil-mb-60">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua quis ipsum suspendisse ultrices gravida.</p>
-
-                                    <div class="row">
-                                        <div class="col-sm-4">
-
-                                            <a href="service.html" class="mil-icon-box mil-sm-center mil-mb-30">
-                                                <div class="mil-icon mil-icon-accent-bg mil-up mil-mb-30">
-                                                    <img src="img/icons/3.svg" alt="icon">
-                                                </div>
-                                                <h6 class="mil-upper mil-up">Architecture</h6>
-                                            </a>
-
-                                        </div>
-                                        <div class="col-sm-4">
-
-                                            <a href="service.html" class="mil-icon-box mil-sm-center mil-mb-30">
-                                                <div class="mil-icon mil-icon-accent-bg mil-up mil-mb-30">
-                                                    <img src="img/icons/4.svg" alt="icon">
-                                                </div>
-                                                <h6 class="mil-upper mil-up">Interiors</h6>
-                                            </a>
-
-                                        </div>
-                                        <div class="col-sm-4">
-
-                                            <a href="service.html" class="mil-icon-box mil-sm-center mil-mb-30">
-                                                <div class="mil-icon mil-icon-accent-bg mil-up mil-mb-30">
-                                                    <img src="img/icons/5.svg" alt="icon">
-                                                </div>
-                                                <h6 class="mil-upper mil-up">Planning</h6>
-                                            </a>
-
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </section> -->
+                            </section> -->
         <!-- ideas end -->
 
         <!-- services -->
         <!-- <section class="mil-soft-bg mil-relative">
-                        <img src="img/other/bg.svg" class="mil-bg-img" alt="image">
-                        <div class="container mil-p-120-90">
-                            <div class="mil-background-grid mil-softened"></div>
+                                <img src="img/other/bg.svg" class="mil-bg-img" alt="image">
+                                <div class="container mil-p-120-90">
+                                    <div class="mil-background-grid mil-softened"></div>
 
-                            <div class="row">
-                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-12">
 
-                                    <div class="mil-center mil-mb-90">
-                                        <span class="mil-suptitle mil-upper mil-up mil-mb-30">Services</span>
-                                        <h2 class="mil-upper mil-up">What We Do</h2>
+                                            <div class="mil-center mil-mb-90">
+                                                <span class="mil-suptitle mil-upper mil-up mil-mb-30">Services</span>
+                                                <h2 class="mil-upper mil-up">What We Do</h2>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-lg-4">
+
+                                            <a href="service.html" class="mil-service-card mil-up mil-mb-30">
+                                                <div class="mil-card-number">01.</div>
+                                                <div class="mil-center">
+                                                    <div class="mil-icon mil-icon-lg mil-mb-30">
+                                                        <img src="img/icons/3.svg" alt="icon">
+                                                    </div>
+                                                    <h4 class="mil-upper mil-mb-20">Interior Decor</h4>
+                                                    <div class="mil-divider-sm mil-mb-20"></div>
+                                                    <p class="mil-service-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod labore aliqua.</p>
+                                                    <div class="mil-go-buton mil-icon mil-icon-lg mil-icon-accent-bg">
+                                                        <img src="img/icons/1.svg" alt="icon">
+                                                    </div>
+                                                </div>
+                                            </a>
+
+                                        </div>
+                                        <div class="col-lg-4">
+
+                                            <a href="service.html" class="mil-service-card mil-up mil-mb-30">
+                                                <div class="mil-card-number">02.</div>
+                                                <div class="mil-center">
+                                                    <div class="mil-icon mil-icon-lg mil-mb-30">
+                                                        <img src="img/icons/5.svg" alt="icon">
+                                                    </div>
+                                                    <h4 class="mil-upper mil-mb-20">Interior Decor</h4>
+                                                    <div class="mil-divider-sm mil-mb-20"></div>
+                                                    <p class="mil-service-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod labore aliqua.</p>
+                                                    <div class="mil-go-buton mil-icon mil-icon-lg mil-icon-accent-bg">
+                                                        <img src="img/icons/1.svg" alt="icon">
+                                                    </div>
+                                                </div>
+                                            </a>
+
+                                        </div>
+                                        <div class="col-lg-4">
+
+                                            <a href="service.html" class="mil-service-card mil-up mil-mb-30">
+                                                <div class="mil-card-number">03.</div>
+                                                <div class="mil-center">
+                                                    <div class="mil-icon mil-icon-lg mil-mb-30">
+                                                        <img src="img/icons/4.svg" alt="icon">
+                                                    </div>
+                                                    <h4 class="mil-upper mil-mb-20">Interior Decor</h4>
+                                                    <div class="mil-divider-sm mil-mb-20"></div>
+                                                    <p class="mil-service-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod labore aliqua.</p>
+                                                    <div class="mil-go-buton mil-icon mil-icon-lg mil-icon-accent-bg">
+                                                        <img src="img/icons/1.svg" alt="icon">
+                                                    </div>
+                                                </div>
+                                            </a>
+
+                                        </div>
                                     </div>
-
                                 </div>
-                                <div class="col-lg-4">
-
-                                    <a href="service.html" class="mil-service-card mil-up mil-mb-30">
-                                        <div class="mil-card-number">01.</div>
-                                        <div class="mil-center">
-                                            <div class="mil-icon mil-icon-lg mil-mb-30">
-                                                <img src="img/icons/3.svg" alt="icon">
-                                            </div>
-                                            <h4 class="mil-upper mil-mb-20">Interior Decor</h4>
-                                            <div class="mil-divider-sm mil-mb-20"></div>
-                                            <p class="mil-service-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod labore aliqua.</p>
-                                            <div class="mil-go-buton mil-icon mil-icon-lg mil-icon-accent-bg">
-                                                <img src="img/icons/1.svg" alt="icon">
-                                            </div>
-                                        </div>
-                                    </a>
-
-                                </div>
-                                <div class="col-lg-4">
-
-                                    <a href="service.html" class="mil-service-card mil-up mil-mb-30">
-                                        <div class="mil-card-number">02.</div>
-                                        <div class="mil-center">
-                                            <div class="mil-icon mil-icon-lg mil-mb-30">
-                                                <img src="img/icons/5.svg" alt="icon">
-                                            </div>
-                                            <h4 class="mil-upper mil-mb-20">Interior Decor</h4>
-                                            <div class="mil-divider-sm mil-mb-20"></div>
-                                            <p class="mil-service-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod labore aliqua.</p>
-                                            <div class="mil-go-buton mil-icon mil-icon-lg mil-icon-accent-bg">
-                                                <img src="img/icons/1.svg" alt="icon">
-                                            </div>
-                                        </div>
-                                    </a>
-
-                                </div>
-                                <div class="col-lg-4">
-
-                                    <a href="service.html" class="mil-service-card mil-up mil-mb-30">
-                                        <div class="mil-card-number">03.</div>
-                                        <div class="mil-center">
-                                            <div class="mil-icon mil-icon-lg mil-mb-30">
-                                                <img src="img/icons/4.svg" alt="icon">
-                                            </div>
-                                            <h4 class="mil-upper mil-mb-20">Interior Decor</h4>
-                                            <div class="mil-divider-sm mil-mb-20"></div>
-                                            <p class="mil-service-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod labore aliqua.</p>
-                                            <div class="mil-go-buton mil-icon mil-icon-lg mil-icon-accent-bg">
-                                                <img src="img/icons/1.svg" alt="icon">
-                                            </div>
-                                        </div>
-                                    </a>
-
-                                </div>
-                            </div>
-                        </div>
-                    </section> -->
+                            </section> -->
         <!-- services end -->
 
         <!-- advantages -->
         <!-- <section>
-                        <div class="container mil-p-20-60">
-                            <div class="mil-background-grid mil-softened"></div>
+                                <div class="container mil-p-20-60">
+                                    <div class="mil-background-grid mil-softened"></div>
 
-                            <div class="row">
-                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-12">
 
-                                    <div class="mil-center mil-mb-90">
-                                        <span class="mil-suptitle mil-upper mil-up mil-mb-30">Our Advantages</span>
-                                        <h2 class="mil-upper mil-up mil-mb-30">We Take Care of Everything <br>for You!</h2>
-                                        <p class="mil-up">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do <br> eiusmod tempor incididunt ut labore aliqua.</p>
-                                    </div>
+                                            <div class="mil-center mil-mb-90">
+                                                <span class="mil-suptitle mil-upper mil-up mil-mb-30">Our Advantages</span>
+                                                <h2 class="mil-upper mil-up mil-mb-30">We Take Care of Everything <br>for You!</h2>
+                                                <p class="mil-up">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do <br> eiusmod tempor incididunt ut labore aliqua.</p>
+                                            </div>
 
-                                </div>
-                                <div class="col-md-6 col-lg-3">
-
-                                    <div class="mil-advantage mil-icon-box mil-center mil-up mil-mb-60">
-                                        <h4 class="mil-upper mil-mb-30">Listen</h4>
-                                        <div class="mil-icon mil-icon-border mil-mb-30">
-                                            <img src="img/icons/6.svg" alt="icon">
                                         </div>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
-                                    </div>
+                                        <div class="col-md-6 col-lg-3">
 
-                                </div>
-                                <div class="col-md-6 col-lg-3">
+                                            <div class="mil-advantage mil-icon-box mil-center mil-up mil-mb-60">
+                                                <h4 class="mil-upper mil-mb-30">Listen</h4>
+                                                <div class="mil-icon mil-icon-border mil-mb-30">
+                                                    <img src="img/icons/6.svg" alt="icon">
+                                                </div>
+                                                <p>Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+                                            </div>
 
-                                    <div class="mil-advantage mil-icon-box mil-center mil-up mil-mb-60">
-                                        <h4 class="mil-upper mil-mb-30">Strategies</h4>
-                                        <div class="mil-icon mil-icon-border mil-mb-30">
-                                            <img src="img/icons/6.svg" alt="icon">
                                         </div>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
-                                    </div>
+                                        <div class="col-md-6 col-lg-3">
 
-                                </div>
-                                <div class="col-md-6 col-lg-3">
+                                            <div class="mil-advantage mil-icon-box mil-center mil-up mil-mb-60">
+                                                <h4 class="mil-upper mil-mb-30">Strategies</h4>
+                                                <div class="mil-icon mil-icon-border mil-mb-30">
+                                                    <img src="img/icons/6.svg" alt="icon">
+                                                </div>
+                                                <p>Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+                                            </div>
 
-                                    <div class="mil-advantage mil-icon-box mil-center mil-up mil-mb-60">
-                                        <h4 class="mil-upper mil-mb-30">Project Work</h4>
-                                        <div class="mil-icon mil-icon-border mil-mb-30">
-                                            <img src="img/icons/6.svg" alt="icon">
                                         </div>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
-                                    </div>
+                                        <div class="col-md-6 col-lg-3">
 
-                                </div>
-                                <div class="col-md-6 col-lg-3">
+                                            <div class="mil-advantage mil-icon-box mil-center mil-up mil-mb-60">
+                                                <h4 class="mil-upper mil-mb-30">Project Work</h4>
+                                                <div class="mil-icon mil-icon-border mil-mb-30">
+                                                    <img src="img/icons/6.svg" alt="icon">
+                                                </div>
+                                                <p>Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+                                            </div>
 
-                                    <div class="mil-advantage mil-icon-box mil-center mil-up mil-mb-60">
-                                        <h4 class="mil-upper mil-mb-30">Launch</h4>
-                                        <div class="mil-icon mil-icon-border mil-mb-30">
-                                            <img src="img/icons/6.svg" alt="icon">
                                         </div>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+                                        <div class="col-md-6 col-lg-3">
+
+                                            <div class="mil-advantage mil-icon-box mil-center mil-up mil-mb-60">
+                                                <h4 class="mil-upper mil-mb-30">Launch</h4>
+                                                <div class="mil-icon mil-icon-border mil-mb-30">
+                                                    <img src="img/icons/6.svg" alt="icon">
+                                                </div>
+                                                <p>Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+                                            </div>
+
+                                        </div>
+
                                     </div>
-
                                 </div>
-
-                            </div>
-                        </div>
-                    </section> -->
+                            </section> -->
         <!-- advantages end -->
 
         <!-- portfolio -->
         <section>
-            <div class="container-fluid mil-p-0-60">
+            <div class="container mil-p-0-60">
                 <div class="col-12">
                     <div class="mil-center mil-mb-90 mt-5">
                         <span class="mil-suptitle mil-upper mil-up mil-mb-30">Insights</span>
@@ -340,37 +537,219 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6 col-lg-3">
-                        <a href="project.html" class="mil-portfolio-item mil-square-item mil-up mil-mb-30 position-relative">
-                            <!-- Gambar -->
-                            <img src="img/foto/1.jpg" alt="cover" class="mil-image no-save" />
-
-                            <!-- Profil di kiri bawah -->
-                            <div class="mil-profile">
-                                <img src="img/faces/user.jpg" alt="Profile Picture" class="mil-profile-img" />
-                                <div>
-                                    <p class="mil-username mt-1">Leo_Visions</p>
-                                </div>
-                            </div>
-
-                            <!-- Tombol di kanan atas -->
+                        <div class="content-item mil-up position-relative" id="photo-trigger">
                             <div class="mil-buttons">
-                                <button class="mil-love-btn">
-                                    <i class="fas fa-heart"></i>
-                                </button>
+                                <button class="mil-love-btn"><i class="fas fa-heart"></i></button>
+                                <button class="mil-download-btn"><i class="fas fa-download"></i></button>
                             </div>
-                        </a>
+                            <img src="img/foto/1.jpg" class="w-100 shadow-1-strong rounded" alt="Mountains in the Clouds" />
+                            <div class="image-profile">
+                                <img src="img/icons/user-elipse.svg" alt="Profile Picture" class="mil-profile-img" />
+                                <p class="mil-username">PixaVault</p>
+                            </div>
+                        </div>
 
-                        <a href="project.html" class="mil-portfolio-item mil-square-item mil-up mil-mb-30">
-                            <img src="img/foto/2.jpg" alt="cover" />
-                            <div class="mil-project-descr">
-                                <h4 class="mil-upper mil-mb-20">Ice castle</h4>
-                                <div class="mil-divider-sm mil-mb-20"></div>
-                                <p>
-                                    Consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore aliqua.
+                        <!-- Modal -->
+                        <div class="modal" id="photo-modal">
+                            <div class="modal-content">
+                                <img class="close" id="close-modal" src="img/icons/cancel.svg" alt="close">
+                                <hr class="line">
+                                <!-- Modal Header -->
+                                <div class="modal-header">
+                                    <div class="user-info">
+                                        <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="User Avatar" />
+                                        <div>
+                                            <p class="username">storyset</p>
+                                            <p class="follow">View Profile</p>
+                                        </div>
+                                    </div>
+                                    <div class="actions">
+                                        <button class="like-btn">
+                                            <i class="far fa-heart"></i>
+                                        </button>
+                                        <img class="option-icon" src="img/icons/horiz-dots-variant-2.svg" alt="">
+                                        <button class="download-btn">
+                                            <div>
+                                                <img src="img/icons/download.svg" alt="">
+                                                <p>Download</p>
+                                            </div>
+                                            <div class="right-part">
+                                                <hr>
+                                                <img width="15px" height="15px" src="img/icons/arrow-down.svg"
+                                                    alt="Arrow Down">
+                                            </div>
+                                        </button>
+                                    </div>
+                                </div>
+                                <img src="img/foto/1.jpg" class="image-content" alt="Photo Detail" />
+                                <div class="d-flex my-4">
+                                    <!-- Bagian Views -->
+                                    <div class="mil-up">
+                                        <p style="margin: 0; font-size: 14px; color: #6c757d">
+                                            Views
+                                        </p>
+                                        <p style="margin: 0; font-size: 18px; font-weight: bold">
+                                            1,234
+                                        </p>
+                                    </div>
+
+                                    <!-- Bagian Download -->
+                                    <div class="ms-5 mil-up">
+                                        <p style="margin: 0; font-size: 14px; color: #6c757d">
+                                            Downloads
+                                        </p>
+                                        <p style="margin: 0; font-size: 18px; font-weight: bold">
+                                            567
+                                        </p>
+                                    </div>
+
+                                    <button class="share-btn">
+                                        <img src="img/icons/share.svg" alt="share">
+                                        <p>Share</p>
+                                    </button>
+                                </div>
+                                <div class="details">
+                                    <div class="mb-1">
+                                        <h4 class="mil-up">Background Furniture</h4>
+                                    </div>
+                                </div>
+                                <!-- deskripsi -->
+                                <p class="mil-up mil-mb-30 content-description">
+                                    A vibrant orange lovebird perched gracefully, showcasing its bright plumage
+                                    and playful charm. Its striking colors and curious gaze make it a captivating sight
                                 </p>
+
+                                <div class="d-flex align-items-center my-1 mil-up created-date">
+                                    <!-- Icon publish -->
+                                    <i class="fas fa-upload" style="margin-right: 10px; color: #6c757d"></i>
+                                    <!-- Teks -->
+                                    <p class="mb-0" style="color: #6c757d">10-01-2025</p>
+                                </div>
+                                <div class="d-flex align-items-center my-1 mil-up publish-cam">
+                                    <!-- Icon publish -->
+                                    <img src="img/icons/camera-variant-1.svg" width="28px" height="28px" alt="cam-1">
+                                    <!-- Teks -->
+                                    <p class="mb-0" style="color: #6c757d">FUJIFILM, X100VI</p>
+                                </div>
+                                <div class="tag-row">
+                                    <button>Natures</button>
+                                    <button>Bromo</button>
+                                    <button>Indonesia</button>
+                                    <button>Mountain</button>
+                                    <button>Outdoor</button>
+                                    <button>East java</button>
+                                </div>
+                                <section class="more-images">
+                                    <div class="mt-5">
+                                        <div class="header">
+                                            <h4>More Like This</h4>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 col-lg-3">
+                                                <a href="project.html"
+                                                    class="mil-portfolio-item mil-square-item mil-up mil-mb-30">
+                                                    <img src="img/foto/1.jpg" alt="cover" />
+                                                    <div class="mil-project-descr">
+                                                        <h4 class="mil-upper mil-mb-20">
+                                                            Modern architecture
+                                                        </h4>
+                                                        <div class="mil-divider-sm mil-mb-20"></div>
+                                                        <p>
+                                                            Consectetur adipiscing elit, sed do eiusmod
+                                                            tempor incididunt ut labore aliqua.
+                                                        </p>
+                                                    </div>
+                                                </a>
+
+                                                <a href="project.html"
+                                                    class="mil-portfolio-item mil-square-item mil-up mil-mb-30">
+                                                    <img src="img/foto/2.jpg" alt="cover" />
+                                                    <div class="mil-project-descr">
+                                                        <h4 class="mil-upper mil-mb-20">Ice castle</h4>
+                                                        <div class="mil-divider-sm mil-mb-20"></div>
+                                                        <p>
+                                                            Consectetur adipiscing elit, sed do eiusmod
+                                                            tempor incididunt ut labore aliqua.
+                                                        </p>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div class="col-md-6 col-lg-3">
+                                                <a href="project.html"
+                                                    class="mil-portfolio-item mil-long-item mil-up mil-mb-30">
+                                                    <img src="img/foto/3.jpg" alt="cover" />
+                                                    <div class="mil-project-descr">
+                                                        <h4 class="mil-upper mil-mb-20">Cubism</h4>
+                                                        <div class="mil-divider-sm mil-mb-20"></div>
+                                                        <p>
+                                                            Consectetur adipiscing elit, sed do eiusmod
+                                                            tempor incididunt ut labore aliqua.
+                                                        </p>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div class="col-md-6 col-lg-3">
+                                                <a href="project.html"
+                                                    class="mil-portfolio-item mil-square-item mil-up mil-mb-30">
+                                                    <img src="img/foto/4.jpg" alt="cover" />
+                                                    <div class="mil-project-descr">
+                                                        <h4 class="mil-upper mil-mb-20">
+                                                            Horizontal elevator
+                                                        </h4>
+                                                        <div class="mil-divider-sm mil-mb-20"></div>
+                                                        <p>
+                                                            Consectetur adipiscing elit, sed do eiusmod
+                                                            tempor incididunt ut labore aliqua.
+                                                        </p>
+                                                    </div>
+                                                </a>
+
+                                                <a href="project.html"
+                                                    class="mil-portfolio-item mil-square-item mil-up mil-mb-30">
+                                                    <img src="img/foto/5.jpg" alt="cover" />
+                                                    <div class="mil-project-descr">
+                                                        <h4 class="mil-upper mil-mb-20">Home Decor</h4>
+                                                        <div class="mil-divider-sm mil-mb-20"></div>
+                                                        <p>
+                                                            Consectetur adipiscing elit, sed do eiusmod
+                                                            tempor incididunt ut labore aliqua.
+                                                        </p>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div class="col-md-6 col-lg-3">
+                                                <a href="project.html"
+                                                    class="mil-portfolio-item mil-long-item mil-up mil-mb-30">
+                                                    <img src="img/foto/6.jpg" alt="cover" />
+                                                    <div class="mil-project-descr">
+                                                        <h4 class="mil-upper mil-mb-20">
+                                                            Modern architecture
+                                                        </h4>
+                                                        <div class="mil-divider-sm mil-mb-20"></div>
+                                                        <p>
+                                                            Consectetur adipiscing elit, sed do eiusmod
+                                                            tempor incididunt ut labore aliqua.
+                                                        </p>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
                             </div>
-                        </a>
+                        </div>
+
+                        <div class="content-item mil-up position-relative" id="photo-trigger">
+                            <div class="mil-buttons">
+                                <button class="mil-love-btn"><i class="fas fa-heart"></i></button>
+                                <button class="mil-download-btn"><i class="fas fa-download"></i></button>
+                            </div>
+                            <img src="img/foto/2.jpg" class="w-100 shadow-1-strong rounded" alt="Mountains in the Clouds" />
+                            <div class="image-profile">
+                                <img src="img/icons/user-elipse.svg" alt="Profile Picture" class="mil-profile-img" />
+                                <p class="mil-username">PixaVault</p>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-md-6 col-lg-3">
                         <a href="project.html" class="mil-portfolio-item mil-long-item mil-up mil-mb-30">
@@ -509,71 +888,70 @@
 
         <!-- how we work -->
         <!-- <section>
-                        <div class="container mil-p-90-60">
-                            <div class="mil-background-grid mil-softened"></div>
+                                <div class="container mil-p-90-60">
+                                    <div class="mil-background-grid mil-softened"></div>
 
-                            <div class="row">
-                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-12">
 
-                                    <div class="mil-center mil-mb-90">
-                                        <span class="mil-suptitle mil-upper mil-up mil-mb-30">How We Work</span>
-                                        <h2 class="mil-upper mil-up">This is How Magic Happens</h2>
-                                    </div>
+                                            <div class="mil-center mil-mb-90">
+                                                <span class="mil-suptitle mil-upper mil-up mil-mb-30">How We Work</span>
+                                                <h2 class="mil-upper mil-up">This is How Magic Happens</h2>
+                                            </div>
 
-                                </div>
-                                <div class="col-lg-4">
-
-                                    <div class="mil-hww mil-icon-box mil-up mil-mb-60">
-                                        <div class="mil-icon mil-icon-border mil-mb-30">
-                                            <img src="img/icons/7.svg" alt="icon">
                                         </div>
-                                        <h4 class="mil-upper mil-mb-20">High Efficiency</h4>
-                                        <div class="mil-divider-sm mil-mb-20"></div>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore aliqua.</p>
-                                    </div>
+                                        <div class="col-lg-4">
 
-                                </div>
-                                <div class="col-lg-4">
+                                            <div class="mil-hww mil-icon-box mil-up mil-mb-60">
+                                                <div class="mil-icon mil-icon-border mil-mb-30">
+                                                    <img src="img/icons/7.svg" alt="icon">
+                                                </div>
+                                                <h4 class="mil-upper mil-mb-20">High Efficiency</h4>
+                                                <div class="mil-divider-sm mil-mb-20"></div>
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore aliqua.</p>
+                                            </div>
 
-                                    <div class="mil-hww mil-icon-box mil-up mil-mb-60">
-                                        <div class="mil-icon mil-icon-border mil-mb-30">
-                                            <img src="img/icons/8.svg" alt="icon">
                                         </div>
-                                        <h4 class="mil-upper mil-mb-20">Team of Experts</h4>
-                                        <div class="mil-divider-sm mil-mb-20"></div>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore aliqua.</p>
-                                    </div>
+                                        <div class="col-lg-4">
 
-                                </div>
-                                <div class="col-lg-4">
+                                            <div class="mil-hww mil-icon-box mil-up mil-mb-60">
+                                                <div class="mil-icon mil-icon-border mil-mb-30">
+                                                    <img src="img/icons/8.svg" alt="icon">
+                                                </div>
+                                                <h4 class="mil-upper mil-mb-20">Team of Experts</h4>
+                                                <div class="mil-divider-sm mil-mb-20"></div>
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore aliqua.</p>
+                                            </div>
 
-                                    <div class="mil-hww mil-icon-box mil-up mil-mb-60">
-                                        <div class="mil-icon mil-icon-border mil-mb-30">
-                                            <img src="img/icons/9.svg" alt="icon">
                                         </div>
-                                        <h4 class="mil-upper mil-mb-20">Technology</h4>
-                                        <div class="mil-divider-sm mil-mb-20"></div>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore aliqua.</p>
-                                    </div>
+                                        <div class="col-lg-4">
 
+                                            <div class="mil-hww mil-icon-box mil-up mil-mb-60">
+                                                <div class="mil-icon mil-icon-border mil-mb-30">
+                                                    <img src="img/icons/9.svg" alt="icon">
+                                                </div>
+                                                <h4 class="mil-upper mil-mb-20">Technology</h4>
+                                                <div class="mil-divider-sm mil-mb-20"></div>
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore aliqua.</p>
+                                            </div>
+
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </section> -->
+                            </section> -->
         <!-- how we work end -->
-        <!-- Random Image -->
+        <!-- Explore Image -->
         <section>
-            <div class="container-fluid mil-p-0-60">
+            <div class="container mil-p-120-120">
                 <div class="mil-background-grid mil-softened"></div>
 
                 <div class="row">
                     <div class="col-12 mb-15">
                         <div class="mil-center mil-mb-90">
-                            <span class="mil-suptitle mil-upper mil-up mil-mb-30">Random Images</span>
-                            <h2 class="mil-upper mil-up">Wandering Pixels</h2>
+                            <span class="mil-suptitle mil-upper mil-up mil-mb-30">EXPLORE</span>
+                            <h2 class="mil-upper mil-up">FRAME BY FRAME DISCOVERY</h2>
                             <p class="mil-mb-30">
-                                A place where random photos roam, ready to give you a visual
-                                surprise with every click.
+                                Dive into a world of creativity with handpicked collections tailored to your interests.
                             </p>
                             <a href="blog.html" class="mil-link mil-upper mil-up">See All
                                 <span class="mil-arrow"><img src="img/icons/1.svg" alt="arrow" /></span></a>
@@ -581,395 +959,253 @@
                     </div>
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-md-6 col-lg-12 d-flex flex-row gap-02 align-items-center">
-                                <div class="col-lg-6">
-                                    <a href="project.html" class="mil-portfolio-item mil-square-item mil-up mil-mb-30 p-50">
-                                        <img src="img/foto/1.jpg" alt="cover" />
-                                    </a>
+                            <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+                                <div class="content-item mil-up position-relative">
+                                    <div class="mil-buttons">
+                                        <button class="mil-love-btn"><i class="fas fa-heart"></i></button>
+                                        <button class="mil-download-btn"><i class="fas fa-download"></i></button>
+                                    </div>
+                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp"
+                                        class="w-100 shadow-1-strong rounded" alt="Boat on Calm Water" />
+                                    <div class="image-profile">
+                                        <img src="img/icons/user-elipse.svg" alt="Profile Picture"
+                                            class="mil-profile-img" />
+                                        <p class="mil-username">PixaVault</p>
+                                    </div>
                                 </div>
-                                <div class="">
-                                    <h4 class="mil-upper mil-mb-20">Modern architecture</h4>
-                                    <div class="mil-divider-sm mil-mb-20"></div>
-                                    <p>
-                                        Consectetur adipiscing elit, sed do eiusmod tempor
-                                        incididunt ut labore aliqua.
-                                    </p>
+
+                                <div class="content-item mil-up position-relative">
+                                    <div class="mil-buttons">
+                                        <button class="mil-love-btn"><i class="fas fa-heart"></i></button>
+                                        <button class="mil-download-btn"><i class="fas fa-download"></i></button>
+                                    </div>
+                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Vertical/mountain1.webp"
+                                        class="w-100 shadow-1-strong rounded" alt="Wintry Mountain Landscape" />
+                                    <div class="image-profile">
+                                        <img src="img/icons/user-elipse.svg" alt="Profile Picture"
+                                            class="mil-profile-img" />
+                                        <p class="mil-username">PixaVault</p>
+                                    </div>
+                                </div>
+
+                                <div class="content-item mil-up position-relative">
+                                    <div class="mil-buttons">
+                                        <button class="mil-love-btn"><i class="fas fa-heart"></i></button>
+                                        <button class="mil-download-btn"><i class="fas fa-download"></i></button>
+                                    </div>
+                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Thumbnails/Vertical/1.webp"
+                                        class="w-100 shadow-1-strong rounded" alt="Wintry Mountain Landscape" />
+                                    <div class="image-profile">
+                                        <img src="img/icons/user-elipse.svg" alt="Profile Picture"
+                                            class="mil-profile-img" />
+                                        <p class="mil-username">PixaVault</p>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-6 col-lg-3">
-                                <a href="project.html" class="mil-portfolio-item mil-square-item mil-up mil-mb-30">
-                                    <img src="img/foto/4.jpg" alt="cover" />
-                                    <div class="mil-project-descr">
-                                        <h4 class="mil-upper mil-mb-20">Horizontal elevator</h4>
-                                        <div class="mil-divider-sm mil-mb-20"></div>
-                                        <p>
-                                            Consectetur adipiscing elit, sed do eiusmod tempor
-                                            incididunt ut labore aliqua.
-                                        </p>
-                                    </div>
-                                </a>
 
-                                <a href="project.html" class="mil-portfolio-item mil-square-item mil-up mil-mb-30">
-                                    <img src="img/foto/5.jpg" alt="cover" />
-                                    <div class="mil-project-descr">
-                                        <h4 class="mil-upper mil-mb-20">Home Decor</h4>
-                                        <div class="mil-divider-sm mil-mb-20"></div>
-                                        <p>
-                                            Consectetur adipiscing elit, sed do eiusmod tempor
-                                            incididunt ut labore aliqua.
-                                        </p>
+                            <div class="col-lg-4 mb-4 mb-lg-0">
+                                <div class="content-item mil-up position-relative">
+                                    <div class="mil-buttons">
+                                        <button class="mil-love-btn"><i class="fas fa-heart"></i></button>
+                                        <button class="mil-download-btn"><i class="fas fa-download"></i></button>
                                     </div>
-                                </a>
-                            </div>
-                            <div class="col-md-6 col-lg-3">
-                                <a href="project.html" class="mil-portfolio-item mil-long-item mil-up mil-mb-30">
-                                    <img src="img/foto/3.jpg" alt="cover" />
-                                    <div class="mil-project-descr">
-                                        <h4 class="mil-upper mil-mb-20">Cubism</h4>
-                                        <div class="mil-divider-sm mil-mb-20"></div>
-                                        <p>
-                                            Consectetur adipiscing elit, sed do eiusmod tempor
-                                            incididunt ut labore aliqua.
-                                        </p>
+                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Vertical/mountain2.webp"
+                                        class="w-100 shadow-1-strong rounded" alt="Mountains in the Clouds" />
+                                    <div class="image-profile">
+                                        <img src="img/icons/user-elipse.svg" alt="Profile Picture"
+                                            class="mil-profile-img" />
+                                        <p class="mil-username">PixaVault</p>
                                     </div>
-                                </a>
-                            </div>
-                            <div class="col-md-6 col-lg-3">
-                                <a href="project.html" class="mil-portfolio-item mil-square-item mil-up mil-mb-30">
-                                    <img src="img/foto/4.jpg" alt="cover" />
-                                    <div class="mil-project-descr">
-                                        <h4 class="mil-upper mil-mb-20">Horizontal elevator</h4>
-                                        <div class="mil-divider-sm mil-mb-20"></div>
-                                        <p>
-                                            Consectetur adipiscing elit, sed do eiusmod tempor
-                                            incididunt ut labore aliqua.
-                                        </p>
-                                    </div>
-                                </a>
+                                </div>
 
-                                <a href="project.html" class="mil-portfolio-item mil-square-item mil-up mil-mb-30">
-                                    <img src="img/foto/5.jpg" alt="cover" />
-                                    <div class="mil-project-descr">
-                                        <h4 class="mil-upper mil-mb-20">Home Decor</h4>
-                                        <div class="mil-divider-sm mil-mb-20"></div>
-                                        <p>
-                                            Consectetur adipiscing elit, sed do eiusmod tempor
-                                            incididunt ut labore aliqua.
-                                        </p>
+                                <div class="content-item mil-up position-relative">
+                                    <div class="mil-buttons">
+                                        <button class="mil-love-btn"><i class="fas fa-heart"></i></button>
+                                        <button class="mil-download-btn"><i class="fas fa-download"></i></button>
                                     </div>
-                                </a>
+                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp"
+                                        class="w-100 shadow-1-strong rounded" alt="Boat on Calm Water" />
+                                    <div class="image-profile">
+                                        <img src="img/icons/user-elipse.svg" alt="Profile Picture"
+                                            class="mil-profile-img" />
+                                        <p class="mil-username">PixaVault</p>
+                                    </div>
+                                </div>
+
+                                <div class="content-item mil-up position-relative">
+                                    <div class="mil-buttons">
+                                        <button class="mil-love-btn"><i class="fas fa-heart"></i></button>
+                                        <button class="mil-download-btn"><i class="fas fa-download"></i></button>
+                                    </div>
+                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Thumbnails/Square/1.webp"
+                                        class="w-100 shadow-1-strong rounded" alt="Boat on Calm Water" />
+                                    <div class="image-profile">
+                                        <img src="img/icons/user-elipse.svg" alt="Profile Picture"
+                                            class="mil-profile-img" />
+                                        <p class="mil-username">PixaVault</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-6 col-lg-3">
-                                <a href="project.html" class="mil-portfolio-item mil-long-item mil-up mil-mb-30">
-                                    <img src="img/foto/6.jpg" alt="cover" />
-                                    <div class="mil-project-descr">
-                                        <h4 class="mil-upper mil-mb-20">Modern architecture</h4>
-                                        <div class="mil-divider-sm mil-mb-20"></div>
-                                        <p>
-                                            Consectetur adipiscing elit, sed do eiusmod tempor
-                                            incididunt ut labore aliqua.
-                                        </p>
+
+                            <div class="col-lg-4 mb-4 mb-lg-0">
+                                <div class="content-item mil-up position-relative">
+                                    <div class="mil-buttons">
+                                        <button class="mil-love-btn"><i class="fas fa-heart"></i></button>
+                                        <button class="mil-download-btn"><i class="fas fa-download"></i></button>
                                     </div>
-                                </a>
+                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(18).webp"
+                                        class="w-100 shadow-1-strong rounded" alt="Waves at Sea" />
+                                    <div class="image-profile">
+                                        <img src="img/icons/user-elipse.svg" alt="Profile Picture"
+                                            class="mil-profile-img" />
+                                        <p class="mil-username">PixaVault</p>
+                                    </div>
+                                </div>
+
+                                <div class="content-item mil-up position-relative">
+                                    <div class="mil-buttons">
+                                        <button class="mil-love-btn"><i class="fas fa-heart"></i></button>
+                                        <button class="mil-download-btn"><i class="fas fa-download"></i></button>
+                                    </div>
+                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Thumbnails/Slides/1.webp"
+                                        class="w-100 shadow-1-strong rounded" alt="Waves at Sea" />
+                                    <div class="image-profile">
+                                        <img src="img/icons/user-elipse.svg" alt="Profile Picture"
+                                            class="mil-profile-img" />
+                                        <p class="mil-username">PixaVault</p>
+                                    </div>
+                                </div>
+
+                                <div class="content-item mil-up position-relative">
+                                    <div class="mil-buttons">
+                                        <button class="mil-love-btn"><i class="fas fa-heart"></i></button>
+                                        <button class="mil-download-btn"><i class="fas fa-download"></i></button>
+                                    </div>
+                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Vertical/mountain3.webp"
+                                        class="w-100 shadow-1-strong rounded" alt="Yosemite National Park" />
+                                    <div class="image-profile">
+                                        <img src="img/icons/user-elipse.svg" alt="Profile Picture"
+                                            class="mil-profile-img" />
+                                        <p class="mil-username">PixaVault</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        <!-- Category Image -->
-        <section>
-            <div class="container-fluid mil-p-0-60">
-                <div class="mil-background-grid mil-softened"></div>
-
-                <div class="row">
-                    <div class="col-12 mb-15">
-                        <div class="mil-center mil-mb-90">
-                            <span class="mil-suptitle mil-upper mil-up mil-mb-30">Category</span>
-                            <h2 class="mil-upper mil-up">Explore Stunning Collections</h2>
-                            <p class="mil-mb-30">
-                                Dive into a world of creativity with handpicked collections
-                                tailored to your interests.
-                            </p>
-                            <a href="blog.html" class="mil-link mil-upper mil-up">See All
-                                <span class="mil-arrow"><img src="img/icons/1.svg" alt="arrow" /></span></a>
-                        </div>
-                    </div>
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-6 col-lg-3 mil-mb-20">
-                                <a href="project.html" class="mil-portfolio-item p-70 mil-up mil-mb-10 rounded-1">
-                                    <img src="img/foto/category/nature.jpg" alt="cover" />
-                                    <!-- <div class="mil-project-descr"> -->
-                                    <!-- <h4 class="mil-upper mil-mb-20">Horizontal elevator</h4> -->
-                                    <!-- <div class="mil-divider-sm mil-mb-20"></div> -->
-                                    <!-- <p>Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore -->
-                                    <!-- aliqua.</p> -->
-                                    <!-- </div> -->
-                                </a>
-                                <p class="mil-bold f-black mil-text-sm">Nature</p>
-                                <p class="mil-text-sm">10.000+ Images</p>
-                            </div>
-                            <div class="col-md-6 col-lg-3 mil-mb-20">
-                                <a href="project.html" class="mil-portfolio-item p-70 mil-up mil-mb-10 rounded-1">
-                                    <img src="img/foto/category/landscape.jpg" alt="cover" />
-                                    <!-- <div class="mil-project-descr"> -->
-                                    <!-- <h4 class="mil-upper mil-mb-20">Horizontal elevator</h4> -->
-                                    <!-- <div class="mil-divider-sm mil-mb-20"></div> -->
-                                    <!-- <p>Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore -->
-                                    <!-- aliqua.</p> -->
-                                    <!-- </div> -->
-                                </a>
-                                <p class="mil-bold f-black mil-text-sm">Landscapes</p>
-                                <p class="mil-text-sm">10.000+ Images</p>
-                            </div>
-                            <div class="col-md-6 col-lg-3 mil-mb-20">
-                                <a href="project.html" class="mil-portfolio-item p-70 mil-up mil-mb-10 rounded-1">
-                                    <img src="img/foto/category/urban-cityscape.jpg" alt="cover" />
-                                    <!-- <div class="mil-project-descr"> -->
-                                    <!-- <h4 class="mil-upper mil-mb-20">Cubism</h4> -->
-                                    <!-- <div class="mil-divider-sm mil-mb-20"></div> -->
-                                    <!-- <p>Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore -->
-                                    <!-- aliqua.</p> -->
-                                    <!-- </div> -->
-                                </a>
-                                <p class="mil-bold f-black mil-text-sm">
-                                    Urban & Cityscapes
-                                </p>
-                                <p class="mil-text-sm">10.000+ Images</p>
-                            </div>
-                            <div class="col-md-6 col-lg-3 mil-mb-20">
-                                <a href="project.html" class="mil-portfolio-item p-70 mil-up mil-mb-10 rounded-1">
-                                    <img src="img/foto/category/wildlife.jpg" alt="cover" />
-                                    <!-- <div class="mil-project-descr"> -->
-                                    <!-- <h4 class="mil-upper mil-mb-20">Horizontal elevator</h4> -->
-                                    <!-- <div class="mil-divider-sm mil-mb-20"></div> -->
-                                    <!-- <p>Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore -->
-                                    <!-- aliqua.</p> -->
-                                    <!-- </div> -->
-                                </a>
-                                <p class="mil-bold f-black mil-text-sm">Wildlife</p>
-                                <p class="mil-text-sm">10.000+ Images</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 col-lg-3 mil-mb-20">
-                                <a href="project.html" class="mil-portfolio-item p-70 mil-up mil-mb-10 rounded-1">
-                                    <img src="img/foto/category/potraits.JPG" alt="cover" />
-                                    <!-- <div class="mil-project-descr"> -->
-                                    <!-- <h4 class="mil-upper mil-mb-20">Horizontal elevator</h4> -->
-                                    <!-- <div class="mil-divider-sm mil-mb-20"></div> -->
-                                    <!-- <p>Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore -->
-                                    <!-- aliqua.</p> -->
-                                    <!-- </div> -->
-                                </a>
-                                <p class="mil-bold f-black mil-text-sm">Portraits</p>
-                                <p class="mil-text-sm">10.000+ Images</p>
-                            </div>
-                            <div class="col-md-6 col-lg-3 mil-mb-20">
-                                <a href="project.html" class="mil-portfolio-item p-70 mil-up mil-mb-10 rounded-1">
-                                    <img src="img/foto/category/abstract.jpg" alt="cover" />
-                                    <!-- <div class="mil-project-descr"> -->
-                                    <!-- <h4 class="mil-upper mil-mb-20">Horizontal elevator</h4> -->
-                                    <!-- <div class="mil-divider-sm mil-mb-20"></div> -->
-                                    <!-- <p>Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore -->
-                                    <!-- aliqua.</p> -->
-                                    <!-- </div> -->
-                                </a>
-                                <p class="mil-bold f-black mil-text-sm">Abstract</p>
-                                <p class="mil-text-sm">10.000+ Images</p>
-                            </div>
-                            <div class="col-md-6 col-lg-3 mil-mb-20">
-                                <a href="project.html" class="mil-portfolio-item p-70 mil-up mil-mb-10 rounded-1">
-                                    <img src="img/foto/category/black-white.jpg" alt="cover" />
-                                    <!-- <div class="mil-project-descr"> -->
-                                    <!-- <h4 class="mil-upper mil-mb-20">Cubism</h4> -->
-                                    <!-- <div class="mil-divider-sm mil-mb-20"></div> -->
-                                    <!-- <p>Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore -->
-                                    <!-- aliqua.</p> -->
-                                    <!-- </div> -->
-                                </a>
-                                <p class="mil-bold f-black mil-text-sm">Black & White</p>
-                                <p class="mil-text-sm">10.000+ Images</p>
-                            </div>
-                            <div class="col-md-6 col-lg-3 mil-mb-20">
-                                <a href="project.html" class="mil-portfolio-item p-70 mil-up mil-mb-10 rounded-1">
-                                    <img src="img/foto/4.jpg" alt="cover" />
-                                    <!-- <div class="mil-project-descr"> -->
-                                    <!-- <h4 class="mil-upper mil-mb-20">Horizontal elevator</h4> -->
-                                    <!-- <div class="mil-divider-sm mil-mb-20"></div> -->
-                                    <!-- <p>Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore -->
-                                    <!-- aliqua.</p> -->
-                                    <!-- </div> -->
-                                </a>
-                                <p class="mil-bold f-black mil-text-sm">Minimalism</p>
-                                <p class="mil-text-sm">10.000+ Images</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- blog -->
-        <section>
-            <div class="container mil-p-0-60">
-                <div class="mil-background-grid mil-softened"></div>
-
-                <div class="row">
-                    <div class="col-12">
-                        <div class="mil-center mil-mb-90">
-                            <span class="mil-suptitle mil-upper mil-up mil-mb-30">Insights</span>
-                            <h2 class="mil-upper mil-up mil-mb-30">Ideas and News</h2>
-                            <a href="blog.html" class="mil-link mil-upper mil-up">See All
-                                <span class="mil-arrow"><img src="img/icons/1.svg" alt="arrow" /></span></a>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <a href="publication.html" class="mil-blog-card mil-mb-60">
-                            <div class="mil-cover mil-up mil-long">
-                                <img src="img/foto/1.jpg" alt="cover" />
-                                <div class="mil-date">11.09.2023</div>
-                            </div>
-                            <div class="mil-description">
-                                <span class="mil-suptitle mil-upper mil-up mil-mb-30">Urban</span>
-                                <h4 class="mil-upper mil-up mil-mb-30">
-                                    Tips for Planning a Project
-                                </h4>
-                                <p class="mil-up">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                    sed do eiusmod tempor incididunt ut labore et dolore
-                                    magna.
-                                </p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-lg-6">
-                        <a href="publication.html" class="mil-blog-card mil-mb-60">
-                            <div class="mil-cover mil-up mil-long">
-                                <img src="img/foto/6.jpg" alt="cover" />
-                                <div class="mil-date">11.09.2023</div>
-                            </div>
-                            <div class="mil-description">
-                                <span class="mil-suptitle mil-upper mil-up mil-mb-30">Perspectives</span>
-                                <h4 class="mil-upper mil-up mil-mb-30">
-                                    Design a perfect home
-                                </h4>
-                                <p class="mil-up">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                    sed do eiusmod tempor incididunt ut labore et dolore
-                                    magna.
-                                </p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- blog end -->
 
         <!-- core -->
         <!-- <section class="mil-dark-bg mil-relative mil-o-hidden">
-                        <img src="img/foto/3.jpg" class="mil-bg-img mil-scale" alt="image" style="object-position: top;" data-value-1="1" data-value-2="1.2">
-                        <div class="mil-overlay"></div>
-                        <div class="container mil-p-120-90">
-                            <div class="mil-background-grid"></div>
-                            <div class="row justify-content-between">
-                                <div class="col-lg-5">
+                                <img src="img/foto/3.jpg" class="mil-bg-img mil-scale" alt="image" style="object-position: top;" data-value-1="1" data-value-2="1.2">
+                                <div class="mil-overlay"></div>
+                                <div class="container mil-p-120-90">
+                                    <div class="mil-background-grid"></div>
+                                    <div class="row justify-content-between">
+                                        <div class="col-lg-5">
 
-                                    <div class="mil-mb-90">
-                                        <span class="mil-suptitle mil-upper mil-light mil-up mil-mb-30">Our Core</span>
-                                        <h2 class="mil-upper mil-light mil-up mil-mb-30">Whole difference</h2>
-                                        <p class="mil-light-soft mil-up mil-mb-40">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua quis ipsum suspendisse ultrices gravida.</p>
-                                        <a href="services.html" class="mil-link mil-light mil-upper mil-up">Read More <span class="mil-arrow"><img src="img/icons/1.svg" alt="arrow"></span></a>
+                                            <div class="mil-mb-90">
+                                                <span class="mil-suptitle mil-upper mil-light mil-up mil-mb-30">Our Core</span>
+                                                <h2 class="mil-upper mil-light mil-up mil-mb-30">Whole difference</h2>
+                                                <p class="mil-light-soft mil-up mil-mb-40">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua quis ipsum suspendisse ultrices gravida.</p>
+                                                <a href="services.html" class="mil-link mil-light mil-upper mil-up">Read More <span class="mil-arrow"><img src="img/icons/1.svg" alt="arrow"></span></a>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-lg-6 mil-mt-suptitle-offset">
+
+                                            <div class="mil-accordion-group mil-up">
+                                                <div class="mil-accordion-menu">
+
+                                                    <div class="mil-symbol mil-light mil-thin mil-h3">
+                                                        <div class="mil-plus">+</div>
+                                                        <div class="mil-minus">-</div>
+                                                    </div>
+
+                                                    <h6 class="mil-upper mil-light">Team of Experts</h6>
+
+                                                </div>
+                                                <div class="mil-accordion-content">
+                                                    <p class="mil-light-soft mil-mb-30">Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="mil-accordion-group mil-up">
+                                                <div class="mil-accordion-menu">
+
+                                                    <div class="mil-symbol mil-light mil-thin mil-h3">
+                                                        <div class="mil-plus">+</div>
+                                                        <div class="mil-minus">-</div>
+                                                    </div>
+
+                                                    <h6 class="mil-upper mil-light">Creativity and Innovation</h6>
+
+                                                </div>
+                                                <div class="mil-accordion-content">
+                                                    <p class="mil-light-soft mil-mb-30">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="mil-accordion-group mil-up">
+                                                <div class="mil-accordion-menu">
+
+                                                    <div class="mil-symbol mil-light mil-thin mil-h3">
+                                                        <div class="mil-plus">+</div>
+                                                        <div class="mil-minus">-</div>
+                                                    </div>
+
+                                                    <h6 class="mil-upper mil-light">Technology</h6>
+
+                                                </div>
+                                                <div class="mil-accordion-content">
+                                                    <p class="mil-light-soft mil-mb-30">Netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="mil-accordion-group mil-up">
+                                                <div class="mil-accordion-menu">
+
+                                                    <div class="mil-symbol mil-light mil-thin mil-h3">
+                                                        <div class="mil-plus">+</div>
+                                                        <div class="mil-minus">-</div>
+                                                    </div>
+
+                                                    <h6 class="mil-upper mil-light">Sustainability</h6>
+
+                                                </div>
+                                                <div class="mil-accordion-content">
+                                                    <p class="mil-light-soft mil-mb-30">Malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="mil-accordion-group mil-up">
+                                                <div class="mil-accordion-menu">
+
+                                                    <div class="mil-symbol mil-light mil-thin mil-h3">
+                                                        <div class="mil-plus">+</div>
+                                                        <div class="mil-minus">-</div>
+                                                    </div>
+
+                                                    <h6 class="mil-upper mil-light">Honesty and Transparency</h6>
+
+                                                </div>
+                                                <div class="mil-accordion-content">
+                                                    <p class="mil-light-soft mil-mb-30">Fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+                                                </div>
+                                            </div>
+
+                                        </div>
                                     </div>
-
                                 </div>
-                                <div class="col-lg-6 mil-mt-suptitle-offset">
-
-                                    <div class="mil-accordion-group mil-up">
-                                        <div class="mil-accordion-menu">
-
-                                            <div class="mil-symbol mil-light mil-thin mil-h3">
-                                                <div class="mil-plus">+</div>
-                                                <div class="mil-minus">-</div>
-                                            </div>
-
-                                            <h6 class="mil-upper mil-light">Team of Experts</h6>
-
-                                        </div>
-                                        <div class="mil-accordion-content">
-                                            <p class="mil-light-soft mil-mb-30">Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
-                                        </div>
-                                    </div>
-
-                                    <div class="mil-accordion-group mil-up">
-                                        <div class="mil-accordion-menu">
-
-                                            <div class="mil-symbol mil-light mil-thin mil-h3">
-                                                <div class="mil-plus">+</div>
-                                                <div class="mil-minus">-</div>
-                                            </div>
-
-                                            <h6 class="mil-upper mil-light">Creativity and Innovation</h6>
-
-                                        </div>
-                                        <div class="mil-accordion-content">
-                                            <p class="mil-light-soft mil-mb-30">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
-                                        </div>
-                                    </div>
-
-                                    <div class="mil-accordion-group mil-up">
-                                        <div class="mil-accordion-menu">
-
-                                            <div class="mil-symbol mil-light mil-thin mil-h3">
-                                                <div class="mil-plus">+</div>
-                                                <div class="mil-minus">-</div>
-                                            </div>
-
-                                            <h6 class="mil-upper mil-light">Technology</h6>
-
-                                        </div>
-                                        <div class="mil-accordion-content">
-                                            <p class="mil-light-soft mil-mb-30">Netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
-                                        </div>
-                                    </div>
-
-                                    <div class="mil-accordion-group mil-up">
-                                        <div class="mil-accordion-menu">
-
-                                            <div class="mil-symbol mil-light mil-thin mil-h3">
-                                                <div class="mil-plus">+</div>
-                                                <div class="mil-minus">-</div>
-                                            </div>
-
-                                            <h6 class="mil-upper mil-light">Sustainability</h6>
-
-                                        </div>
-                                        <div class="mil-accordion-content">
-                                            <p class="mil-light-soft mil-mb-30">Malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
-                                        </div>
-                                    </div>
-
-                                    <div class="mil-accordion-group mil-up">
-                                        <div class="mil-accordion-menu">
-
-                                            <div class="mil-symbol mil-light mil-thin mil-h3">
-                                                <div class="mil-plus">+</div>
-                                                <div class="mil-minus">-</div>
-                                            </div>
-
-                                            <h6 class="mil-upper mil-light">Honesty and Transparency</h6>
-
-                                        </div>
-                                        <div class="mil-accordion-content">
-                                            <p class="mil-light-soft mil-mb-30">Fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </section> -->
+                            </section> -->
         <!-- core end -->
+
     </div>
+    <script>
+        var user = @json(Auth::user());
+        console.log(user); // Cek semua data user
+        console.log(user.role); // Kalau ada role
+    </script>
 @endsection
+@vite(['resources/js/home.js'])

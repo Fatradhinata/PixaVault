@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
 
     <link rel="stylesheet" href="{{ asset('css/plugins/bootstrap-grid.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/plugins/font-awesome.min.css') }}" />
@@ -14,58 +16,15 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
 
     @yield('styles')
+    @stack('styles')
 
     <!-- page name -->
     <title>PixaVault</title>
 </head>
 
 <body>
-    <!-- wrapper -->
-    <div class="mil-wrapper">
-        <div class="mil-progress-track">
-            <div class="mil-progress"></div>
-        </div>
-
-        @include('templates.flasher')
-
-        <!-- top bar -->
-        <div class="mil-top-panel">
-            <div class="container-fluid">
-                <div class="mil-top-panel-content">
-                    <a href="{{ route('home') }}" class="mil-logo">
-                        <img src="{{ asset('img/logo/logo.png') }}" alt="Logo" style="height: 64px; filter: invert(1);" />
-                    </a>
-
-                    <div class="mil-navigation">
-                        <nav>
-                            <ul>
-                                <li class="mil-has-children {{ Route::is('home') ? 'mil-active' : '' }}">
-                                    <a href="{{ url('/') }}">Home</a>
-                                </li>
-                                <li class="mil-has-children {{ Route::is('leaderboard') ? 'mil-active' : '' }}">
-                                    <a href="{{ url('/leaderboard') }}">Leaderboard</a>
-                                </li>
-                                <li class="mil-has-children {{ Route::is('blog') ? 'mil-active' : '' }}">
-                                    <a href="{{ url('/blog') }}">Blog</a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-
-                    <div class="mil-top-panel-buttons">
-                        @if (auth()->check())
-                            <a href="{{ route('logout') }}" class="mil-button mil-sm">Log Out</a>
-                        @else
-                            <a href="{{ route('login') }}" class="mil-button mil-sm">Sign In</a>
-                        @endif
-                        <div class="mil-menu-btn">
-                            <span></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- top bar end -->
+        {{-- Navbar Dinamis --}}        
+        @yield('navbar')
 
         @yield('content')
 

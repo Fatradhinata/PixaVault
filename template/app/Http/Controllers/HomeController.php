@@ -31,4 +31,20 @@ class HomeController extends Controller
     {
         return view('user.history_download');
     }
+    public function upload()
+    {
+        return view('user.upload');
+    }
+    public function profile()
+    {
+        return view('user.profile');
+    }
+    public function payment()
+    {
+        return view('user.payment');
+    }
+    public function pricing()
+    {
+        return view('user.pricing');
+    }
 }

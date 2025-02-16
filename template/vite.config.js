@@ -7,7 +7,7 @@ dotenv.config();  // Pastikan dotenv di-load
 export default defineConfig({
     plugins: [
         laravel({
-            input: ['resources/css/app.css', 'resources/js/app.js'],
+            input: ['resources/css/app.css', 'resources/js/app.js', 'resource/js/login.js', 'resource/js/main.js', 'resource/js/profile.js', 'resource/js/home.js'],
             refresh: true,
         }),
     ],

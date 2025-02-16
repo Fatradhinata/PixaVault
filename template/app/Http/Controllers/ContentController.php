@@ -2,65 +2,45 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use App\Models\Content;
-use App\Http\Requests\StoreContentRequest;
-use App\Http\Requests\UpdateContentRequest;
+use Illuminate\Support\Str;
 
 class ContentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function upload(Request $request)
     {
-        //
+        // Validasi input
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'name' => 'required|string|max:255',
+            'desc' => 'required|string',
+            'tags' => 'required|string',
+            'shoot_by' => 'nullable|string',
+        ]);
+
+        // Pastikan user login
+        if (!auth()->check()) {
+            return redirect()->back()->with('error', 'You must be logged in to upload.');
+        }
+
+        // Upload gambar ke Cloudinary
+        $uploadedFileUrl = Cloudinary::upload($request->file('image')->getRealPath())->getSecurePath();
+
+        // Simpan ke database
+        $content = new Content();
+        $content->id_user = auth()->id();
+        $content->name = $request->name;
+        $content->desc = $request->desc;
+        $content->photo = $uploadedFileUrl;
+        $content->downloads = 0;
+        $content->likes = 0;
+        $content->views = 0;
+        $content->tags = json_encode(explode(',', $request->tags)); // Ubah tags jadi JSON
+        $content->save();
+
+        return redirect()->back()->with('success', 'Photo uploaded successfully!');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreContentRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Content $content)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Content $content)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateContentRequest $request, Content $content)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Content $content)
-    {
-        //
-    }
 }

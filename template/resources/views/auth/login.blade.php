@@ -34,8 +34,8 @@
                     </div>
                     <div class="input-group input-password">
                         <input type="password" placeholder="Password" name="password" required>
-                        <img src="{{ asset('img/icons/eye-close.svg') }}" alt="password close" width="28px">
-                        <img src="{{ asset('img/icons/eye-open.svg') }}" alt="password open" width="28px" style="display: none">
+                        <img src="{{ Vite::asset('resources/img/icons/eye-close.svg') }}" alt="password close" width="28px">
+                        <img src="{{ Vite::asset('resources/img/icons/eye-open.svg') }}" alt="password open" width="28px" style="display: none">
                     </div>
                 </div>
                 <button class="btn btn-login">Login</button>
@@ -45,14 +45,14 @@
                     <div></div>
                 </div>
                 <a href="{{ route('google-auth') }}" class="btn-outline btn-google d-flex">
-                    <img src="{{ asset('img/icons/google.svg') }}" alt="google">
+                    <img src="{{ Vite::asset('resources/img/icons/google.svg') }}" alt="google">
                     <p>Log In with Google</p>
                 </a>
                 <p class="register-text text-dark-gray">Don't have an account? <a href="{{ route('register') }}">Register now</a></p>
             </div>
         </form>
         <div class="right-content">
-            <img src="{{ asset('img/illustration/login.png') }}" alt="login illustration">
+            <img src="{{ Vite::asset('resources/img/illustration/login.png') }}" alt="login illustration">
         </div>
     </div>
 
