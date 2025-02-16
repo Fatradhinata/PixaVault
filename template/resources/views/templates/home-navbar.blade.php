@@ -4,6 +4,8 @@
         <div class="mil-progress"></div>
     </div>
 
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
     <!-- top bar -->
     <div class="mil-top-panel">
         <a href="{{ url('/') }}" class="mil-logo">

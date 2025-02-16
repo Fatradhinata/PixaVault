@@ -14,7 +14,9 @@
     <link rel="stylesheet" href="{{ asset('css/plugins/swiper.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/plugins/magnific-popup.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
-
+    
+    
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     @yield('styles')
     @stack('styles')
 

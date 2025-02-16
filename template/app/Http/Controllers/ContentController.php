@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use App\Models\Content;
 use Illuminate\Support\Str;
@@ -21,7 +22,7 @@ class ContentController extends Controller
         ]);
 
         // Pastikan user login
-        if (!auth()->check()) {
+        if (!Auth::check()) {
             return redirect()->back()->with('error', 'You must be logged in to upload.');
         }
 
@@ -30,7 +31,7 @@ class ContentController extends Controller
 
         // Simpan ke database
         $content = new Content();
-        $content->id_user = auth()->id();
+        $content->id_user = Auth::id();
         $content->name = $request->name;
         $content->desc = $request->desc;
         $content->photo = $uploadedFileUrl;

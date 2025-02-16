@@ -1,3 +1,12 @@
+<style>
+    :root {
+        --url-cancel: url('{{ Vite::asset("resources/img/icons/cancel.svg") }}');
+        --url-checklist: url('{{ Vite::asset("resources/img/icons/checklist.svg") }}');
+        --url-danger: url('{{ Vite::asset("resources/img/icons/danger.svg") }}');
+        --url-warning: url('{{ Vite::asset("resources/img/icons/warning.svg") }}');
+    }
+</style>
+
 <?php $flashing = false; ?>
 @if (session('success'))
     <?php $flashing = true; ?>

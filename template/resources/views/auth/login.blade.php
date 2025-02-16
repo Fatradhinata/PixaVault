@@ -66,7 +66,7 @@
     <script src="{{ asset('js/plugins/magnific-popup.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
     
-    <script src="{{ asset('js/login.js') }}"></script>
+    <script src="{{ Vite::asset('resources/js/login.js') }}"></script>
 
 
 </body>

@@ -15,7 +15,7 @@ class SocialiteController extends Controller
 
     public function callback()
     {
-        $socialUser = Socialite::driver('google')->stateless()->user();
+        $socialUser = Socialite::driver('google')->user();
         $user = User::where('email', $socialUser->email)->first();
 
         if ($user) {
@@ -40,11 +40,7 @@ class SocialiteController extends Controller
         }
 
         Auth::login($auth);
-        // \Log::info('User setelah login:', ['user' => Auth::user()]); // Cek apakah user sudah login
-        session()->save(); // Paksa session untuk disimpan
-        // dd(Auth::user());
-        
-        
+        session()->save();
         
 
         if (!Auth::user()->verified_at)
