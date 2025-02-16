@@ -35,10 +35,6 @@ class HomeController extends Controller
     {
         return view('user.upload');
     }
-    public function profile()
-    {
-        return view('user.profile');
-    }
     public function payment()
     {
         return view('user.payment');

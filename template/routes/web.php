@@ -1,15 +1,16 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ContentController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\MidtransController;
 use PharIo\Manifest\AuthorElementCollection;
 use App\Http\Controllers\SocialiteController;
-use App\Http\Controllers\MidtransController;
-use App\Models\User;
-use App\Http\Controllers\PaymentController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('unverified');
 Route::get('/verify-user/{id}', [AuthController::class, 'verify']);
@@ -35,16 +36,15 @@ Route::middleware('auth')->group(function () {
         Route::get('/favorites', [HomeController::class, 'favorites'])->name('favorites');
         Route::get('/leaderboard', [HomeController::class, 'leaderboard'])->name('leaderboard');
         Route::get('/history_download', [HomeController::class, 'history_download'])->name('history_download');
-        Route::get('/upload', [HomeController::class, 'upload'])->name(name: 'upload');
+        Route::get('/upload', [HomeController::class, 'upload'])->name('upload');
         Route::post('/upload', [ContentController::class, 'upload'])->name('upload.content');
-        Route::get('/profile', [HomeController::class, 'profile'])->name('profile');
-        Route::get('/profile/{id}', action: function ($id) {
-            $user = User::findOrFail($id);
-            return view('user.profile', compact('user')); 
-        });
+
+        Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+        Route::get('/profile/{id}', [ProfileController::class, 'details'])->name('profile.details');
+
         Route::post('/midtrans/token', [MidtransController::class, 'getToken']);
         // Route::get('/payment', [HomeController::class, 'payment'])->name('payment');
-        Route::post('/pricing', [PaymentController::class, 'createTransaction'])->name(name: 'create.transaction');
+        Route::post('/pricing', [PaymentController::class, 'createTransaction'])->name('create.transaction');
         Route::post('/payment-notification', [PaymentController::class, 'handleNotification'])->name('payment.notification');
     });
 

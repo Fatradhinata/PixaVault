@@ -4,8 +4,6 @@
         <div class="mil-progress"></div>
     </div>
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-
     <!-- top bar -->
     <div class="mil-top-panel">
         <a href="{{ url('/') }}" class="mil-logo">
@@ -45,7 +43,9 @@
                                     <button><a href="#">Stats</a></button>
                                     <button><a href="#">Account</a> Settings</button>
                                     <hr>
-                                    <button class="mil-nav-dropdown-logout"><a href="#">Logout</a> </button>
+                                    <button class="mil-nav-dropdown-logout">
+                                        <a href="{{ route('logout') }}">Logout</a>
+                                    </button>
                                 </div>
                             </div>
                         </div>

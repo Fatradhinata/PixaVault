@@ -15,7 +15,7 @@
     
     <link rel="stylesheet" href="{{ asset('css/login.css') }}">
 
-    <title>PixaVault - Login</title>
+    <title>Verify Email</title>
 
 </head>
 
@@ -38,7 +38,7 @@
             </div>
         </form>
         <div class="right-content">
-            <img src="{{ asset('img/illustration/verify.png') }}" alt="login illustration">
+            <img src="{{ Vite::asset('resources/img/illustration/verify.png') }}" alt="login illustration">
         </div>
     </div>
 
@@ -51,10 +51,6 @@
     <script src="{{ asset('js/plugins/ScrollTrigger.min.js') }}"></script>
     <script src="{{ asset('js/plugins/magnific-popup.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
-    
-    <script src="{{ asset('js/login.js') }}"></script>
-
-
 </body>
 
 </html>
