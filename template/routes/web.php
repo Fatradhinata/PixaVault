@@ -22,10 +22,7 @@ Route::get('/trending', [HomeController::class, 'trending'])->name('trending');
 Route::get('/explore', [ContentController::class, 'index'])->name('explore');
 Route::get('/result', [ContentController::class, 'result'])->name('result');
 Route::get('/explore', [ContentController::class, 'explore'])->name('explore');
-
-// API
-Route::get('/content/{id}', [ContentController::class, 'getDataById']);
-Route::get('/content/get/{limit}', [ContentController::class, 'getRandom']);
+Route::get('/image/{publicId}', [ContentController::class, 'showImage'])->name('image');
 
 
 Route::middleware('auth')->group(function () {

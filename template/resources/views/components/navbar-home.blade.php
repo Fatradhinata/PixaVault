@@ -8,7 +8,9 @@
         <nav>
             <div class="mil-top-panel-right">
                 @auth
-                    <p style="color: white;" class="mil-credit"><b>{{ Auth::user()->free_limit }}</b> Credit Available</p>
+                    <p style="color: white;" class="mil-credit">
+                        <b>{{ Auth::user()->free_limit }}</b> Credit Available
+                    </p>
                 @endauth
                 <a href="{{ route('explore') }}" class="mil-top-panel-link mil-explore">Explore</a>
                 <div class="nav-horizontal-dot-wrapper">

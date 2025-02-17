@@ -7,7 +7,7 @@
         <!-- Modal Header -->
         <div class="modal-header">
             <div class="user-info">
-                <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="User Avatar" />
+                <img src="" class="profile" alt="User Avatar" />
                 <div>
                     <p class="username">storyset</p>
                     <a class="follow">View Profile</a>
@@ -118,10 +118,11 @@
             let cache = {};
 
             function setField(data) {
-                $('#modal-content .image-content').attr('src', data.photo);
-                $('#modal-content .follow').attr('href', `${BASEURL}/profile/` + data.user.id);
+                $('#modal-content .image-content').attr('src', `${BASEURL}/image/${data.photo}`);
+                $('#modal-content .follow').attr('href', `${BASEURL}/profile/${data.user.id}`);
+                $('#modal-content .profile').attr('href', `${BASEURL}/profile/${data.user.photo}`);
                 $('#modal-content .username').text(data.user.name);
-                $('#modal-content .download').text(data.downloads);
+                $('#modal-content .downloads').text(data.downloads);
                 $('#modal-content .views').text(data.views);
                 $('#modal-content .title').text(data.name);
                 $('#modal-content .content-description').text(data.desc);

@@ -65,7 +65,7 @@
                                 <div class="mil-buttons">
                                     <p class="mil-card-title"><span>Uploaded At</span> {{ date('d/m/y', strtotime($content->created_at)) }}</p>
                                 </div>
-                                <img src="{{ $content->photo }}" class="w-100 shadow-1-strong rounded" alt="Boat on Calm Water" />
+                                <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded" alt="Photo" loading="lazy" />
                                 <div class="image-profile">
                                     <p class="mil-card-subtitle">{{ $content->name }}</p>
                                 </div>
@@ -80,7 +80,7 @@
                                 <div class="mil-buttons">
                                     <p class="mil-card-title"><span>Uploaded At</span> {{ date('d/m/y', strtotime($content->created_at)) }}</p>
                                 </div>
-                                <img src="{{ $content->photo }}" class="w-100 shadow-1-strong rounded" alt="Boat on Calm Water" />
+                                <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded" alt="Photo" loading="lazy" />
                                 <div class="image-profile">
                                     <p class="mil-card-subtitle">{{ $content->name }}</p>
                                 </div>
@@ -95,7 +95,7 @@
                                 <div class="mil-buttons">
                                     <p class="mil-card-title"><span>Uploaded At</span> {{ date('d/m/y', strtotime($content->created_at)) }}</p>
                                 </div>
-                                <img src="{{ $content->photo }}" class="w-100 shadow-1-strong rounded" alt="Boat on Calm Water" />
+                                <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded" alt="Photo" loading="lazy" />
                                 <div class="image-profile">
                                     <p class="mil-card-subtitle">{{ $content->name }}</p>
                                 </div>

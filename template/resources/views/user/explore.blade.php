@@ -15,6 +15,7 @@
     <div class="container-fluid">
         <div class="header">
             <h3 style="font-weight: 400;">Discover the best of <b>Pixavault</b></h3>
+            <p>Discover a curated collection of high-definition photos</p>
         </div>
         <div class="tag-wrapper">
             <h4>Trending Tag</h4>
@@ -39,7 +40,7 @@
                                 <button class="mil-love-btn"><i class="fas fa-heart"></i></button>
                                 <button class="mil-download-btn"><i class="fas fa-download"></i></button>
                             </div>
-                            <img src="{{ $content->photo }}" class="w-100 shadow-1-strong rounded" alt="Photo" 
+                            <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded" alt="Photo" 
                                 data-modal-target="modal-content" data-id="{{ $content->id }}"/>
                             <div class="image-profile">
                                 <img src="{{ $content->user['photo'] ?? Vite::asset('resources/img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />
@@ -56,7 +57,7 @@
                                 <button class="mil-love-btn"><i class="fas fa-heart"></i></button>
                                 <button class="mil-download-btn"><i class="fas fa-download"></i></button>
                             </div>
-                            <img src="{{ $content->photo }}" class="w-100 shadow-1-strong rounded" alt="Photo" 
+                            <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded" alt="Photo" 
                                 data-modal-target="modal-content" data-id="{{ $content->id }}"/>
                             <div class="image-profile">
                                 <img src="{{ $content->user['photo'] ?? Vite::asset('resources/img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />
@@ -73,7 +74,7 @@
                                 <button class="mil-love-btn"><i class="fas fa-heart"></i></button>
                                 <button class="mil-download-btn"><i class="fas fa-download"></i></button>
                             </div>
-                            <img src="{{ $content->photo }}" class="w-100 shadow-1-strong rounded" alt="Photo" 
+                            <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded" alt="Photo" 
                                 data-modal-target="modal-content" data-id="{{ $content->id }}"/>
                             <div class="image-profile">
                                 <img src="{{ $content->user['photo'] ?? Vite::asset('resources/img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />

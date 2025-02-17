@@ -9,8 +9,8 @@
             <div class="user-info">
                 <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="User Avatar" />
                 <div>
-                    <p class="username">storyset</p>
-                    <a class="follow">View Profile</a>
+                    <p class="username">Author</p>
+                    <a href="#" class="follow">View Profile</a>
                 </div>
             </div>
             <div class="actions">
@@ -98,12 +98,13 @@
 
             let cache = {};
 
-            const setField = (data) => {
-                $('#modal-detail .image-content').attr('src', data.photo);
-                $('#modal-detail .follow').attr('href', `${BASEURL}/profile/` + data.user.id);
+            function setField(data) {
+                $('#modal-detail .image-content').attr('src', `${BASEURL}/image/${data.photo}`);
+                $('#modal-detail .follow').attr('href', `${BASEURL}/profile/${data.user.id}`);
+                $('#modal-detail .profile').attr('href', `${BASEURL}/profile/${data.user.photo}`);
                 $('#modal-detail .username').text(data.user.name);
-                $('#modal-detail .download').text(data.views);
-                $('#modal-detail .views').text(data.downloads);
+                $('#modal-detail .downloads').text(data.downloads);
+                $('#modal-detail .views').text(data.views);
                 $('#modal-detail .title').text(data.name);
                 $('#modal-detail .content-description').text(data.desc);
                 $('#modal-detail .shoot-by').text(data.shoot_by);
@@ -114,25 +115,35 @@
                     $('#modal-detail .tag-row').append(`<button>${tag}</button>`);
             }
 
-            const fetchData = async function(url) {
+            async function fetchData(url) {
                 const res = await fetch(url)
                 if (res.ok) {
                     const data = await res.json();
                     return data;
                 }
                 return false;
-            }
-    
-            $('[data-modal-target="modal-detail"]').on('click', async function() {
-                const id = $(this).data('id');
+            };
 
+            async function displayData(id) {
                 if (id in cache) {
                     setField(cache[id])
                 } else {
-                    let data = await fetchData(`${BASEURL}/content/${id}`);
-                    data.tags = JSON.parse(data.tags);
-                    cache[id] = data;
+                    const { status, data, message } = await fetchData(`${BASEURL}/content/${id}`);
+                    
+                    if (status !== 'fail') {
+                        data.tags = JSON.parse(data.tags);
+                        setField(data);
+                        cache[id] = data;
+                    } else {
+                        console.error('Error while fetching data: ' + message);
+                    } 
                 }
+            };
+    
+            $('[data-modal-target="modal-detail"]').on('click', async function() {
+                const id = $(this).data('id');
+                
+                await displayData(id);
 
                 modal.fadeIn(300);
             });
@@ -151,6 +162,9 @@
                     modal.fadeOut(300);
                 }
             });
+
+            // Like Button //
+
         });
     </script>
 @endsection

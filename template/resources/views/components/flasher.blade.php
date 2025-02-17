@@ -27,7 +27,7 @@
         gap: 1rem;
         border: 2px solid;
         border-radius: 5px;
-        z-index: 99;
+        z-index: 99 !important;
 
         .alert-content {
             display: flex;

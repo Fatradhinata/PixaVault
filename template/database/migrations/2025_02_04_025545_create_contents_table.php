@@ -16,7 +16,7 @@ return new class extends Migration
             $table->uuid('id_user');
             $table->string('name', 100);
             $table->text('desc');
-            $table->string('photo', 100);
+            $table->string('photo', 25);
             $table->string('shoot_by', 50);
             $table->integer('downloads')->default(0);
             $table->integer('likes')->default(0);

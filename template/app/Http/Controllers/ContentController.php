@@ -2,28 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use GuzzleHttp\Client;
+use App\Models\Content;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Number;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
-use App\Models\Content;
-use Illuminate\Support\Number;
-use Illuminate\Support\Str;
-use App\Models\User;
-use Illuminate\Support\Facades\DB;
 
 
 class ContentController extends Controller
 {
-    public function index()
-    {
-        $data = Content::inRandomOrder()->with('user')->get();
-        $data = $this->getTripleColumn($data);
-
-        return view('user.explore', [
-            'contents' => $data,
-        ]);
-    }
-
     private function getTripleColumn($collection)
     {
         $content = $collection->toArray();
@@ -41,38 +32,6 @@ class ContentController extends Controller
         }
 
         return $tmp;
-    }
-
-    public function result(Request $req)
-    {
-        $search = $req->input('q');
-        $tag = $req->input('t');
-
-        $data = Content::with('user');
-
-        if ($search)
-            $data = $data->where('name', 'like', "%$search%")->orWhere('desc', 'like', "%$search%");
-        if ($tag)
-            $data = $data->where('tags', 'like', "%$tag%", 'and');
-
-        $data = $data->get();
-        $data = $this->getTripleColumn($data);
-
-        return view('user.result', [
-            'contents' => $data,
-            'search' => $search,
-        ]);
-    }
-    public function explore(Request $req)
-    {
-        $data = Content::with('user');
-
-        $data = $data->get();
-        $data = $this->getTripleColumn($data);
-
-        return view('user.explore', [
-            'contents' => $data,
-        ]);
     }
 
     public function getDataById($id)
@@ -107,6 +66,78 @@ class ContentController extends Controller
         ]);
     }
 
+    public function showImage($publicId)
+    {
+        try {
+            if (empty($publicId))
+                return response()->json(['error' => 'Public ID is required'], 400);
+
+            $imageUrl = Cloudinary::getImage($publicId)->toUrl();
+            $client = new Client();
+            $response = $client->get($imageUrl, ['stream' => true]);
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode != 200)
+                return response()->json(['error' => 'Failed to fetch image from Cloudinary'], $statusCode);
+
+            $contentType = $response->getHeaderLine('Content-Type');
+            if (!$contentType) $contentType = 'application/octet-stream';
+
+            return response()->stream(function() use ($response) {
+                $stream = $response->getBody();
+                while (!$stream->eof()) {
+                    echo $stream->read(4096);
+                    flush();
+                }
+            }, 200, [ 'Content-Type' => $contentType ]);
+
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Error fetching image: ' . $e->getMessage()], 500);
+        }
+    }
+    
+    public function index()
+    {
+        $data = Content::inRandomOrder()->with('user')->get();
+        $data = $this->getTripleColumn($data);
+
+        return view('user.explore', [
+            'contents' => $data,
+        ]);
+    }
+
+    public function result(Request $req)
+    {
+        $search = $req->input('q');
+        $tag = $req->input('t');
+
+        $data = Content::with('user');
+
+        if ($search)
+            $data = $data->where('name', 'like', "%$search%")->orWhere('desc', 'like', "%$search%");
+        if ($tag)
+            $data = $data->where('tags', 'like', "%$tag%", 'and');
+
+        $data = $data->get();
+        $data = $this->getTripleColumn($data);
+
+        return view('user.result', [
+            'contents' => $data,
+            'search' => $search,
+        ]);
+    }
+    public function explore(Request $req)
+    {
+        $data = Content::with('user');
+
+        $data = $data->get();
+        $data = $this->getTripleColumn($data);
+
+        return view('user.explore', [
+            'contents' => $data,
+        ]);
+    }
+
     public function upload()
     {
         return view('user.upload');
@@ -114,8 +145,6 @@ class ContentController extends Controller
 
     public function store(Request $req)
     {
-
-        // dd($req->all());
         $validated = $req->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'name' => 'required|string|max:255',
@@ -124,30 +153,41 @@ class ContentController extends Controller
             'shoot_by' => 'nullable|string',
         ]);
 
-        try {
-            $tags = json_encode(
-                array_map(
-                    fn($a) => htmlspecialchars(trim($a)),
-                    explode(',', $validated['tags'])
-                )
-            );
+        $user = User::find(Auth::id());
 
-            $photo = Cloudinary::upload($req->file('image')->getRealPath())->getSecurePath();
-            $data = array_merge($validated, [
-                'id_user' => Auth::id(),
-                'tags' => $tags,
-                'photo' => $photo,
-            ]);
+        if ($user->free_limit > 0) {
+            
+            $user->decrement('free_limit');
+            
+            try {
+                $tags = json_encode(
+                    array_map(
+                        fn($a) => htmlspecialchars(trim($a)),
+                        explode(',', $validated['tags'])
+                    )
+                );
+                
+                $photo = Cloudinary::upload($req->file('image')->getRealPath());
 
-            Content::create($data);
-
-            User::where('id', Auth::id())->where('free_limit', '>', 0)->decrement('free_limit');
-
-        } catch (\Exception $e) {
-            return redirect()->back()->with('danger', 'Something went wrong when uploading. Please try again.');
-        }
-
-        return redirect()->route('profile')->with('success', 'Photo uploaded successfully!');
+                $data = array_merge($validated, [
+                    'id_user' => $user->id,
+                    'tags' => $tags,
+                    'photo' => $photo->getPublicId(),
+                ]);
+    
+                Content::create($data);
+    
+            } catch (\Exception $e) {
+                return redirect()->back()
+                    ->with('error', 'Something went wrong when uploading. Please try again.');
+            }
+    
+            return redirect()->route('profile')
+                ->with('success', 'Photo uploaded successfully!');
+        } 
+        
+        return redirect()->to(route('pricing') . '#subscribe')
+            ->with('error', 'You are out of credit. Purchase the subscription upload more photos.');
     }
 
 

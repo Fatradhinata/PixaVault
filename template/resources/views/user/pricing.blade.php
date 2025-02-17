@@ -27,7 +27,7 @@
     <!-- banner end -->
 
     <!-- team -->
-    <section>
+    <section id="subscribe">
         <div class="container mil-p-120-90 price">
             <div class="mil-background-grid mil-softened"></div>
             <div class="row">
