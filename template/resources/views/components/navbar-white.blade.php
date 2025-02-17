@@ -22,8 +22,16 @@
             <nav>
                 <div class="mil-top-panel-right">
                     @auth
-                        <p style="color: white;" class="mil-credit"><b>{{ Auth::user()->free_limit }}</b> Credit Available</p>
-                    @endauth
+                    <p style="color: white;" class="mil-credit">
+                        @if (Auth::user()->free_limit == -1)
+                            <b>Unlimited</b> Credit Available
+                        @else
+                            <b>
+                                {{ Auth::user()->free_limit }}
+                            </b> Credit Available
+                        @endif
+                    </p>
+                @endauth
                     <a href="{{ url('explore') }}" class="mil-top-panel-link mil-explore" style="color: black">Explore</a>
                     <div class="nav-horizontal-dot-wrapper">
                         <div class="nav-horizontal-dot toggleDropdown">

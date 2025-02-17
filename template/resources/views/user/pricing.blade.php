@@ -9,7 +9,8 @@
 @section('content')
     <!-- banner -->
     <section class="mil-banner mil-banner-sm">
-        <img src="{{ Vite::asset('resources/img/foto/jan-derungs-XMwAnYLHShE-unsplash.jpg') }}" class="mil-bg-img mil-scale" data-value-1=".4" data-value-2="1.4" alt="image" />
+        <img src="{{ Vite::asset('resources/img/foto/jan-derungs-XMwAnYLHShE-unsplash.jpg') }}" class="mil-bg-img mil-scale"
+            data-value-1=".4" data-value-2="1.4" alt="image" />
         <div class="mil-overlay"></div>
         <div class="container">
             <div class="mil-background-grid mil-top-space"></div>
@@ -42,21 +43,28 @@
                         <div class="mil-price-head mil-up mil-mb-15">
                             <div class="mil-upper mil-dark mil-mb-10">Premium Pro</div>
                             <div class="mil-flex align-items-center mil-mb-30 justify-content-between">
-                                <div class="mil-dark font-lg-24 l-height-normal font-700 l-height-30">UPGRADE TO<br>12 MONTHS</div>
-                                <h3 class="mil-dark mil-price-text mil-right l-height-30">$56.00 <br><span class="mil-text-lg mil-extra-thin">/ Year</span></h3>
+                                <div class="mil-dark font-lg-24 l-height-normal font-700 l-height-30">UPGRADE TO<br>12
+                                    MONTHS</div>
+                                <h3 class="mil-dark mil-price-text mil-right l-height-30">$56.00 <br><span
+                                        class="mil-text-lg mil-extra-thin">/ Year</span></h3>
                             </div>
                         </div>
                         <div class="mil-divider-lg mil-up mil-mb-30"></div>
                         <div class="mil-price-body">
                             <ul class="mil-icon-list mil-mb-30">
-                                <li class="mil-accent mil-up"><img src="{{ Vite::asset('resources/img/icons/checklist-black.svg') }}" style="width: 47.65px; height: 37px; padding: 7px;" alt="icon">
+                                <li class="mil-accent mil-up"><img
+                                        src="{{ Vite::asset('resources/img/icons/checklist-black.svg') }}"
+                                        style="width: 47.65px; height: 37px; padding: 7px;" alt="icon">
                                     Free access Download Photo</li>
-                                <li class="mil-accent mil-up"><img src="{{ Vite::asset('resources/img/icons/checklist-black.svg') }}" style="width: 47.65px; height: 37px; padding: 7px;" alt="icon">
+                                <li class="mil-accent mil-up"><img
+                                        src="{{ Vite::asset('resources/img/icons/checklist-black.svg') }}"
+                                        style="width: 47.65px; height: 37px; padding: 7px;" alt="icon">
                                     Free access Upload Photo</li>
                             </ul>
                         </div>
                         <div class="mil-price-button mil-up">
-                            <div class="mil-button mil-fw radius-8" style="background-color: #BCFF00 !important;" onclick="payNow(56)">SUBSCRIBE</div>
+                            <div class="mil-button mil-fw radius-8" style="background-color: #BCFF00 !important;"
+                                onclick="payNow(56)">SUBSCRIBE</div>
                         </div>
                     </div>
                 </div>
@@ -65,16 +73,22 @@
                         <div class="mil-price-head mil-up mil-mb-15">
                             <div class="mil-upper mil-dark mil-mb-10">Premium Pro</div>
                             <div class="mil-flex align-items-center mil-mb-30 justify-content-between">
-                                <div class="mil-dark font-lg-24 l-height-normal font-700 l-height-30">UPGRADE TO<br>1 MONTH</div>
-                                <h3 class="mil-dark mil-price-text mil-right l-height-30">$7.00 <br><span class="mil-text-lg mil-extra-thin">/ Month</span></h3>
+                                <div class="mil-dark font-lg-24 l-height-normal font-700 l-height-30">UPGRADE TO<br>1 MONTH
+                                </div>
+                                <h3 class="mil-dark mil-price-text mil-right l-height-30">$7.00 <br><span
+                                        class="mil-text-lg mil-extra-thin">/ Month</span></h3>
                             </div>
                         </div>
                         <div class="mil-divider-lg mil-up mil-mb-30"></div>
                         <div class="mil-price-body">
                             <ul class="mil-icon-list mil-mb-30">
-                                <li class="mil-accent mil-up"><img src="{{ Vite::asset('resources/img/icons/checklist-black.svg') }}" style="width: 47.65px; height: 37px; padding: 7px;" alt="icon">
+                                <li class="mil-accent mil-up"><img
+                                        src="{{ Vite::asset('resources/img/icons/checklist-black.svg') }}"
+                                        style="width: 47.65px; height: 37px; padding: 7px;" alt="icon">
                                     Free access Download Photo</li>
-                                <li class="mil-accent mil-up"><img src="{{ Vite::asset('resources/img/icons/checklist-black.svg') }}" style="width: 47.65px; height: 37px; padding: 7px;" alt="icon">
+                                <li class="mil-accent mil-up"><img
+                                        src="{{ Vite::asset('resources/img/icons/checklist-black.svg') }}"
+                                        style="width: 47.65px; height: 37px; padding: 7px;" alt="icon">
                                     Free access Upload Photo</li>
                             </ul>
                         </div>
@@ -92,7 +106,7 @@
 @section('scripts')
 
     <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-Gi66zXjpaBnxlOjR"></script>
-    
+
     <script defer>
         async function getExchangeRate() {
             let response = await fetch("https://api.exchangerate-api.com/v4/latest/USD");
@@ -119,7 +133,47 @@
 
                 let result = await response.json();
                 if (result.snap_token) {
-                    snap.pay(result.snap_token);
+                    snap.pay(result.snap_token, {
+                        // Optional
+                        onSuccess: function (result) {
+                            console.log(result); // Lihat hasil response lengkap
+
+                            // Ambil data yang dibutuhkan dari result
+                            const orderId = result.order_id;
+                            const fraudStatus = result.fraud_status;
+                            const grossAmount = result.gross_amount;
+                            const statusCode = result.status_code;
+
+                            fetch("{{ route('payment.notification') }}", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "Accept": "application/json",
+                                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
+                                },
+                                body: JSON.stringify({
+                                    order_id: orderId,
+                                    fraud_status: fraudStatus,
+                                    gross_amount: grossAmount,
+                                    status_code: statusCode,
+                                }),
+                            })
+                                .then(response => response.json())
+                                .then(data => {
+                                    console.log("Data sent to server: ", data);
+                                })
+                                .catch(error => {
+                                    console.error("Error:", error);
+                                });
+                        },
+                        // Optional
+                        onPending: function (result) {
+                        },
+                        // Optional
+                        onError: function (result) {
+                    /* You may add your own js here, this is just example */ document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
+                        }
+                    });
                 } else {
                     alert(`Gagal mendapatkan token pembayaran`);
                 }
