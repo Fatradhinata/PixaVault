@@ -2,26 +2,13 @@
 @section('title', 'Upload Content | PixaVault')
 
 @section('styles')
-    <link rel="stylesheet" href="{{ asset('css/upload.css') }}" />
+    @vite('resources/css/upload.css')
 @endsection
 
 @section('content')
-    <!-- Flash Message -->
-    @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
 
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+    <!-- Flash Message -->
+    @include('components.flasher')
 
     <!-- Content -->
     <div id="content">

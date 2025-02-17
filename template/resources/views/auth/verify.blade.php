@@ -13,14 +13,14 @@
     <link rel="stylesheet" href="{{ asset('css/plugins/magnific-popup.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     
-    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+    @vite('resources/css/login.css')
 
     <title>Verify Email</title>
 
 </head>
 
 <body>
-    @include('templates.flasher')
+    @include('components.flasher')
     
     <div class="wrapper login-wrapper">
         <form action="{{ route('login') }}" method="post">
