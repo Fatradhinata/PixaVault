@@ -77,7 +77,7 @@
                 <div class="mil-center mil-mb-90 mt-5">
                     <span class="mil-suptitle mil-upper mil-up mil-mb-30">Insights</span>
                     <h2 class="mil-upper mil-up mil-mb-30">Trending Images</h2>
-                    <a href="blog.html" class="mil-link mil-upper mil-up">See All
+                    <a href="{{ 'trending' }}" class="mil-link mil-upper mil-up">See All
                         <span class="mil-arrow"><img src="{{ Vite::asset('resources/img/icons/1.svg') }}" alt="arrow" /></span></a>
                 </div>
             </div>
@@ -247,12 +247,12 @@
             <div class="row">
                 <div class="col-12 mb-15">
                     <div class="mil-center mil-mb-90">
-                        <span class="mil-suptitle mil-upper mil-up mil-mb-30">EXPLORE</span>
+                        <a href="{{ 'explore' }}"><span class="mil-suptitle mil-upper mil-up mil-mb-30">EXPLORE</span></a>
                         <h2 class="mil-upper mil-up">FRAME BY FRAME DISCOVERY</h2>
                         <p class="mil-mb-30">
                             Dive into a world of creativity with handpicked collections tailored to your interests.
                         </p>
-                        <a href="blog.html" class="mil-link mil-upper mil-up">See All
+                        <a href="{{ 'explore' }}" class="mil-link mil-upper mil-up">See All
                             <span class="mil-arrow"><img src="{{ Vite::asset('resources/img/icons/1.svg') }}" alt="arrow" /></span></a>
                     </div>
                 </div>
