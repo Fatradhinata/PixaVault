@@ -47,8 +47,4 @@ class HomeController extends Controller
     {
         return view('user.result');
     }
-    public function editProfile()
-    {
-        return view('user.edit-profile');
-    }
 }

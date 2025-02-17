@@ -1,4 +1,4 @@
-<!-- Modal -->
+[<!-- Modal -->
 <div class="modal" id="photo-modal">
     <div class="modal-content">
         <img class="close" id="close-modal" src="{{ Vite::asset('resources/img/icons/cancel.svg') }}" alt="close">

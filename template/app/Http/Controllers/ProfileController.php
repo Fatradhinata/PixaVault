@@ -21,4 +21,11 @@ class ProfileController extends Controller
             'contents' => $id->contents
         ]); 
     }
+    
+    public function editProfile(User $id)
+    {
+        return view('user.edit-profile', data: [
+            'user' => $id,
+        ]);
+    }
 }

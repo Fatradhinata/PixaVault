@@ -43,7 +43,7 @@ Route::middleware('auth')->group(function () {
         
         Route::get('/upload', [ContentController::class, 'upload'])->name('upload');
         Route::post('/upload', [ContentController::class, 'store']);
-
+        
         Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
         Route::get('/profile/{id}', [ProfileController::class, 'details']);
 
