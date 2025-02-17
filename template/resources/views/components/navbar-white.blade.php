@@ -1,6 +1,6 @@
-@push('styles')
-  <link rel="stylesheet" href="{{ asset('css/white-navbar.css') }}" />
-@endpush
+@section('styles')
+  @vite('resources/css/navbar-white.css')
+@endsection
 
 <!-- wrapper -->
 <div class="mil-wrapper">
