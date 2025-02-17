@@ -39,12 +39,8 @@ class HomeController extends Controller
     {
         return view('user.trending');
     }
-    public function result()
+    public function explore()
     {
-        return view('user.result');
-    }
-    public function editProfile()
-    {
-        return view('user.edit-profile');
+        return view('user.explore');
     }
 }

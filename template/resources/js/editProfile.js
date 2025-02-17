@@ -1,3 +1,37 @@
+document.addEventListener("DOMContentLoaded", function () {
+  const menuItems = document.querySelectorAll(".menu-item");
+  const editProfileSection = document.querySelector(".edit-profile");
+  const changePasswordSection = document.querySelector(".change-password");
+
+  // Fungsi untuk menampilkan tab yang dipilih
+  function showTab(tabName) {
+    if (tabName === "Edit Profile") {
+      editProfileSection.classList.remove("d-none");
+      changePasswordSection.classList.add("d-none");
+    } else if (tabName === "Password") {
+      changePasswordSection.classList.remove("d-none");
+      editProfileSection.classList.add("d-none");
+    }
+  }
+
+  // Event listener untuk setiap menu item
+  menuItems.forEach((item) => {
+    console.log(menuItems)
+    item.addEventListener("click", function () {
+      // Hapus class 'active' dari semua menu item
+      menuItems.forEach((menu) => menu.classList.remove("active"));
+
+      // Tambahkan class 'active' ke item yang diklik
+      this.classList.add("active");
+
+      // Tampilkan tab sesuai dengan menu yang diklik
+      showTab(this.textContent.trim());
+    });
+  });
+
+  // Default tampilkan Password
+  showTab("Edit Profile");
+});
 
 // Menonaktifkan klik kanan pada elemen gambar
 document.querySelectorAll("img").forEach((img) => {
@@ -101,38 +135,5 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-document.addEventListener("DOMContentLoaded", function () {
-  const menuItems = document.querySelectorAll(".menu-item");
-  const editProfileSection = document.querySelector(".edit-profile");
-  const changePasswordSection = document.querySelector(".change-password");
 
-  // Fungsi untuk menampilkan tab yang dipilih
-  function showTab(tabName) {
-    if (tabName === "Edit Profile") {
-      editProfileSection.classList.remove("d-none");
-      changePasswordSection.classList.add("d-none");
-    } else if (tabName === "Password") {
-      changePasswordSection.classList.remove("d-none");
-      editProfileSection.classList.add("d-none");
-    }
-  }
-
-  // Event listener untuk setiap menu item
-  menuItems.forEach((item) => {
-    console.log(menuItems)
-    item.addEventListener("click", function () {
-      // Hapus class 'active' dari semua menu item
-      menuItems.forEach((menu) => menu.classList.remove("active"));
-
-      // Tambahkan class 'active' ke item yang diklik
-      this.classList.add("active");
-
-      // Tampilkan tab sesuai dengan menu yang diklik
-      showTab(this.textContent.trim());
-    });
-  });
-
-  // Default tampilkan Password
-  showTab("Edit Profile");
-});
 

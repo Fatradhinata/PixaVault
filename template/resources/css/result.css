@@ -8,6 +8,16 @@
       gap: 40px;
       /* padding-top: 180px; */
 
+      h3 {
+        color: #7F7F7F;
+        font-weight: 500;
+
+        span {
+          color: black;
+          font-weight: 600;
+        }
+      }
+
       @media (max-width: 1400px) {
         margin: 0 auto;
       }

@@ -42,4 +42,11 @@ class ProfileController extends Controller
             'contents' => $contents,
         ]); 
     }
+    
+    public function editProfile(User $id)
+    {
+        return view('user.edit-profile', data: [
+            'user' => $id,
+        ]);
+    }
 }

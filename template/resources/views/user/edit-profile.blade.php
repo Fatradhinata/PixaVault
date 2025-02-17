@@ -43,7 +43,7 @@
       <div class="email-section">
         <p class="email-label">Email address</p>
         <div class="email-content">
-        <p class="email-text">Your email address is <strong>pixavault1@email.com</strong></p>
+        <p class="email-text">Your email address is <strong>{{ $user->email }}</strong></p>
         <span class="change-email-link">Change</span>
         </div>
       </div>
