@@ -1,4 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
+    const BASEURL = document.querySelector('meta[name="baseurl"]').getAttribute("content");
+
+    console.log(BASEURL);
+    
     // JS dropdown menu //
     const toggleButtons = document.querySelectorAll(".toggleDropdown");
     const dropdownMenus = document.querySelectorAll(".dropdownMenu");
@@ -33,9 +37,13 @@ document.addEventListener("DOMContentLoaded", () => {
     searchButton.addEventListener("click", function () {
         let query = searchInput.value.trim(); // Ambil teks input
         if (query) {
-            alert("Mencari: " + query);
+            window.location.href = `${BASEURL}/explore?search=${query}`;
         } else {
-            alert("Masukkan kata kunci pencarian!");
+            Swal.fire({
+                icon: "warning",
+                title: "Caution",
+                text: "Please enter the search value!",
+            });
         }
     });
 

@@ -24,4 +24,8 @@ class Content extends Model
         'tags',
         'shoot_by',
     ];
+
+    public function user() {
+        return $this->belongsTo(User::class, 'id_user');
+    }
 }

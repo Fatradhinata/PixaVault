@@ -70,7 +70,7 @@
         </div>
     </section>
 
-    <!-- portfolio -->
+    <!-- Trending Image -->
     <section>
         <div class="container mil-p-0-60">
             <div class="col-12">
@@ -237,7 +237,6 @@
             </div>
         </div>
     </section>
-    <!-- portfolio end -->
 
     <!-- Explore Image -->
     <section>
@@ -377,12 +376,13 @@
         </div>
     </section>
 
+    @include('components.modal-content')
+
 @endsection
 
 @section('scripts')
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-
             // JS Random Image //
             const randomImageElements =
                 document.querySelectorAll(".mil-randomimage");
@@ -390,35 +390,6 @@
             randomImageElements.forEach((imgElement) => {
                 const randomImageUrl = `https://picsum.photos/600/400?random=${Math.floor(Math.random()*1000)}`;
                 imgElement.src = randomImageUrl;
-            });
-
-            // Disable All Right Click Image //
-            document.querySelectorAll("img").forEach((img) => {
-                img.addEventListener("contextmenu", (event) => {
-                    event.preventDefault(); // Mencegah menu konteks default
-                    alert("Fitur penyimpanan gambar telah dinonaktifkan!");
-                });
-            });
-
-            // JS Modal //
-            const photoTrigger = document.getElementById("photo-trigger");
-            const photoModal = document.getElementById("photo-modal");
-            const closeModal = document.getElementById("close-modal");
-
-            // Show modal on click
-            photoTrigger.addEventListener("click", (e) => {
-                e.preventDefault();
-                photoModal.style.display = "flex";
-            });
-
-            // Hide modal on close button
-            closeModal.addEventListener("click", () => {
-                photoModal.style.display = "none";
-            });
-
-            // Hide modal on outside click
-            window.addEventListener("click", (e) => {
-                if (e.target === photoModal) photoModal.style.display = "none";
             });
         });
     </script>
