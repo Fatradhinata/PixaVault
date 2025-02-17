@@ -82,3 +82,4 @@
         </div>
     </div>
 @endsection
+@vite(['resources/js/upload.js'])
