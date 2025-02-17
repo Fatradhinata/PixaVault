@@ -23,8 +23,7 @@ return new class extends Migration
             $table->enum('role', ['admin', 'user'])->default('user');
             $table->string('phone_number', 72)->nullable()->default(null);
             $table->string('photo', 50)->nullable()->default(null);
-            $table->integer('free_limit_upload')->default(20);
-            $table->integer('free_limit_download')->default(10);
+            $table->integer('credit')->default(20);
             $table->timestamp('verified_at')->nullable();
             $table->timestamps();
         });
