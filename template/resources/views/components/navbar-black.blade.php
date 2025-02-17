@@ -5,7 +5,7 @@
     <a href="{{ url('/') }}" class="mil-logo">
         <img src="{{ Vite::asset('resources/img/logo/logo_pixavault.png') }}" alt="Logo" />
     </a>
-    <div class="search-panel">
+    <div class="search-panel" id="search-input">
         <input type="text" autocomplete="on" placeholder="Search for photos">
         <button>
             <img src="{{ Vite::asset('resources/img/icons/search-button.svg') }}" alt="search-button">
@@ -57,5 +57,6 @@
 </div>
 
 @section('scripts')
+    @parent
     @vite('resources/js/navbar.js')
 @endsection

@@ -60,5 +60,6 @@
 </div>
 
 @section('scripts')
-  @vite('resources/js/navbar.js')
+    @parent
+    @vite('resources/js/navbar.js')
 @endsection

@@ -1,5 +1,6 @@
 @vite('resources/css/navbar-white.css')
 
+
 <!-- wrapper -->
 <div class="mil-wrapper">
     <div class="mil-progress-track">
@@ -64,5 +65,6 @@
 </div>
 
 @section('scripts')
+    @parent
     @vite('resources/js/navbar.js')
 @endsection
