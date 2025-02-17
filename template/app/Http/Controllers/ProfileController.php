@@ -14,7 +14,8 @@ class ProfileController extends Controller
 
     public function details(User $id) {
         return view('user.profile', [
-            'user' => $id
+            'user' => $id,
+            'contents' => $id->contents
         ]); 
     }
 }
