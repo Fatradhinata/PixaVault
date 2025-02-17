@@ -1,11 +1,11 @@
 @extends('templates.user')
 
 @section('styles')
-  <link rel="stylesheet" href="{{ asset('css/profile.css') }}" />
+  @vite('resources/css/profile.css')
 @endsection
 
 @section('navbar')
-    @include('templates.white-navbar')
+    @include('components.navbar-white')
 @endsection
 
 @section('content')

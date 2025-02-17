@@ -36,8 +36,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/favorites', [HomeController::class, 'favorites'])->name('favorites');
         Route::get('/leaderboard', [HomeController::class, 'leaderboard'])->name('leaderboard');
         Route::get('/history_download', [HomeController::class, 'history_download'])->name('history_download');
-
-        Route::get('/content', [ContentController::class, 'index'])->name('content');
+        
+        Route::get('/explore', [ContentController::class, 'index'])->name('explore');
         Route::get('/upload', [ContentController::class, 'upload'])->name('upload');
         Route::post('/upload', [ContentController::class, 'store']);
 

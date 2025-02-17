@@ -12,6 +12,7 @@ const scripts = [
     'resources/js/pricing.js',
     'resources/js/profile.js',
     'resources/js/upload.js',
+    'resources/js/navbar.js',
 ];
 
 const styles = [

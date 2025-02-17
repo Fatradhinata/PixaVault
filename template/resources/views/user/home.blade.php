@@ -19,7 +19,7 @@
                             <h1 class="mil-upper mil-light mil-mb-60">
                                 Unlocking<br /><span class="mil-accent">the Future</span><br />of Digital Assets
                             </h1>
-                            <div class="mil-sidebar-search mil-up mil-mb-30">
+                            <div class="mil-sidebar-search mil-up mil-mb-30" id="search-input">
                                 <input type="text" placeholder="Search images..." />
                                 <button>
                                     <img src="{{ Vite::asset('resources/img/icons/13.svg') }}" alt="search" />
@@ -380,53 +380,6 @@
 @section('scripts')
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-
-            // JS dropdown menu //
-            const toggleButtons = document.querySelectorAll(".toggleDropdown");
-            const dropdownMenus = document.querySelectorAll(".dropdownMenu");
-
-            toggleButtons.forEach((button, index) => {
-                button.addEventListener("click", function(event) {
-                    event.stopPropagation(); // Mencegah event bubble
-
-                    // Tutup semua dropdown sebelum membuka yang baru
-                    dropdownMenus.forEach((menu, i) => {
-                        if (i !== index) {
-                            menu.style.display = "none";
-                        }
-                    });
-
-                    // Toggle dropdown yang diklik
-                    const dropdownMenu = button.nextElementSibling;
-                    dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
-                });
-            });
-            document.addEventListener("click", function() {
-                dropdownMenus.forEach(menu => {
-                    menu.style.display = "none";
-                });
-            });
-
-
-            // JS Search For Images //
-            const searchInput = document.querySelector(".mil-sidebar-search input");
-            const searchButton = document.querySelector(
-                ".mil-sidebar-search button"
-            );
-
-            searchButton.addEventListener("click", function() {
-                let query = searchInput.value.trim(); // Ambil teks input
-                if (query) {
-                    alert("Mencari: " + query);
-                } else {
-                    alert("Masukkan kata kunci pencarian!");
-                }
-            });
-
-            searchInput.addEventListener("keypress", function(e) {
-                if (e.key === "Enter") searchButton.click();
-            });
-
 
             // JS Random Image //
             const randomImageElements =

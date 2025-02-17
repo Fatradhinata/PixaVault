@@ -7,15 +7,19 @@
     <div class="mil-navigation">
         <nav>
             <div class="mil-top-panel-right">
-                <a href="#" class="mil-top-panel-link">Explore</a>
+                <a href="{{ route('explore') }}" class="mil-top-panel-link mil-explore">Explore</a>
                 <div class="nav-horizontal-dot-wrapper">
                     <div class="nav-horizontal-dot toggleDropdown">
                         <img src="{{ Vite::asset('resources/img/icons/horiz-dots-variant-2.svg') }}" width="30px" height="30px" alt="Horizontal-Dot">
                     </div>
                     <div class="mil-nav-dropdown dropdownMenu">
                         <div>
-                            <button><a href="{{ route('leaderboard') }}">Leaderboard</a></button>
-                            <button><a href="{{ route('pricing') }}">Pricing</a></button>
+                            <a href="{{ route('leaderboard') }}">
+                                <button>Leaderboard</button>
+                            </a>
+                            <a href="{{ route('pricing') }}">
+                                <button>Pricing</button>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -27,15 +31,14 @@
                         <img src="{{ Vite::asset('resources/img/icons/user-elipse.svg') }}" width="46px" height="46px" alt="" class="toggleDropdown">
                         <div class="mil-nav-dropdown mil-nav-dropdown-user dropdownMenu">
                             <div>
-                                <button>
-                                    <a href="{{ route('profile') . '/' . Auth::id() }}">View Profile</a>
-                                </button>
-                                <button><a href="#">Stats</a></button>
-                                <button><a href="#">Account</a> Settings</button>
+                                <a href="{{ route('profile') . '/' . Auth::id() }}">
+                                    <button>View Profile</button>
+                                </a>
+                                <a href="#"><button>Account Settings</button></a>
                                 <hr>
-                                <button class="mil-nav-dropdown-logout">
-                                    <a href="{{ route('logout') }}">Logout</a>
-                                </button>
+                                <a href="{{ route('logout') }}">
+                                    <button class="mil-nav-dropdown-logout">Logout</button>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -54,3 +57,7 @@
         </nav>
     </div>
 </div>
+
+@section('scripts')
+  @vite('resources/js/navbar.js')
+@endsection

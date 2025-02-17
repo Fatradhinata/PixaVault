@@ -20,6 +20,12 @@
   /* max-width: 120px; */
 }
 
+.mil-navigation {
+  .mil-explore {
+    color: white !important;
+  }
+}
+
 .mil-navigation nav {
   display: flex;
   gap: 45px;
@@ -84,11 +90,6 @@
   display: block;
 }
 
-.mil-top-panel-user {
-  display: flex;
-  align-content: center;
-}
-
 .mil-top-panel-right {
   display: flex;
   align-items: center;
@@ -100,7 +101,9 @@
   }
 
   .mil-top-panel-user {
-      position: relative;
+    position: relative;
+    display: flex;
+    align-content: center;
   }
 }
 

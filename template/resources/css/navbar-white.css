@@ -1,7 +1,6 @@
 .mil-top-panel {
   position: fixed;
   width: 100%;
-  background: transparent;
   padding: 10px 20px;
   display: flex;
   justify-content: space-between;
@@ -9,10 +8,29 @@
   z-index: 1000;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   gap: 90px;
+
+  &.mil-active {
+    background-color: rgba(255, 255, 255, 0.6) !important;
+
+    .mil-explore {
+      color: black !important;
+    }
+
+    .mil-logo img {
+      filter: invert(1);
+    }
+  }
+}
+
+.mil-navigation {
+  .mil-explore {
+    color: white !important;
+  }
 }
 
 .mil-logo img {
-  max-width: 120px;
+  height: 3rem;
+  /* max-width: 120px; */
 }
 
 .mil-navigation nav {
@@ -91,6 +109,8 @@
 
   .mil-top-panel-user {
     position: relative;
+    display: flex;
+    align-content: center;
   }
 }
 
@@ -172,7 +192,7 @@
 }
 
 .mil-nav-dropdown-user {
-  transform: translateY(6%);
+  transform: translateY(5rem);
 }
 
 .nav-horizontal-dot {

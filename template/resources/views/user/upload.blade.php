@@ -1,5 +1,6 @@
 @extends('templates.blank')
-@section('title', 'Upload Content | PixaVault')
+
+@section('title', 'PixaVault - Upload')
 
 @section('styles')
     @vite('resources/css/upload.css')
@@ -15,7 +16,9 @@
         <div class="upload-content">
             <div class="header">
                 <h5>Upload Photo</h5>
-                <img src="{{ Vite::asset('resources/img/icons/cancel.svg') }}" width="35px" height="35px" alt="cancel">
+                <a href="{{ route('profile') . '/' . Auth::id() }}">
+                    <img src="{{ Vite::asset('resources/img/icons/cancel.svg') }}" width="35px" height="35px" alt="cancel">
+                </a>
             </div>
             <hr>
             <div class="core">
