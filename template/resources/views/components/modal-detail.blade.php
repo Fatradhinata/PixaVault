@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div class="modal" id="photo-modal">
+<div class="modal" id="modal-detail">
     <div class="modal-content">
         <img class="close" src="{{ Vite::asset('resources/img/icons/cancel.svg') }}" alt="close">
         <hr class="line">
@@ -92,57 +92,63 @@
 
         // JS Modal //
         document.addEventListener('DOMContentLoaded', () => {
-            const photoModal = $("#photo-modal");
-            const closeModal = $("#photo-modal .close");
+
+            // Fetch Data //
+            const modal = $("#modal-detail");
 
             let cache = {};
+
             const setField = (data) => {
-                $('#photo-modal .image-content').attr('src', data.photo);
-                $('#photo-modal .follow').attr('href', `${BASEURL}/profile/` + data.user.id);
-                $('#photo-modal .username').text(data.user.name);
-                $('#photo-modal .download').text(data.views);
-                $('#photo-modal .views').text(data.downloads);
-                $('#photo-modal .title').text(data.name);
-                $('#photo-modal .content-description').text(data.desc);
-                $('#photo-modal .shoot-by').text(data.shoot_by);
-                $('#photo-modal .created-at').text(data.created_at);
+                $('#modal-detail .image-content').attr('src', data.photo);
+                $('#modal-detail .follow').attr('href', `${BASEURL}/profile/` + data.user.id);
+                $('#modal-detail .username').text(data.user.name);
+                $('#modal-detail .download').text(data.views);
+                $('#modal-detail .views').text(data.downloads);
+                $('#modal-detail .title').text(data.name);
+                $('#modal-detail .content-description').text(data.desc);
+                $('#modal-detail .shoot-by').text(data.shoot_by);
+                $('#modal-detail .created-at').text(data.created_at);
                 
-                $('#photo-modal .tag-row').html('');
+                $('#modal-detail .tag-row').html('');
                 for (let tag of data.tags)
-                    $('#photo-modal .tag-row').append(`<button>${tag}</button>`);
+                    $('#modal-detail .tag-row').append(`<button>${tag}</button>`);
+            }
+
+            const fetchData = async function(url) {
+                const res = await fetch(url)
+                if (res.ok) {
+                    const data = await res.json();
+                    return data;
+                }
+                return false;
             }
     
-            $('div[data-modal-target="modal-content"]').on('click', async function() {
+            $('[data-modal-target="modal-detail"]').on('click', async function() {
                 const id = $(this).data('id');
 
-                // Check if data is cached before making a new request
                 if (id in cache) {
                     setField(cache[id])
                 } else {
-                    await fetch(`${BASEURL}/content/${id}`)
-                    .then(res => {if (res.ok) return res.json()})
-                    .then(({ data }) => {
-                        console.log(data);
-                        data.tags = JSON.parse(data.tags);
-                        cache[id] = data;
-                        setField(data);
-                    })
-                    .catch(e => {console.log(e)});
+                    let data = await fetchData(`${BASEURL}/content/${id}`);
+                    data.tags = JSON.parse(data.tags);
+                    cache[id] = data;
                 }
 
-                // Show the modal
-                photoModal.fadeIn(300);
+                modal.fadeIn(300);
             });
+
+
+
     
             // Hide modal on close button
-            $("#photo-modal .close").on("click", () => {
-                photoModal.fadeOut(300);
+            $("#modal-detail .close").on("click", () => {
+                modal.fadeOut(300);
             });
     
             // Hide modal on outside click
             window.addEventListener("click", (e) => {
-                if (e.target === photoModal[0]) {
-                    photoModal.fadeOut(300);
+                if (e.target === modal[0]) {
+                    modal.fadeOut(300);
                 }
             });
         });

@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div class="modal" id="photo-modal">
+<div class="modal" id="modal-content">
     <div class="modal-content">
         <img class="close" src="{{ Vite::asset('resources/img/icons/cancel.svg') }}" alt="close">
         <hr class="line">
@@ -90,88 +90,16 @@
                     <h4>More Like This</h4>
                 </div>
                 <div class="row">
-                    <div class="col-md-6 col-lg-3">
-                        <a href="project.html" class="mil-portfolio-item mil-square-item mil-up mil-mb-30">
-                            <img src="{{ Vite::asset('resources/img/foto/1.jpg') }}" alt="cover" />
-                            <div class="mil-project-descr">
-                                <h4 class="mil-upper mil-mb-20">
-                                    Modern architecture
-                                </h4>
-                                <div class="mil-divider-sm mil-mb-20"></div>
-                                <p>
-                                    Consectetur adipiscing elit, sed do eiusmod
-                                    tempor incididunt ut labore aliqua.
-                                </p>
-                            </div>
-                        </a>
+                    
+                    <div class="col-lg-4 col-md-12 mb-4 mb-lg-0 column-1">
+                    </div>
 
-                        <a href="project.html" class="mil-portfolio-item mil-square-item mil-up mil-mb-30">
-                            <img src="{{ Vite::asset('resources/img/foto/2.jpg') }}" alt="cover" />
-                            <div class="mil-project-descr">
-                                <h4 class="mil-upper mil-mb-20">Ice castle</h4>
-                                <div class="mil-divider-sm mil-mb-20"></div>
-                                <p>
-                                    Consectetur adipiscing elit, sed do eiusmod
-                                    tempor incididunt ut labore aliqua.
-                                </p>
-                            </div>
-                        </a>
+                    <div class="col-lg-4 mb-4 mb-lg-0 column-2">
                     </div>
-                    <div class="col-md-6 col-lg-3">
-                        <a href="project.html" class="mil-portfolio-item mil-long-item mil-up mil-mb-30">
-                            <img src="{{ Vite::asset('resources/img/foto/3.jpg') }}" alt="cover" />
-                            <div class="mil-project-descr">
-                                <h4 class="mil-upper mil-mb-20">Cubism</h4>
-                                <div class="mil-divider-sm mil-mb-20"></div>
-                                <p>
-                                    Consectetur adipiscing elit, sed do eiusmod
-                                    tempor incididunt ut labore aliqua.
-                                </p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <a href="project.html" class="mil-portfolio-item mil-square-item mil-up mil-mb-30">
-                            <img src="{{ Vite::asset('resources/img/foto/4.jpg') }}" alt="cover" />
-                            <div class="mil-project-descr">
-                                <h4 class="mil-upper mil-mb-20">
-                                    Horizontal elevator
-                                </h4>
-                                <div class="mil-divider-sm mil-mb-20"></div>
-                                <p>
-                                    Consectetur adipiscing elit, sed do eiusmod
-                                    tempor incididunt ut labore aliqua.
-                                </p>
-                            </div>
-                        </a>
 
-                        <a href="project.html" class="mil-portfolio-item mil-square-item mil-up mil-mb-30">
-                            <img src="{{ Vite::asset('resources/img/foto/5.jpg') }}" alt="cover" />
-                            <div class="mil-project-descr">
-                                <h4 class="mil-upper mil-mb-20">Home Decor</h4>
-                                <div class="mil-divider-sm mil-mb-20"></div>
-                                <p>
-                                    Consectetur adipiscing elit, sed do eiusmod
-                                    tempor incididunt ut labore aliqua.
-                                </p>
-                            </div>
-                        </a>
+                    <div class="col-lg-4 mb-4 mb-lg-0 column-3">
                     </div>
-                    <div class="col-md-6 col-lg-3">
-                        <a href="project.html" class="mil-portfolio-item mil-long-item mil-up mil-mb-30">
-                            <img src="{{ Vite::asset('resources/img/foto/6.jpg') }}" alt="cover" />
-                            <div class="mil-project-descr">
-                                <h4 class="mil-upper mil-mb-20">
-                                    Modern architecture
-                                </h4>
-                                <div class="mil-divider-sm mil-mb-20"></div>
-                                <p>
-                                    Consectetur adipiscing elit, sed do eiusmod
-                                    tempor incididunt ut labore aliqua.
-                                </p>
-                            </div>
-                        </a>
-                    </div>
+
                 </div>
             </div>
         </section>
@@ -182,53 +110,111 @@
     @parent
     <script>
         const BASEURL = `{{ url('/') }}`;
+        const tmp_user = `{{ Vite::asset('resources/img/icons/user-elipse.svg') }}`;
 
         // JS Modal //
         document.addEventListener('DOMContentLoaded', () => {
-            const photoModal = $("#photo-modal");
-            const closeModal = $("#photo-modal .close");
-
+            const photoModal = $("#modal-content");
             let cache = {};
-            const setField = (data) => {
-                $('#photo-modal .image-content').attr('src', data.photo);
-                $('#photo-modal .follow').attr('href', `${BASEURL}/profile/` + data.user.id);
-                $('#photo-modal .username').text(data.user.name);
-                $('#photo-modal .download').text(data.views);
-                $('#photo-modal .views').text(data.downloads);
-                $('#photo-modal .title').text(data.name);
-                $('#photo-modal .content-description').text(data.desc);
-                $('#photo-modal .shoot-by').text(data.shoot_by);
-                $('#photo-modal .created-at').text(data.created_at);
-                
-                $('#photo-modal .tag-row').html('');
-                for (let tag of data.tags)
-                    $('#photo-modal .tag-row').append(`<button>${tag}</button>`);
-            }
-    
-            $('div[data-modal-target="modal-content"]').on('click', async function() {
-                const id = $(this).data('id');
 
-                // Check if data is cached before making a new request
+            function setField(data) {
+                $('#modal-content .image-content').attr('src', data.photo);
+                $('#modal-content .follow').attr('href', `${BASEURL}/profile/` + data.user.id);
+                $('#modal-content .username').text(data.user.name);
+                $('#modal-content .download').text(data.downloads);
+                $('#modal-content .views').text(data.views);
+                $('#modal-content .title').text(data.name);
+                $('#modal-content .content-description').text(data.desc);
+                $('#modal-content .shoot-by').text(data.shoot_by);
+                $('#modal-content .created-at').text(data.created_at);
+                
+                $('#modal-content .tag-row').html('');
+                for (let tag of data.tags)
+                    $('#modal-content .tag-row').append(`<button>${tag}</button>`);
+            }
+
+            async function fetchData(url) {
+                const res = await fetch(url)
+                if (res.ok) {
+                    const data = await res.json();
+                    return data;
+                }
+                return {status: 'fail', message: 'No internet connection!'};
+            }
+
+            async function refreshContent() {
+                const { status, data, message } = await fetchData(`${BASEURL}/content/get/20`);
+
+                if (status !== 'fail') {
+                    let addCard = function(data) {
+                        return `
+                        <div class="content-item mil-up position-relative" data-id="${data.id}">
+                            <div class="mil-buttons">
+                                <button class="mil-love-btn"><i class="fas fa-heart"></i></button>
+                                <button class="mil-download-btn"><i class="fas fa-download"></i></button>
+                            </div>
+                            <img src="${data.photo}" class="w-100 shadow-1-strong rounded" alt="Photo" />
+                            <div class="image-profile">
+                                <img src="${data.user.photo}" alt="Profile Picture" class="mil-profile-img" />
+                                <p class="mil-username">${data.user.name}</p>
+                            </div>
+                        </div>`;
+                    };
+
+                    $('#modal-content .more-images .col-lg-4').html('');
+
+                    for (let content of data[0]) 
+                        $('#modal-content .column-1').append(addCard(content));
+                    
+                    for (let content of data[1]) 
+                        $('#modal-content .column-2').append(addCard(content));
+                    
+                    for (let content of data[2]) 
+                        $('#modal-content .column-3').append(addCard(content));
+
+                    refreshEvents();
+                } else {
+                    console.error('Error while fetching data: ' + message);
+                }
+            };
+
+            async function displayData(id) {
                 if (id in cache) {
                     setField(cache[id])
                 } else {
-                    await fetch(`${BASEURL}/content/${id}`)
-                    .then(res => {if (res.ok) return res.json()})
-                    .then(({ data }) => {
-                        console.log(data);
+                    const { status, data, message } = await fetchData(`${BASEURL}/content/${id}`);
+                    
+                    if (status !== 'fail') {
                         data.tags = JSON.parse(data.tags);
-                        cache[id] = data;
                         setField(data);
-                    })
-                    .catch(e => {console.log(e)});
+                        cache[id] = data;
+                    } else {
+                        console.error('Error while fetching data: ' + message);
+                    } 
                 }
+            };
 
-                // Show the modal
+            function refreshEvents() {
+                $('#modal-content .more-images .content-item').each(function(i, content) {
+                    content.onclick = async function() {
+                        const id = $(this).data('id');
+                        await displayData(id);
+                        refreshContent();
+                    }
+                });
+            }
+    
+            $('[data-modal-target="modal-content"]').on('click', async function() {
+                const id = $(this).data('id');
+
+                await displayData(id);
+                refreshContent();
+
                 photoModal.fadeIn(300);
             });
     
             // Hide modal on close button
-            $("#photo-modal .close").on("click", () => {
+            $("#modal-content .close").on("click", () => {
                 photoModal.fadeOut(300);
             });
     

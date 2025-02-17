@@ -6,14 +6,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use App\Models\Content;
+use Illuminate\Support\Number;
 use Illuminate\Support\Str;
 
 class ContentController extends Controller
 {
-    public function index() 
-    {
-        return view('user.content');
-    }
 
     private function getTripleColumn($collection)
     {
@@ -31,7 +28,7 @@ class ContentController extends Controller
         return $tmp;
     }
 
-    public function explore(Request $req)
+    public function index(Request $req)
     {
         $search = $req->input('search');
         $tag = $req->input('tag');
@@ -53,12 +50,14 @@ class ContentController extends Controller
 
     public function getDataById($id)
     {
-        $contents = Content::with('user')->find($id);
-        $data = $contents->toArray();
+        $content = Content::with('user')->find($id);
+        $content->increment('views');
+        
+        $data = $content->toArray();
         $data['created_at'] = date('d-m-Y', strtotime($data['created_at']));
         $data['updated_at'] = date('d-m-Y', strtotime($data['updated_at']));
 
-        return response()->json(($contents->count()) ? [
+        return response()->json(($content) ? [
             'status' => 'success',
             'data' => $data,
         ] : [
@@ -70,7 +69,7 @@ class ContentController extends Controller
     public function getRandom($limit)
     {
         $contents = Content::inRandomOrder()->with('user')->limit($limit)->get();
-        $data = $contents->toArray();
+        $data = $this->getTripleColumn($contents);
 
         return response()->json(($contents->count()) ? [
             'status' => 'success',

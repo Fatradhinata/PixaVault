@@ -18,12 +18,7 @@ Route::get('/verify-user/{id}', [AuthController::class, 'verify']);
 Route::get('/pricing', [HomeController::class, 'pricing'])->name('pricing');
 Route::get('/trending', [HomeController::class, 'trending'])->name('trending');
 Route::get('/result', [HomeController::class, 'result'])->name('result');
-Route::get('/explore', [ContentController::class, 'explore'])->name('explore');
-
-// API
-Route::get('/content/{id}', [ContentController::class, 'getDataById']);
-Route::get('/content/get/{limit}', [ContentController::class, 'getRandom']);
-
+Route::get('/explore', [ContentController::class, 'index'])->name('explore');
 
 Route::middleware('auth')->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -38,6 +33,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/history_download', [HomeController::class, 'history_download'])->name('history_download');        
         Route::get('/edit-profile', [HomeController::class, 'editProfile'])->name('editProfile');
         
+        Route::get('/content/{id}', [ContentController::class, 'getDataById']);
+        Route::get('/content/get/{limit}', [ContentController::class, 'getRandom']);
         Route::get('/upload', [ContentController::class, 'upload'])->name('upload');
         Route::post('/upload', [ContentController::class, 'store']);
 

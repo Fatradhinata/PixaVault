@@ -61,7 +61,7 @@
                     <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
                         @foreach ($contents[0] as $content)
                             <div class="content-item mil-up position-relative" 
-                                data-modal-target="modal-content" data-id="{{ $content->id }}">
+                                data-modal-target="modal-detail" data-id="{{ $content->id }}">
                                 <div class="mil-buttons">
                                     <p class="mil-card-title"><span>Uploaded At</span> {{ date('d/m/y', strtotime($content->created_at)) }}</p>
                                 </div>
@@ -76,7 +76,7 @@
                     <div class="col-lg-4 mb-4 mb-lg-0">
                         @foreach ($contents[1] as $content)
                             <div class="content-item mil-up position-relative" 
-                                data-modal-target="modal-content" data-id="{{ $content->id }}">
+                                data-modal-target="modal-detail" data-id="{{ $content->id }}">
                                 <div class="mil-buttons">
                                     <p class="mil-card-title"><span>Uploaded At</span> {{ date('d/m/y', strtotime($content->created_at)) }}</p>
                                 </div>
@@ -91,7 +91,7 @@
                     <div class="col-lg-4 mb-4 mb-lg-0">
                         @foreach ($contents[2] as $content)
                             <div class="content-item mil-up position-relative" 
-                                data-modal-target="modal-content" data-id="{{ $content->id }}">
+                                data-modal-target="modal-detail" data-id="{{ $content->id }}">
                                 <div class="mil-buttons">
                                     <p class="mil-card-title"><span>Uploaded At</span> {{ date('d/m/y', strtotime($content->created_at)) }}</p>
                                 </div>
@@ -102,6 +102,7 @@
                             </div>
                         @endforeach
                     </div>
+                    
                 </div>
             </div>
             <div class="tab-content" id="likes">
@@ -171,6 +172,6 @@
     
 @endsection
 
-@vite('resources/js/profile.js')
-<!-- @section('scripts')
-@endsection -->
+@section('scripts')
+    @vite('resources/js/profile.js')
+@endsection

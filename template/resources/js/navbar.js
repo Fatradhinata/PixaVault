@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     const BASEURL = document.querySelector('meta[name="baseurl"]').getAttribute("content");
 
-    console.log(BASEURL);
+    // console.log(BASEURL);
     
     // JS dropdown menu //
     const toggleButtons = document.querySelectorAll(".toggleDropdown");
