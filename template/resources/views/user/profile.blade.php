@@ -29,7 +29,7 @@
                             <button class="btn-report d-none">Report</button>
                         </div>
                         <div class="d-flex align-items-center role-own-profile">
-                            <button class="btn-edit-profile"><img src="{{ Vite::asset('resources/img/icons/edit-pen.svg') }}" alt="">Edit Profile</button>
+                            <a href="{{ route('editProfile') }}"><button class="btn-edit-profile"><img src="{{ Vite::asset('resources/img/icons/edit-pen.svg') }}" alt="">Edit Profile</button></a>
                         </div>
                     </div>
                 </div>
@@ -171,6 +171,6 @@
     
 @endsection
 
-@section('scripts')
-    @vite('resources/js/profile.js')
-@endsection
+@vite('resources/js/profile.js')
+<!-- @section('scripts')
+@endsection -->
