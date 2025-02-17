@@ -15,10 +15,12 @@ use App\Models\Content;
 
 Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('unverified');
 Route::get('/verify-user/{id}', [AuthController::class, 'verify']);
+
 Route::get('/pricing', [HomeController::class, 'pricing'])->name('pricing');
 Route::get('/trending', [HomeController::class, 'trending'])->name('trending');
-Route::get('/result', [HomeController::class, 'result'])->name('result');
+
 Route::get('/explore', [ContentController::class, 'index'])->name('explore');
+Route::get('/result', [ContentController::class, 'result'])->name('result');
 
 Route::middleware('auth')->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -37,7 +39,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/content/get/{limit}', [ContentController::class, 'getRandom']);
         Route::get('/upload', [ContentController::class, 'upload'])->name('upload');
         Route::post('/upload', [ContentController::class, 'store']);
-
+        
         Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
         Route::get('/profile/{id}', [ProfileController::class, 'details']);
 

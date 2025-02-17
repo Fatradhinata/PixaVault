@@ -14,7 +14,7 @@
     <!-- content -->
     <div class="container-fluid">
         <div class="header">
-            <h3>Discover the best of Pixavault</h3>
+            <h3 style="font-weight: 400;">Discover the best of <b>Pixavault</b></h3>
         </div>
         <div class="tag-wrapper">
             <h4>Trending Tag</h4>
@@ -27,6 +27,7 @@
                 <button>East java</button>
             </div>
         </div>
+        
         <!-- Gallery -->
         <div class="row core-content">
             <h4>Fresh Images</h4>

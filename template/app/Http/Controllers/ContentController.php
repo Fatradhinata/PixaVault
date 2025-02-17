@@ -11,6 +11,15 @@ use Illuminate\Support\Str;
 
 class ContentController extends Controller
 {
+    public function index()
+    {
+        $data = Content::inRandomOrder()->with('user')->get();
+        $data = $this->getTripleColumn($data);
+
+        return view('user.explore', [
+            'contents' => $data,
+        ]);
+    }
 
     private function getTripleColumn($collection)
     {
@@ -28,10 +37,10 @@ class ContentController extends Controller
         return $tmp;
     }
 
-    public function index(Request $req)
+    public function result(Request $req)
     {
-        $search = $req->input('search');
-        $tag = $req->input('tag');
+        $search = $req->input('q');
+        $tag = $req->input('t');
 
         $data = Content::with('user');
         
@@ -43,8 +52,9 @@ class ContentController extends Controller
         $data = $data->get();
         $data = $this->getTripleColumn($data);
 
-        return view('user.explore', [
-            'contents' => $data
+        return view('user.result', [
+            'contents' => $data,
+            'search' => $search,
         ]);
     }
 
