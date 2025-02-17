@@ -33,7 +33,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/favorites', [HomeController::class, 'favorites'])->name('favorites');
         Route::get('/leaderboard', [HomeController::class, 'leaderboard'])->name('leaderboard');
         Route::get('/history_download', [HomeController::class, 'history_download'])->name('history_download');        
-        Route::get('/edit-profile', [HomeController::class, 'editProfile'])->name('editProfile');
         
         Route::get('/content/{id}', [ContentController::class, 'getDataById']);
         Route::get('/content/get/{limit}', [ContentController::class, 'getRandom']);
@@ -41,6 +40,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/upload', [ContentController::class, 'store']);
         
         Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+        Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::get('/profile/{id}', [ProfileController::class, 'details']);
 
         Route::post('/midtrans/token', [MidtransController::class, 'getToken']);
