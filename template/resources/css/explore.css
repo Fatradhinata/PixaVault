@@ -1,10 +1,11 @@
 
-    .container {
+    .container-fluid {
       margin: 0 145px;
       padding: 180px 20px;
       display: flex;
       flex-direction: column;
       gap: 80px;
+      width: fit-content;
       /* padding-top: 180px; */
 
       .header {

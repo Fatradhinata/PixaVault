@@ -10,7 +10,7 @@
 
 @section('content')
   <!-- content -->
-  <div class="container">
+  <div class="container-fluid">
         <div class="header">
           <h3>Discover the best of Pixavault</h3>
         </div>
