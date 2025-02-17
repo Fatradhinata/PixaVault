@@ -6,7 +6,7 @@
         <img src="{{ Vite::asset('resources/img/logo/logo_pixavault.png') }}" alt="Logo" />
     </a>
     <div class="search-panel" id="search-input">
-        <input type="text" autocomplete="on" placeholder="Search for photos">
+        <input type="text" autocomplete="on" placeholder="Search for photos" value="{{ Request::input('q') }}">
         <button>
             <img src="{{ Vite::asset('resources/img/icons/search-button.svg') }}" alt="search-button">
         </button>

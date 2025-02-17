@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     const BASEURL = document.querySelector('meta[name="baseurl"]').getAttribute("content");
 
-    console.log(BASEURL);
+    // console.log(BASEURL);
     
     // JS dropdown menu //
     const toggleButtons = document.querySelectorAll(".toggleDropdown");
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
     searchButton.addEventListener("click", function () {
         let query = searchInput.value.trim(); // Ambil teks input
         if (query) {
-            window.location.href = `${BASEURL}/result?search=${query}`;
+            window.location.href = `${BASEURL}/result?q=${query}`;
         } else {
             Swal.fire({
                 icon: "warning",

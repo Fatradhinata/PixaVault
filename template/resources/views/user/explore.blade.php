@@ -14,7 +14,7 @@
     <!-- content -->
     <div class="container-fluid">
         <div class="header">
-            <h3>Discover the best of Pixavault</h3>
+            <h3 style="font-weight: 400;">Discover the best of <b>Pixavault</b></h3>
         </div>
         <div class="tag-wrapper">
             <h4>Trending Tag</h4>
@@ -27,21 +27,22 @@
                 <button>East java</button>
             </div>
         </div>
+        
         <!-- Gallery -->
         <div class="row core-content">
             <h4>Fresh Images</h4>
             <div class="row">
                 <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
                     @foreach ($contents[0] as $content)
-                        <div class="content-item mil-up position-relative"
-                            data-modal-target="modal-content" data-id="{{ $content->id }}">
+                        <div class="content-item mil-up position-relative">
                             <div class="mil-buttons">
                                 <button class="mil-love-btn"><i class="fas fa-heart"></i></button>
                                 <button class="mil-download-btn"><i class="fas fa-download"></i></button>
                             </div>
-                            <img src="{{ $content->photo }}" class="w-100 shadow-1-strong rounded" alt="Boat on Calm Water" />
+                            <img src="{{ $content->photo }}" class="w-100 shadow-1-strong rounded" alt="Photo" 
+                                data-modal-target="modal-content" data-id="{{ $content->id }}"/>
                             <div class="image-profile">
-                                <img src="{{ $content->user['photo'] ?? Vite::asset('resource/img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />
+                                <img src="{{ $content->user['photo'] ?? Vite::asset('resources/img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />
                                 <p class="mil-username">{{ $content->user['name'] }}</p>
                             </div>
                         </div>
@@ -50,15 +51,15 @@
 
                 <div class="col-lg-4 mb-4 mb-lg-0">
                     @foreach ($contents[1] as $content)
-                        <div class="content-item mil-up position-relative"
-                            data-modal-target="modal-content" data-id="{{ $content->id }}">
+                        <div class="content-item mil-up position-relative">
                             <div class="mil-buttons">
                                 <button class="mil-love-btn"><i class="fas fa-heart"></i></button>
                                 <button class="mil-download-btn"><i class="fas fa-download"></i></button>
                             </div>
-                            <img src="{{ $content->photo }}" class="w-100 shadow-1-strong rounded" alt="Boat on Calm Water" />
+                            <img src="{{ $content->photo }}" class="w-100 shadow-1-strong rounded" alt="Photo" 
+                                data-modal-target="modal-content" data-id="{{ $content->id }}"/>
                             <div class="image-profile">
-                                <img src="{{ $content->user['photo'] ?? Vite::asset('resource/img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />
+                                <img src="{{ $content->user['photo'] ?? Vite::asset('resources/img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />
                                 <p class="mil-username">{{ $content->user['name'] }}</p>
                             </div>
                         </div>
@@ -67,15 +68,15 @@
 
                 <div class="col-lg-4 mb-4 mb-lg-0">
                     @foreach ($contents[2] as $content)
-                        <div class="content-item mil-up position-relative"
-                            data-modal-target="modal-content" data-id="{{ $content->id }}">
+                        <div class="content-item mil-up position-relative">
                             <div class="mil-buttons">
                                 <button class="mil-love-btn"><i class="fas fa-heart"></i></button>
                                 <button class="mil-download-btn"><i class="fas fa-download"></i></button>
                             </div>
-                            <img src="{{ $content->photo }}" class="w-100 shadow-1-strong rounded" alt="Boat on Calm Water" />
+                            <img src="{{ $content->photo }}" class="w-100 shadow-1-strong rounded" alt="Photo" 
+                                data-modal-target="modal-content" data-id="{{ $content->id }}"/>
                             <div class="image-profile">
-                                <img src="{{ $content->user['photo'] ?? Vite::asset('resource/img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />
+                                <img src="{{ $content->user['photo'] ?? Vite::asset('resources/img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />
                                 <p class="mil-username">{{ $content->user['name'] }}</p>
                             </div>
                         </div>

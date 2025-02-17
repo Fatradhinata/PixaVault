@@ -15,8 +15,11 @@ use App\Models\Content;
 
 Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('unverified');
 Route::get('/verify-user/{id}', [AuthController::class, 'verify']);
+
 Route::get('/pricing', [HomeController::class, 'pricing'])->name('pricing');
 Route::get('/trending', [HomeController::class, 'trending'])->name('trending');
+
+Route::get('/explore', [ContentController::class, 'index'])->name('explore');
 Route::get('/result', [ContentController::class, 'result'])->name('result');
 Route::get('/explore', [ContentController::class, 'explore'])->name('explore');
 
@@ -36,12 +39,14 @@ Route::middleware('auth')->group(function () {
         Route::get('/favorites', [HomeController::class, 'favorites'])->name('favorites');
         Route::get('/leaderboard', [HomeController::class, 'leaderboard'])->name('leaderboard');
         Route::get('/history_download', [HomeController::class, 'history_download'])->name('history_download');        
-        Route::get('/edit-profile', [HomeController::class, 'editProfile'])->name('editProfile');
         
+        Route::get('/content/{id}', [ContentController::class, 'getDataById']);
+        Route::get('/content/get/{limit}', [ContentController::class, 'getRandom']);
         Route::get('/upload', [ContentController::class, 'upload'])->name('upload');
         Route::post('/upload', [ContentController::class, 'store']);
         
         Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+        Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::get('/profile/{id}', [ProfileController::class, 'details']);
 
         Route::post('/midtrans/token', [MidtransController::class, 'getToken']);

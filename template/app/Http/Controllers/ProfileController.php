@@ -43,9 +43,9 @@ class ProfileController extends Controller
         ]); 
     }
     
-    public function editProfile(User $id)
+    public function edit(User $id)
     {
-        return view('user.edit-profile', data: [
+        return view('user.profile_edit', data: [
             'user' => $id,
         ]);
     }

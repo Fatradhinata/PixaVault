@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use App\Models\Content;
+use Illuminate\Support\Number;
 use Illuminate\Support\Str;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +16,12 @@ class ContentController extends Controller
 {
     public function index()
     {
-        return view('user.content');
+        $data = Content::inRandomOrder()->with('user')->get();
+        $data = $this->getTripleColumn($data);
+
+        return view('user.explore', [
+            'contents' => $data,
+        ]);
     }
 
     private function getTripleColumn($collection)
@@ -39,8 +45,8 @@ class ContentController extends Controller
 
     public function result(Request $req)
     {
-        $search = $req->input('search');
-        $tag = $req->input('tag');
+        $search = $req->input('q');
+        $tag = $req->input('t');
 
         $data = Content::with('user');
 
@@ -71,12 +77,14 @@ class ContentController extends Controller
 
     public function getDataById($id)
     {
-        $contents = Content::with('user')->find($id);
-        $data = $contents->toArray();
+        $content = Content::with('user')->find($id);
+        $content->increment('views');
+        
+        $data = $content->toArray();
         $data['created_at'] = date('d-m-Y', strtotime($data['created_at']));
         $data['updated_at'] = date('d-m-Y', strtotime($data['updated_at']));
 
-        return response()->json(($contents->count()) ? [
+        return response()->json(($content) ? [
             'status' => 'success',
             'data' => $data,
         ] : [
@@ -88,7 +96,7 @@ class ContentController extends Controller
     public function getRandom($limit)
     {
         $contents = Content::inRandomOrder()->with('user')->limit($limit)->get();
-        $data = $contents->toArray();
+        $data = $this->getTripleColumn($contents);
 
         return response()->json(($contents->count()) ? [
             'status' => 'success',

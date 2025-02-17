@@ -19,6 +19,23 @@
     .mil-logo img {
       filter: invert(1);
     }
+
+    .nav-horizontal-dot {
+      background-color: transparent;
+    
+      img {
+        filter: invert(1);
+      }
+    
+      &:hover {
+        background-color: #000;
+        border-radius: 100px;
+    
+        img {
+          filter: invert(0);
+        }
+      }
+    }
   }
 }
 
@@ -200,29 +217,25 @@
 .nav-horizontal-dot {
   padding: 10px;
   display: flex;
-  transition: background-color 1s, border-radius 1.2s;
+  transition: background-color 1s, border-radius 1s;
+  background-color: transparent;
+
+  img {
+    transition: filter 0.8s ease;
+  }
 
   &:hover {
-    background-color: #000;
+    background-color: #F7F7F7;
     border-radius: 100px;
+
+    img {
+      filter: invert(1);
+    }
   }
 }
 
 .mil-top-panel-buttons a:hover {
   filter: brightness(110%);
-}
-
-.nav-horizontal-dot {
-  background-color: #F7F7F7;
-  border-radius: 100px;
-
-  img {
-    filter: brightness(0);
-  }
-
-  img:hover {
-    filter: brightness(0) saturate(100%) invert(98%) sepia(8%) saturate(71%) hue-rotate(57deg) brightness(115%) contrast(94%);
-  }
 }
 
 .search-panel {
