@@ -66,12 +66,12 @@
                             <!-- Gambar profil -->
                             <img src="img/faces/user.jpg" alt="Profile Picture" class="rounded-circle"
                                 style="
-                  width: 50px;
-                  height: 50px;
-                  object-fit: cover;
-                  margin-right: 15px;
-                  border-radius: 100%;
-                " />
+                                    width: 50px;
+                                    height: 50px;
+                                    object-fit: cover;
+                                    margin-right: 15px;
+                                    border-radius: 100%;
+                                " />
                             <!-- Username dan nama -->
                             <div>
                                 <p class="mb-0" style="font-weight: bold">Gracy Even</p>

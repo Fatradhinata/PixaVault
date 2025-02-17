@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\SendVerificationLink;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -20,7 +21,7 @@ class AuthController extends Controller
 
     public function processLogin(Request $req) {
         $credential = $req->validate([
-            'email' => 'required|email:dns|max:50',
+            'email' => 'required|email|max:50',
             'password' => 'required',
         ]);
 
@@ -44,7 +45,7 @@ class AuthController extends Controller
     public function processRegister(Request $req) {
         $credential = $req->validate([
             'name' =>'required|max:20',
-            'email' => 'required|max:50|email:dns|unique:users',
+            'email' => 'required|max:50|email|unique:users',
             'password' => 'required',
         ]);
 
@@ -54,10 +55,12 @@ class AuthController extends Controller
             'password' => bcrypt($credential['password']),
         ]);
 
-        Mail::to($user->email)->send(new SendVerificationLink([ 
-            "user_id" => $user->id,
-            "username" => $user->name,
-        ]));
+        try {
+            Mail::to($user->email)->send(new SendVerificationLink([ 
+                "user_id" => $user->id,
+                "username" => $user->name,
+            ]));
+        } catch (Exception $e) {}
 
         return redirect()->route('login')->with('success', "Registration Successful! <br>We send you a verification email. Please check your inbox.");
     }
@@ -73,10 +76,14 @@ class AuthController extends Controller
         $user = $req->user();
 
         if (!$user->verified_at) {
-            Mail::to($user->email)->send(new SendVerificationLink([ 
-                "user_id" => $user->id,
-                "username" => $user->name,
-            ]));
+            try {
+                Mail::to($user->email)->send(new SendVerificationLink([ 
+                    "user_id" => $user->id,
+                    "username" => $user->name,
+                ]));
+            } catch (Exception $e) {
+                return redirect()->route('home')->with('warning', "Something wrong when sending email. Please try again");
+            }
     
             return redirect()->route('home')->with('success', "Email Sent Successfully! Please check your inbox.");
         }

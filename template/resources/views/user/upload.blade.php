@@ -32,7 +32,7 @@
             </div>
             <hr>
             <div class="core">
-              <form class="form" action="{{ route('upload.content') }}" method="POST" enctype="multipart/form-data">
+              <form class="form" action="{{ route('upload') }}" method="POST" enctype="multipart/form-data">
                     @csrf
 
                     <!-- Upload Area -->
@@ -92,4 +92,3 @@
         </div>
     </div>
 @endsection
-@vite(['resources/js/upload.js'])

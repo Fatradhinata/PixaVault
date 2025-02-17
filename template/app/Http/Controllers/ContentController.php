@@ -10,7 +10,17 @@ use Illuminate\Support\Str;
 
 class ContentController extends Controller
 {
-    public function upload(Request $request)
+    public function index() 
+    {
+        return view('user.content');
+    }
+
+    public function upload() 
+    {
+        return view('user.upload');
+    }
+
+    public function store(Request $request)
     {
         // Validasi input
         $request->validate([

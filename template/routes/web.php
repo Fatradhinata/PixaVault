@@ -11,6 +11,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MidtransController;
 use PharIo\Manifest\AuthorElementCollection;
 use App\Http\Controllers\SocialiteController;
+use App\Models\Content;
 
 Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('unverified');
 Route::get('/verify-user/{id}', [AuthController::class, 'verify']);
@@ -31,16 +32,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/send-verification-email', [AuthController::class, 'sendEmailVerification']);
 
     Route::middleware('verified')->group(function () {
-        Route::get('/content', [HomeController::class, 'content'])->name('content');
         Route::get('/blog', [HomeController::class, 'blog'])->name('blog');
         Route::get('/favorites', [HomeController::class, 'favorites'])->name('favorites');
         Route::get('/leaderboard', [HomeController::class, 'leaderboard'])->name('leaderboard');
         Route::get('/history_download', [HomeController::class, 'history_download'])->name('history_download');
-        Route::get('/upload', [HomeController::class, 'upload'])->name('upload');
-        Route::post('/upload', [ContentController::class, 'upload'])->name('upload.content');
+
+        Route::get('/content', [ContentController::class, 'index'])->name('content');
+        Route::get('/upload', [ContentController::class, 'upload'])->name('upload');
+        Route::post('/upload', [ContentController::class, 'store']);
 
         Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
-        Route::get('/profile/{id}', [ProfileController::class, 'details'])->name('profile.details');
+        Route::get('/profile/{id}', [ProfileController::class, 'details']);
 
         Route::post('/midtrans/token', [MidtransController::class, 'getToken']);
         // Route::get('/payment', [HomeController::class, 'payment'])->name('payment');

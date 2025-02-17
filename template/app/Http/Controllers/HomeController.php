@@ -11,10 +11,6 @@ class HomeController extends Controller
     {
         return view('user.home');
     }
-    public function content()
-    {
-        return view('user.content');
-    }
     public function blog()
     {
         return view('user.blog');
@@ -30,10 +26,6 @@ class HomeController extends Controller
     public function history_download()
     {
         return view('user.history_download');
-    }
-    public function upload()
-    {
-        return view('user.upload');
     }
     public function payment()
     {

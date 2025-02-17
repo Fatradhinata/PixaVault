@@ -13,14 +13,14 @@
     <link rel="stylesheet" href="{{ asset('css/plugins/magnific-popup.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
-    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+    @vite('resources/css/login.css')
 
     <title>PixaVault - Register</title>
 
 </head>
 
 <body>
-    @include('templates.flasher')
+    @include('components.flasher')
     
     <div class="wrapper login-wrapper">
         <form action="{{ route('register') }}" method="post">
@@ -69,7 +69,7 @@
     <script src="{{ asset('js/plugins/magnific-popup.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
 
-    <script src="{{ Vite::asset('resources/js/login.js') }}"></script>
+    @vite('resources/js/login.js')
 
 </body>
 
