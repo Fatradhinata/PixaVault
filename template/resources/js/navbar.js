@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
     searchButton.addEventListener("click", function () {
         let query = searchInput.value.trim(); // Ambil teks input
         if (query) {
-            window.location.href = `${BASEURL}/explore?search=${query}`;
+            window.location.href = `${BASEURL}/result?search=${query}`;
         } else {
             Swal.fire({
                 icon: "warning",

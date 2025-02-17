@@ -17,8 +17,8 @@ Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('unv
 Route::get('/verify-user/{id}', [AuthController::class, 'verify']);
 Route::get('/pricing', [HomeController::class, 'pricing'])->name('pricing');
 Route::get('/trending', [HomeController::class, 'trending'])->name('trending');
-Route::get('/result', [HomeController::class, 'result'])->name('result');
-Route::get('/explore', [ContentController::class, 'explore'])->name('explore');
+Route::get('/result', [ContentController::class, 'result'])->name('result');
+Route::get('/explore', [HomeController::class, 'explore'])->name('explore');
 
 // API
 Route::get('/content/{id}', [ContentController::class, 'getDataById']);

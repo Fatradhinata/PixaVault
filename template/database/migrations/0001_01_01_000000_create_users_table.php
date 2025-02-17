@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('google_refresh_token')->nullable();
             $table->string('full_name', 100)->default('');
             $table->string('name', 20);
+            $table->string('bio', 500);
             $table->string('email', 50)->unique();
             $table->string('password', 72);
             $table->enum('role', ['admin', 'user'])->default('user');

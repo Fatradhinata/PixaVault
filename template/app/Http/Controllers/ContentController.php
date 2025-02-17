@@ -31,7 +31,7 @@ class ContentController extends Controller
         return $tmp;
     }
 
-    public function explore(Request $req)
+    public function result(Request $req)
     {
         $search = $req->input('search');
         $tag = $req->input('tag');
@@ -46,8 +46,9 @@ class ContentController extends Controller
         $data = $data->get();
         $data = $this->getTripleColumn($data);
 
-        return view('user.explore', [
-            'contents' => $data
+        return view('user.result', [
+            'contents' => $data,
+            'search' => $search,
         ]);
     }
 
