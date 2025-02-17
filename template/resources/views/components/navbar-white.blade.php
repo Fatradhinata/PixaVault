@@ -20,6 +20,7 @@
         <div class="mil-navigation">
             <nav>
                 <div class="mil-top-panel-right">
+                    <p style="color: white;" class="mil-credit"><b>5</b> Credit Available</p>
                     <a href="{{ url('explore') }}" class="mil-top-panel-link mil-explore" style="color: black">Explore</a>
                     <div class="nav-horizontal-dot-wrapper">
                         <div class="nav-horizontal-dot toggleDropdown">
@@ -42,18 +43,18 @@
                         <img src="{{ Vite::asset('resources/img/icons/user-elipse.svg') }}" width="46px" height="46px" alt="" class="toggleDropdown">
                         <div class="mil-nav-dropdown mil-nav-dropdown-user dropdownMenu">
                             <div>
-                              <a href="{{ route('profile') . '/' . Auth::id() }}">
-                                <button>View Profile</button>
-                              </a>
-                              <a href="#"><button>Account Settings</button></a>
-                              <hr>
-                              <a href="{{ route('logout') }}">
-                                  <button class="mil-nav-dropdown-logout">Logout</button>
-                              </a>
+                                <a href="{{ route('profile') }}">
+                                    <button>View Profile</button>
+                                </a>
+                                <a href="#"><button>Account Settings</button></a>
+                                <hr>
+                                <a href="{{ route('logout') }}">
+                                    <button class="mil-nav-dropdown-logout">Logout</button>
+                                </a>
                             </div>
                         </div>
                     </div>
-                    <a href="#" class="mil-top-panel-buttons">
+                    <a href="{{ route('upload') }}" class="mil-top-panel-buttons">
                         <img src="{{ Vite::asset('resources/img/icons/upload-icon.svg') }}">UPLOAD
                     </a>
                 </div>

@@ -1,6 +1,6 @@
 @extends('templates.blank')
 
-@section('title', 'PixaVault - Upload')
+@section('title', 'Upload')
 
 @section('styles')
     @vite('resources/css/upload.css')

@@ -7,6 +7,7 @@
     <div class="mil-navigation">
         <nav>
             <div class="mil-top-panel-right">
+                <p style="color: white;" class="mil-credit"><b>5</b> Credit Available</p>
                 <a href="{{ route('explore') }}" class="mil-top-panel-link mil-explore">Explore</a>
                 <div class="nav-horizontal-dot-wrapper">
                     <div class="nav-horizontal-dot toggleDropdown">
@@ -31,7 +32,7 @@
                         <img src="{{ Vite::asset('resources/img/icons/user-elipse.svg') }}" width="46px" height="46px" alt="" class="toggleDropdown">
                         <div class="mil-nav-dropdown mil-nav-dropdown-user dropdownMenu">
                             <div>
-                                <a href="{{ route('profile') . '/' . Auth::id() }}">
+                                <a href="{{ route('profile') }}">
                                     <button>View Profile</button>
                                 </a>
                                 <a href="#"><button>Account Settings</button></a>

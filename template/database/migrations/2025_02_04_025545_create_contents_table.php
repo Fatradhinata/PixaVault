@@ -13,12 +13,14 @@ return new class extends Migration
     {
         Schema::create('contents', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('id_author');
+            $table->uuid('id_user');
             $table->string('name', 100);
             $table->text('desc');
-            $table->string('photo', 50);
-            $table->integer('downloads');
-            $table->integer('views');
+            $table->string('photo', 100);
+            $table->string('shoot_by', 50);
+            $table->integer('downloads')->default(0);
+            $table->integer('likes')->default(0);
+            $table->integer('views')->default(0);
             $table->json('tags');
             $table->timestamps();
         });

@@ -32,14 +32,8 @@ h1 {
   cursor: pointer;
 }
 
-#content {
-  padding: 0 144px;
-  display: flex;
-  flex-direction: column;
-  gap: 86px;
-}
-
 .profile {
+  padding: 0 144px;
   margin-top: 120px;
   display: flex;
   flex-direction: column;
@@ -192,6 +186,7 @@ h1 {
   flex-direction: column;
   gap: 50px;
   margin-bottom: 50px;
+  padding: 0 144px;
 
   .profile-tab-nav {
     display: flex;

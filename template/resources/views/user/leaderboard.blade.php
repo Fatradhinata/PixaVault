@@ -1,8 +1,9 @@
 @extends('templates.user')
-@section('title', 'Leaderboard | PixaVault')
+
+@section('title', 'Leaderboard')
 
 @section('styles')
-    <link rel="stylesheet" href="{{ asset('css/leaderboard.css') }}" />
+    @vite('resources/css/leaderboard.css')
 @endsection
 
 @section('navbar')

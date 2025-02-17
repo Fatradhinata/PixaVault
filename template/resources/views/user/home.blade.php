@@ -1,5 +1,7 @@
 @extends('templates.user')
 
+@section('title', 'Home')
+
 @section('navbar')
     @include('components.navbar-home')
 @endsection

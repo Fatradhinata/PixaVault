@@ -12,7 +12,7 @@
   &.mil-active {
     background-color: rgba(255, 255, 255, 0.6) !important;
 
-    .mil-explore {
+    .mil-explore, .mil-credit {
       color: black !important;
     }
 
@@ -22,10 +22,8 @@
   }
 }
 
-.mil-navigation {
-  .mil-explore {
-    color: white !important;
-  }
+.mil-navigation .mil-explore, .mil-credit {
+  color: white !important;
 }
 
 .mil-logo img {
@@ -146,7 +144,7 @@
   position: absolute;
   display: none;
   left: -120%;
-  transform: translateY(15%);
+  transform: translateY(2rem);
   border: 1px solid #D9D9D9;
   border-radius: 8px;
   background-color: white;

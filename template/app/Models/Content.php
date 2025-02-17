@@ -11,30 +11,17 @@ class Content extends Model
 {
     /** @use HasFactory<\Database\Factories\ContentFactory> */
     use HasFactory, HasUuids;
-    protected $keyType = 'string';
-    public $incrementing = false; 
+
     protected $fillable = [
-        'id',
         'id_user',
         'name',
         'desc',
         'photo',
+        'shoot_by',
         'downloads',
         'likes',
         'views',
         'tags',
-        'created_at',
-        'updated_at'
+        'shoot_by',
     ];
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($model) {
-            if (empty($model->id)) {
-                $model->id = (string) Str::uuid(); // Generate UUID otomatis
-            }
-        });
-    }
 }
