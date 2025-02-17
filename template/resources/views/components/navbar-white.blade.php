@@ -1,6 +1,6 @@
-@push('styles')
-  <link rel="stylesheet" href="{{ asset('css/white-navbar.css') }}" />
-@endpush
+@section('styles')
+  @vite('resources/css/navbar-white.css')
+@endsection
 
 <!-- wrapper -->
 <div class="mil-wrapper">
@@ -25,7 +25,8 @@
           <a href="{{ url('explore') }}" class="mil-top-panel-link" style="color: black">Explore</a>
           <div class="nav-horizontal-dot-wrapper">
             <div class="nav-horizontal-dot toggleDropdown">
-              <img src="{{ Vite::asset('resources/img/icons/horiz-dots-variant-2.svg') }}" width="30px" height="30px" alt="Horizontal-Dot">
+              <img src="{{ Vite::asset('resources/img/icons/horiz-dots-variant-2.svg') }}" width="30px" height="30px"
+                alt="Horizontal-Dot">
             </div>
             <div class="mil-nav-dropdown dropdownMenu">
               <div>
@@ -37,7 +38,8 @@
         </div>
         <div class="mil-top-panel-right">
           <div class="mil-top-panel-user">
-            <img src="{{ Vite::asset('resources/img/icons/user-elipse.svg') }}" width="46px" height="46px" alt="" class="toggleDropdown">
+            <img src="{{ Vite::asset('resources/img/icons/user-elipse.svg') }}" width="46px" height="46px" alt=""
+              class="toggleDropdown">
             <div class="mil-nav-dropdown mil-nav-dropdown-user dropdownMenu">
               <div>
                 <button><a href="#">View</a> Profile</button>
