@@ -7,10 +7,13 @@ use Illuminate\Support\Facades\Auth;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use App\Models\Content;
 use Illuminate\Support\Str;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
+
 
 class ContentController extends Controller
 {
-    public function index() 
+    public function index()
     {
         return view('user.content');
     }
@@ -23,9 +26,12 @@ class ContentController extends Controller
         $tmp = [[], [], []];
 
         for ($i = 0; $i < $divided_len; $i++) {
-            if (isset($content[$i*3])) array_push($tmp[0], (object) $content[$i*3]);
-            if (isset($content[$i*3+1])) array_push($tmp[1], (object) $content[$i*3+1]);
-            if (isset($content[$i*3+2])) array_push($tmp[2], (object) $content[$i*3+2]);
+            if (isset($content[$i * 3]))
+                array_push($tmp[0], (object) $content[$i * 3]);
+            if (isset($content[$i * 3 + 1]))
+                array_push($tmp[1], (object) $content[$i * 3 + 1]);
+            if (isset($content[$i * 3 + 2]))
+                array_push($tmp[2], (object) $content[$i * 3 + 2]);
         }
 
         return $tmp;
@@ -37,7 +43,7 @@ class ContentController extends Controller
         $tag = $req->input('tag');
 
         $data = Content::with('user');
-        
+
         if ($search)
             $data = $data->where('name', 'like', "%$search%")->orWhere('desc', 'like', "%$search%");
         if ($tag)
@@ -49,6 +55,17 @@ class ContentController extends Controller
         return view('user.result', [
             'contents' => $data,
             'search' => $search,
+        ]);
+    }
+    public function explore(Request $req)
+    {
+        $data = Content::with('user');
+
+        $data = $data->get();
+        $data = $this->getTripleColumn($data);
+
+        return view('user.explore', [
+            'contents' => $data,
         ]);
     }
 
@@ -82,13 +99,15 @@ class ContentController extends Controller
         ]);
     }
 
-    public function upload() 
+    public function upload()
     {
         return view('user.upload');
     }
 
     public function store(Request $req)
     {
+
+        // dd($req->all());
         $validated = $req->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'name' => 'required|string|max:255',
@@ -100,25 +119,28 @@ class ContentController extends Controller
         try {
             $tags = json_encode(
                 array_map(
-                    fn($a) => htmlspecialchars(trim($a)), 
+                    fn($a) => htmlspecialchars(trim($a)),
                     explode(',', $validated['tags'])
                 )
             );
-    
+
             $photo = Cloudinary::upload($req->file('image')->getRealPath())->getSecurePath();
             $data = array_merge($validated, [
                 'id_user' => Auth::id(),
                 'tags' => $tags,
                 'photo' => $photo,
             ]);
-    
+
             Content::create($data);
+
+            User::where('id', Auth::id())->where('free_limit', '>', 0)->decrement('free_limit');
 
         } catch (\Exception $e) {
             return redirect()->back()->with('danger', 'Something went wrong when uploading. Please try again.');
         }
 
-        return redirect()->back()->with('success', 'Photo uploaded successfully!');
+        return redirect()->route('profile')->with('success', 'Photo uploaded successfully!');
     }
+
 
 }

@@ -31,8 +31,7 @@ class User extends Authenticatable
         'role',
         'phone_number',
         'photo',
-        'free_limit_upload',
-        'free_limit_download',
+        'free_limit',
         'verified_at',
     ];
 
@@ -65,5 +64,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(Content::class, 'id_user');
     }
+
+    public function subscriptions()
+{
+    return $this->hasMany(Subscription::class);
+}
+
 
 }

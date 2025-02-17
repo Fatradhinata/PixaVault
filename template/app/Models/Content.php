@@ -22,7 +22,6 @@ class Content extends Model
         'likes',
         'views',
         'tags',
-        'shoot_by',
     ];
 
     public function user() {

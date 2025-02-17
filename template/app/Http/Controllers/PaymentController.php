@@ -12,12 +12,12 @@ use Illuminate\Support\Facades\Auth;
 class PaymentController extends Controller
 {
     public function createTransaction(Request $request)
-    {        
+    {
         // Debugging server key
         if (!env('MIDTRANS_SERVER_KEY')) {
             throw new \Exception("MIDTRANS_SERVER_KEY is not set in .env");
         }
-        
+
         Config::$serverKey = env('MIDTRANS_SERVER_KEY');
         Config::$isProduction = false;
         Config::$isSanitized = true;
@@ -73,14 +73,17 @@ class PaymentController extends Controller
             return response()->json(['message' => 'Order not found'], 404);
         }
 
+        $user = $subscription->user; 
+
         if ($request->transaction_status == 'settlement') {
             $subscription->update(['status' => 'active']);
-        } elseif ($request->transaction_status == 'expire') {
+            $user->update(['free_limit' => -1]);
+        } elseif ($request->transaction_status == 'expire' || $request->transaction_status == 'cancel') {
             $subscription->update(['status' => 'expired']);
-        } elseif ($request->transaction_status == 'cancel') {
-            $subscription->update(['status' => 'canceled']);
+            $user->update(['free_limit' => 15]);
         }
 
         return response()->json(['message' => 'Notification received']);
     }
+
 }

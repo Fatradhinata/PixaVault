@@ -46,7 +46,7 @@
     <div class="profile-content">
         <div class="profile-tab-nav">
             <button class="tab-btn active" data-tab="photos">
-                <img src="{{ Vite::asset('resources/img/icons/multi-image.svg') }}" alt="multiple image">Photos 12
+                <img src="{{ Vite::asset('resources/img/icons/multi-image.svg') }}" alt="multiple image">Photos {{ count($contents) > 0 ? array_sum(array_map('count', $contents)) : '' }}
             </button>
             <button class="tab-btn" data-tab="likes">
                 <img src="{{ Vite::asset('resources/img/icons/love-black.svg') }}" alt="likes">Likes 0
