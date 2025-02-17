@@ -1,6 +1,4 @@
-@push('styles')
-  <link rel="stylesheet" href="{{ asset('css/black-navbar.css') }}" />
-@endpush
+@vite('resources/css/navbar-black.css')
 
 <!-- wrapper -->
 <div class="mil-wrapper">
@@ -11,7 +9,7 @@
   <!-- top bar -->
   <div class="mil-top-panel">
     <a href="{{ url('/') }}" class="mil-logo">
-      <img src="{{ Vite::asset('resources/img/logo/logo_pixavault_black.png') }}" alt="Logo" />
+      <img src="{{ Vite::asset('resources/img/logo/logo_pixavault.png') }}" alt="Logo" />
     </a>
     <div class="search-panel">
       <input type="text" autocomplete="on" placeholder="Search for photos">
@@ -22,7 +20,7 @@
     <div class="mil-navigation">
       <nav>
         <div class="mil-top-panel-right">
-          <a href="{{ url('explore') }}" class="mil-top-panel-link" style="color: black">Explore</a>
+          <a href="{{ url('explore') }}" class="mil-top-panel-link mil-explore" style="color: black">Explore</a>
           <div class="nav-horizontal-dot-wrapper">
             <div class="nav-horizontal-dot toggleDropdown">
               <img src="{{ Vite::asset('resources/img/icons/horiz-dots-variant-2.svg') }}" width="30px" height="30px" alt="Horizontal-Dot">
@@ -56,3 +54,7 @@
     </div>
   </div>
 </div>
+
+@section('scripts')
+  @vite('resources/js/navbar.js')
+@endsection

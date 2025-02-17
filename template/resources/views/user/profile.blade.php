@@ -5,7 +5,7 @@
 @endsection
 
 @section('navbar')
-    @include('components.navbar-white')
+    @include('components.navbar-black')
 @endsection
 
 @section('content')
