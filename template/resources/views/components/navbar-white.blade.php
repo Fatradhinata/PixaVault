@@ -20,6 +20,7 @@
         <div class="mil-navigation">
             <nav>
                 <div class="mil-top-panel-right">
+                    <p style="color: white;"><b>5</b> Credit Available</p>
                     <a href="{{ url('explore') }}" class="mil-top-panel-link mil-explore" style="color: black">Explore</a>
                     <div class="nav-horizontal-dot-wrapper">
                         <div class="nav-horizontal-dot toggleDropdown">
