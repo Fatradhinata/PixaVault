@@ -35,4 +35,20 @@ class HomeController extends Controller
     {
         return view('user.pricing');
     }
+    public function explore()
+    {
+        return view('user.explore');
+    }
+    public function trending()
+    {
+        return view('user.trending');
+    }
+    public function result()
+    {
+        return view('user.result');
+    }
+    public function editProfile()
+    {
+        return view('user.edit-profile');
+    }
 }

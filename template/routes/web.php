@@ -16,6 +16,9 @@ use App\Models\Content;
 Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('unverified');
 Route::get('/verify-user/{id}', [AuthController::class, 'verify']);
 Route::get('/pricing', [HomeController::class, 'pricing'])->name('pricing');
+Route::get('/explore', [HomeController::class, 'explore'])->name('explore');
+Route::get('/trending', [HomeController::class, 'trending'])->name('trending');
+Route::get('/result', [HomeController::class, 'result'])->name('result');
 
 // Route::get('/test', function() {
 //     return view('auth.email', [
@@ -35,9 +38,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/blog', [HomeController::class, 'blog'])->name('blog');
         Route::get('/favorites', [HomeController::class, 'favorites'])->name('favorites');
         Route::get('/leaderboard', [HomeController::class, 'leaderboard'])->name('leaderboard');
-        Route::get('/history_download', [HomeController::class, 'history_download'])->name('history_download');
+        Route::get('/history_download', [HomeController::class, 'history_download'])->name('history_download');        
+        Route::get('/edit-profile', [HomeController::class, 'editProfile'])->name('editProfile');
         
-        Route::get('/explore', [ContentController::class, 'index'])->name('explore');
         Route::get('/upload', [ContentController::class, 'upload'])->name('upload');
         Route::post('/upload', [ContentController::class, 'store']);
 
