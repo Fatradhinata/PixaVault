@@ -82,99 +82,6 @@
         <div class="tag-row">
             <button>example</button>
         </div>
-
-        <!-- More Image -->
-        <section class="more-images">
-            <div class="mt-5">
-                <div class="header">
-                    <h4>More Like This</h4>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 col-lg-3">
-                        <a href="project.html" class="mil-portfolio-item mil-square-item mil-up mil-mb-30">
-                            <img src="{{ Vite::asset('resources/img/foto/1.jpg') }}" alt="cover" />
-                            <div class="mil-project-descr">
-                                <h4 class="mil-upper mil-mb-20">
-                                    Modern architecture
-                                </h4>
-                                <div class="mil-divider-sm mil-mb-20"></div>
-                                <p>
-                                    Consectetur adipiscing elit, sed do eiusmod
-                                    tempor incididunt ut labore aliqua.
-                                </p>
-                            </div>
-                        </a>
-
-                        <a href="project.html" class="mil-portfolio-item mil-square-item mil-up mil-mb-30">
-                            <img src="{{ Vite::asset('resources/img/foto/2.jpg') }}" alt="cover" />
-                            <div class="mil-project-descr">
-                                <h4 class="mil-upper mil-mb-20">Ice castle</h4>
-                                <div class="mil-divider-sm mil-mb-20"></div>
-                                <p>
-                                    Consectetur adipiscing elit, sed do eiusmod
-                                    tempor incididunt ut labore aliqua.
-                                </p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <a href="project.html" class="mil-portfolio-item mil-long-item mil-up mil-mb-30">
-                            <img src="{{ Vite::asset('resources/img/foto/3.jpg') }}" alt="cover" />
-                            <div class="mil-project-descr">
-                                <h4 class="mil-upper mil-mb-20">Cubism</h4>
-                                <div class="mil-divider-sm mil-mb-20"></div>
-                                <p>
-                                    Consectetur adipiscing elit, sed do eiusmod
-                                    tempor incididunt ut labore aliqua.
-                                </p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <a href="project.html" class="mil-portfolio-item mil-square-item mil-up mil-mb-30">
-                            <img src="{{ Vite::asset('resources/img/foto/4.jpg') }}" alt="cover" />
-                            <div class="mil-project-descr">
-                                <h4 class="mil-upper mil-mb-20">
-                                    Horizontal elevator
-                                </h4>
-                                <div class="mil-divider-sm mil-mb-20"></div>
-                                <p>
-                                    Consectetur adipiscing elit, sed do eiusmod
-                                    tempor incididunt ut labore aliqua.
-                                </p>
-                            </div>
-                        </a>
-
-                        <a href="project.html" class="mil-portfolio-item mil-square-item mil-up mil-mb-30">
-                            <img src="{{ Vite::asset('resources/img/foto/5.jpg') }}" alt="cover" />
-                            <div class="mil-project-descr">
-                                <h4 class="mil-upper mil-mb-20">Home Decor</h4>
-                                <div class="mil-divider-sm mil-mb-20"></div>
-                                <p>
-                                    Consectetur adipiscing elit, sed do eiusmod
-                                    tempor incididunt ut labore aliqua.
-                                </p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <a href="project.html" class="mil-portfolio-item mil-long-item mil-up mil-mb-30">
-                            <img src="{{ Vite::asset('resources/img/foto/6.jpg') }}" alt="cover" />
-                            <div class="mil-project-descr">
-                                <h4 class="mil-upper mil-mb-20">
-                                    Modern architecture
-                                </h4>
-                                <div class="mil-divider-sm mil-mb-20"></div>
-                                <p>
-                                    Consectetur adipiscing elit, sed do eiusmod
-                                    tempor incididunt ut labore aliqua.
-                                </p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
     </div>
 </div>
 
@@ -241,4 +148,3 @@
         });
     </script>
 @endsection
-

@@ -35,10 +35,6 @@ class HomeController extends Controller
     {
         return view('user.pricing');
     }
-    public function explore()
-    {
-        return view('user.explore');
-    }
     public function trending()
     {
         return view('user.trending');

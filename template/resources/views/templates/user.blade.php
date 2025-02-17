@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="baseurl" content="{{ url('/') }}" />
 
     <title>PixaVault - @yield('title')</title>
 
@@ -128,17 +129,29 @@
     </div>
     <!-- wrapper end -->
 
-    <script src="{{  asset('js/plugins/jquery.min.js') }}"></script>
-    <script src="{{  asset('js/plugins/swiper.min.js') }}"></script>
-    <script src="{{  asset('js/plugins/gsap.min.js') }}"></script>
-    <script src="{{  asset('js/plugins/imagesloaded.pkgd.js') }}"></script>
-    <script src="{{  asset('js/plugins/isotope.min.js') }}"></script>
-    <script src="{{  asset('js/plugins/smooth-scroll.js') }}"></script>
-    <script src="{{  asset('js/plugins/ScrollTrigger.min.js') }}"></script>
-    <script src="{{  asset('js/plugins/magnific-popup.js') }}"></script>
-    <script src="{{  asset('js/main.js') }}"></script>
+    <script src="{{ asset('js/plugins/jquery.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/swiper.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/gsap.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/imagesloaded.pkgd.js') }}"></script>
+    <script src="{{ asset('js/plugins/isotope.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/smooth-scroll.js') }}"></script>
+    <script src="{{ asset('js/plugins/ScrollTrigger.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/magnific-popup.js') }}"></script>
+    <script src="{{ asset('js/plugins/swal.min.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+
+    <script>
+        // Disable right click on images
+        document.querySelectorAll("img").forEach((img) => {
+            img.addEventListener("contextmenu", (event) => {
+                event.preventDefault();
+            });
+        });
+    </script>
 
     @yield('scripts')
+
+    
 </body>
 
 </html>

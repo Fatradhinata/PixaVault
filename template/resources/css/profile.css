@@ -127,7 +127,7 @@ h1 {
             border: 1px solid #7F7F7F;
             border-radius: 8px;
             cursor: pointer;
-            
+
             img {
               height: 5px;
             }
@@ -239,23 +239,44 @@ h1 {
 
   }
 
-    .tab-content {
-      display: none;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      min-height: 70vh;
+  .tab-content {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    min-height: 70vh;
 
-      .unavailable {
-        height: 60vh;
-        justify-content: center;
-        gap: 20px;
+    p {
+      color: white !important;
+      font-weight: bold;
 
-        h3 {
-          font-size: 40px;
+      &.mil-card-title {
+        font-size: 1rem;
+
+        span {
+          color: #d9d9d9;
+          font-weight: 400;
         }
       }
 
+      &.mil-card-subtitle {
+        font-size: 1.5rem;
+        font-weight: 500;
+        transform: translate(8px, -8px);
+      }
     }
+
+    .unavailable {
+      height: 60vh;
+      justify-content: center;
+      gap: 20px;
+
+      h3 {
+        font-size: 40px;
+      }
+    }
+
+  }
+
   .tab-content-stats {
     display: flex !important;
     flex-direction: column;
@@ -297,18 +318,18 @@ h1 {
         gap: 30px;
         color: black;
 
-       .badge-card-achievements-icon {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
+        .badge-card-achievements-icon {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 10px;
 
-        p {
-          font-family: 'Poppins';
-          font-size: 20px;
-          font-weight: 700;
+          p {
+            font-family: 'Poppins';
+            font-size: 20px;
+            font-weight: 700;
+          }
         }
-       }
       }
     }
 
@@ -316,14 +337,17 @@ h1 {
       border-radius: 100px;
       padding: 10px 20px;
       color: #615E83;
-      padding-right: 30px; /* Jarak untuk icon arrow */
-      appearance: none; /* Menghilangkan default arrow */
+      padding-right: 30px;
+      /* Jarak untuk icon arrow */
+      appearance: none;
+      /* Menghilangkan default arrow */
       background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTEiIGhlaWdodD0iNiIgdmlld0JveD0iMCAwIDExIDYiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xLjA0MTY1IDAuNTU3MDMzQzAuODAwMjQ0IDAuNzk4NDQxIDAuODAwMjQ0IDEuMTg5ODQgMS4wNDE2NSAxLjQzMTI1TDUuMjQ5NjMgNS42MzkyM0M1LjI1Mzc1IDUuNjQzNTkgNS4yNTc5NSA1LjY0NzkxIDUuMjYyMjIgNS42NTIxOUM1LjM4Mjk3IDUuNzcyOTQgNS41NDEyNSA1LjgzMzI5IDUuNjk5NTIgNS44MzMyNEM1Ljg1Nzc4IDUuODMzMjkgNi4wMTYwNiA1Ljc3Mjk0IDYuMTM2ODEgNS42NTIxOUM2LjE0MTA4IDUuNjQ3OTEgNi4xNDUyOCA1LjY0MzU5IDYuMTQ5NCA1LjYzOTIzTDEwLjM1NzQgMS40MzEyNUMxMC41OTg4IDEuMTg5ODQgMTAuNTk4OCAwLjc5ODQ0MSAxMC4zNTc0IDAuNTU3MDMzQzEwLjExNiAwLjMxNTYyNSA5LjcyNDU3IDAuMzE1NjI1IDkuNDgzMTYgMC41NTcwMzNMNS42OTk1MSA0LjM0MDY4TDEuOTE1ODcgMC41NTcwMzNDMS42NzQ0NiAwLjMxNTYyNSAxLjI4MzA2IDAuMzE1NjI1IDEuMDQxNjUgMC41NTcwMzNaIiBmaWxsPSIjNjE1RTgzIi8+PC9zdmc+') no-repeat right 10px center;
       background-size: 16px;
       background-color: #D9D9D9;
       outline: none;
       border: none;
     }
+
     .dropdown.open {
       background: url("data:image/svg+xml,%3Csvg width='11' height='6' viewBox='0 0 11 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M10.3573 5.65195C10.5987 5.41054 10.5987 5.01914 10.3573 4.77774L6.14929 0.569756C6.14517 0.565391 6.14098 0.561071 6.1367 0.556798C6.01595 0.436047 5.85767 0.375695 5.69941 0.375742C5.54115 0.375695 5.38287 0.436048 5.26212 0.556798C5.25785 0.56107 5.25365 0.565391 5.24953 0.569756L1.04155 4.77774C0.80014 5.01914 0.80014 5.41054 1.04155 5.65195C1.28296 5.89336 1.67436 5.89336 1.91576 5.65195L5.69941 1.8683L9.48306 5.65195C9.72447 5.89336 10.1159 5.89336 10.3573 5.65195Z' fill='white'/%3E%3C/svg%3E%0A") no-repeat right 10px center;
       background-size: 16px;

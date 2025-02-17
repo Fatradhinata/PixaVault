@@ -58,165 +58,49 @@
         <div class="tab-content-container">
             <div class="tab-content active" id="photos">
                 <div class="row">
-                    <div class="col-md-6 col-lg-3">
-                        <a href="project.html" class="mil-portfolio-item mil-square-item mil-up mil-mb-30 position-relative">
-                            <!-- Gambar -->
-                            <img src="{{ Vite::asset('resources/img/foto/1.jpg') }}" alt="cover" class="mil-image no-save" />
-
-                            <!-- Profil di kiri bawah -->
-                            <div class="mil-profile">
-                                <img src="{{ Vite::asset('resources/img/faces/user.jpg') }}" alt="Profile Picture" class="mil-profile-img" />
-                                <div>
-                                    <p class="mil-username mt-1">Leo_Visions</p>
+                    <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+                        @foreach ($contents[0] as $content)
+                            <div class="content-item mil-up position-relative" 
+                                data-modal-target="modal-content" data-id="{{ $content->id }}">
+                                <div class="mil-buttons">
+                                    <p class="mil-card-title"><span>Uploaded At</span> {{ date('d/m/y', strtotime($content->created_at)) }}</p>
+                                </div>
+                                <img src="{{ $content->photo }}" class="w-100 shadow-1-strong rounded" alt="Boat on Calm Water" />
+                                <div class="image-profile">
+                                    <p class="mil-card-subtitle">{{ $content->name }}</p>
                                 </div>
                             </div>
-
-                            <!-- Tombol di kanan atas -->
-                            <div class="mil-buttons">
-                                <button class="mil-love-btn">
-                                    <i class="fas fa-heart"></i>
-                                </button>
-                            </div>
-                        </a>
-
-                        <a href="project.html" class="mil-portfolio-item mil-square-item mil-up mil-mb-30">
-                            <img src="{{ Vite::asset('resources/img/foto/2.jpg') }}" alt="cover" />
-                            <div class="mil-project-descr">
-                                <h4 class="mil-upper mil-mb-20">Ice castle</h4>
-                                <div class="mil-divider-sm mil-mb-20"></div>
-                                <p>
-                                    Consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore aliqua.
-                                </p>
-                            </div>
-                        </a>
+                        @endforeach
                     </div>
-                    <div class="col-md-6 col-lg-3">
-                        <a href="project.html" class="mil-portfolio-item mil-long-item mil-up mil-mb-30">
-                            <img src="{{ Vite::asset('resources/img/foto/3.jpg') }}" alt="cover" />
-                            <div class="mil-project-descr">
-                                <h4 class="mil-upper mil-mb-20">Cubism</h4>
-                                <div class="mil-divider-sm mil-mb-20"></div>
-                                <p>
-                                    Consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore aliqua.
-                                </p>
+    
+                    <div class="col-lg-4 mb-4 mb-lg-0">
+                        @foreach ($contents[1] as $content)
+                            <div class="content-item mil-up position-relative" 
+                                data-modal-target="modal-content" data-id="{{ $content->id }}">
+                                <div class="mil-buttons">
+                                    <p class="mil-card-title"><span>Uploaded At</span> {{ date('d/m/y', strtotime($content->created_at)) }}</p>
+                                </div>
+                                <img src="{{ $content->photo }}" class="w-100 shadow-1-strong rounded" alt="Boat on Calm Water" />
+                                <div class="image-profile">
+                                    <p class="mil-card-subtitle">{{ $content->name }}</p>
+                                </div>
                             </div>
-                        </a>
+                        @endforeach
                     </div>
-                    <div class="col-md-6 col-lg-3">
-                        <a href="project.html" class="mil-portfolio-item mil-square-item mil-up mil-mb-30">
-                            <img src="{{ Vite::asset('resources/img/foto/4.jpg') }}" alt="cover" />
-                            <div class="mil-project-descr">
-                                <h4 class="mil-upper mil-mb-20">Horizontal elevator</h4>
-                                <div class="mil-divider-sm mil-mb-20"></div>
-                                <p>
-                                    Consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore aliqua.
-                                </p>
+    
+                    <div class="col-lg-4 mb-4 mb-lg-0">
+                        @foreach ($contents[2] as $content)
+                            <div class="content-item mil-up position-relative" 
+                                data-modal-target="modal-content" data-id="{{ $content->id }}">
+                                <div class="mil-buttons">
+                                    <p class="mil-card-title"><span>Uploaded At</span> {{ date('d/m/y', strtotime($content->created_at)) }}</p>
+                                </div>
+                                <img src="{{ $content->photo }}" class="w-100 shadow-1-strong rounded" alt="Boat on Calm Water" />
+                                <div class="image-profile">
+                                    <p class="mil-card-subtitle">{{ $content->name }}</p>
+                                </div>
                             </div>
-                        </a>
-
-                        <a href="project.html" class="mil-portfolio-item mil-square-item mil-up mil-mb-30">
-                            <img src="{{ Vite::asset('resources/img/foto/5.jpg') }}" alt="cover" />
-                            <div class="mil-project-descr">
-                                <h4 class="mil-upper mil-mb-20">Home Decor</h4>
-                                <div class="mil-divider-sm mil-mb-20"></div>
-                                <p>
-                                    Consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore aliqua.
-                                </p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <a href="project.html" class="mil-portfolio-item mil-long-item mil-up mil-mb-30">
-                            <img src="{{ Vite::asset('resources/img/foto/6.jpg') }}" alt="cover" />
-                            <div class="mil-project-descr">
-                                <h4 class="mil-upper mil-mb-20">Modern architecture</h4>
-                                <div class="mil-divider-sm mil-mb-20"></div>
-                                <p>
-                                    Consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore aliqua.
-                                </p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <a href="project.html" class="mil-portfolio-item mil-square-item mil-up mil-mb-30">
-                            <img src="{{ Vite::asset('resources/img/foto/1.jpg') }}" alt="cover" />
-                            <div class="mil-project-descr">
-                                <h4 class="mil-upper mil-mb-20">Modern architecture</h4>
-                                <div class="mil-divider-sm mil-mb-20"></div>
-                                <p>
-                                    Consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore aliqua.
-                                </p>
-                            </div>
-                        </a>
-
-                        <a href="project.html" class="mil-portfolio-item mil-square-item mil-up mil-mb-30">
-                            <img src="{{ Vite::asset('resources/img/foto/2.jpg') }}" alt="cover" />
-                            <div class="mil-project-descr">
-                                <h4 class="mil-upper mil-mb-20">Ice castle</h4>
-                                <div class="mil-divider-sm mil-mb-20"></div>
-                                <p>
-                                    Consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore aliqua.
-                                </p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <a href="project.html" class="mil-portfolio-item mil-long-item mil-up mil-mb-30">
-                            <img src="{{ Vite::asset('resources/img/foto/3.jpg') }}" alt="cover" />
-                            <div class="mil-project-descr">
-                                <h4 class="mil-upper mil-mb-20">Cubism</h4>
-                                <div class="mil-divider-sm mil-mb-20"></div>
-                                <p>
-                                    Consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore aliqua.
-                                </p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <a href="project.html" class="mil-portfolio-item mil-square-item mil-up mil-mb-30">
-                            <img src="{{ Vite::asset('resources/img/foto/4.jpg') }}" alt="cover" />
-                            <div class="mil-project-descr">
-                                <h4 class="mil-upper mil-mb-20">Horizontal elevator</h4>
-                                <div class="mil-divider-sm mil-mb-20"></div>
-                                <p>
-                                    Consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore aliqua.
-                                </p>
-                            </div>
-                        </a>
-
-                        <a href="project.html" class="mil-portfolio-item mil-square-item mil-up mil-mb-30">
-                            <img src="{{ Vite::asset('resources/img/foto/5.jpg') }}" alt="cover" />
-                            <div class="mil-project-descr">
-                                <h4 class="mil-upper mil-mb-20">Home Decor</h4>
-                                <div class="mil-divider-sm mil-mb-20"></div>
-                                <p>
-                                    Consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore aliqua.
-                                </p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <a href="project.html" class="mil-portfolio-item mil-long-item mil-up mil-mb-30">
-                            <img src="{{ Vite::asset('resources/img/foto/6.jpg') }}" alt="cover" />
-                            <div class="mil-project-descr">
-                                <h4 class="mil-upper mil-mb-20">Modern architecture</h4>
-                                <div class="mil-divider-sm mil-mb-20"></div>
-                                <p>
-                                    Consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore aliqua.
-                                </p>
-                            </div>
-                        </a>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -282,6 +166,8 @@
             </div>
         </div>
     </div>
+
+    @include('components.modal-detail')
     
 @endsection
 

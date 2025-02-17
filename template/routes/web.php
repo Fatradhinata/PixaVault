@@ -16,18 +16,14 @@ use App\Models\Content;
 Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('unverified');
 Route::get('/verify-user/{id}', [AuthController::class, 'verify']);
 Route::get('/pricing', [HomeController::class, 'pricing'])->name('pricing');
-Route::get('/explore', [HomeController::class, 'explore'])->name('explore');
 Route::get('/trending', [HomeController::class, 'trending'])->name('trending');
 Route::get('/result', [HomeController::class, 'result'])->name('result');
+Route::get('/explore', [ContentController::class, 'explore'])->name('explore');
 
-// Route::get('/test', function() {
-//     return view('auth.email', [
-//         'mailData' => [
-//             'user_id' => Str::uuid(),
-//             'username' => "fami0110"
-//         ]
-//     ]);
-// });
+// API
+Route::get('/content/{id}', [ContentController::class, 'getDataById']);
+Route::get('/content/get/{limit}', [ContentController::class, 'getRandom']);
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -35,6 +31,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/send-verification-email', [AuthController::class, 'sendEmailVerification']);
 
     Route::middleware('verified')->group(function () {
+        Route::get('/blog', [HomeController::class, 'blog'])->name('content');
         Route::get('/blog', [HomeController::class, 'blog'])->name('blog');
         Route::get('/favorites', [HomeController::class, 'favorites'])->name('favorites');
         Route::get('/leaderboard', [HomeController::class, 'leaderboard'])->name('leaderboard');

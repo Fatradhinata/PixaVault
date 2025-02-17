@@ -15,6 +15,72 @@ class ContentController extends Controller
         return view('user.content');
     }
 
+    private function getTripleColumn($collection)
+    {
+        $content = $collection->toArray();
+        $divided_len = ceil(count($content) / 3);
+
+        $tmp = [[], [], []];
+
+        for ($i = 0; $i < $divided_len; $i++) {
+            if (isset($content[$i*3])) array_push($tmp[0], (object) $content[$i*3]);
+            if (isset($content[$i*3+1])) array_push($tmp[1], (object) $content[$i*3+1]);
+            if (isset($content[$i*3+2])) array_push($tmp[2], (object) $content[$i*3+2]);
+        }
+
+        return $tmp;
+    }
+
+    public function explore(Request $req)
+    {
+        $search = $req->input('search');
+        $tag = $req->input('tag');
+
+        $data = Content::with('user');
+        
+        if ($search)
+            $data = $data->where('name', 'like', "%$search%")->orWhere('desc', 'like', "%$search%");
+        if ($tag)
+            $data = $data->where('tags', 'like', "%$tag%", 'and');
+
+        $data = $data->get();
+        $data = $this->getTripleColumn($data);
+
+        return view('user.explore', [
+            'contents' => $data
+        ]);
+    }
+
+    public function getDataById($id)
+    {
+        $contents = Content::with('user')->find($id);
+        $data = $contents->toArray();
+        $data['created_at'] = date('d-m-Y', strtotime($data['created_at']));
+        $data['updated_at'] = date('d-m-Y', strtotime($data['updated_at']));
+
+        return response()->json(($contents->count()) ? [
+            'status' => 'success',
+            'data' => $data,
+        ] : [
+            'status' => 'fail',
+            'message' => 'Data is not found/empty',
+        ]);
+    }
+
+    public function getRandom($limit)
+    {
+        $contents = Content::inRandomOrder()->with('user')->limit($limit)->get();
+        $data = $contents->toArray();
+
+        return response()->json(($contents->count()) ? [
+            'status' => 'success',
+            'data' => $data,
+        ] : [
+            'status' => 'fail',
+            'message' => 'Data is not found/empty',
+        ]);
+    }
+
     public function upload() 
     {
         return view('user.upload');
