@@ -17,9 +17,11 @@ class Content extends Model
         'name',
         'desc',
         'photo',
+        'shoot_by',
         'downloads',
         'likes',
         'views',
         'tags',
+        'shoot_by',
     ];
 }

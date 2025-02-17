@@ -37,7 +37,7 @@
                     <img src="{{ Vite::asset('resources/img/icons/user-elipse.svg') }}" width="46px" height="46px" alt="" class="toggleDropdown">
                     <div class="mil-nav-dropdown mil-nav-dropdown-user dropdownMenu">
                         <div>
-                            <a href="{{ route('profile') . '/' . Auth::id() }}">
+                            <a href="{{ route('profile') }}">
                                 <button>View Profile</button>
                             </a>
                             <a href="#"><button>Account Settings</button></a>

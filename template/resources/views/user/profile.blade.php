@@ -11,7 +11,7 @@
 @endsection
 
 @section('content')
-    <!-- content -->
+    
     <div class="profile">
         <div class="profile-detail d-flex align-items-center">
             <div class="profile-image d-flex align-items-center">
@@ -42,6 +42,7 @@
             </div>
         </div>
     </div>
+    
     <div class="profile-content">
         <div class="profile-tab-nav">
             <button class="tab-btn active" data-tab="photos">
@@ -278,20 +279,12 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="card">
-          <div class="header">
-          <div class="d-flex flex-column">
-          <h3>Views</h3>
-          <h1 id="view-count">2,313</h1>
-          </div>
-          <button class="dropdown">Weekly ▼</button>
-          </div>
-          <canvas id="viewsChart"></canvas>
-          </div> -->
             </div>
         </div>
     </div>
-    </div>
-    <!-- content -->
+    
 @endsection
-@vite(['resources/js/profile.js'])
+
+@section('scripts')
+    @vite('resources/js/profile.js')
+@endsection
