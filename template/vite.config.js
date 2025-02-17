@@ -13,6 +13,7 @@ const scripts = [
     'resources/js/profile.js',
     'resources/js/upload.js',
     'resources/js/navbar.js',
+    'resources/js/editProfile.js',
 ];
 
 const styles = [

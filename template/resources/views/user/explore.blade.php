@@ -156,4 +156,4 @@
       </div>
   <!-- content -->
 @endsection
-@vite(['resources/js/profile.js'])
+<!-- @vite(['resources/js/profile.js']) -->
