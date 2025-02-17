@@ -56,16 +56,19 @@ class PaymentController extends Controller
 
     }
 
+    public function paymentSuccess()
+    {
+        return view('user.profile');
+    }
+
 
 
     public function handleNotification(Request $request)
     {
+
+        \Log::info('Payment Notification Received: ', $request->all());
         $serverKey = env('MIDTRANS_SERVER_KEY');
         $signatureKey = hash("sha512", $request->order_id . $request->status_code . $request->gross_amount . $serverKey);
-
-        if ($signatureKey != $request->signature_key) {
-            return response()->json(['message' => 'Invalid signature'], 403);
-        }
 
         $subscription = Subscription::where('order_id', $request->order_id)->first();
 
@@ -73,12 +76,17 @@ class PaymentController extends Controller
             return response()->json(['message' => 'Order not found'], 404);
         }
 
-        $user = $subscription->user; 
-
-        if ($request->transaction_status == 'settlement') {
+        
+        \Log::info('Transaction Status: ', ['status' => $request->fraud_status == 'accept']);
+        // dd($request->all());
+        
+        $user = $subscription->user;
+        if ($request->fraud_status == "accept") {
+            \Log::info('asdsadsad Statasdasdus: ', ['status' => $request->fraud_status]);
             $subscription->update(['status' => 'active']);
             $user->update(['free_limit' => -1]);
-        } elseif ($request->transaction_status == 'expire' || $request->transaction_status == 'cancel') {
+            dd($request->all());
+        } elseif ($request->fraud_status == 'expire' || $request->fraud_status == 'cancel') {
             $subscription->update(['status' => 'expired']);
             $user->update(['free_limit' => 15]);
         }

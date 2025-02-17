@@ -9,7 +9,11 @@
             <div class="mil-top-panel-right">
                 @auth
                     <p style="color: white;" class="mil-credit">
-                        <b>{{ Auth::user()->free_limit }}</b> Credit Available
+                        @if (Auth::user()->free_limit == -1)
+                            <b>Unlimited</b> Credit Available
+                        @else
+                            <b>{{ Auth::user()->free_limit }}</b> Credit Available
+                        @endif
                     </p>
                 @endauth
                 <a href="{{ route('explore') }}" class="mil-top-panel-link mil-explore">Explore</a>

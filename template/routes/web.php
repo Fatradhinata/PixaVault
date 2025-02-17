@@ -47,7 +47,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/profile/{id}', [ProfileController::class, 'details']);
 
         Route::post('/midtrans/token', [MidtransController::class, 'getToken']);
+
         // Route::get('/payment', [HomeController::class, 'payment'])->name('payment');
+        Route::get('/payment-success', [PaymentController::class, 'paymentSuccess'])->name('payment.success');
         Route::post('/pricing', [PaymentController::class, 'createTransaction'])->name('create.transaction');
         Route::post('/payment-notification', [PaymentController::class, 'handleNotification'])->name('payment.notification');
     });
