@@ -140,6 +140,13 @@ class ContentController extends Controller
 
     public function upload()
     {
+        $user = User::find(Auth::id());
+
+        if ($user->free_limit <= 0) {
+            return redirect()->to(route('pricing') . '#subscribe')
+                ->with('warning', 'You have reached your free limit! <br>Please purchase the subscription to upload more photos.');
+        }
+        
         return view('user.upload');
     }
 
@@ -187,7 +194,7 @@ class ContentController extends Controller
         } 
         
         return redirect()->to(route('pricing') . '#subscribe')
-            ->with('error', 'You are out of credit. Purchase the subscription upload more photos.');
+            ->with('warning', 'You have reached your free limit! <br>Please purchase the subscription to upload more photos.');
     }
 
 
