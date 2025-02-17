@@ -1,6 +1,6 @@
 @extends('templates.user')
-@section('title', 'Pricing | PixaVault')
 
+@section('title', 'Pricing')
 
 @section('navbar')
     @include('components.navbar-white')

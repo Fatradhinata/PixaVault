@@ -15,7 +15,7 @@
       filter: unset;
     }
 
-    .mil-explore {
+    .mil-explore, .mil-credit {
       color: white !important;
     }
   }
@@ -25,6 +25,10 @@
   height: 3rem;
   filter: invert(1);
   /* max-width: 120px; */
+}
+
+.mil-credit {
+  color: black !important;
 }
 
 .mil-navigation nav {

@@ -20,10 +20,8 @@
   /* max-width: 120px; */
 }
 
-.mil-navigation {
-  .mil-explore {
-    color: white !important;
-  }
+.mil-navigation .mil-explore, .mil-credit {
+  color: white !important;
 }
 
 .mil-navigation nav {

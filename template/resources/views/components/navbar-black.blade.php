@@ -1,7 +1,5 @@
 @vite('resources/css/navbar-black.css')
 
-
-
 <!-- top bar -->
 <div class="mil-top-panel">
     <a href="{{ url('/') }}" class="mil-logo">
@@ -16,7 +14,7 @@
     <div class="mil-navigation">
         <nav>
             <div class="mil-top-panel-right">
-                <p style="color: white;"><b>5</b> Credit Available</p>
+                <p style="color: white;" class="mil-credit"><b>5</b> Credit Available</p>
                 <a href="{{ url('explore') }}" class="mil-top-panel-link mil-explore" style="color: black">Explore</a>
                 <div class="nav-horizontal-dot-wrapper">
                     <div class="nav-horizontal-dot toggleDropdown">
@@ -24,8 +22,12 @@
                     </div>
                     <div class="mil-nav-dropdown dropdownMenu">
                         <div>
-                            <button><a href="#">Leaderboard</a></button>
-                            <button><a href="#">Pricing</a></button>
+                            <a href="{{ route('leaderboard') }}">
+                                <button>Leaderboard</button>
+                            </a>
+                            <a href="{{ route('pricing') }}">
+                                <button>Pricing</button>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -35,15 +37,18 @@
                     <img src="{{ Vite::asset('resources/img/icons/user-elipse.svg') }}" width="46px" height="46px" alt="" class="toggleDropdown">
                     <div class="mil-nav-dropdown mil-nav-dropdown-user dropdownMenu">
                         <div>
-                            <button><a href="#">View</a> Profile</button>
-                            <button><a href="#">Stats</a></button>
-                            <button><a href="#">Account</a> Settings</button>
+                            <a href="{{ route('profile') . '/' . Auth::id() }}">
+                                <button>View Profile</button>
+                            </a>
+                            <a href="#"><button>Account Settings</button></a>
                             <hr>
-                            <button class="mil-nav-dropdown-logout"><a href="#">Logout</a> </button>
+                            <a href="{{ route('logout') }}">
+                                <button class="mil-nav-dropdown-logout">Logout</button>
+                            </a>
                         </div>
                     </div>
                 </div>
-                <a href="#" class="mil-top-panel-buttons">
+                <a href="{{ route('upload') }}" class="mil-top-panel-buttons">
                     <img src="{{ Vite::asset('resources/img/icons/upload-icon.svg') }}">UPLOAD
                 </a>
             </div>

@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('contents', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('id_author');
+            $table->uuid('id_user');
             $table->string('name', 100);
             $table->text('desc');
             $table->string('photo', 50);
             $table->integer('downloads');
+            $table->integer('likes');
             $table->integer('views');
             $table->json('tags');
             $table->timestamps();

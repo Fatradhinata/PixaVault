@@ -60,7 +60,7 @@ class User extends Authenticatable
     }
     public function contents()
     {
-        return $this->hasMany(Content::class, 'user_id');
+        return $this->hasMany(Content::class, 'id_user');
     }
 
 }

@@ -1,5 +1,7 @@
 @extends('templates.user')
 
+@section('title', 'Profile')
+
 @section('styles')
     @vite('resources/css/profile.css')
 @endsection
