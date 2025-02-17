@@ -1,0 +1,308 @@
+       /* ---------- THIS CONTENT STYLE --------- */
+
+       .container {
+         margin: 0 145px;
+         padding: 180px 20px;
+         /* padding-top: 180px; */
+       }
+
+       .section-title {
+         font-size: 24px;
+         font-weight: bold;
+         margin-bottom: 20px;
+       }
+
+       /* Sidebar Menu */
+       .profile-settings {
+         display: flex;
+         gap: 70px;
+
+         &>* {
+           font-family: 'Poppins';
+         }
+       }
+
+       .settings-menu {
+         list-style: none;
+         padding: 0;
+         width: 200px;
+       }
+
+       .menu-item {
+         font-size: 20px;
+         font-weight: bold;
+         padding: 12px 0;
+         cursor: pointer;
+         transition: color 0.3s;
+
+         &:first-child {
+           padding-top: 0;
+         }
+       }
+
+       .menu-item.active {
+         color: #000;
+       }
+
+       .menu-item:not(.active) {
+         color: #A0A0A0;
+       }
+
+       /* Settings Content */
+       .edit-profile {
+         display: flex;
+         flex-direction: column;
+         align-items: flex-start;
+         gap: 30px;
+         text-align: left;
+       }
+
+       .settings-title {
+         font-size: 32px;
+         font-weight: bold;
+         margin-bottom: 20px;
+       }
+
+       /* Profile Image */
+       .profile-image-container {
+         text-align: left;
+         display: flex;
+         flex-direction: column;
+         gap: 20px;
+       }
+
+       .profile-image {
+         width: 120px;
+         height: 120px;
+         border-radius: 50%;
+         display: block;
+         margin: auto;
+       }
+
+       .change-image-text {
+         color: #808080;
+         font-size: 14px;
+         text-decoration: underline;
+         cursor: pointer;
+       }
+
+       .image-requirements {
+         font-size: 14px;
+         color: #000;
+       }
+
+       /* Input Fields */
+       .input-group {
+         margin: 20px 0;
+       }
+
+       .input-label {
+         font-weight: bold;
+         display: block;
+         margin-bottom: 5px;
+       }
+
+       .input-field,
+       .bio-textarea {
+         width: 100%;
+         padding: 10px;
+         border: 1px solid #d1d1d1;
+         border-radius: 6px;
+         font-size: 16px;
+         background-color: #fff;
+         resize: none;
+         font-family: 'Poppins';
+       }
+
+       /* Bio Section */
+       .bio-section {
+         position: relative;
+       }
+
+       .bio-header {
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+       }
+
+       .bio-counter {
+         font-size: 14px;
+         font-weight: bold;
+         color: #808080;
+       }
+
+       /* Save Button */
+       .save-button {
+         width: 100%;
+         padding: 12px 20px;
+         background-color: #000;
+         color: #fff;
+         border: none;
+         border-radius: 6px;
+         font-size: 16px;
+         cursor: pointer;
+         transition: opacity 0.3s;
+         font-family: 'Poppins';
+         margin-top: 30px;
+         width: fit-content;
+       }
+
+       .save-button:hover {
+         opacity: 0.8;
+       }
+
+       /* Email Section */
+       .email-section {
+         display: flex;
+         flex-direction: column;
+         gap: 35px;
+       }
+
+       .email-label {
+         font-weight: bold;
+       }
+
+       .email-content {
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         gap: 190px;
+         font-size: 14px;
+       }
+
+       .email-text {
+         font-weight: bold;
+       }
+
+       .change-email-link {
+         color: #0073ff;
+         cursor: pointer;
+         text-decoration: underline;
+       }
+
+       /* Password Input Group */
+       .password-group {
+         margin-bottom: 20px;
+         width: 370px;
+       }
+
+       .password-label {
+         font-weight: bold;
+         font-size: 14px;
+         display: block;
+         margin-bottom: 8px;
+       }
+
+       .password-input {
+         width: 100%;
+         padding: 12px;
+         border: 1px solid #ddd;
+         border-radius: 8px;
+         font-size: 14px;
+         background-color: #fff;
+         transition: border-color 0.3s;
+         font-family: 'Poppins';
+       }
+
+       .password-input:focus {
+         border-color: #000;
+         outline: none;
+       }
+
+       /* Password Hint */
+       .password-hint {
+         font-size: 14px;
+         color: #888;
+         margin-top: 5px;
+       }
+
+       /** RESPONSIVE DESIGN **/
+       @media (max-width: 1024px) {
+         .container {
+           margin: 0 50px;
+           padding: 120px 20px;
+           width: auto;
+         }
+
+         .profile-settings {
+           flex-direction: column;
+           gap: 40px;
+         }
+
+         .settings-menu {
+           display: flex;
+           justify-content: space-around;
+           width: 100%;
+         }
+
+         .menu-item {
+           font-size: 18px;
+           text-align: center;
+         }
+       }
+
+       @media (max-width: 768px) {
+         .container {
+           margin: 0 20px;
+           padding: 100px 15px;
+         }
+
+         .settings-menu {
+           flex-direction: row;
+           justify-content: space-between;
+         }
+
+         .profile-settings {
+           gap: 20px;
+         }
+
+         .settings-content {
+           width: 100%;
+         }
+
+         .edit-profile,
+         .change-password {
+           width: 100%;
+         }
+
+         .password-group {
+           width: 100%;
+         }
+       }
+
+       @media (max-width: 480px) {
+         .container {
+           padding: 80px 10px;
+         }
+
+         .section-title {
+           font-size: 20px;
+         }
+
+         .settings-menu {
+           flex-direction: column;
+           align-items: center;
+         }
+
+         .menu-item {
+           font-size: 16px;
+         }
+
+         .settings-title {
+           font-size: 24px;
+         }
+
+         .profile-image {
+           width: 100px;
+           height: 100px;
+         }
+
+         .input-field,
+         .bio-textarea {
+           font-size: 14px;
+         }
+
+         .save-button {
+           width: 100%;
+         }
+       }

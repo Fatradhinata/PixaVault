@@ -1,0 +1,76 @@
+/* ---------- THIS CONTENT STYLE --------- */
+
+.container {
+  margin: 0 145px;
+  padding: 180px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  /* padding-top: 180px; */
+
+  @media (max-width: 1400px) {
+    margin: 0 auto;
+  }
+}
+
+.tab-header {
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+
+  &:before {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border-bottom: 2px solid #D9D9D9;
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    font-family: 'Poppins';
+    gap: 10px;
+    padding: 11px 0;
+    cursor: pointer;
+    z-index: 1;
+    color: black;
+    border-bottom: 2px solid black;
+  }
+}
+
+.filter-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  p {
+    font-size: 16px;
+  }
+
+  .dropdown {
+    border-radius: 8px;
+    padding: 7px 15px;
+    color: #615E83;
+    padding-right: 30px;
+    border: 2px solid #D9D9D9;
+    /* Jarak untuk icon arrow */
+    appearance: none;
+    /* Menghilangkan default arrow */
+    background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTEiIGhlaWdodD0iNiIgdmlld0JveD0iMCAwIDExIDYiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xLjA0MTY1IDAuNTU3MDMzQzAuODAwMjQ0IDAuNzk4NDQxIDAuODAwMjQ0IDEuMTg5ODQgMS4wNDE2NSAxLjQzMTI1TDUuMjQ5NjMgNS42MzkyM0M1LjI1Mzc1IDUuNjQzNTkgNS4yNTc5NSA1LjY0NzkxIDUuMjYyMjIgNS42NTIxOUM1LjM4Mjk3IDUuNzcyOTQgNS41NDEyNSA1LjgzMzI5IDUuNjk5NTIgNS44MzMyNEM1Ljg1Nzc4IDUuODMzMjkgNi4wMTYwNiA1Ljc3Mjk0IDYuMTM2ODEgNS42NTIxOUM2LjE0MTA4IDUuNjQ3OTEgNi4xNDUyOCA1LjY0MzU5IDYuMTQ5NCA1LjYzOTIzTDEwLjM1NzQgMS40MzEyNUMxMC41OTg4IDEuMTg5ODQgMTAuNTk4OCAwLjc5ODQ0MSAxMC4zNTc0IDAuNTU3MDMzQzEwLjExNiAwLjMxNTYyNSA5LjcyNDU3IDAuMzE1NjI1IDkuNDgzMTYgMC41NTcwMzNMNS42OTk1MSA0LjM0MDY4TDEuOTE1ODcgMC41NTcwMzNDMS42NzQ0NiAwLjMxNTYyNSAxLjI4MzA2IDAuMzE1NjI1IDEuMDQxNjUgMC41NTcwMzNaIiBmaWxsPSIjNjE1RTgzIi8+PC9zdmc+') no-repeat right 10px center;
+    background-size: 16px;
+    background-color: transparent;
+    outline: none;
+  }
+
+  .dropdown.open {
+    background: url("data:image/svg+xml,%3Csvg width='11' height='6' viewBox='0 0 11 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M10.3573 5.65195C10.5987 5.41054 10.5987 5.01914 10.3573 4.77774L6.14929 0.569756C6.14517 0.565391 6.14098 0.561071 6.1367 0.556798C6.01595 0.436047 5.85767 0.375695 5.69941 0.375742C5.54115 0.375695 5.38287 0.436048 5.26212 0.556798C5.25785 0.56107 5.25365 0.565391 5.24953 0.569756L1.04155 4.77774C0.80014 5.01914 0.80014 5.41054 1.04155 5.65195C1.28296 5.89336 1.67436 5.89336 1.91576 5.65195L5.69941 1.8683L9.48306 5.65195C9.72447 5.89336 10.1159 5.89336 10.3573 5.65195Z' fill='white'/%3E%3C/svg%3E%0A") no-repeat right 10px center;
+    background-size: 16px;
+    background-color: #7F7F7F;
+    color: white;
+  }
+}
