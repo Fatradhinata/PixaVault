@@ -117,6 +117,13 @@
         display: flex;
         gap: 27px;
 
+        img {
+          width: 111px;
+          height: 111px;
+          object-fit: cover;
+          border-radius: 100%;
+        }
+
         .user-name {
           display: flex;
           justify-content: space-between;
@@ -158,6 +165,10 @@
     .user-content {
       display: flex;
       gap: 14px;
+
+      img {
+        object-fit: cover;
+      }
 
       @media (max-width: 768px) {
         flex-wrap: wrap;
