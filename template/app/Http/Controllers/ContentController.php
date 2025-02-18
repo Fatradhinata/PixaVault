@@ -135,14 +135,7 @@ class ContentController extends Controller
 
             $imageUrl = Cloudinary::getImage($publicId)->toUrl();
             $client = new Client();
-            $response = $client->get($imageUrl, [
-                'stream' => true,
-                'width' => 200,  // Resize gambar menjadi lebar 800px
-                'height' => 200, // Resize gambar menjadi tinggi 600px
-                'quality' => 'auto:good',
-                'format' => 'auto',
-            ]);
-
+            $response = $client->get($imageUrl, ['stream' => true]);
             $statusCode = $response->getStatusCode();
 
             if ($statusCode != 200)
