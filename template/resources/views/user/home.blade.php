@@ -9,7 +9,8 @@
 @section('content')
     <!-- banner -->
     <section class="mil-banner">
-        <img src="{{ Vite::asset('resources/img/foto/jan-derungs-XMwAnYLHShE-unsplash.jpg') }}" class="mil-bg-img mil-scale" data-value-1=".4" data-value-2="1.4" alt="image" />
+        <img src="{{ Vite::asset('resources/img/foto/jan-derungs-XMwAnYLHShE-unsplash.jpg') }}" class="mil-bg-img mil-scale"
+            data-value-1=".4" data-value-2="1.4" alt="image" />
 
         <div class="mil-overlay"></div>
 
@@ -34,33 +35,33 @@
                             <div class="col-6">
                                 <div class="mil-counter-frame mil-light mil-mb-30">
                                     <h4 class="mil-accent mil-thin mil-mb-10">
-                                        <span class="mil-counter" data-number="346">0</span>+
+                                        <span>High-Quality</span>
                                     </h4>
-                                    <p class="mil-light">Succeeded <br />Projects</p>
+                                    <p class="mil-light">Images</p>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="mil-counter-frame mil-light mil-mb-30">
                                     <h4 class="mil-accent mil-thin mil-mb-10">
-                                        <span class="mil-counter" data-number="9">0</span>k+
+                                        <span>Join</span>
                                     </h4>
-                                    <p class="mil-light">Working <br />Hours</p>
+                                    <p class="mil-light">Our First Creators</p>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="mil-counter-frame mil-light mil-mb-30">
                                     <h4 class="mil-accent mil-thin mil-mb-10">
-                                        <span class="mil-counter" data-number="10">0</span>+
+                                        <span>New & Growing</span>
                                     </h4>
-                                    <p class="mil-light">Years <br />Experience</p>
+                                    <p class="mil-light">Community</p>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="mil-counter-frame mil-light mil-mb-30">
                                     <h4 class="mil-accent mil-thin mil-mb-10">
-                                        <span class="mil-counter" data-number="99">0</span>+
+                                        <span>Built </span>
                                     </h4>
-                                    <p class="mil-light">Billion <br />Invested</p>
+                                    <p class="mil-light">for the Future</p>
                                 </div>
                             </div>
                         </div>
@@ -78,161 +79,102 @@
                     <span class="mil-suptitle mil-upper mil-up mil-mb-30">Insights</span>
                     <h2 class="mil-upper mil-up mil-mb-30">Trending Images</h2>
                     <a href="{{ 'trending' }}" class="mil-link mil-upper mil-up">See All
-                        <span class="mil-arrow"><img src="{{ Vite::asset('resources/img/icons/1.svg') }}" alt="arrow" /></span></a>
+                        <span class="mil-arrow"><img src="{{ Vite::asset('resources/img/icons/1.svg') }}"
+                                alt="arrow" /></span></a>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6 col-lg-3">
-                    <div class="content-item mil-up position-relative" id="photo-trigger">
-                        <div class="mil-buttons">
-                            <button class="mil-love-btn"><i class="fas fa-heart"></i></button>
-                            <button class="mil-download-btn"><i class="fas fa-download"></i></button>
+                <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+                    @foreach ($trending[0] as $index => $content)
+                        @if ($index == 2)
+                            @break
+                        @endif
+                        <div class="content-item mil-up position-relative">
+                            <div class="mil-buttons">
+                                <button class="mil-love-btn like-btn" data-id="{{ $content->id }}">
+                                    @if ($content->is_liked)
+                                        <i class="fas fa-heart"></i>
+                                    @else
+                                        <i class="far fa-heart"></i>
+                                    @endif
+                                </button>
+                                <button class="mil-download-btn" data-href="{{ route('image.download', $content->id) }}">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                            <img src="{{ route('image', $content->photo) }}" height="300" class="w-100 shadow-1-strong rounded" alt="Photo"
+                                loading="lazy" data-modal-target="modal-content" data-id="{{ $content->id }}" />
+                            <div class="image-profile">
+                                <img src="{{ $content->user['photo'] ?? Vite::asset('resources/img/icons/user-elipse.svg') }}"
+                                    alt="Profile Picture" class="mil-profile-img" />
+                                <p class="mil-username">
+                                    {{ $content->user['name'] ?? "anonymous" }}
+                                </p>
+                            </div>
                         </div>
-                        <img src="{{ Vite::asset('resources/img/foto/1.jpg') }}" class="w-100 shadow-1-strong rounded" alt="Mountains in the Clouds" />
-                        <div class="image-profile">
-                            <img src="{{ Vite::asset('resources/img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />
-                            <p class="mil-username">PixaVault</p>
-                        </div>
-                    </div>
+                    @endforeach
+                </div>
 
-                    <div class="content-item mil-up position-relative" id="photo-trigger">
-                        <div class="mil-buttons">
-                            <button class="mil-love-btn"><i class="fas fa-heart"></i></button>
-                            <button class="mil-download-btn"><i class="fas fa-download"></i></button>
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    @foreach ($trending[1] as $index => $content)
+                        @if ($index == 2)
+                            @break
+                        @endif
+                        <div class="content-item mil-up position-relative">
+                            <div class="mil-buttons">
+                                <button class="mil-love-btn like-btn" data-id="{{ $content->id }}">
+                                    @if ($content->is_liked)
+                                        <i class="fas fa-heart"></i>
+                                    @else
+                                        <i class="far fa-heart"></i>
+                                    @endif
+                                </button>
+                                <button class="mil-download-btn" data-href="{{ route('image.download', $content->id) }}">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                            <img src="{{ route('image', $content->photo) }}" height="300" class="w-100 shadow-1-strong rounded" alt="Photo"
+                                loading="lazy" data-modal-target="modal-content" data-id="{{ $content->id }}" />
+                            <div class="image-profile">
+                                <img src="{{ $content->user['photo'] ?? Vite::asset('resources/img/icons/user-elipse.svg') }}"
+                                    alt="Profile Picture" class="mil-profile-img" />
+                                <p class="mil-username">
+                                    {{ $content->user['name'] ?? "anonymous" }}
+                                </p>
+                            </div>
                         </div>
-                        <img src="{{ Vite::asset('resources/img/foto/2.jpg') }}" class="w-100 shadow-1-strong rounded" alt="Mountains in the Clouds" />
-                        <div class="image-profile">
-                            <img src="{{ Vite::asset('resources/img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />
-                            <p class="mil-username">PixaVault</p>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
-                <div class="col-md-6 col-lg-3">
-                    <a href="project.html" class="mil-portfolio-item mil-long-item mil-up mil-mb-30">
-                        <img src="{{ Vite::asset('resources/img/foto/3.jpg') }}" alt="cover" />
-                        <div class="mil-project-descr">
-                            <h4 class="mil-upper mil-mb-20">Cubism</h4>
-                            <div class="mil-divider-sm mil-mb-20"></div>
-                            <p>
-                                Consectetur adipiscing elit, sed do eiusmod tempor
-                                incididunt ut labore aliqua.
-                            </p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <a href="project.html" class="mil-portfolio-item mil-square-item mil-up mil-mb-30">
-                        <img src="{{ Vite::asset('resources/img/foto/4.jpg') }}" alt="cover" />
-                        <div class="mil-project-descr">
-                            <h4 class="mil-upper mil-mb-20">Horizontal elevator</h4>
-                            <div class="mil-divider-sm mil-mb-20"></div>
-                            <p>
-                                Consectetur adipiscing elit, sed do eiusmod tempor
-                                incididunt ut labore aliqua.
-                            </p>
-                        </div>
-                    </a>
 
-                    <a href="project.html" class="mil-portfolio-item mil-square-item mil-up mil-mb-30">
-                        <img src="{{ Vite::asset('resources/img/foto/5.jpg') }}" alt="cover" />
-                        <div class="mil-project-descr">
-                            <h4 class="mil-upper mil-mb-20">Home Decor</h4>
-                            <div class="mil-divider-sm mil-mb-20"></div>
-                            <p>
-                                Consectetur adipiscing elit, sed do eiusmod tempor
-                                incididunt ut labore aliqua.
-                            </p>
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    @foreach ($trending[2] as $index => $content)
+                        @if ($index == 2)
+                            @break
+                        @endif
+                        <div class="content-item mil-up position-relative">
+                            <div class="mil-buttons">
+                                <button class="mil-love-btn like-btn" data-id="{{ $content->id }}">
+                                    @if ($content->is_liked)
+                                        <i class="fas fa-heart"></i>
+                                    @else
+                                        <i class="far fa-heart"></i>
+                                    @endif
+                                </button>
+                                <button class="mil-download-btn" data-href="{{ route('image.download', $content->id) }}">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                            <img src="{{ route('image', $content->photo) }}" height="300" class="w-100 shadow-1-strong rounded" alt="Photo"
+                                loading="lazy" data-modal-target="modal-content" data-id="{{ $content->id }}" />
+                            <div class="image-profile">
+                                <img src="{{ $content->user['photo'] ?? Vite::asset('resources/img/icons/user-elipse.svg') }}"
+                                    alt="Profile Picture" class="mil-profile-img" />
+                                <p class="mil-username">
+                                    {{ $content->user['name'] ?? "anonymous" }}
+                                </p>
+                            </div>
                         </div>
-                    </a>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <a href="project.html" class="mil-portfolio-item mil-long-item mil-up mil-mb-30">
-                        <img src="{{ Vite::asset('resources/img/foto/6.jpg') }}" alt="cover" />
-                        <div class="mil-project-descr">
-                            <h4 class="mil-upper mil-mb-20">Modern architecture</h4>
-                            <div class="mil-divider-sm mil-mb-20"></div>
-                            <p>
-                                Consectetur adipiscing elit, sed do eiusmod tempor
-                                incididunt ut labore aliqua.
-                            </p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <a href="project.html" class="mil-portfolio-item mil-square-item mil-up mil-mb-30">
-                        <img src="{{ Vite::asset('resources/img/foto/1.jpg') }}" alt="cover" />
-                        <div class="mil-project-descr">
-                            <h4 class="mil-upper mil-mb-20">Modern architecture</h4>
-                            <div class="mil-divider-sm mil-mb-20"></div>
-                            <p>
-                                Consectetur adipiscing elit, sed do eiusmod tempor
-                                incididunt ut labore aliqua.
-                            </p>
-                        </div>
-                    </a>
-
-                    <a href="project.html" class="mil-portfolio-item mil-square-item mil-up mil-mb-30">
-                        <img src="{{ Vite::asset('resources/img/foto/2.jpg') }}" alt="cover" />
-                        <div class="mil-project-descr">
-                            <h4 class="mil-upper mil-mb-20">Ice castle</h4>
-                            <div class="mil-divider-sm mil-mb-20"></div>
-                            <p>
-                                Consectetur adipiscing elit, sed do eiusmod tempor
-                                incididunt ut labore aliqua.
-                            </p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <a href="project.html" class="mil-portfolio-item mil-long-item mil-up mil-mb-30">
-                        <img src="{{ Vite::asset('resources/img/foto/3.jpg') }}" alt="cover" />
-                        <div class="mil-project-descr">
-                            <h4 class="mil-upper mil-mb-20">Cubism</h4>
-                            <div class="mil-divider-sm mil-mb-20"></div>
-                            <p>
-                                Consectetur adipiscing elit, sed do eiusmod tempor
-                                incididunt ut labore aliqua.
-                            </p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <a href="project.html" class="mil-portfolio-item mil-square-item mil-up mil-mb-30">
-                        <img src="{{ Vite::asset('resources/img/foto/4.jpg') }}" alt="cover" />
-                        <div class="mil-project-descr">
-                            <h4 class="mil-upper mil-mb-20">Horizontal elevator</h4>
-                            <div class="mil-divider-sm mil-mb-20"></div>
-                            <p>
-                                Consectetur adipiscing elit, sed do eiusmod tempor
-                                incididunt ut labore aliqua.
-                            </p>
-                        </div>
-                    </a>
-
-                    <a href="project.html" class="mil-portfolio-item mil-square-item mil-up mil-mb-30">
-                        <img src="{{ Vite::asset('resources/img/foto/5.jpg') }}" alt="cover" />
-                        <div class="mil-project-descr">
-                            <h4 class="mil-upper mil-mb-20">Home Decor</h4>
-                            <div class="mil-divider-sm mil-mb-20"></div>
-                            <p>
-                                Consectetur adipiscing elit, sed do eiusmod tempor
-                                incididunt ut labore aliqua.
-                            </p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <a href="project.html" class="mil-portfolio-item mil-long-item mil-up mil-mb-30">
-                        <img src="{{ Vite::asset('resources/img/foto/6.jpg') }}" alt="cover" />
-                        <div class="mil-project-descr">
-                            <h4 class="mil-upper mil-mb-20">Modern architecture</h4>
-                            <div class="mil-divider-sm mil-mb-20"></div>
-                            <p>
-                                Consectetur adipiscing elit, sed do eiusmod tempor
-                                incididunt ut labore aliqua.
-                            </p>
-                        </div>
-                    </a>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -252,123 +194,100 @@
                             Dive into a world of creativity with handpicked collections tailored to your interests.
                         </p>
                         <a href="{{ 'explore' }}" class="mil-link mil-upper mil-up">See All
-                            <span class="mil-arrow"><img src="{{ Vite::asset('resources/img/icons/1.svg') }}" alt="arrow" /></span></a>
+                            <span class="mil-arrow"><img src="{{ Vite::asset('resources/img/icons/1.svg') }}"
+                                    alt="arrow" /></span></a>
                     </div>
                 </div>
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
-                            <div class="content-item mil-up position-relative">
-                                <div class="mil-buttons">
-                                    <button class="mil-love-btn"><i class="fas fa-heart"></i></button>
-                                    <button class="mil-download-btn"><i class="fas fa-download"></i></button>
+                            @foreach ($explore[0] as $content)
+                                <div class="content-item mil-up position-relative">
+                                    <div class="mil-buttons">
+                                        <button class="mil-love-btn like-btn" data-id="{{ $content->id }}">
+                                            @if ($content->is_liked)
+                                                <i class="fas fa-heart"></i>
+                                            @else
+                                                <i class="far fa-heart"></i>
+                                            @endif
+                                        </button>
+                                        <button class="mil-download-btn"
+                                            data-href="{{ route('image.download', $content->id) }}">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                    </div>
+                                    <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded"
+                                        alt="Photo" loading="lazy" data-modal-target="modal-content"
+                                        data-id="{{ $content->id }}" />
+                                    <div class="image-profile">
+                                        <img src="{{ $content->user['photo'] ?? Vite::asset('resources/img/icons/user-elipse.svg') }}"
+                                            alt="Profile Picture" class="mil-profile-img" />
+                                        <p class="mil-username">
+                                            {{ $content->user['name'] ?? "anonymous" }}
+                                        </p>
+                                    </div>
                                 </div>
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp" class="w-100 shadow-1-strong rounded" alt="Boat on Calm Water" />
-                                <div class="image-profile">
-                                    <img src="{{ Vite::asset('resources/img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />
-                                    <p class="mil-username">PixaVault</p>
-                                </div>
-                            </div>
-
-                            <div class="content-item mil-up position-relative">
-                                <div class="mil-buttons">
-                                    <button class="mil-love-btn"><i class="fas fa-heart"></i></button>
-                                    <button class="mil-download-btn"><i class="fas fa-download"></i></button>
-                                </div>
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Vertical/mountain1.webp" class="w-100 shadow-1-strong rounded" alt="Wintry Mountain Landscape" />
-                                <div class="image-profile">
-                                    <img src="{{ Vite::asset('resources/img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />
-                                    <p class="mil-username">PixaVault</p>
-                                </div>
-                            </div>
-
-                            <div class="content-item mil-up position-relative">
-                                <div class="mil-buttons">
-                                    <button class="mil-love-btn"><i class="fas fa-heart"></i></button>
-                                    <button class="mil-download-btn"><i class="fas fa-download"></i></button>
-                                </div>
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Thumbnails/Vertical/1.webp" class="w-100 shadow-1-strong rounded" alt="Wintry Mountain Landscape" />
-                                <div class="image-profile">
-                                    <img src="{{ Vite::asset('resources/img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />
-                                    <p class="mil-username">PixaVault</p>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
 
                         <div class="col-lg-4 mb-4 mb-lg-0">
-                            <div class="content-item mil-up position-relative">
-                                <div class="mil-buttons">
-                                    <button class="mil-love-btn"><i class="fas fa-heart"></i></button>
-                                    <button class="mil-download-btn"><i class="fas fa-download"></i></button>
+                            @foreach ($explore[1] as $content)
+                                <div class="content-item mil-up position-relative">
+                                    <div class="mil-buttons">
+                                        <button class="mil-love-btn like-btn" data-id="{{ $content->id }}">
+                                            @if ($content->is_liked)
+                                                <i class="fas fa-heart"></i>
+                                            @else
+                                                <i class="far fa-heart"></i>
+                                            @endif
+                                        </button>
+                                        <button class="mil-download-btn"
+                                            data-href="{{ route('image.download', $content->id) }}">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                    </div>
+                                    <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded"
+                                        alt="Photo" loading="lazy" data-modal-target="modal-content"
+                                        data-id="{{ $content->id }}" />
+                                    <div class="image-profile">
+                                        <img src="{{ $content->user['photo'] ?? Vite::asset('resources/img/icons/user-elipse.svg') }}"
+                                            alt="Profile Picture" class="mil-profile-img" />
+                                        <p class="mil-username">
+                                            {{ $content->user['name'] ?? "anonymous" }}
+                                        </p>
+                                    </div>
                                 </div>
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Vertical/mountain2.webp" class="w-100 shadow-1-strong rounded" alt="Mountains in the Clouds" />
-                                <div class="image-profile">
-                                    <img src="{{ Vite::asset('resources/img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />
-                                    <p class="mil-username">PixaVault</p>
-                                </div>
-                            </div>
-
-                            <div class="content-item mil-up position-relative">
-                                <div class="mil-buttons">
-                                    <button class="mil-love-btn"><i class="fas fa-heart"></i></button>
-                                    <button class="mil-download-btn"><i class="fas fa-download"></i></button>
-                                </div>
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp" class="w-100 shadow-1-strong rounded" alt="Boat on Calm Water" />
-                                <div class="image-profile">
-                                    <img src="{{ Vite::asset('resources/img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />
-                                    <p class="mil-username">PixaVault</p>
-                                </div>
-                            </div>
-
-                            <div class="content-item mil-up position-relative">
-                                <div class="mil-buttons">
-                                    <button class="mil-love-btn"><i class="fas fa-heart"></i></button>
-                                    <button class="mil-download-btn"><i class="fas fa-download"></i></button>
-                                </div>
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Thumbnails/Square/1.webp" class="w-100 shadow-1-strong rounded" alt="Boat on Calm Water" />
-                                <div class="image-profile">
-                                    <img src="{{ Vite::asset('resources/img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />
-                                    <p class="mil-username">PixaVault</p>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
 
                         <div class="col-lg-4 mb-4 mb-lg-0">
-                            <div class="content-item mil-up position-relative">
-                                <div class="mil-buttons">
-                                    <button class="mil-love-btn"><i class="fas fa-heart"></i></button>
-                                    <button class="mil-download-btn"><i class="fas fa-download"></i></button>
+                            @foreach ($explore[2] as $content)
+                                <div class="content-item mil-up position-relative">
+                                    <div class="mil-buttons">
+                                        <button class="mil-love-btn like-btn" data-id="{{ $content->id }}">
+                                            @if ($content->is_liked)
+                                                <i class="fas fa-heart"></i>
+                                            @else
+                                                <i class="far fa-heart"></i>
+                                            @endif
+                                        </button>
+                                        <button class="mil-download-btn"
+                                            data-href="{{ route('image.download', $content->id) }}">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                    </div>
+                                    <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded"
+                                        alt="Photo" loading="lazy" data-modal-target="modal-content"
+                                        data-id="{{ $content->id }}" />
+                                    <div class="image-profile">
+                                        <img src="{{ $content->user['photo'] ?? Vite::asset('resources/img/icons/user-elipse.svg') }}"
+                                            alt="Profile Picture" class="mil-profile-img" />
+                                        <p class="mil-username">
+                                            {{ $content->user['name'] ?? "anonymous" }}
+                                        </p>
+                                    </div>
                                 </div>
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(18).webp" class="w-100 shadow-1-strong rounded" alt="Waves at Sea" />
-                                <div class="image-profile">
-                                    <img src="{{ Vite::asset('resources/img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />
-                                    <p class="mil-username">PixaVault</p>
-                                </div>
-                            </div>
-
-                            <div class="content-item mil-up position-relative">
-                                <div class="mil-buttons">
-                                    <button class="mil-love-btn"><i class="fas fa-heart"></i></button>
-                                    <button class="mil-download-btn"><i class="fas fa-download"></i></button>
-                                </div>
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Thumbnails/Slides/1.webp" class="w-100 shadow-1-strong rounded" alt="Waves at Sea" />
-                                <div class="image-profile">
-                                    <img src="{{ Vite::asset('resources/img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />
-                                    <p class="mil-username">PixaVault</p>
-                                </div>
-                            </div>
-
-                            <div class="content-item mil-up position-relative">
-                                <div class="mil-buttons">
-                                    <button class="mil-love-btn"><i class="fas fa-heart"></i></button>
-                                    <button class="mil-download-btn"><i class="fas fa-download"></i></button>
-                                </div>
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Vertical/mountain3.webp" class="w-100 shadow-1-strong rounded" alt="Yosemite National Park" />
-                                <div class="image-profile">
-                                    <img src="{{ Vite::asset('resources/img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />
-                                    <p class="mil-username">PixaVault</p>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -382,13 +301,13 @@
 
 @section('scripts')
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             // JS Random Image //
             const randomImageElements =
                 document.querySelectorAll(".mil-randomimage");
 
             randomImageElements.forEach((imgElement) => {
-                const randomImageUrl = `https://picsum.photos/600/400?random=${Math.floor(Math.random()*1000)}`;
+                const randomImageUrl = `https://picsum.photos/600/400?random=${Math.floor(Math.random() * 1000)}`;
                 imgElement.src = randomImageUrl;
             });
         });
