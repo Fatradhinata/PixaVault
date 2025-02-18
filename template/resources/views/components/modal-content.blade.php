@@ -117,8 +117,10 @@
 @section('scripts')
     @parent
     <script>
-        const BASEURL = `{{ url('/') }}`;
-        const tmp_user = `{{ Vite::asset('resources/img/icons/user-elipse.svg') }}`;
+        if (typeof BASEURL === 'undefined') {
+            window.BASEURL = `{{ url('/') }}`;
+            window.tmp_user = `{{ Vite::asset('resources/img/icons/user-elipse.svg') }}`;
+        }
 
         document.addEventListener('DOMContentLoaded', () => {
             

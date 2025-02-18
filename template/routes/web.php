@@ -57,15 +57,11 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::middleware('admin')->group(function () {
-
+        Route::get('/admin', [AdminController::class, 'index'])->name('admin');
+        Route::get('/admin/content', [AdminController::class, 'content'])->name('admin.content');
+        Route::get('/admin/subscription', [AdminController::class, 'subscription'])->name('admin.subscription');
+        Route::get('/admin/user', [AdminController::class, 'user'])->name('admin.user-admin');
     });
-});
-
-Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/admin', [AdminController::class, 'index'])->name('admin');
-    Route::get('/admin/content', [AdminController::class, 'content'])->name('admin.content');
-    Route::get('/admin/subscription', [AdminController::class, 'subscription'])->name('admin.subscription');
-    Route::get('/admin/user', [AdminController::class, 'user'])->name('admin.user-admin');
 });
 
 Route::middleware('guest')->group(function () {

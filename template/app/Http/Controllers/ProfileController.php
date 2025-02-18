@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Content;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
-    private function getTripleColumnContents($collection)
+    private function getTripleColumn($collection)
     {
-        $content = $collection->contents->toArray();
+        $content = $collection->toArray();
         $divided_len = ceil(count($content) / 3);
 
         $tmp = [[], [], []];
@@ -24,28 +26,43 @@ class ProfileController extends Controller
         return $tmp;
     }
 
+    private function getLikedContent()
+    {
+        return Content::select('contents.*', DB::raw('CASE WHEN likes.id IS NOT NULL THEN 1 ELSE 0 END as is_liked'))
+            ->leftJoin(
+                'likes',
+                fn($join) =>
+                $join->on('contents.id', '=', 'likes.id_content')
+                    ->where('likes.id_user', '=', Auth::id())
+            )
+            ->where('contents.id_user', '<>', Auth::id(), 'and')
+            ->where('likes.id', 'IS NOT', null)
+            ->with('user')
+            ->get();
+    }
+
     public function index()
     {
         $user = Auth::user();
-        $contents = $this->getTripleColumnContents($user);
 
         return view('user.profile', [
             'user' => $user,
-            'contents' => $contents,
+            'contents' => $this->getTripleColumn($user->contents),
+            'liked' => $this->getTripleColumn($this->getLikedContent())
         ]);
     }
 
     public function details(User $id) {
-        $contents = $contents = $this->getTripleColumnContents($id);
         return view('user.profile', [
             'user' => $id,
-            'contents' => $contents,
+            'contents' => $this->getTripleColumn($id->contents),
+            'liked' => $this->getTripleColumn($this->getLikedContent())
         ]); 
     }
     
     public function edit(User $id)
     {
-        return view('user.profile_edit', data: [
+        return view('user.profile_edit', [
             'user' => $id,
         ]);
     }
