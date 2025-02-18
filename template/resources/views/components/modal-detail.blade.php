@@ -14,9 +14,6 @@
                 </div>
             </div>
             <div class="actions">
-                <button class="like-btn">
-                    <i class="far fa-heart"></i>
-                </button>
                 <button class="download-btn">
                     <div>
                         <img src="{{ Vite::asset('resources/img/icons/download.svg') }}" alt="Download Icon">
@@ -33,6 +30,16 @@
                     Views
                 </p>
                 <p style="margin: 0; font-size: 18px; font-weight: bold" class="views">
+                    0
+                </p>
+            </div>
+
+            <!-- Bagian Likes -->
+            <div class="ms-5 mil-up">
+                <p style="margin: 0; font-size: 14px; color: #6c757d">
+                    Likes
+                </p>
+                <p style="margin: 0; font-size: 18px; font-weight: bold" class="likes">
                     0
                 </p>
             </div>
@@ -89,6 +96,7 @@
     @parent
     <script>
         const BASEURL = `{{ url('/') }}`;
+        const tmp_user = `{{ Vite::asset('resources/img/icons/user-elipse.svg') }}`;
 
         // JS Modal //
         document.addEventListener('DOMContentLoaded', () => {
@@ -99,12 +107,14 @@
             let cache = {};
 
             function setField(data) {
+                $('#modal-detail').data('id', data.id);
                 $('#modal-detail .image-content').attr('src', `${BASEURL}/image/${data.photo}`);
-                $('#modal-detail .follow').attr('href', `${BASEURL}/profile/${data.user.id}`);
-                $('#modal-detail .profile').attr('href', `${BASEURL}/profile/${data.user.photo}`);
-                $('#modal-detail .username').text(data.user.name);
+                $('#modal-detail .profile').attr('src', (data.user) ? `${BASEURL}/profile/${data.user.photo}` : tmp_user);
+                $('#modal-detail .follow').attr('href', `${BASEURL}/profile/${data.id_user}`);
+                $('#modal-detail .username').text((data.user) ? data.user.name : 'anonymous');
                 $('#modal-detail .downloads').text(data.downloads);
                 $('#modal-detail .views').text(data.views);
+                $('#modal-detail .likes').text(data.likes);
                 $('#modal-detail .title').text(data.name);
                 $('#modal-detail .content-description').text(data.desc);
                 $('#modal-detail .shoot-by').text(data.shoot_by);

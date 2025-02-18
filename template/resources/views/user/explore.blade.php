@@ -37,14 +37,22 @@
                     @foreach ($contents[0] as $content)
                         <div class="content-item mil-up position-relative">
                             <div class="mil-buttons">
-                                <button class="mil-love-btn"><i class="fas fa-heart"></i></button>
-                                <button class="mil-download-btn"><i class="fas fa-download"></i></button>
+                                <button class="mil-love-btn like-btn" data-id="{{ $content->id }}">
+                                    @if ($content->is_liked)
+                                        <i class="fas fa-heart"></i>
+                                    @else
+                                        <i class="far fa-heart"></i>
+                                    @endif
+                                </button>
+                                <button class="mil-download-btn" data-href="{{ route('image.download', $content->id) }}">
+                                    <i class="fas fa-download"></i>
+                                </button>
                             </div>
-                            <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded" alt="Photo" 
+                            <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded" alt="Photo" loading="lazy"
                                 data-modal-target="modal-content" data-id="{{ $content->id }}"/>
                             <div class="image-profile">
                                 <img src="{{ $content->user['photo'] ?? Vite::asset('resources/img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />
-                                <p class="mil-username">{{ $content->user['name'] }}</p>
+                                <p class="mil-username">{{ $content->user['name'] ?? "anonymous" }}</p>
                             </div>
                         </div>
                     @endforeach
@@ -54,14 +62,22 @@
                     @foreach ($contents[1] as $content)
                         <div class="content-item mil-up position-relative">
                             <div class="mil-buttons">
-                                <button class="mil-love-btn"><i class="fas fa-heart"></i></button>
-                                <button class="mil-download-btn"><i class="fas fa-download"></i></button>
+                                <button class="mil-love-btn like-btn" data-id="{{ $content->id }}">
+                                    @if ($content->is_liked)
+                                        <i class="fas fa-heart"></i>
+                                    @else
+                                        <i class="far fa-heart"></i>
+                                    @endif
+                                </button>
+                                <button class="mil-download-btn" data-href="{{ route('image.download', $content->id) }}">
+                                    <i class="fas fa-download"></i>
+                                </button>
                             </div>
-                            <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded" alt="Photo" 
+                            <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded" alt="Photo" loading="lazy"
                                 data-modal-target="modal-content" data-id="{{ $content->id }}"/>
                             <div class="image-profile">
                                 <img src="{{ $content->user['photo'] ?? Vite::asset('resources/img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />
-                                <p class="mil-username">{{ $content->user['name'] }}</p>
+                                <p class="mil-username">{{ $content->user['name'] ?? "anonymous" }}</p>
                             </div>
                         </div>
                     @endforeach
@@ -71,14 +87,22 @@
                     @foreach ($contents[2] as $content)
                         <div class="content-item mil-up position-relative">
                             <div class="mil-buttons">
-                                <button class="mil-love-btn"><i class="fas fa-heart"></i></button>
-                                <button class="mil-download-btn"><i class="fas fa-download"></i></button>
+                                <button class="mil-love-btn like-btn" data-id="{{ $content->id }}">
+                                    @if ($content->is_liked)
+                                        <i class="fas fa-heart"></i>
+                                    @else
+                                        <i class="far fa-heart"></i>
+                                    @endif
+                                </button>
+                                <button class="mil-download-btn" data-href="{{ route('image.download', $content->id) }}">
+                                    <i class="fas fa-download"></i>
+                                </button>
                             </div>
-                            <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded" alt="Photo" 
+                            <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded" alt="Photo" loading="lazy"
                                 data-modal-target="modal-content" data-id="{{ $content->id }}"/>
                             <div class="image-profile">
                                 <img src="{{ $content->user['photo'] ?? Vite::asset('resources/img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />
-                                <p class="mil-username">{{ $content->user['name'] }}</p>
+                                <p class="mil-username">{{ $content->user['name'] ?? "anonymous" }}</p>
                             </div>
                         </div>
                     @endforeach
@@ -89,4 +113,8 @@
     <!-- content -->
 
     @include('components.modal-content')
+@endsection
+
+@section('scripts')
+    @vite('resources/js/misc.js')
 @endsection

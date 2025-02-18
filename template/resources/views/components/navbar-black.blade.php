@@ -19,7 +19,9 @@
                         @if (Auth::user()->free_limit == -1)
                             <b>Unlimited</b> Credit Available
                         @else
-                            <b>{{ Auth::user()->free_limit }}</b> Credit Available
+                            <a href="{{ route('pricing') }}">
+                                <b id="amount-limit">{{ Auth::user()->free_limit }}</b> Credit Available
+                            </a>
                         @endif
                     </p>
                 @endauth

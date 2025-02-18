@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Like;
 use App\Models\User;
 use GuzzleHttp\Client;
 use App\Models\Content;
@@ -36,7 +37,14 @@ class ContentController extends Controller
 
     public function getDataById($id)
     {
-        $content = Content::with('user')->find($id);
+        $content = Content::select('contents.*', DB::raw('CASE WHEN likes.id IS NOT NULL THEN 1 ELSE 0 END as is_liked'))
+            ->leftJoin('likes', fn($join) => 
+                $join->on('contents.id', '=', 'likes.id_content')
+                    ->where('likes.id_user', '=', Auth::id())
+            )
+            ->where('contents.id', $id)
+            ->first();
+
         $content->increment('views');
         
         $data = $content->toArray();
@@ -54,7 +62,17 @@ class ContentController extends Controller
 
     public function getRandom($limit)
     {
-        $contents = Content::inRandomOrder()->with('user')->limit($limit)->get();
+        $contents = Content::select('contents.*', DB::raw('CASE WHEN likes.id IS NOT NULL THEN 1 ELSE 0 END as is_liked'))
+            ->leftJoin('likes', fn($join) => 
+                $join->on('contents.id', '=', 'likes.id_content')
+                    ->where('likes.id_user', '=', Auth::id())
+            )
+            ->where('contents.id_user', '<>', Auth::id())
+            ->inRandomOrder()
+            ->with('user')
+            ->limit($limit)
+            ->get();
+
         $data = $this->getTripleColumn($contents);
 
         return response()->json(($contents->count()) ? [
@@ -64,6 +82,32 @@ class ContentController extends Controller
             'status' => 'fail',
             'message' => 'Data is not found/empty',
         ]);
+    }
+
+    public function updateLike(Content $id)
+    {
+        $id_user = Auth::id();
+        $id_content = $id->id;
+        
+        try {
+            $like = Like::where('id_user', $id_user, 'and')->where('id_content', $id_content)->first();
+
+            if ($like) {
+                $like->delete();
+                $id->decrement('likes');
+                return response()->json(['status' => 'success','like' => false], 200);
+            }
+            
+            $id->increment('likes');
+            Like::create([
+                'id_user' => $id_user,
+                'id_content' => $id_content,
+            ]);
+            return response()->json(['status' => 'success','like' => true], 201);
+
+        } catch (\Exception $e) {
+            return response()->json(['status' => 'fail','message' => 'Something went wrong!'], 500);
+        }
     }
 
     public function showImage($publicId)
@@ -95,23 +139,92 @@ class ContentController extends Controller
             return response()->json(['error' => 'Error fetching image: ' . $e->getMessage()], 500);
         }
     }
+
+    public function downloadImage(Content $id)
+    {
+        if (!$id) return redirect()->back()->with('error', 'Data not found!');
+        
+        $publicId = $id->photo;
+        $user = User::find(Auth::id());
+
+        if ($user->free_limit > 0) {
+
+            $user->decrement('free_limit');
+            $id->increment('downloads');
+
+            try {
+                if (empty($publicId))
+                    return response()->json(['error' => 'Public ID is required'], 400);
+                
+                $client = new Client();
+                $imageUrl = Cloudinary::getImage($publicId)->toUrl();
+                $response = $client->get($imageUrl, ['stream' => true]);
+                $statusCode = $response->getStatusCode();
     
+                if ($statusCode != 200)
+                    return response()->json(['error' => 'Failed to fetch image from Cloudinary'], $statusCode);
+    
+                $contentType = $response->getHeaderLine('Content-Type');
+                if (!$contentType) $contentType = 'application/octet-stream';
+    
+                $mimes = [
+                    'image/jpeg' => 'jpg',
+                    'image/png' => 'png',
+                    'image/heic' => 'heic',
+                    'image/webp' => 'webp',
+                    'image/tiff' => 'tiff',
+                ];
+    
+                $extention = isset($mimes[$contentType]) ? "." . $mimes[$contentType] : '';
+                $fileName = str_replace(' ', '_', $id->name) . $extention;
+    
+                $tempFile = tempnam(sys_get_temp_dir(), 'download_');
+                $tempHandle = fopen($tempFile, 'w+');
+    
+                $stream = $response->getBody();
+                while (!$stream->eof()) fwrite($tempHandle, $stream->read(4096));
+                fclose($tempHandle);
+    
+                return response()->download($tempFile, $fileName, [
+                    'Content-Type' => $contentType,
+                    'Content-Disposition' => 'attachment; filename="'. $fileName .'"'
+                ])->deleteFileAfterSend(true);
+    
+            } catch (\Exception $e) {
+                return response()->json(['error' => 'Error downloading image: ' . $e->getMessage()], 500);
+            }
+        } else {
+            return redirect()->to(route('pricing') . '#subscribe')
+                ->with('warning', 'You have reached your free limit! <br>Please purchase the subscription to download more photos.');
+        }
+    }
+
     public function index()
     {
-        $data = Content::inRandomOrder()->with('user')->get();
-        $data = $this->getTripleColumn($data);
+        $contents = Content::select('contents.*', DB::raw('CASE WHEN likes.id IS NOT NULL THEN 1 ELSE 0 END as is_liked'))
+            ->leftJoin('likes', fn($join) => 
+                $join->on('contents.id', '=', 'likes.id_content')
+                    ->where('likes.id_user', '=', Auth::id())
+            )
+            ->where('contents.id_user', '<>', Auth::id())
+            ->inRandomOrder()
+            ->with('user')
+            ->get();
+
+        $data = $this->getTripleColumn($contents);
 
         return view('user.explore', [
             'contents' => $data,
         ]);
     }
+    
 
     public function result(Request $req)
     {
         $search = $req->input('q');
         $tag = $req->input('t');
 
-        $data = Content::with('user');
+        $data = Content::where('id_user', '<>', Auth::id())->with('user');
 
         if ($search)
             $data = $data->where('name', 'like', "%$search%")->orWhere('desc', 'like', "%$search%");
@@ -124,17 +237,6 @@ class ContentController extends Controller
         return view('user.result', [
             'contents' => $data,
             'search' => $search,
-        ]);
-    }
-    public function explore(Request $req)
-    {
-        $data = Content::with('user');
-
-        $data = $data->get();
-        $data = $this->getTripleColumn($data);
-
-        return view('user.explore', [
-            'contents' => $data,
         ]);
     }
 

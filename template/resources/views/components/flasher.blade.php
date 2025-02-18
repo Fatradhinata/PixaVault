@@ -190,7 +190,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             $('.alert .cancel-icon').on('click', function() {
-                $(this).closest('.alert').fadeOut(200, function() {
+                $(this).closest('.alert').fadeOut(300, function() {
                     $(this).remove()
                 });
             });

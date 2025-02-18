@@ -19,9 +19,8 @@ Route::get('/verify-user/{id}', [AuthController::class, 'verify']);
 Route::get('/pricing', [HomeController::class, 'pricing'])->name('pricing');
 Route::get('/trending', [HomeController::class, 'trending'])->name('trending');
 
-Route::get('/explore', [ContentController::class, 'index'])->name('explore');
 Route::get('/result', [ContentController::class, 'result'])->name('result');
-Route::get('/explore', [ContentController::class, 'explore'])->name('explore');
+Route::get('/explore', [ContentController::class, 'index'])->name('explore');
 Route::get('/image/{publicId}', [ContentController::class, 'showImage'])->name('image');
 
 
@@ -39,6 +38,8 @@ Route::middleware('auth')->group(function () {
         
         Route::get('/content/{id}', [ContentController::class, 'getDataById']);
         Route::get('/content/get/{limit}', [ContentController::class, 'getRandom']);
+        Route::get('/content/download/{id}', [ContentController::class, 'downloadImage'])->name('image.download');
+        Route::get('/content/like/{id}', [ContentController::class, 'updateLike']);
         Route::get('/upload', [ContentController::class, 'upload'])->name('upload');
         Route::post('/upload', [ContentController::class, 'store']);
         

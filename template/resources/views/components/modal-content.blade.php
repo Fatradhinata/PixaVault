@@ -14,9 +14,7 @@
                 </div>
             </div>
             <div class="actions">
-                <button class="like-btn">
-                    <i class="far fa-heart"></i>
-                </button>
+                <button class="like-btn" data-id=""><i class="far fa-heart"></i></button>
                 <button class="download-btn">
                     <div>
                         <img src="{{ Vite::asset('resources/img/icons/download.svg') }}" alt="Download Icon">
@@ -33,6 +31,16 @@
                     Views
                 </p>
                 <p style="margin: 0; font-size: 18px; font-weight: bold" class="views">
+                    0
+                </p>
+            </div>
+
+            <!-- Bagian Likes -->
+            <div class="ms-5 mil-up">
+                <p style="margin: 0; font-size: 14px; color: #6c757d">
+                    Likes
+                </p>
+                <p style="margin: 0; font-size: 18px; font-weight: bold" class="likes">
                     0
                 </p>
             </div>
@@ -112,18 +120,21 @@
         const BASEURL = `{{ url('/') }}`;
         const tmp_user = `{{ Vite::asset('resources/img/icons/user-elipse.svg') }}`;
 
-        // JS Modal //
         document.addEventListener('DOMContentLoaded', () => {
+            
             const photoModal = $("#modal-content");
-            let cache = {};
 
             function setField(data) {
+                $('#modal-content').data('id', data.id);
+                $('#modal-content .like-btn')[0].dataset.id = data.id;
+                $('#modal-content .like-btn i').attr('class', ((data.is_liked) ? `fas fa-heart` : `far fa-heart`));
                 $('#modal-content .image-content').attr('src', `${BASEURL}/image/${data.photo}`);
-                $('#modal-content .follow').attr('href', `${BASEURL}/profile/${data.user.id}`);
-                $('#modal-content .profile').attr('href', `${BASEURL}/profile/${data.user.photo}`);
-                $('#modal-content .username').text(data.user.name);
+                $('#modal-content .profile').attr('src', (data.user) ? `${BASEURL}/profile/${data.user.photo}` : tmp_user);
+                $('#modal-content .follow').attr('href', `${BASEURL}/profile/${data.id_user}`);
+                $('#modal-content .username').text((data.user) ? data.user.name : 'anonymous');
                 $('#modal-content .downloads').text(data.downloads);
                 $('#modal-content .views').text(data.views);
+                $('#modal-content .likes').text(data.likes);
                 $('#modal-content .title').text(data.name);
                 $('#modal-content .content-description').text(data.desc);
                 $('#modal-content .shoot-by').text(data.shoot_by);
@@ -151,13 +162,15 @@
                         return `
                         <div class="content-item mil-up position-relative" data-id="${data.id}">
                             <div class="mil-buttons">
-                                <button class="mil-love-btn"><i class="fas fa-heart"></i></button>
+                                <button class="mil-love-btn like-btn" data-id="${data.id}">
+                                    ${data.is_liked ? `<i class="fas fa-heart"></i>` : `<i class="far fa-heart"></i>`}
+                                </button>
                                 <button class="mil-download-btn"><i class="fas fa-download"></i></button>
                             </div>
-                            <img src="${data.photo}" class="w-100 shadow-1-strong rounded" alt="Photo" />
+                            <img src="${BASEURL}/image/${data.photo}" class="w-100 shadow-1-strong rounded" alt="Photo" />
                             <div class="image-profile">
-                                <img src="${data.user.photo}" alt="Profile Picture" class="mil-profile-img" />
-                                <p class="mil-username">${data.user.name}</p>
+                                <img src="${(data.user) ? data.user.photo : tmp_user}" alt="Profile Picture" class="mil-profile-img" />
+                                <p class="mil-username">${(data.user) ? data.user.name : 'anonymous'}</p>
                             </div>
                         </div>`;
                     };
@@ -180,18 +193,13 @@
             };
 
             async function displayData(id) {
-                if (id in cache) {
-                    setField(cache[id])
+                const { status, data, message } = await fetchData(`${BASEURL}/content/${id}`);
+                
+                if (status !== 'fail') {
+                    data.tags = JSON.parse(data.tags);
+                    setField(data);
                 } else {
-                    const { status, data, message } = await fetchData(`${BASEURL}/content/${id}`);
-                    
-                    if (status !== 'fail') {
-                        data.tags = JSON.parse(data.tags);
-                        setField(data);
-                        cache[id] = data;
-                    } else {
-                        console.error('Error while fetching data: ' + message);
-                    } 
+                    console.error('Error while fetching data: ' + message);
                 }
             };
 
@@ -203,6 +211,13 @@
                         refreshContent();
                     }
                 });
+
+                $('.download-btn')[0].onclick = function() {
+                    let id = $('#modal-content').data('id');
+                    window.downloadImage(`${BASEURL}/content/download/${id}`);
+                };
+
+                window.refreshLikeEvent();
             }
     
             $('[data-modal-target="modal-content"]').on('click', async function() {
@@ -225,6 +240,7 @@
                     photoModal.fadeOut(300);
                 }
             });
+
         });
     </script>
 @endsection
