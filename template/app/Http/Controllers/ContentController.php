@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Number;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+use Intervention\Image\Facades\Image;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 
@@ -112,9 +114,20 @@ class ContentController extends Controller
 
     public function showImage($publicId)
     {
+        if (empty($publicId))
+            return response()->json(['error' => 'Public ID is required'], 400);
+
+        $cacheKey = "cloudinary_image_{$publicId}";
+
         try {
-            if (empty($publicId))
-                return response()->json(['error' => 'Public ID is required'], 400);
+            $cachedImage = Cache::get($cacheKey);
+            if ($cachedImage) {
+                $cachedImage = base64_decode($cachedImage);
+                return response()->stream(function () use ($cachedImage) {
+                    echo $cachedImage;
+                    flush();
+                }, 200, ['Content-Type' => 'image/webp']);
+            }
 
             $imageUrl = Cloudinary::getImage($publicId)->toUrl();
             $client = new Client();
@@ -124,16 +137,27 @@ class ContentController extends Controller
             if ($statusCode != 200)
                 return response()->json(['error' => 'Failed to fetch image from Cloudinary'], $statusCode);
 
-            $contentType = $response->getHeaderLine('Content-Type');
-            if (!$contentType) $contentType = 'application/octet-stream';
+            $imageData = $response->getBody()->getContents();
 
-            return response()->stream(function() use ($response) {
-                $stream = $response->getBody();
-                while (!$stream->eof()) {
-                    echo $stream->read(4096);
-                    flush();
+            $image = Image::make($imageData);
+            $quality = 50;
+            $maxSizeKB = 200;
+            
+            while (true) {
+                $compressedImage = $image->encode('webp', $quality);
+                if (strlen($compressedImage) / 1024 <= $maxSizeKB || $quality <= 10) {
+                    $imageData = $compressedImage; 
+                    break; 
                 }
-            }, 200, [ 'Content-Type' => $contentType ]);
+                $quality -= 3;
+            }
+
+            Cache::put($cacheKey, base64_encode($imageData), 3600);
+
+            return response()->stream(function() use ($imageData) {
+                echo $imageData;
+                flush();
+            }, 200, [ 'Content-Type' => 'image/webp' ]);
 
         } catch (\Exception $e) {
             return response()->json(['error' => 'Error fetching image: ' . $e->getMessage()], 500);
