@@ -9,6 +9,7 @@ use App\Http\Controllers\ContentController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MidtransController;
+use App\Http\Controllers\AdminController;
 use PharIo\Manifest\AuthorElementCollection;
 use App\Http\Controllers\SocialiteController;
 use App\Models\Content;
@@ -58,6 +59,13 @@ Route::middleware('auth')->group(function () {
     Route::middleware('admin')->group(function () {
 
     });
+});
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin');
+    Route::get('/admin/content', [AdminController::class, 'content'])->name('admin.content');
+    Route::get('/admin/subscription', [AdminController::class, 'subscription'])->name('admin.subscription');
+    Route::get('/admin/user', [AdminController::class, 'user'])->name('admin.user-admin');
 });
 
 Route::middleware('guest')->group(function () {
