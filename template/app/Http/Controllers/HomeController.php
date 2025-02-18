@@ -35,20 +35,18 @@ class HomeController extends Controller
             $join->on('contents.id', '=', 'likes.id_content')
                 ->where('likes.id_user', '=', Auth::id())
         )
-        ->where('contents.id_user', '<>', Auth::id())
         ->inRandomOrder()
         ->with('user')
         ->limit(10)
         ->get();
 
-    $trending = $this->getTripleColumn($contents);
-    $explore = $this->getTripleColumn($contents);
-    // dd($data);
-        
-    return view('user.home', [
-        'trending' => array_map(fn($col) => array_reverse($col), $trending),
-        'explore' => $explore,
-    ]);
+        $trending = $this->getTripleColumn($contents);
+        $explore = $this->getTripleColumn($contents);
+            
+        return view('user.home', [
+            'trending' => array_map(fn($col) => array_reverse($col), $trending),
+            'explore' => $explore,
+        ]);
     }
     public function blog()
     {
