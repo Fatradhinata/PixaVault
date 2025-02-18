@@ -25,22 +25,22 @@
         </div>
         <img src="" class="image-content" alt="Photo Detail" />
         <div class="d-flex my-4">
-            <!-- Bagian Views -->
-            <div class="mil-up">
-                <p style="margin: 0; font-size: 14px; color: #6c757d">
-                    Views
-                </p>
-                <p style="margin: 0; font-size: 18px; font-weight: bold" class="views">
-                    0
-                </p>
-            </div>
-
             <!-- Bagian Likes -->
-            <div class="ms-5 mil-up">
+            <div class="mil-up">
                 <p style="margin: 0; font-size: 14px; color: #6c757d">
                     Likes
                 </p>
                 <p style="margin: 0; font-size: 18px; font-weight: bold" class="likes">
+                    0
+                </p>
+            </div>
+
+            <!-- Bagian Views -->
+            <div class="ms-5 mil-up">
+                <p style="margin: 0; font-size: 14px; color: #6c757d">
+                    Views
+                </p>
+                <p style="margin: 0; font-size: 18px; font-weight: bold" class="views">
                     0
                 </p>
             </div>
@@ -160,14 +160,14 @@
                 if (status !== 'fail') {
                     let addCard = function(data) {
                         return `
-                        <div class="content-item mil-up position-relative" data-id="${data.id}">
+                        <div class="content-item mil-up position-relative">
                             <div class="mil-buttons">
                                 <button class="mil-love-btn like-btn" data-id="${data.id}">
                                     ${data.is_liked ? `<i class="fas fa-heart"></i>` : `<i class="far fa-heart"></i>`}
                                 </button>
                                 <button class="mil-download-btn"><i class="fas fa-download"></i></button>
                             </div>
-                            <img src="${BASEURL}/image/${data.photo}" class="w-100 shadow-1-strong rounded" alt="Photo" />
+                            <img src="${BASEURL}/image/${data.photo}" class="w-100 shadow-1-strong rounded" alt="Photo" data-id="${data.id}" />
                             <div class="image-profile">
                                 <img src="${(data.user) ? data.user.photo : tmp_user}" alt="Profile Picture" class="mil-profile-img" />
                                 <p class="mil-username">${(data.user) ? data.user.name : 'anonymous'}</p>
@@ -204,7 +204,7 @@
             };
 
             function refreshEvents() {
-                $('#modal-content .more-images .content-item').each(function(i, content) {
+                $('#modal-content .more-images .content-item img').each(function(i, content) {
                     content.onclick = async function() {
                         const id = $(this).data('id');
                         await displayData(id);

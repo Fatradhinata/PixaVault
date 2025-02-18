@@ -24,22 +24,22 @@
         </div>
         <img src="" class="image-content" alt="Photo Detail" />
         <div class="d-flex my-4">
-            <!-- Bagian Views -->
-            <div class="mil-up">
-                <p style="margin: 0; font-size: 14px; color: #6c757d">
-                    Views
-                </p>
-                <p style="margin: 0; font-size: 18px; font-weight: bold" class="views">
-                    0
-                </p>
-            </div>
-
             <!-- Bagian Likes -->
-            <div class="ms-5 mil-up">
+            <div class="mil-up">
                 <p style="margin: 0; font-size: 14px; color: #6c757d">
                     Likes
                 </p>
                 <p style="margin: 0; font-size: 18px; font-weight: bold" class="likes">
+                    0
+                </p>
+            </div>
+            
+            <!-- Bagian Views -->
+            <div class="ms-5 mil-up">
+                <p style="margin: 0; font-size: 14px; color: #6c757d">
+                    Views
+                </p>
+                <p style="margin: 0; font-size: 18px; font-weight: bold" class="views">
                     0
                 </p>
             </div>

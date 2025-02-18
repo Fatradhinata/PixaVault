@@ -224,12 +224,18 @@ class ContentController extends Controller
         $search = $req->input('q');
         $tag = $req->input('t');
 
-        $data = Content::where('id_user', '<>', Auth::id())->with('user');
-
+        $data = Content::select('contents.*', DB::raw('CASE WHEN likes.id IS NOT NULL THEN 1 ELSE 0 END as is_liked'))
+        ->leftJoin('likes', fn($join) => 
+            $join->on('contents.id', '=', 'likes.id_content')
+                ->where('likes.id_user', '=', Auth::id())
+        )
+        ->where('contents.id_user', '<>', Auth::id())
+        ->with('user');
+        
         if ($search)
-            $data = $data->where('name', 'like', "%$search%")->orWhere('desc', 'like', "%$search%");
+            $data = $data->where('contents.name', 'like', "%$search%")->orWhere('contents.desc', 'like', "%$search%");
         if ($tag)
-            $data = $data->where('tags', 'like', "%$tag%", 'and');
+            $data = $data->where('contents.tags', 'like', "%$tag%", 'and');
 
         $data = $data->get();
         $data = $this->getTripleColumn($data);
