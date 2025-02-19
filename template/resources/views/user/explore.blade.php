@@ -48,7 +48,7 @@
                                     <i class="fas fa-download"></i>
                                 </button>
                             </div>
-                            <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded" alt="Photo" loading="lazy"
+                            <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded" alt="Photo"
                                 data-modal-target="modal-content" data-id="{{ $content->id }}"/>
                             <div class="image-profile">
                                 <img src="{{ $content->user['photo'] ?? Vite::asset('resources/img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />
@@ -73,7 +73,7 @@
                                     <i class="fas fa-download"></i>
                                 </button>
                             </div>
-                            <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded" alt="Photo" loading="lazy"
+                            <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded" alt="Photo"
                                 data-modal-target="modal-content" data-id="{{ $content->id }}"/>
                             <div class="image-profile">
                                 <img src="{{ $content->user['photo'] ?? Vite::asset('resources/img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />
@@ -98,7 +98,7 @@
                                     <i class="fas fa-download"></i>
                                 </button>
                             </div>
-                            <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded" alt="Photo" loading="lazy"
+                            <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded" alt="Photo"
                                 data-modal-target="modal-content" data-id="{{ $content->id }}"/>
                             <div class="image-profile">
                                 <img src="{{ $content->user['photo'] ?? Vite::asset('resources/img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />

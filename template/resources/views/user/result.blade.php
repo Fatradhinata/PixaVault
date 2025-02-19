@@ -64,7 +64,7 @@
                             </button>
                         </div>
                         <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded" alt="Photo" 
-                        data-modal-target="modal-content" data-id="{{ $content->id }}" />
+                            data-modal-target="modal-content" data-id="{{ $content->id }}" />
                         <div class="image-profile">
                             <img src="{{ $content->user['photo'] ?? Vite::asset('resources/img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />
                             <p class="mil-username">{{ $content->user['name'] ?? 'anonymous' }}</p>
@@ -89,7 +89,7 @@
                             </button>
                         </div>
                         <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded" alt="Photo" 
-                        data-modal-target="modal-content" data-id="{{ $content->id }}" />
+                            data-modal-target="modal-content" data-id="{{ $content->id }}" />
                         <div class="image-profile">
                             <img src="{{ $content->user['photo'] ?? Vite::asset('resources/img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />
                             <p class="mil-username">{{ $content->user['name'] ?? 'anonymous' }}</p>
@@ -114,7 +114,7 @@
                             </button>
                         </div>
                         <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded" alt="Photo" 
-                        data-modal-target="modal-content" data-id="{{ $content->id }}" />
+                            data-modal-target="modal-content" data-id="{{ $content->id }}" />
                         <div class="image-profile">
                             <img src="{{ $content->user['photo'] ?? Vite::asset('resources/img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />
                             <p class="mil-username">{{ $content->user['name'] ?? 'anonymous' }}</p>

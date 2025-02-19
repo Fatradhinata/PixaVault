@@ -12,7 +12,7 @@
 
 @section('content')
     
-    <div class="profile">
+    <div class="profile-banner">
         <div class="profile-detail d-flex align-items-center">
             <div class="profile-image d-flex align-items-center">
                 <img src="{{ Vite::asset('resources/img/icons/user-elipse.svg') }}" alt="user">
@@ -46,10 +46,12 @@
     <div class="profile-content">
         <div class="profile-tab-nav">
             <button class="tab-btn active" data-tab="photos">
-                <img src="{{ Vite::asset('resources/img/icons/multi-image.svg') }}" alt="multiple image">Photos {{ count($contents) > 0 ? array_sum(array_map('count', $contents)) : '' }}
+                <img src="{{ Vite::asset('resources/img/icons/multi-image.svg') }}" alt="multiple image">
+                Photos {{ array_sum(array_map('count', $contents)) }}
             </button>
             <button class="tab-btn" data-tab="likes">
-                <img src="{{ Vite::asset('resources/img/icons/love-black.svg') }}" alt="likes">Likes 0
+                <img src="{{ Vite::asset('resources/img/icons/love-black.svg') }}" alt="likes">
+                Likes {{ array_sum(array_map('count', $liked)) }}
             </button>
             <button class="tab-btn role-own-profile" data-tab="stats">
                 <img src="{{ Vite::asset('resources/img/icons/stats.svg') }}" alt="stats">Stats
@@ -57,59 +59,150 @@
         </div>
         <div class="tab-content-container">
             <div class="tab-content active" id="photos">
-                <div class="row">
-                    <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
-                        @foreach ($contents[0] as $content)
-                            <div class="content-item mil-up position-relative" 
-                                data-modal-target="modal-detail" data-id="{{ $content->id }}">
-                                <div class="mil-buttons">
-                                    <p class="mil-card-title"><span>Uploaded At</span> {{ date('d/m/y', strtotime($content->created_at)) }}</p>
+
+                @if (count($contents[0]))
+                    <div class="row">
+                        <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+                            @foreach ($contents[0] as $content)
+                                <div class="content-item mil-up position-relative" 
+                                    data-modal-target="modal-detail" data-id="{{ $content->id }}">
+                                    <div class="mil-buttons">
+                                        <p class="mil-card-title"><span>Uploaded At</span> {{ date('d/m/y', strtotime($content->created_at)) }}</p>
+                                    </div>
+                                    <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded" alt="Photo" />
+                                    <div class="image-profile">
+                                        <p class="mil-card-subtitle">{{ $content->name }}</p>
+                                    </div>
                                 </div>
-                                <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded" alt="Photo" loading="lazy" />
-                                <div class="image-profile">
-                                    <p class="mil-card-subtitle">{{ $content->name }}</p>
+                            @endforeach
+                        </div>
+        
+                        <div class="col-lg-4 mb-4 mb-lg-0">
+                            @foreach ($contents[1] as $content)
+                                <div class="content-item mil-up position-relative" 
+                                    data-modal-target="modal-detail" data-id="{{ $content->id }}">
+                                    <div class="mil-buttons">
+                                        <p class="mil-card-title"><span>Uploaded At</span> {{ date('d/m/y', strtotime($content->created_at)) }}</p>
+                                    </div>
+                                    <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded" alt="Photo" />
+                                    <div class="image-profile">
+                                        <p class="mil-card-subtitle">{{ $content->name }}</p>
+                                    </div>
                                 </div>
-                            </div>
-                        @endforeach
+                            @endforeach
+                        </div>
+        
+                        <div class="col-lg-4 mb-4 mb-lg-0">
+                            @foreach ($contents[2] as $content)
+                                <div class="content-item mil-up position-relative" 
+                                    data-modal-target="modal-detail" data-id="{{ $content->id }}">
+                                    <div class="mil-buttons">
+                                        <p class="mil-card-title"><span>Uploaded At</span> {{ date('d/m/y', strtotime($content->created_at)) }}</p>
+                                    </div>
+                                    <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded" alt="Photo" />
+                                    <div class="image-profile">
+                                        <p class="mil-card-subtitle">{{ $content->name }}</p>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                        
                     </div>
-    
-                    <div class="col-lg-4 mb-4 mb-lg-0">
-                        @foreach ($contents[1] as $content)
-                            <div class="content-item mil-up position-relative" 
-                                data-modal-target="modal-detail" data-id="{{ $content->id }}">
-                                <div class="mil-buttons">
-                                    <p class="mil-card-title"><span>Uploaded At</span> {{ date('d/m/y', strtotime($content->created_at)) }}</p>
-                                </div>
-                                <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded" alt="Photo" loading="lazy" />
-                                <div class="image-profile">
-                                    <p class="mil-card-subtitle">{{ $content->name }}</p>
-                                </div>
-                            </div>
-                        @endforeach
+                @else
+                    <div class="unavailable d-flex flex-column align-items-center ">
+                        <img src="{{ Vite::asset('resources/img/icons/frowning-face.svg') }}" alt="frowning-face">
+                        <h3>This user has not uploaded any photos</h3>
                     </div>
-    
-                    <div class="col-lg-4 mb-4 mb-lg-0">
-                        @foreach ($contents[2] as $content)
-                            <div class="content-item mil-up position-relative" 
-                                data-modal-target="modal-detail" data-id="{{ $content->id }}">
-                                <div class="mil-buttons">
-                                    <p class="mil-card-title"><span>Uploaded At</span> {{ date('d/m/y', strtotime($content->created_at)) }}</p>
-                                </div>
-                                <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded" alt="Photo" loading="lazy" />
-                                <div class="image-profile">
-                                    <p class="mil-card-subtitle">{{ $content->name }}</p>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                    
-                </div>
+                @endif
+
             </div>
             <div class="tab-content" id="likes">
-                <div class="unavailable d-flex flex-column align-items-center ">
-                    <img src="{{ Vite::asset('resources/img/icons/frowning-face.svg') }}" alt="frowning-face">
-                    <h3>This user has not liked any photos</h3>
-                </div>
+
+                @if (count($liked[0]))
+                    <div class="row">
+                        <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+                            @foreach ($liked[0] as $content)
+                                <div class="content-item mil-up position-relative">
+                                    <div class="mil-buttons">
+                                        <button class="mil-love-btn like-btn" data-id="{{ $content->id }}">
+                                            @if ($content->is_liked)
+                                                <i class="fas fa-heart"></i>
+                                            @else
+                                                <i class="far fa-heart"></i>
+                                            @endif
+                                        </button>
+                                        <button class="mil-download-btn" data-href="{{ route('image.download', $content->id) }}">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                    </div>
+                                    <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded" alt="Photo"
+                                        data-modal-target="modal-content" data-id="{{ $content->id }}"/>
+                                    <div class="image-profile">
+                                        <img src="{{ $content->user['photo'] ?? Vite::asset('resources/img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />
+                                        <p class="mil-username">{{ $content->user['name'] ?? "anonymous" }}</p>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+        
+                        <div class="col-lg-4 mb-4 mb-lg-0">
+                            @foreach ($liked[1] as $content)
+                                <div class="content-item mil-up position-relative">
+                                    <div class="mil-buttons">
+                                        <button class="mil-love-btn like-btn" data-id="{{ $content->id }}">
+                                            @if ($content->is_liked)
+                                                <i class="fas fa-heart"></i>
+                                            @else
+                                                <i class="far fa-heart"></i>
+                                            @endif
+                                        </button>
+                                        <button class="mil-download-btn" data-href="{{ route('image.download', $content->id) }}">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                    </div>
+                                    <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded" alt="Photo"
+                                        data-modal-target="modal-content" data-id="{{ $content->id }}"/>
+                                    <div class="image-profile">
+                                        <img src="{{ $content->user['photo'] ?? Vite::asset('resources/img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />
+                                        <p class="mil-username">{{ $content->user['name'] ?? "anonymous" }}</p>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+        
+                        <div class="col-lg-4 mb-4 mb-lg-0">
+                            @foreach ($liked[2] as $content)
+                                <div class="content-item mil-up position-relative">
+                                    <div class="mil-buttons">
+                                        <button class="mil-love-btn like-btn" data-id="{{ $content->id }}">
+                                            @if ($content->is_liked)
+                                                <i class="fas fa-heart"></i>
+                                            @else
+                                                <i class="far fa-heart"></i>
+                                            @endif
+                                        </button>
+                                        <button class="mil-download-btn" data-href="{{ route('image.download', $content->id) }}">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                    </div>
+                                    <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded" alt="Photo"
+                                        data-modal-target="modal-content" data-id="{{ $content->id }}"/>
+                                    <div class="image-profile">
+                                        <img src="{{ $content->user['photo'] ?? Vite::asset('resources/img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />
+                                        <p class="mil-username">{{ $content->user['name'] ?? "anonymous" }}</p>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                        
+                    </div>
+                @else
+                    <div class="unavailable d-flex flex-column align-items-center ">
+                        <img src="{{ Vite::asset('resources/img/icons/frowning-face.svg') }}" alt="frowning-face">
+                        <h3>This user has not liked any photos</h3>
+                    </div>
+                @endif
+
             </div>
             <div class="tab-content tab-content-stats role-own-profile" id="stats">
                 <h4>Insights</h4>
@@ -169,9 +262,11 @@
     </div>
 
     @include('components.modal-detail')
+    @include('components.modal-content')
     
 @endsection
 
 @section('scripts')
+    @vite('resources/js/misc.js')
     @vite('resources/js/profile.js')
 @endsection

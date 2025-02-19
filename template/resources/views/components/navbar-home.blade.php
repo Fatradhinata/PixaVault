@@ -63,7 +63,7 @@
             @else
                 <div class="mil-top-panel-right">
                     <a href="{{ route('login') }}" class="mil-top-panel-buttons"
-                        style="padding-left: 2rem; padding-right: 2rem;">
+                        style="padding-left: 2rem; padding-right: 2rem; width: max-content">
                         Get Started
                     </a>
                 </div>

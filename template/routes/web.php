@@ -22,7 +22,11 @@ Route::get('/trending', [HomeController::class, 'trending'])->name('trending');
 
 Route::get('/result', [ContentController::class, 'result'])->name('result');
 Route::get('/explore', [ContentController::class, 'index'])->name('explore');
+
+// APIs
 Route::get('/image/{publicId}', [ContentController::class, 'showImage'])->name('image');
+Route::get('/content/{id}', [ContentController::class, 'getDataById']);
+Route::get('/content/get/{limit}', [ContentController::class, 'getRandom']);
 
 
 Route::middleware('auth')->group(function () {
@@ -37,8 +41,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/leaderboard', [HomeController::class, 'leaderboard'])->name('leaderboard');
         Route::get('/history_download', [HomeController::class, 'history_download'])->name('history_download');        
         
-        Route::get('/content/{id}', [ContentController::class, 'getDataById']);
-        Route::get('/content/get/{limit}', [ContentController::class, 'getRandom']);
         Route::get('/content/download/{id}', [ContentController::class, 'downloadImage'])->name('image.download');
         Route::get('/content/like/{id}', [ContentController::class, 'updateLike']);
         Route::get('/upload', [ContentController::class, 'upload'])->name('upload');
@@ -57,15 +59,11 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::middleware('admin')->group(function () {
-
+        Route::get('/admin', [AdminController::class, 'index'])->name('admin');
+        Route::get('/admin/content', [AdminController::class, 'content'])->name('admin.content');
+        Route::get('/admin/subscription', [AdminController::class, 'subscription'])->name('admin.subscription');
+        Route::get('/admin/user', [AdminController::class, 'user'])->name('admin.user-admin');
     });
-});
-
-Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/admin', [AdminController::class, 'index'])->name('admin');
-    Route::get('/admin/content', [AdminController::class, 'content'])->name('admin.content');
-    Route::get('/admin/subscription', [AdminController::class, 'subscription'])->name('admin.subscription');
-    Route::get('/admin/user', [AdminController::class, 'user'])->name('admin.user-admin');
 });
 
 Route::middleware('guest')->group(function () {
