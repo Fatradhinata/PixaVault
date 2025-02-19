@@ -1759,7 +1759,7 @@ portfolio
   display: flex;
   margin-bottom: 30px;
   cursor: pointer;
-  transform: translateY(30px) scale(0.9);
+  transform: translateY(30px) scale(1);
   border-radius: 8px;
   transition: filter 0.3s ease-in-out;
   overflow: hidden;
