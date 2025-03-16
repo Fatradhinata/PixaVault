@@ -3543,6 +3543,10 @@ textarea.form-control-lg {
   border-bottom-left-radius: 0;
 }
 
+.cursor-pointer {
+  cursor: pointer;
+}
+
 .valid-feedback {
   display: none;
   width: 100%;

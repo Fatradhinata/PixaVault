@@ -14,6 +14,26 @@
                 </div>
             </div>
             <div class="actions">
+                @auth
+                    <div class="actions-btn">
+                        <!-- Button untuk dropdown -->
+                        <div class="relative">
+                            <button class="option-btn dropdown-toggle">
+                                <img src="{{ Vite::asset('resources/img/icons/horiz-dots-variant-2.svg') }}" alt="">
+                            </button>
+
+                            <!-- Dropdown menu -->
+                            <div
+                                class="dropdown-report hidden absolute right-0 mt-2 w-40 bg-white border border-gray-300 rounded shadow-md">
+                                <p class="block px-4 py-2 text-gray-800 hover:bg-gray-200 report-btn"
+                                    data-id="{{ $content->id }}" data-modal-target="modal-report">
+                                    Report Content
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                @endauth
                 <button class="like-btn" data-id=""><i class="far fa-heart"></i></button>
                 <button class="download-btn">
                     <div>
@@ -61,7 +81,7 @@
             </button>
         </div>
 
-        
+
         <!-- Judul -->
         <div class="details">
             <div class="mb-1">
@@ -82,7 +102,8 @@
 
         <!-- Shoot By -->
         <div class="d-flex align-items-center my-1 mil-up publish-cam">
-            <img src="{{ Vite::asset('resources/img/icons/camera-variant-1.svg') }}" width="28px" height="28px" alt="cam-1">
+            <img src="{{ Vite::asset('resources/img/icons/camera-variant-1.svg') }}" width="28px" height="28px"
+                alt="cam-1">
             <p class="mb-0 shoot-by" style="color: #6c757d">-</p>
         </div>
 
@@ -91,6 +112,42 @@
             <button>example</button>
         </div>
 
+        <div id="comment-assets" data-user-image="{{ Vite::asset('resources/img/icons/user-elipse.svg') }}"
+            data-love-icon="{{ Vite::asset('resources/img/icons/love-black.svg') }}"
+            data-options-icon="{{ Vite::asset('resources/img/icons/horiz-dots-variant-2.svg') }}">
+        </div>
+
+        <div class="comment-wrapper">
+            <div class="comment-header">
+                <h3>Comment</h3>
+                <div>
+                    <p id="commentCount">0</p> <!-- Akan di-update oleh JavaScript -->
+                </div>
+            </div>
+            @auth
+                <form class="comment-input" id="commentForm">
+                    @csrf
+                    <div class="comment-profile">
+                        <img src="{{ Vite::asset('resources/img/faces/user.jpg') }}" alt="User Profile">
+                        <p id="commentUserName">{{ auth()->user()->name }}</p>
+
+                    </div>
+                    <input type="hidden" id="idContent" name="id_content" value="">
+                    <input type="text" name="comment" class="comment-input-area" placeholder="Write a comment..."
+                        autocomplete="off">
+                    <hr>
+                    <div class="btn comment-send-btn">
+                        <button type="submit">Send</button>
+                    </div>
+                </form>
+            @endauth
+            <div class="comment-list" id="commentList">
+                <p id="noCommentsText" class="text-center text-muted">No comments yet.</p>
+            </div>
+            <button class="btn comment-load-btn">Load More</button>
+        </div>
+
+
         <!-- More Image -->
         <section class="more-images">
             <div class="mt-5">
@@ -98,7 +155,7 @@
                     <h4>More Like This</h4>
                 </div>
                 <div class="row">
-                    
+
                     <div class="col-lg-4 col-md-12 mb-4 mb-lg-0 column-1">
                     </div>
 
@@ -114,6 +171,8 @@
     </div>
 </div>
 
+@include('components.modal-report')
+
 @section('scripts')
     @parent
     <script>
@@ -123,15 +182,33 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            
+            let commentAssets = document.getElementById("comment-assets");
+
+            let userImage = commentAssets.dataset.userImage;
+            let loveIcon = commentAssets.dataset.loveIcon;
+            let optionsIcon = commentAssets.dataset.optionsIcon;
+
+            var commentPage = 1;
+            var contentId;
+
+            if (document.getElementById("idContent") != null) {
+                contentId = document.getElementById("idContent")
+            }
+
+            let loadMoreButton = document.querySelector(".comment-load-btn");
+            let commentList = document.getElementById("commentList");
+
+
             const photoModal = $("#modal-content");
 
             function setField(data) {
+                console.log(data)
                 $('#modal-content').data('id', data.id);
                 $('#modal-content .like-btn')[0].dataset.id = data.id;
                 $('#modal-content .like-btn i').attr('class', ((data.is_liked) ? `fas fa-heart` : `far fa-heart`));
                 $('#modal-content .image-content').attr('src', `${BASEURL}/image/${data.photo}`);
-                $('#modal-content .profile').attr('src', (data.user) ? `${BASEURL}/profile/${data.user.photo}` : tmp_user);
+                $('#modal-content .profile').attr('src', (data.user) ? `${BASEURL}/profile/${data.user.photo}` :
+                    tmp_user);
                 $('#modal-content .follow').attr('href', `${BASEURL}/profile/${data.id_user}`);
                 $('#modal-content .username').text((data.user) ? data.user.name : 'anonymous');
                 $('#modal-content .downloads').text(data.downloads);
@@ -141,10 +218,60 @@
                 $('#modal-content .content-description').text(data.desc);
                 $('#modal-content .shoot-by').text(data.shoot_by);
                 $('#modal-content .created-at').text(data.created_at);
-                
+
+                if ($('#idContent').length) {
+                    $('#idContent').val(data.id);
+                }
+
                 $('#modal-content .tag-row').html('');
                 for (let tag of data.tags)
                     $('#modal-content .tag-row').append(`<button>${tag}</button>`);
+
+                contentId = data.id
+            }
+
+            function setCommentField(comments) {
+                const commentList = document.getElementById("commentList");
+                const commentCount = document.getElementById("commentCount");
+                const noCommentsText = document.getElementById("noCommentsText");
+
+                console.log(comments, 'asdasds')
+
+                // Kosongkan daftar komentar sebelum diisi ulang
+                commentList.innerHTML = "";
+
+                if (comments.length === 0) {
+                    // Jika tidak ada komentar, tampilkan teks "No comments yet."
+                    commentList.innerHTML =
+                        `<p id="noCommentsText" class="text-center text-muted">No comments yet.</p>`;
+                } else {
+                    // Iterasi setiap komentar dan tambahkan ke dalam `commentList`
+                    comments.forEach(comment => {
+                        const commentItem = document.createElement("div");
+                        commentItem.classList.add("comment-item");
+
+
+                        commentItem.innerHTML = `
+                <div class="comment-profile">
+                    <div>
+                        <img src="${comment.user_image ?? userImage}" alt="User Profile">
+                        <p>${comment.user_name}</p>
+                    </div>
+                    <img class="option-icon" src="${optionsIcon}" alt="">
+                </div>
+                <div class="d-flex gap-1 comment-content">
+                    <p class="comment-text">${comment.comment}</p>
+                    <div class="comment-action d-flex flex-column align-items-center justify-content-center">
+                        <img class="cursor-pointer" src="${loveIcon}" alt="love-icon">
+                        <p class="font-weight-bold">0</p>
+                    </div>
+                </div>
+                <p class="comment-time-duration">${comment.created_at}</p>
+            `;
+
+                        commentList.appendChild(commentItem);
+                    });
+                }
             }
 
             async function fetchData(url) {
@@ -153,11 +280,18 @@
                     const data = await res.json();
                     return data;
                 }
-                return {status: 'fail', message: 'No internet connection!'};
+                return {
+                    status: 'fail',
+                    message: 'No internet connection!'
+                };
             }
 
             async function refreshContent() {
-                const { status, data, message } = await fetchData(`${BASEURL}/content/get/20`);
+                const {
+                    status,
+                    data,
+                    message
+                } = await fetchData(`${BASEURL}/content/get/20`);
 
                 if (status !== 'fail') {
                     let addCard = function(data) {
@@ -179,13 +313,13 @@
 
                     $('#modal-content .more-images .col-lg-4').html('');
 
-                    for (let content of data[0]) 
+                    for (let content of data[0])
                         $('#modal-content .column-1').append(addCard(content));
-                    
-                    for (let content of data[1]) 
+
+                    for (let content of data[1])
                         $('#modal-content .column-2').append(addCard(content));
-                    
-                    for (let content of data[2]) 
+
+                    for (let content of data[2])
                         $('#modal-content .column-3').append(addCard(content));
 
                     refreshEvents();
@@ -195,8 +329,12 @@
             };
 
             async function displayData(id) {
-                const { status, data, message } = await fetchData(`${BASEURL}/content/${id}`);
-                
+                const {
+                    status,
+                    data,
+                    message
+                } = await fetchData(`${BASEURL}/content/${id}`);
+
                 if (status !== 'fail') {
                     data.tags = JSON.parse(data.tags);
                     setField(data);
@@ -205,11 +343,88 @@
                 }
             };
 
+            async function fetchComment(id, page, loadMore) {
+                try {
+                    console.log(`Fetching comments for ID: ${id}, Page: ${page}, LoadMore: ${loadMore}`);
+
+                    const response = await fetch(`${BASEURL}/comments/${id}?page=${page}`);
+
+                    const responseText = await response.text();
+                    console.log("Raw Response:", responseText);
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP ${response.status}: ${responseText}`);
+                    }
+
+                    const jsonData = JSON.parse(responseText);
+                    console.log("API Response:", jsonData);
+
+                    if (jsonData.status === 'success') {
+                        commentCount.innerHTML = jsonData.totalComment
+                        if (!jsonData.hasMore) {
+                            loadMoreButton.style.display = "none";
+                        } else {
+                            loadMoreButton.style.display = "block";
+                        }
+
+                        if (loadMore) {
+                            console.log("Appending more comments...");
+                            setLoadMoreComment(jsonData.data);
+                        } else {
+                            console.log("Replacing comments...");
+                            setCommentField(jsonData.data);
+                        }
+                    } else {
+                        console.log(jsonData.status, loadMore, 'asdsadsad')
+                        if (jsonData.status == 'fail' && loadMore == false) {
+                            loadMoreButton.style.display = "none";
+
+                            commentList.innerHTML =
+                                `<p id="noCommentsText" class="text-center text-muted">No comments yet.</p>`;
+                            commentCount.innerHTML = 0
+                        }
+                        console.error(`Server Error: ${jsonData.message || 'Unknown error'}`);
+                    }
+                } catch (error) {
+                    console.error("Fetch failed:", error.message);
+                }
+            }
+
+
+
+
+            // async function fetchComment(id) {
+            //     const {
+            //         status,
+            //         data,
+            //         message
+            //     } = await fetchData(`${BASEURL}/comments/${id}?page=1}`);
+
+            //     if(loadMore) {
+            //         setLoadMoreComment(data)
+            //     } else if (loadMore == false) {
+            //         setCommentField(data);
+            //         console.log(data)
+            //     }  else {
+            //         console.error('Error while fetching data: ' + message);
+            //     }
+            // }
+
+
+
             function refreshEvents() {
                 $('#modal-content .more-images .content-item img').each(function(i, content) {
                     content.onclick = async function() {
+
                         const id = $(this).data('id');
                         await displayData(id);
+                        console.log('askndjasndkadasmdsa')
+                        console.log(commentPage, 'asdasdsad')
+                        if (commentPage == null) {
+                            commentPage = 1
+                        }
+
+                        await fetchComment(id, 1, false);
                         refreshContent();
                     }
                 });
@@ -221,21 +436,136 @@
 
                 window.refreshLikeEvent();
             }
-    
+
+            document.getElementById("commentForm")?.addEventListener("submit", function(event) {
+                event.preventDefault(); // Stop form dari refresh
+
+                let form = this;
+                let formData = new FormData(form);
+                formData.forEach((value, key) => {
+                    console.log(`${key}:`, value);
+                });
+
+                console.log('Fetch Comments')
+                fetch("{{ route('comments.store') }}", {
+                        method: "POST",
+                        headers: {
+                            "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                        },
+                        body: formData
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(
+                                `HTTP Error! Status: ${response.status} ${response.statusText}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.success) {
+                            console.log('Upload Comment Success!')
+                            let commentList = document.getElementById("commentList");
+
+                            document.getElementById("commentUserName").textContent = data.comment
+                                .user_name;
+
+                            // Buat elemen komentar baru
+                            let newComment = document.createElement("div");
+                            newComment.classList.add("comment-item");
+                            newComment.innerHTML = `
+                    <div class="comment-profile">
+                        <div>
+                            <img src="${userImage}" alt="User Profile">
+                            <p>${data.comment.user_name}</p>
+                        </div>
+                        <img class="option-icon" src="${optionsIcon}" alt="">
+                    </div>
+                    <div class="d-flex gap-1 comment-content">
+                        <p class="comment-text">${data.comment.comment}</p>
+                        <div class="comment-action d-flex flex-column align-items-center justify-content-center">
+                            <img class="cursor-pointer" src="${loveIcon}" alt="love-icon">
+                            <p class="font-weight-bold">0</p>
+                        </div>
+                    </div>
+                    <p class="comment-time-duration">Just now</p>
+                `;
+
+                            // Masukkan ke atas daftar komentar
+                            commentList.prepend(newComment);
+
+                            // Reset form
+                            form.reset();
+                        } else {
+                            console.error(data)
+                            console.error(data.success)
+                        }
+                    })
+                    .catch(error => console.error("Error:", error));
+            });
+
+            // loadMore Function
+            loadMoreButton.addEventListener("click", function() {
+                commentPage++;
+                console.log(contentId, 'pasdpsaldpasda')
+                fetchComment(contentId, commentPage, true);
+            });
+
+            function setLoadMoreComment(data) {
+                console.log(data)
+                if (data.status === "fail") {
+                    loadMoreButton.style.display = "none";
+                    return;
+                }
+
+                if (data.length > 0 && document.getElementById("noCommentsText") != null) {
+                    document.getElementById("noCommentsText").style.display = "none";
+                }
+
+                data.forEach(comment => {
+                    console.log(comment)
+                    let newComment = document.createElement("div");
+                    newComment.classList.add("comment-item");
+                    newComment.innerHTML = `
+                <div class="comment-profile">
+                    <div>
+                        <img src="${comment.user_image ?? userImage}" alt="User Profile">
+                        <p>${comment.user_name}</p>
+                    </div>
+                    <img class="option-icon" src="${optionsIcon}" alt="">
+                </div>
+                <div class="d-flex gap-1 comment-content">
+                    <p class="comment-text">${comment.comment}</p>
+                    <div class="comment-action d-flex flex-column align-items-center justify-content-center">
+                        <img class="cursor-pointer" src="${loveIcon}" alt="love-icon">
+                        <p class="font-weight-bold">0</p>
+                    </div>
+                </div>
+                <p class="comment-time-duration">${comment.created_at}</p>
+            `;
+
+                    commentList.appendChild(newComment);
+                });
+
+                if (!data.hasMore) {
+                    loadMoreButton.style.display = "none";
+                }
+            }
+
             $('[data-modal-target="modal-content"]').on('click', async function() {
                 const id = $(this).data('id');
 
                 await displayData(id);
+                await fetchComment(id, commentPage, false);
                 refreshContent();
 
                 photoModal.fadeIn(300);
             });
-    
+
             // Hide modal on close button
             $("#modal-content .close").on("click", () => {
                 photoModal.fadeOut(300);
             });
-    
+
             // Hide modal on outside click
             window.addEventListener("click", (e) => {
                 if (e.target === photoModal[0]) {
@@ -243,7 +573,22 @@
                 }
             });
 
+            $(".dropdown-toggle").click(function(event) {
+                event.stopPropagation();
+                let dropdown = $(this).next(".dropdown-report");
+
+                // Tutup dropdown lain dulu biar gak dobel
+                $(".dropdown-report").not(dropdown).addClass("hidden");
+
+                // Toggle dropdown yang diklik
+                dropdown.toggleClass("hidden");
+            });
+
+            // Klik di luar dropdown buat nutup
+            $(document).click(function() {
+                $(".dropdown-report").addClass("hidden");
+            });
+
         });
     </script>
 @endsection
-

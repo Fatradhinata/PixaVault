@@ -1780,6 +1780,7 @@ portfolio
   }
 
   &:hover {
+
     .mil-buttons,
     .image-profile {
       opacity: 1;
@@ -3824,7 +3825,7 @@ load more
   align-items: center;
   gap: 10px;
   cursor: pointer;
-  
+
   p {
     font-family: 'Poppins';
     font-size: 14px;
@@ -3895,6 +3896,7 @@ load more
   .more-images {
     .header {
       margin-bottom: 25px;
+
       h4 {
         font-family: 'Poppins';
         font-weight: 600;
@@ -3906,7 +3908,7 @@ load more
     display: flex;
     gap: 10px;
     margin-top: 60px;
-  
+
     button {
       padding: 8px 18px;
       font-size: 16px;
@@ -3916,7 +3918,7 @@ load more
       background-color: transparent;
       border: 1px solid #7F7F7F;
       cursor: pointer;
-  
+
       &:hover {
         color: black;
         border: 1px solid black;
@@ -3972,25 +3974,69 @@ load more
   align-items: center;
   gap: 15px;
 
+  .hidden {
+    display: none !important;
+  }
+
+  .actions-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    i {
+      font-size: 20px;
+    }
+
+    img {
+      width: 20px;
+      height: 20px;
+    }
+
+    .option-btn {
+      display: flex;
+
+      img {
+        filter: brightness(0) saturate(100%);
+      }
+    }
+
+    .relative {
+      position: relative;
+
+      .dropdown-report {
+        position: absolute;
+        box-shadow: 0px 0px 2px black;
+        color: black;
+        border-radius: 8px;
+        padding: 5px 10px;
+        left: -100%;
+
+        &:hover {
+          color: red;
+        }
+
+        p {
+          display: flex;
+          width: max-content;
+          padding: 0px !important;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
   button {
     border-radius: 10px;
     outline: none;
-    background-color: #D9D9D9;
     border: none;
     cursor: pointer;
-  }
-
-  .like-btn {
+    background-color: transparent;
+    padding: 10px;
     display: flex;
     align-items: center;
-    padding: 10px;
-    
-    &:hover {
-      background-color: #7F7F7F;
 
-      i {
-        color: white;
-      }
+    &:hover {
+      background-color: #D9D9D9;
     }
   }
 
@@ -4037,6 +4083,7 @@ load more
     }
 
   }
+
   .right-part {
     img {
       filter: brightness(0) saturate(100%) invert(97%) sepia(17%) saturate(605%) hue-rotate(300deg) brightness(117%) contrast(100%);
@@ -4081,7 +4128,7 @@ load more
   display: flex;
   align-items: center;
   gap: 15px;
-  
+
   i {
     font-size: 24px;
     margin: 0 2px !important;
@@ -4313,12 +4360,15 @@ load more
 /* ------------------------------------------- */
 .favorites {
   height: fit-content !important;
-  .background-content-image {    
+
+  .background-content-image {
     height: 424px;
   }
+
   .favorites-overlay {
     height: 500px;
   }
+
   .favorites-parent {
     display: flex;
     justify-content: center;
@@ -4326,6 +4376,7 @@ load more
     min-height: 100vh;
     height: fit-content;
     margin-top: 100px;
+
     .favorites-content {
       display: flex;
       justify-content: space-between;
@@ -4339,34 +4390,41 @@ load more
       width: 1137px;
       border-radius: 10px 10px 0px 0px;
       z-index: 9;
+
       .row {
         gap: 0;
-        & > div {
+
+        &>div {
           width: 33.33%;
         }
       }
+
       .favorites-search {
         border: 1px solid black;
         padding: 15px;
         border-radius: 30px;
-        
+
         .input-group {
           display: flex;
           justify-content: space-between;
+
           input {
             border: none;
             outline: none;
-            font-size: 14px;                        
+            font-size: 14px;
           }
+
           img {
             cursor: pointer;
             filter: brightness(0.9);
           }
         }
       }
+
       div {
         gap: 10px;
         height: fit-content;
+
         p {
           color: black;
         }
@@ -4385,7 +4443,7 @@ load more
 .history {
   height: fit-content !important;
 
-  & > * {
+  &>* {
     font-family: 'Poppins';
   }
 

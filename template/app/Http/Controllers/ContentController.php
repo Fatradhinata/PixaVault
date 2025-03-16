@@ -16,6 +16,7 @@ use Intervention\Image\Facades\Image;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 
+
 class ContentController extends Controller
 {
     private function getTripleColumn($collection)
@@ -115,15 +116,68 @@ class ContentController extends Controller
             return response()->json(['status' => 'fail', 'message' => 'Something went wrong!'], 500);
         }
     }
+    // public function showImage($publicId)
+    // {
+    //     if (empty($publicId))
+    //         return response()->json(['error' => 'Public ID is required'], 400);
+
+    //     $cacheKey = "cloudinary_image_{$publicId}";
+
+    //     try {
+    //         $cachedImage = Cache::get($cacheKey);
+    //         if ($cachedImage) {
+    //             $cachedImage = base64_decode($cachedImage);
+    //             return response()->stream(function () use ($cachedImage) {
+    //                 echo $cachedImage;
+    //                 flush();
+    //             }, 200, ['Content-Type' => 'image/webp']);
+    //         }
+
+    //         $imageUrl = Cloudinary::getImage($publicId)->toUrl();
+    //         $client = new Client();
+    //         $response = $client->get($imageUrl, ['stream' => true]);
+    //         $statusCode = $response->getStatusCode();
+
+    //         if ($statusCode != 200)
+    //             return response()->json(['error' => 'Failed to fetch image from Cloudinary'], $statusCode);
+
+    //         $imageData = $response->getBody()->getContents();
+
+    //         $image = Image::make($imageData);
+    //         $quality = 50;
+    //         $maxSizeKB = 200;
+            
+    //         while (true) {
+    //             $compressedImage = $image->encode('webp', $quality);
+    //             if (strlen($compressedImage) / 1024 <= $maxSizeKB || $quality <= 10) {
+    //                 $imageData = $compressedImage; 
+    //                 break; 
+    //             }
+    //             $quality -= 3;
+    //         }
+
+    //         Cache::put($cacheKey, base64_encode($imageData), 3600);
+
+    //         return response()->stream(function() use ($imageData) {
+    //             echo $imageData;
+    //             flush();
+    //         }, 200, [ 'Content-Type' => 'image/webp' ]);
+
+    //     } catch (\Exception $e) {
+    //         return response()->json(['error' => 'Error fetching image: ' . $e->getMessage()], 500);
+    //     }
+    // }
 
     public function showImage($publicId)
     {
-        if (empty($publicId))
+        if (empty($publicId)) {
             return response()->json(['error' => 'Public ID is required'], 400);
-
+        }
+    
         $cacheKey = "cloudinary_image_{$publicId}";
-
+    
         try {
+            // Cek apakah gambar sudah ada di cache
             $cachedImage = Cache::get($cacheKey);
             if ($cachedImage) {
                 $cachedImage = base64_decode($cachedImage);
@@ -132,37 +186,33 @@ class ContentController extends Controller
                     flush();
                 }, 200, ['Content-Type' => 'image/webp']);
             }
-
-            $imageUrl = Cloudinary::getImage($publicId)->toUrl();
+    
+            // Ambil gambar dari Cloudinary dengan kualitas dikontrol langsung dari URL
+            $imageUrl = Cloudinary::getImage($publicId)
+                ->quality('auto:low') // Bisa diubah jadi 'auto:eco', 'auto:best', atau angka spesifik
+                ->format('webp') // Pastikan format WebP untuk efisiensi
+                ->toUrl();
+    
+            // Ambil gambar dari Cloudinary menggunakan Guzzle
             $client = new Client();
             $response = $client->get($imageUrl, ['stream' => true]);
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode != 200)
-                return response()->json(['error' => 'Failed to fetch image from Cloudinary'], $statusCode);
-
-            $imageData = $response->getBody()->getContents();
-
-            $image = Image::make($imageData);
-            $quality = 50;
-            $maxSizeKB = 200;
-            
-            while (true) {
-                $compressedImage = $image->encode('webp', $quality);
-                if (strlen($compressedImage) / 1024 <= $maxSizeKB || $quality <= 10) {
-                    $imageData = $compressedImage; 
-                    break; 
-                }
-                $quality -= 3;
+    
+            if ($response->getStatusCode() !== 200) {
+                return response()->json(['error' => 'Failed to fetch image from Cloudinary'], 500);
             }
-
+    
+            // Ambil isi gambar
+            $imageData = $response->getBody()->getContents();
+    
+            // Simpan ke cache
             Cache::put($cacheKey, base64_encode($imageData), 3600);
-
-            return response()->stream(function() use ($imageData) {
+    
+            // Kirim gambar sebagai stream response
+            return response()->stream(function () use ($imageData) {
                 echo $imageData;
                 flush();
-            }, 200, [ 'Content-Type' => 'image/webp' ]);
-
+            }, 200, ['Content-Type' => 'image/webp']);
+    
         } catch (\Exception $e) {
             return response()->json(['error' => 'Error fetching image: ' . $e->getMessage()], 500);
         }

@@ -294,7 +294,6 @@
             </div>
         </div>
     </section>
-
     @include('components.modal-content')
 
 @endsection

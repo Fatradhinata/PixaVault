@@ -17,6 +17,9 @@
     <link rel="stylesheet" href="{{ asset('css/plugins/magnific-popup.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
 
+    <!-- Modal Content Styles -->
+    <link rel="stylesheet" href="{{ Vite::asset('resources/css/modal-detail-comment.css') }}">
+
     @yield('styles')
 
 </head>
@@ -149,6 +152,8 @@
                 event.preventDefault();
             });
         });
+
+        
     </script>
 
     @yield('scripts')

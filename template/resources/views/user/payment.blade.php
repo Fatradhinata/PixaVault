@@ -2,7 +2,7 @@
 @section('title', 'Pricing | PixaVault')
 
 @section('styles')
-    <link rel="stylesheet" href="{{ asset('css/payment.css') }}" />
+@vite('resources/css/payment.css')
 @endsection
 
 @section('content')

@@ -10,6 +10,7 @@
         --url-checklist: url('{{ Vite::asset('resources/img/icons/checklist.svg') }}');
         --url-danger: url('{{ Vite::asset('resources/img/icons/danger.svg') }}');
         --url-warning: url('{{ Vite::asset('resources/img/icons/warning.svg') }}');
+        --url-report-success: url('{{ Vite::asset('resources/img/icons/checklist.svg') }}');
     }
 
     .alert-fixed {
@@ -118,6 +119,73 @@
         }
     }
 
+    .top-alert {
+        position: fixed;
+        top: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        padding: 35px;
+        z-index: 1000 !important;
+
+        .left-icon {
+            width: 34px;
+            height: 34px;
+            display: block;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        
+        &.top-alert-success {
+            background-color: #4CAF50;
+            color: white;
+
+            .left-icon {
+                background-image: var(--url-report-success);
+                filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(140deg) brightness(103%) contrast(108%);
+            }
+        }
+
+        .alert-content {
+            display: flex;
+            gap: 7px;
+            margin-left: auto;
+
+            p {
+                display: flex;
+                align-items: center;
+                font-family: 'Poppins';
+                font-size: 20px;
+                font-weight: 500;
+            }
+        }
+
+        .cancel-icon {
+            width: 2rem;
+            height: 2rem;
+            border: none;
+            background-color: transparent;
+            margin-left: auto;
+
+            cursor: pointer;
+            /* align-self: baseline; */
+
+            background-image: var(--url-cancel);
+            background-repeat: no-repeat;
+            background-size: cover;
+            filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(140deg) brightness(103%) contrast(108%);
+
+            &:hover {
+                filter: brightness(0);
+            }
+        }
+
+        button {
+            align-self: flex-end;
+        }
+    }
+
     @keyframes shake {
         0%,100% {
             transform: translateX(0);
@@ -168,6 +236,15 @@
         </div>
         <button type="button" class="cancel-icon">
     </div>
+@elseif (session('report-success'))
+    <?php $flashing = true; ?>
+    <div class="top-alert top-alert-success">
+        <div class="alert-content">
+            <i class="left-icon"></i>
+            <p>{!! session('report-success') !!}</p>
+        </div>
+        <button type="button" class="cancel-icon">
+    </div>
 @elseif ($errors->any())
     <?php $flashing = true; ?>
     <div class="alert alert-danger alert-fixed">
@@ -189,15 +266,25 @@
 @if ($flashing)
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            $('.alert .cancel-icon').on('click', function() {
-                $(this).closest('.alert').fadeOut(300, function() {
-                    $(this).remove()
-                });
-            });
+            // $('.alert .cancel-icon').on('click', function() {
+            //     $(this).closest('.alert').fadeOut(300, function() {
+            //         $(this).remove()
+            //     });
+            // });
 
-            setTimeout(() => {
-                $('.alert .cancel-icon')[0].click();
-            }, 4000);
+            // $('.top-alert .cancel-icon').on('click', function() {
+            //     $(this).closest('.top-alert').fadeOut(300, function() {
+            //         $(this).remove()
+            //     });
+            // });
+
+            // setTimeout(() => {
+            //     $('.alert .cancel-icon')[0].click();
+            // }, 4000);
+
+            // setTimeout(() => {
+            //     $('.top-alert .cancel-icon')[0].click();
+            // }, 4000);
         });
     </script>
 @endif
