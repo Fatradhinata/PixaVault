@@ -12,6 +12,7 @@ use App\Http\Controllers\MidtransController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\CommentLikeController;
 use PharIo\Manifest\AuthorElementCollection;
 use App\Http\Controllers\SocialiteController;
 use App\Models\Content;
@@ -46,6 +47,8 @@ Route::middleware('auth')->group(function () {
 
         Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
         Route::delete('/comments/{id}', [CommentController::class, 'destroy'])->name('comments.destroy');
+        Route::post('/comment/{commentId}/like', [CommentLikeController::class, 'likeComment']);
+        Route::delete('/comment/{commentId}/unlike', [CommentLikeController::class, 'unlikeComment']);
 
         Route::get('/content/download/{id}', [ContentController::class, 'downloadImage'])->name('image.download');
         Route::get('/content/like/{id}', [ContentController::class, 'updateLike']);

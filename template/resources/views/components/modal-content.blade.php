@@ -26,7 +26,8 @@
                             <div
                                 class="dropdown-report hidden absolute right-0 mt-2 w-40 bg-white border border-gray-300 rounded shadow-md">
                                 <p class="block px-4 py-2 text-gray-800 hover:bg-gray-200 report-btn"
-                                    data-id="{{ $content->id }}" data-modal-target="modal-report">
+                                id="report-btn"
+                                    data-id="" data-modal-target="modal-report">
                                     Report Content
                                 </p>
                             </div>
@@ -218,6 +219,7 @@
                 $('#modal-content .content-description').text(data.desc);
                 $('#modal-content .shoot-by').text(data.shoot_by);
                 $('#modal-content .created-at').text(data.created_at);
+                $('#modal-content #report-btn').attr('data-id', data.id);                
 
                 if ($('#idContent').length) {
                     $('#idContent').val(data.id);
@@ -229,6 +231,7 @@
 
                 contentId = data.id
             }
+
 
             function setCommentField(comments) {
                 const commentList = document.getElementById("commentList");
@@ -262,8 +265,8 @@
                 <div class="d-flex gap-1 comment-content">
                     <p class="comment-text">${comment.comment}</p>
                     <div class="comment-action d-flex flex-column align-items-center justify-content-center">
-                        <img class="cursor-pointer" src="${loveIcon}" alt="love-icon">
-                        <p class="font-weight-bold">0</p>
+                        <img class="cursor-pointer like-comment-btn ${comment.is_liked ? 'alr-liked liked' : ''}" data-comment-id="${comment.id}" src="${loveIcon}" alt="love-icon">
+                        <p class="font-weight-bold" id="like-count-${comment.id}">${comment.likes}</p>
                     </div>
                 </div>
                 <p class="comment-time-duration">${comment.created_at}</p>
@@ -410,7 +413,50 @@
             //     }
             // }
 
+            document.querySelector(".comment-wrapper")?.addEventListener("click", function(event) {
+                console.log("clicked");
 
+                if (event.target.classList.contains("like-comment-btn")) {
+                    let commentId = event.target.getAttribute("data-comment-id");
+                    let isLiked = event.target.classList.contains("liked");
+
+                    if (!window.isAuthenticated) { 
+                        window.location.href = "/login"; 
+                        return; 
+                    }
+
+                    let url = isLiked ? `/comment/${commentId}/unlike` : `/comment/${commentId}/like`;
+                    let method = isLiked ? "DELETE" : "POST";
+
+                    console.log(commentId, "Clicked");
+
+                    fetch(url, {
+                            method: method,
+                            headers: {
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute("content"),
+                                "Content-Type": "application/json"
+                            }
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.message.includes("successfully")) {
+                                let likeCountElement = document.getElementById(
+                                    `like-count-${commentId}`);
+                                let currentLikes = parseInt(likeCountElement.textContent);
+
+                                if (isLiked) {
+                                    likeCountElement.textContent = currentLikes - 1;
+                                    event.target.classList.remove("liked", "alr-liked");
+                                } else {
+                                    likeCountElement.textContent = currentLikes + 1;
+                                    event.target.classList.add("liked", "alr-liked");
+                                }
+                            }
+                        })
+                        .catch(error => console.error("Error:", error));
+                }
+            });
 
             function refreshEvents() {
                 $('#modal-content .more-images .content-item img').each(function(i, content) {
@@ -438,7 +484,7 @@
             }
 
             document.getElementById("commentForm")?.addEventListener("submit", function(event) {
-                event.preventDefault(); // Stop form dari refresh
+                event.preventDefault();
 
                 let form = this;
                 let formData = new FormData(form);
@@ -483,8 +529,8 @@
                     <div class="d-flex gap-1 comment-content">
                         <p class="comment-text">${data.comment.comment}</p>
                         <div class="comment-action d-flex flex-column align-items-center justify-content-center">
-                            <img class="cursor-pointer" src="${loveIcon}" alt="love-icon">
-                            <p class="font-weight-bold">0</p>
+                            <img class="cursor-pointer like-comment-btn ${comment.is_liked ? 'alr-liked liked' : ''}"  data-comment-id="${comment.id}" src="${loveIcon}" alt="love-icon">
+                            <p class="font-weight-bold" id="like-count-${comment.id}">${comment.likes}</p>
                         </div>
                     </div>
                     <p class="comment-time-duration">Just now</p>
@@ -536,8 +582,8 @@
                 <div class="d-flex gap-1 comment-content">
                     <p class="comment-text">${comment.comment}</p>
                     <div class="comment-action d-flex flex-column align-items-center justify-content-center">
-                        <img class="cursor-pointer" src="${loveIcon}" alt="love-icon">
-                        <p class="font-weight-bold">0</p>
+                        <img class="cursor-pointer like-comment-btn ${comment.is_liked ? 'alr-liked liked' : ''}"  data-comment-id="${comment.id}" src="${loveIcon}" alt="love-icon">
+                        <p class="font-weight-bold" id="like-count-${comment.id}">${comment.likes}</p>
                     </div>
                 </div>
                 <p class="comment-time-duration">${comment.created_at}</p>

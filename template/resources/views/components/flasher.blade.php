@@ -266,25 +266,25 @@
 @if ($flashing)
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // $('.alert .cancel-icon').on('click', function() {
-            //     $(this).closest('.alert').fadeOut(300, function() {
-            //         $(this).remove()
-            //     });
-            // });
+            $('.alert .cancel-icon').on('click', function() {
+                $(this).closest('.alert').fadeOut(300, function() {
+                    $(this).remove()
+                });
+            });
 
-            // $('.top-alert .cancel-icon').on('click', function() {
-            //     $(this).closest('.top-alert').fadeOut(300, function() {
-            //         $(this).remove()
-            //     });
-            // });
+            $('.top-alert .cancel-icon').on('click', function() {
+                $(this).closest('.top-alert').fadeOut(300, function() {
+                    $(this).remove()
+                });
+            });
 
-            // setTimeout(() => {
-            //     $('.alert .cancel-icon')[0].click();
-            // }, 4000);
+            setTimeout(() => {
+                $('.alert .cancel-icon')[0].click();
+            }, 4000);
 
-            // setTimeout(() => {
-            //     $('.top-alert .cancel-icon')[0].click();
-            // }, 4000);
+            setTimeout(() => {
+                $('.top-alert .cancel-icon')[0].click();
+            }, 4000);
         });
     </script>
 @endif

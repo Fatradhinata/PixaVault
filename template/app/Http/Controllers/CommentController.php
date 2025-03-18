@@ -87,9 +87,18 @@ class CommentController extends Controller
                     'user_image' => null,
                     'comment' => $comment->comment,
                     'created_at' => $comment->created_at->diffForHumans(),
+                    'likes' => $comment->likes->count(),
+                    'is_liked' => $comment->likes()->where('user_id', auth()->id())->exists()
                 ];
             }),
         ]);
     }    
+
+    public function getComments()
+{
+    $comments = Comment::with('likes')->get();
+
+    return response()->json($comments);
+}
     
 }

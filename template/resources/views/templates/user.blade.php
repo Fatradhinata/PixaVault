@@ -43,7 +43,8 @@
 
             <!-- footer -->
             <footer class="mil-relative">
-                <img src="{{ Vite::asset('resources/img/foto/4.jpg') }}" class="mil-bg-img mil-parallax" alt="image" style="object-position: top" data-value-1="-25%" data-value-2="23%" />
+                <img src="{{ Vite::asset('resources/img/foto/4.jpg') }}" class="mil-bg-img mil-parallax" alt="image"
+                    style="object-position: top" data-value-1="-25%" data-value-2="23%" />
                 <div class="mil-overlay"></div>
                 <div class="container mil-p-120-90">
                     <div class="mil-background-grid"></div>
@@ -105,7 +106,8 @@
                         </div>
                         <div class="col-lg-4">
                             <a href="home-1.html" class="mil-footer-logo mil-up mil-mb-30">
-                                <img src="{{ Vite::asset('resources/img/logo/logo_pixavault.png') }}" alt="Logo" style="width: 130px" />
+                                <img src="{{ Vite::asset('resources/img/logo/logo_pixavault.png') }}" alt="Logo"
+                                    style="width: 130px" />
                             </a>
                         </div>
                     </div>
@@ -146,19 +148,19 @@
     <script src="{{ asset('js/main.js') }}"></script>
 
     <script>
+        window.isAuthenticated = @json(auth()->check());
+
         // Disable right click on images
         document.querySelectorAll("img").forEach((img) => {
             img.addEventListener("contextmenu", (event) => {
                 event.preventDefault();
             });
         });
-
-        
     </script>
 
     @yield('scripts')
 
-    
+
 </body>
 
 </html>

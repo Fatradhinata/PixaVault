@@ -152,6 +152,12 @@
             }
           }
 
+          .alr-liked.liked { 
+            filter: brightness(0) saturate(100%) invert(25%) sepia(46%) 
+                    saturate(4931%) hue-rotate(345deg) brightness(85%) contrast(105%);
+        }
+        
+
           p {
             font-family: 'Figtree';
           }
