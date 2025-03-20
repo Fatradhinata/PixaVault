@@ -2,7 +2,7 @@
 @section('title', 'Pricing | PixaVault')
 
 @section('styles')
-@vite('resources/css/payment.css')
+    <link rel="stylesheet" href="{{ asset('css/payment.css') }}">
 @endsection
 
 @section('content')
@@ -27,7 +27,7 @@
    <div id="content">
     <div class="payment-details">
         <div class="payment-back">
-            <img src="{{ Vite::asset('resources/img/icons/back.svg') }}" alt="back-icon">
+            <img src="{{ asset('/img/icons/back.svg') }}" alt="back-icon">
             <p>Back</p>
         </div>
         <div class="payment-content">
@@ -41,21 +41,21 @@
                             <input type="radio" id="bca-v-acc">
                             <label for="bca-v-acc">
                                 <p>BCA Virtual Account</p>
-                                <img src="{{ Vite::asset('resources/img/logo/bca.svg') }}" alt="BCA Virtual Account">
+                                <img src="{{ asset('/img/logo/bca.svg') }}" alt="BCA Virtual Account">
                             </label>
                         </div>
                         <div class="payment-option">
                             <input type="radio" id="bri-v-acc">
                             <label for="bri-v-acc">
                                 <p>BRI Virtual Account</p>
-                                <img src="{{ Vite::asset('resources/img/logo/bri.svg') }}" alt="BRI Virtual Account">
+                                <img src="{{ asset('/img/logo/bri.svg') }}" alt="BRI Virtual Account">
                             </label>
                         </div>
                         <div class="payment-option">
                             <input type="radio" id="mandiri-v-acc">
                             <label for="mandiri-v-acc">
                                 <p>Mandiri Virtual Account</p>
-                                <img src="{{ Vite::asset('resources/img/logo/mandiri.svg') }}" alt="Mandiri Virtual Account">
+                                <img src="{{ asset('/img/logo/mandiri.svg') }}" alt="Mandiri Virtual Account">
                             </label>
                         </div>
                     </div>
@@ -65,21 +65,21 @@
                             <input type="radio" id="gopay-wallet">
                             <label for="gopay-wallet">
                                 <p>Gopay</p>
-                                <img src="{{ Vite::asset('resources/img/logo/Gopay.svg') }}" alt="Gopay">
+                                <img src="{{ asset('/img/logo/Gopay.svg') }}" alt="Gopay">
                             </label>
                         </div>
                         <div class="payment-option">
                             <input type="radio" id="shopeepay-wallet">
                             <label for="shopeepay-wallet">
                                 <p>Shopeepay</p>
-                                <img src="{{ Vite::asset('resources/img/logo/Shopee Pay.svg') }}" alt="Shopeepay">
+                                <img src="{{ asset('/img/logo/Shopee Pay.svg') }}" alt="Shopeepay">
                             </label>
                         </div>
                         <div class="payment-option">
                             <input type="radio" id="ovo-wallet">
                             <label for="ovo-wallet">
                                 <p>OVO</p>
-                                <img src="{{ Vite::asset('resources/img/logo/ovo.svg') }}" alt="OVO">
+                                <img src="{{ asset('/img/logo/ovo.svg') }}" alt="OVO">
                             </label>
                         </div>
                     </div>
@@ -129,6 +129,8 @@
     </div>
 </div>
 
-        <!-- content -->
 @endsection
-@vite(['resources/js/upload.js'])
+
+@section('scripts')
+    <script src="{{ asset('js/upload.js') }}"></script>
+@endsection

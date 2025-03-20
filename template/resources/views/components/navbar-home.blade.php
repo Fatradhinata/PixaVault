@@ -75,5 +75,5 @@
 
 @section('scripts')
     @parent
-    <script src=""></script>
+    <script src="{{ asset('js/navbar.js') }}"></script>
 @endsection

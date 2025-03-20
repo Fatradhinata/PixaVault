@@ -3,7 +3,7 @@
 @section('title', 'Search')
 
 @section('styles')
-    @vite('resources/css/result.css')
+    <link rel="stylesheet" href="{{ asset('css/result.css') }}">
 @endsection
 
 @section('navbar')
@@ -27,11 +27,11 @@
         <div class="tab-header">
             <div class="tab-nav">
                 <button class="tab-btn active" data-tab="photos">
-                    <img src="{{ Vite::asset('resources/img/icons/multi-image.svg') }}" alt="multiple image">
+                    <img src="{{ asset('img/icons/multi-image.svg') }}" alt="multiple image">
                     Photos <b>{{ count(array_merge($contents[0], $contents[1], $contents[2])) }}</b>
                 </button>
                 <button class="tab-btn" data-tab="users">
-                    <img src="{{ Vite::asset('resources/img/icons/people.svg') }}" alt="multiple image"
+                    <img src="{{ asset('img/icons/people.svg') }}" alt="multiple image"
                     >Users 3
                 </button>
             </div>
@@ -66,7 +66,7 @@
                         <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded" alt="Photo" 
                             data-modal-target="modal-content" data-id="{{ $content->id }}" />
                         <div class="image-profile">
-                            <img src="{{ $content->user['photo'] ?? Vite::asset('resources/img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />
+                            <img src="{{ $content->user['photo'] ?? asset('img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />
                             <p class="mil-username">{{ $content->user['name'] ?? 'anonymous' }}</p>
                         </div>
                     </div>
@@ -91,7 +91,7 @@
                         <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded" alt="Photo" 
                             data-modal-target="modal-content" data-id="{{ $content->id }}" />
                         <div class="image-profile">
-                            <img src="{{ $content->user['photo'] ?? Vite::asset('resources/img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />
+                            <img src="{{ $content->user['photo'] ?? asset('img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />
                             <p class="mil-username">{{ $content->user['name'] ?? 'anonymous' }}</p>
                         </div>
                     </div>
@@ -116,7 +116,7 @@
                         <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded" alt="Photo" 
                             data-modal-target="modal-content" data-id="{{ $content->id }}" />
                         <div class="image-profile">
-                            <img src="{{ $content->user['photo'] ?? Vite::asset('resources/img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />
+                            <img src="{{ $content->user['photo'] ?? asset('img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />
                             <p class="mil-username">{{ $content->user['name'] ?? 'anonymous' }}</p>
                         </div>
                     </div>
@@ -137,5 +137,5 @@
 @endsection
 
 @section('scripts')
-    @vite('resources/js/misc.js')
+    <script src="{{ asset('js/misc.js') }}"></script>
 @endsection

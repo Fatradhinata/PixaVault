@@ -1,7 +1,7 @@
 <!-- Modal -->
 <div class="modal" id="modal-detail">
     <div class="modal-content">
-        <img class="close" src="{{ Vite::asset('resources/img/icons/cancel.svg') }}" alt="close">
+        <img class="close" src="{{ asset('img/icons/cancel.svg') }}" alt="close">
         <hr class="line">
 
         <!-- Modal Header -->
@@ -16,7 +16,7 @@
             <div class="actions">
                 <button class="download-btn">
                     <div>
-                        <img src="{{ Vite::asset('resources/img/icons/download.svg') }}" alt="Download Icon">
+                        <img src="{{ asset('img/icons/download.svg') }}" alt="Download Icon">
                         <p>Download</p>
                     </div>
                 </button>
@@ -55,7 +55,7 @@
             </div>
 
             <button class="share-btn">
-                <img src="{{ Vite::asset('resources/img/icons/share.svg') }}" alt="share">
+                <img src="{{ asset('img/icons/share.svg') }}" alt="share">
                 <p>Share</p>
             </button>
         </div>
@@ -81,7 +81,7 @@
 
         <!-- Shoot By -->
         <div class="d-flex align-items-center my-1 mil-up publish-cam">
-            <img src="{{ Vite::asset('resources/img/icons/camera-variant-1.svg') }}" width="28px" height="28px" alt="cam-1">
+            <img src="{{ asset('img/icons/camera-variant-1.svg') }}" width="28px" height="28px" alt="cam-1">
             <p class="mb-0 shoot-by" style="color: #6c757d">-</p>
         </div>
 
@@ -97,7 +97,7 @@
     <script>
         if (typeof BASEURL === 'undefined') {
             window.BASEURL = `{{ url('/') }}`;
-            window.tmp_user = `{{ Vite::asset('resources/img/icons/user-elipse.svg') }}`;
+            window.tmp_user = `{{ asset('img/icons/user-elipse.svg') }}`;
         }
 
         // JS Modal //

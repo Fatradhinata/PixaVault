@@ -1,14 +1,14 @@
-@vite('resources/css/navbar-black.css')
+<link rel="stylesheet" href="{{ asset('css/navbar-black.css') }}">
 
 <!-- top bar -->
 <div class="mil-top-panel">
     <a href="{{ url('/') }}" class="mil-logo">
-        <img src="{{ Vite::asset('resources/img/logo/logo_pixavault.png') }}" alt="Logo" />
+        <img src="{{ asset('img/logo/logo_pixavault.png') }}" alt="Logo" />
     </a>
     <div class="search-panel" id="search-input">
         <input type="text" autocomplete="on" placeholder="Search for photos" value="{{ Request::input('q') }}">
         <button>
-            <img src="{{ Vite::asset('resources/img/icons/search-button.svg') }}" alt="search-button">
+            <img src="{{ asset('img/icons/search-button.svg') }}" alt="search-button">
         </button>
     </div>
     <div class="mil-navigation">
@@ -28,7 +28,7 @@
                 <a href="{{ url('explore') }}" class="mil-top-panel-link mil-explore" style="color: black">Explore</a>
                 <div class="nav-horizontal-dot-wrapper">
                     <div class="nav-horizontal-dot toggleDropdown">
-                        <img src="{{ Vite::asset('resources/img/icons/horiz-dots-variant-2.svg') }}" width="30px" height="30px" alt="Horizontal-Dot">
+                        <img src="{{ asset('img/icons/horiz-dots-variant-2.svg') }}" width="30px" height="30px" alt="Horizontal-Dot">
                     </div>
                     <div class="mil-nav-dropdown dropdownMenu">
                         <div>
@@ -45,7 +45,7 @@
             @if (Auth::check())
                 <div class="mil-top-panel-right">
                     <div class="mil-top-panel-user">
-                        <img src="{{ Vite::asset('resources/img/icons/user-elipse.svg') }}" width="46px" height="46px"
+                        <img src="{{ asset('img/icons/user-elipse.svg') }}" width="46px" height="46px"
                             alt="" class="toggleDropdown">
                         <div class="mil-nav-dropdown mil-nav-dropdown-user dropdownMenu">
                             <div>
@@ -61,7 +61,7 @@
                         </div>
                     </div>
                     <a href="{{ route('upload') }}" class="mil-top-panel-buttons">
-                        <img src="{{ Vite::asset('resources/img/icons/upload-icon.svg') }}"
+                        <img src="{{ asset('img/icons/upload-icon.svg') }}"
                             style="height: 24px; margin-right: 8px;"> UPLOAD
                     </a>
                 </div>
@@ -79,5 +79,5 @@
 
 @section('scripts')
     @parent
-    @vite('resources/js/navbar.js')
+    <script src="{{ asset('js/navbar.js') }}"></script>
 @endsection

@@ -1,7 +1,7 @@
 @extends('templates.user')
 
 @section('styles')
-    @vite('resources/css/edit-profile.css')
+    <link rel="stylesheet" href="{{ asset('css/edit-profile.css') }}">
 @endsection
 
 @section('navbar')
@@ -21,7 +21,7 @@
                 <div class="edit-profile">
                     <h4 class="settings-title">Edit Profile</h4>
                     <div class="profile-image-container">
-                        <img class="profile-image" src="{{ Vite::asset('resources/img/icons/user-elipse.svg') }}" alt="User Profile">
+                        <img class="profile-image" src="{{ asset('img/icons/user-elipse.svg') }}" alt="User Profile">
                         <p class="change-image-text">Change profile image</p>
                         <p class="image-requirements">
                             At least 800 x 800 px recommended. <br>
@@ -78,5 +78,5 @@
 @endsection
 
 @section('scripts')
-  @vite('resources/js/editProfile.js')
+    <script src="{{ asset('js/editProfile.js') }}"></script>
 @endsection

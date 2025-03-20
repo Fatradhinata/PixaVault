@@ -6,11 +6,11 @@
     /* ------------------------------------------- */
 
     :root {
-        --url-cancel: url('{{ Vite::asset('resources/img/icons/cancel.svg') }}');
-        --url-checklist: url('{{ Vite::asset('resources/img/icons/checklist.svg') }}');
-        --url-danger: url('{{ Vite::asset('resources/img/icons/danger.svg') }}');
-        --url-warning: url('{{ Vite::asset('resources/img/icons/warning.svg') }}');
-        --url-report-success: url('{{ Vite::asset('resources/img/icons/checklist.svg') }}');
+        --url-cancel: url('{{ asset('img/icons/cancel.svg') }}');
+        --url-checklist: url('{{ asset('img/icons/checklist.svg') }}');
+        --url-danger: url('{{ asset('img/icons/danger.svg') }}');
+        --url-warning: url('{{ asset('img/icons/warning.svg') }}');
+        --url-report-success: url('{{ asset('img/icons/checklist.svg') }}');
     }
 
     .alert-fixed {

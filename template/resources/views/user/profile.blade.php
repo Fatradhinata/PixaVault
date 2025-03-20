@@ -3,7 +3,7 @@
 @section('title', 'Profile')
 
 @section('styles')
-    @vite('resources/css/profile.css')
+    <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
 @endsection
 
 @section('navbar')
@@ -15,7 +15,7 @@
     <div class="profile-banner">
         <div class="profile-detail d-flex align-items-center">
             <div class="profile-image d-flex align-items-center">
-                <img src="{{ Vite::asset('resources/img/icons/user-elipse.svg') }}" alt="user">
+                <img src="{{ asset('/img/icons/user-elipse.svg') }}" alt="user">
             </div>
             <div class="profile-info d-flex flex-column">
                 <div class="profile-header d-flex">
@@ -25,11 +25,11 @@
                     <div class="profile-actions d-flex">
                         <div class="d-flex align-items-center role-other-user d-none">
                             <button id="button-follow" class="btn-follow">Follow</button>
-                            <button class="btn-options"><img src="{{ Vite::asset('resources/img/icons/horiz-dots.svg') }}" alt=""></button>
+                            <button class="btn-options"><img src="{{ asset('/img/icons/horiz-dots.svg') }}" alt=""></button>
                             <button class="btn-report d-none">Report</button>
                         </div>
                         <div class="d-flex align-items-center role-own-profile">
-                            <a href="{{ route('profile.edit') }}"><button class="btn-edit-profile"><img src="{{ Vite::asset('resources/img/icons/edit-pen.svg') }}" alt="">Edit Profile</button></a>
+                            <a href="{{ route('profile.edit') }}"><button class="btn-edit-profile"><img src="{{ asset('/img/icons/edit-pen.svg') }}" alt="">Edit Profile</button></a>
                         </div>
                     </div>
                 </div>
@@ -46,15 +46,15 @@
     <div class="profile-content">
         <div class="profile-tab-nav">
             <button class="tab-btn active" data-tab="photos">
-                <img src="{{ Vite::asset('resources/img/icons/multi-image.svg') }}" alt="multiple image">
+                <img src="{{ asset('/img/icons/multi-image.svg') }}" alt="multiple image">
                 Photos {{ array_sum(array_map('count', $contents)) }}
             </button>
             <button class="tab-btn" data-tab="likes">
-                <img src="{{ Vite::asset('resources/img/icons/love-black.svg') }}" alt="likes">
+                <img src="{{ asset('/img/icons/love-black.svg') }}" alt="likes">
                 Likes {{ array_sum(array_map('count', $liked)) }}
             </button>
             <button class="tab-btn role-own-profile" data-tab="stats">
-                <img src="{{ Vite::asset('resources/img/icons/stats.svg') }}" alt="stats">Stats
+                <img src="{{ asset('/img/icons/stats.svg') }}" alt="stats">Stats
             </button>
         </div>
         <div class="tab-content-container">
@@ -110,7 +110,7 @@
                     </div>
                 @else
                     <div class="unavailable d-flex flex-column align-items-center ">
-                        <img src="{{ Vite::asset('resources/img/icons/frowning-face.svg') }}" alt="frowning-face">
+                        <img src="{{ asset('/img/icons/frowning-face.svg') }}" alt="frowning-face">
                         <h3>This user has not uploaded any photos</h3>
                     </div>
                 @endif
@@ -138,7 +138,7 @@
                                     <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded" alt="Photo"
                                         data-modal-target="modal-content" data-id="{{ $content->id }}"/>
                                     <div class="image-profile">
-                                        <img src="{{ $content->user['photo'] ?? Vite::asset('resources/img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />
+                                        <img src="{{ $content->user['photo'] ?? asset('/img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />
                                         <p class="mil-username">{{ $content->user['name'] ?? "anonymous" }}</p>
                                     </div>
                                 </div>
@@ -163,7 +163,7 @@
                                     <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded" alt="Photo"
                                         data-modal-target="modal-content" data-id="{{ $content->id }}"/>
                                     <div class="image-profile">
-                                        <img src="{{ $content->user['photo'] ?? Vite::asset('resources/img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />
+                                        <img src="{{ $content->user['photo'] ?? asset('/img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />
                                         <p class="mil-username">{{ $content->user['name'] ?? "anonymous" }}</p>
                                     </div>
                                 </div>
@@ -188,7 +188,7 @@
                                     <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded" alt="Photo"
                                         data-modal-target="modal-content" data-id="{{ $content->id }}"/>
                                     <div class="image-profile">
-                                        <img src="{{ $content->user['photo'] ?? Vite::asset('resources/img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />
+                                        <img src="{{ $content->user['photo'] ?? asset('/img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />
                                         <p class="mil-username">{{ $content->user['name'] ?? "anonymous" }}</p>
                                     </div>
                                 </div>
@@ -198,7 +198,7 @@
                     </div>
                 @else
                     <div class="unavailable d-flex flex-column align-items-center ">
-                        <img src="{{ Vite::asset('resources/img/icons/frowning-face.svg') }}" alt="frowning-face">
+                        <img src="{{ asset('/img/icons/frowning-face.svg') }}" alt="frowning-face">
                         <h3>This user has not liked any photos</h3>
                     </div>
                 @endif
@@ -244,15 +244,15 @@
                     </div>
                     <div class="badge-card-achievements">
                         <div class="badge-card-achievements-icon">
-                            <img src="{{ Vite::asset('resources/img/icons/achievement-icon-1.svg') }}" alt="achievement-icon-1">
+                            <img src="{{ asset('/img/icons/achievement-icon-1.svg') }}" alt="achievement-icon-1">
                             <p>Top Like February 2025</p>
                         </div>
                         <div class="badge-card-achievements-icon">
-                            <img src="{{ Vite::asset('resources/img/icons/achievement-icon-2.svg') }}" alt="achievement-icon-2">
+                            <img src="{{ asset('/img/icons/achievement-icon-2.svg') }}" alt="achievement-icon-2">
                             <p>Top Download February 2025</p>
                         </div>
                         <div class="badge-card-achievements-icon">
-                            <img src="{{ Vite::asset('resources/img/icons/achievement-icon-3.svg') }}" alt="achievement-icon-3">
+                            <img src="{{ asset('/img/icons/achievement-icon-3.svg') }}" alt="achievement-icon-3">
                             <p>Top Like March 2025</p>
                         </div>
                     </div>
@@ -267,6 +267,7 @@
 @endsection
 
 @section('scripts')
-    @vite('resources/js/misc.js')
-    @vite('resources/js/profile.js')
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ asset('js/misc.js') }}"></script>
+    <script src="{{ asset('js/profile.js') }}"></script>
 @endsection

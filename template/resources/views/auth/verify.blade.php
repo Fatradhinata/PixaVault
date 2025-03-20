@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="{{ asset('css/plugins/magnific-popup.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     
-    @vite('resources/css/login.css')
+    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
 
     <title>Verify Email</title>
 
@@ -38,7 +38,7 @@
             </div>
         </form>
         <div class="right-content">
-            <img src="{{ Vite::asset('resources/img/illustration/verify.png') }}" alt="login illustration">
+            <img src="{{ asset('img/illustration/verify.png') }}" alt="login illustration">
         </div>
     </div>
 

@@ -3,7 +3,7 @@
 @section('title', 'Upload')
 
 @section('styles')
-    @vite('resources/css/upload.css')
+    <link rel="stylesheet" href="{{ asset('css/upload.css') }}">
 @endsection
 
 @section('content')
@@ -17,7 +17,7 @@
             <div class="header">
                 <h5>Upload Photo</h5>
                 <a href="{{ route('profile') . '/' . Auth::id() }}">
-                    <img src="{{ Vite::asset('resources/img/icons/cancel.svg') }}" width="35px" height="35px" alt="cancel">
+                    <img src="{{ asset('img/icons/cancel.svg') }}" width="35px" height="35px" alt="cancel">
                 </a>
             </div>
             <hr>
@@ -28,19 +28,19 @@
                     <!-- Upload Area -->
                     <div class="upload">
                         <div class="upload-area">
-                            <img src="{{ Vite::asset('resources/img/icons/camera.svg') }}" alt="icon-cam">
+                            <img src="{{ asset('img/icons/camera.svg') }}" alt="icon-cam">
                             <p>Drag & Drop<br>photo to Upload<br>or <span>browse</span></p>
                           </div>
                           <input type="file" name="image" id="imageInput" accept="image/*" required hidden>
                         <div class="file-detail-wrapper" style="display: none;">
                             <div class="file-detail">
-                                <img src="{{ Vite::asset('resources/img/icons/document-jpg.svg') }}" width="46px" height="46px" alt="doc-jpg">
+                                <img src="{{ asset('img/icons/document-jpg.svg') }}" width="46px" height="46px" alt="doc-jpg">
                                 <div class="filename-wrapper">
                                     <p class="filename">filename.jpg</p>
                                     <p class="file-size">3MB</p>
                                 </div>
                             </div>
-                            <img class="trash-icon" src="{{ Vite::asset('resources/img/icons/trash.svg') }}" alt="delete">
+                            <img class="trash-icon" src="{{ asset('img/icons/trash.svg') }}" alt="delete">
                         </div>
                     </div>
 
@@ -83,4 +83,4 @@
     </div>
 @endsection
 
-@vite('resources/js/upload.js')
+<script src="{{ asset('js/upload.js') }}"></script>

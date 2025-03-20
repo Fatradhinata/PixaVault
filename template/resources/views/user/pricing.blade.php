@@ -9,7 +9,7 @@
 @section('content')
     <!-- banner -->
     <section class="mil-banner mil-banner-sm">
-        <img src="{{ Vite::asset('resources/img/foto/jan-derungs-XMwAnYLHShE-unsplash.jpg') }}" class="mil-bg-img mil-scale"
+        <img src="{{ asset('img/foto/jan-derungs-XMwAnYLHShE-unsplash.jpg') }}" class="mil-bg-img mil-scale"
             data-value-1=".4" data-value-2="1.4" alt="image" />
         <div class="mil-overlay"></div>
         <div class="container">
@@ -53,11 +53,11 @@
                         <div class="mil-price-body">
                             <ul class="mil-icon-list mil-mb-30">
                                 <li class="mil-accent mil-up"><img
-                                        src="{{ Vite::asset('resources/img/icons/checklist-black.svg') }}"
+                                        src="{{ asset('img/icons/checklist-black.svg') }}"
                                         style="width: 47.65px; height: 37px; padding: 7px;" alt="icon">
                                     Free access Download Photo</li>
                                 <li class="mil-accent mil-up"><img
-                                        src="{{ Vite::asset('resources/img/icons/checklist-black.svg') }}"
+                                        src="{{ asset('img/icons/checklist-black.svg') }}"
                                         style="width: 47.65px; height: 37px; padding: 7px;" alt="icon">
                                     Free access Upload Photo</li>
                             </ul>
@@ -83,11 +83,11 @@
                         <div class="mil-price-body">
                             <ul class="mil-icon-list mil-mb-30">
                                 <li class="mil-accent mil-up"><img
-                                        src="{{ Vite::asset('resources/img/icons/checklist-black.svg') }}"
+                                        src="{{ asset('img/icons/checklist-black.svg') }}"
                                         style="width: 47.65px; height: 37px; padding: 7px;" alt="icon">
                                     Free access Download Photo</li>
                                 <li class="mil-accent mil-up"><img
-                                        src="{{ Vite::asset('resources/img/icons/checklist-black.svg') }}"
+                                        src="{{ asset('img/icons/checklist-black.svg') }}"
                                         style="width: 47.65px; height: 37px; padding: 7px;" alt="icon">
                                     Free access Upload Photo</li>
                             </ul>

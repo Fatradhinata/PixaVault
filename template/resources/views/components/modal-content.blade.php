@@ -1,7 +1,7 @@
 <!-- Modal -->
 <div class="modal" id="modal-content">
     <div class="modal-content">
-        <img class="close" src="{{ Vite::asset('resources/img/icons/cancel.svg') }}" alt="close">
+        <img class="close" src="{{ asset('img/icons/cancel.svg') }}" alt="close">
         <hr class="line">
 
         <!-- Modal Header -->
@@ -19,7 +19,7 @@
                         <!-- Button untuk dropdown -->
                         <div class="relative">
                             <button class="option-btn dropdown-toggle">
-                                <img src="{{ Vite::asset('resources/img/icons/horiz-dots-variant-2.svg') }}" alt="">
+                                <img src="{{ asset('img/icons/horiz-dots-variant-2.svg') }}" alt="">
                             </button>
 
                             <!-- Dropdown menu -->
@@ -38,7 +38,7 @@
                 <button class="like-btn" data-id=""><i class="far fa-heart"></i></button>
                 <button class="download-btn">
                     <div>
-                        <img src="{{ Vite::asset('resources/img/icons/download.svg') }}" alt="Download Icon">
+                        <img src="{{ asset('img/icons/download.svg') }}" alt="Download Icon">
                         <p>Download</p>
                     </div>
                 </button>
@@ -77,7 +77,7 @@
             </div>
 
             <button class="share-btn">
-                <img src="{{ Vite::asset('resources/img/icons/share.svg') }}" alt="share">
+                <img src="{{ asset('img/icons/share.svg') }}" alt="share">
                 <p>Share</p>
             </button>
         </div>
@@ -103,7 +103,7 @@
 
         <!-- Shoot By -->
         <div class="d-flex align-items-center my-1 mil-up publish-cam">
-            <img src="{{ Vite::asset('resources/img/icons/camera-variant-1.svg') }}" width="28px" height="28px"
+            <img src="{{ asset('img/icons/camera-variant-1.svg') }}" width="28px" height="28px"
                 alt="cam-1">
             <p class="mb-0 shoot-by" style="color: #6c757d">-</p>
         </div>
@@ -115,9 +115,9 @@
 
         <!-- Comment Wrapper -->
         <div class="comment-wrapper"
-            data-user-image="{{ Vite::asset('resources/img/icons/user-elipse.svg') }}"
-            data-love-icon="{{ Vite::asset('resources/img/icons/love-black.svg') }}"
-            data-options-icon="{{ Vite::asset('resources/img/icons/horiz-dots-variant-2.svg') }}"
+            data-user-image="{{ asset('img/icons/user-elipse.svg') }}"
+            data-love-icon="{{ asset('img/icons/love-black.svg') }}"
+            data-options-icon="{{ asset('img/icons/horiz-dots-variant-2.svg') }}"
         >
             <div class="comment-header">
                 <h3>Comment</h3>
@@ -129,7 +129,7 @@
                 <form class="comment-input" id="commentForm">
                     @csrf
                     <div class="comment-profile">
-                        <img src="{{ Vite::asset('resources/img/faces/user.jpg') }}" alt="User Profile">
+                        <img src="{{ asset('img/faces/user.jpg') }}" alt="User Profile">
                         <p id="commentUserName">{{ auth()->user()->name }}</p>
 
                     </div>
@@ -179,7 +179,7 @@
     <script>
         if (typeof BASEURL === 'undefined') {
             window.BASEURL = `{{ url('/') }}`;
-            window.tmp_user = `{{ Vite::asset('resources/img/icons/user-elipse.svg') }}`;
+            window.tmp_user = `{{ asset('img/icons/user-elipse.svg') }}`;
         }
 
         document.addEventListener('DOMContentLoaded', () => {

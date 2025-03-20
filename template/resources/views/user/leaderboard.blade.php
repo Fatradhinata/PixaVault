@@ -3,7 +3,7 @@
 @section('title', 'Leaderboard')
 
 @section('styles')
-    @vite('resources/css/leaderboard.css')
+    <link rel="stylesheet" href="{{ asset('css/leaderboard.css') }}">
 @endsection
 
 @section('navbar')
@@ -32,7 +32,7 @@
                 <div class="user-detail">
                     <h3>1</h3>
                     <div class="user-detail-core">
-                        <img src="{{ Vite::asset('resources/img/faces/user.png') }}" alt="user">
+                        <img src="{{ asset('img/faces/user.png') }}" alt="user">
                         <div class="user-name">
                             <div>
                                 <p class="username">Kelly Austin</p>
@@ -164,13 +164,13 @@
                 </div>
                 <div class="user-content">
                     <div>
-                        <img src="{{ Vite::asset('resources/img/foto/category/nature.jpg') }}" alt="">
+                        <img src="{{ asset('img/foto/category/nature.jpg') }}" alt="">
                     </div>
                     <div>
-                        <img src="{{ Vite::asset('resources/img/foto/category/landscape.jpg') }}" alt="">
+                        <img src="{{ asset('img/foto/category/landscape.jpg') }}" alt="">
                     </div>
                     <div>
-                        <img src="{{ Vite::asset('resources/img/foto/category/urban-cityscape.jpg') }}" alt="">
+                        <img src="{{ asset('img/foto/category/urban-cityscape.jpg') }}" alt="">
                     </div>
                 </div>
             </div>
@@ -281,13 +281,13 @@
                 </div>
                 <div class="user-content">
                     <div>
-                        <img src="{{ Vite::asset('resources/img/foto/category/nature.jpg') }}" alt="">
+                        <img src="{{ asset('img/foto/category/nature.jpg') }}" alt="">
                     </div>
                     <div>
-                        <img src="{{ Vite::asset('resources/img/foto/category/landscape.jpg') }}" alt="">
+                        <img src="{{ asset('img/foto/category/landscape.jpg') }}" alt="">
                     </div>
                     <div>
-                        <img src="{{ Vite::asset('resources/img/foto/category/urban-cityscape.jpg') }}" alt="">
+                        <img src="{{ asset('img/foto/category/urban-cityscape.jpg') }}" alt="">
                     </div>
                 </div>
             </div>
@@ -327,7 +327,7 @@
                 <div class="user-detail">
                     <h3>1</h3>
                     <div class="user-detail-core">
-                        <img src="{{ Vite::asset('resources/img/faces/user.png') }}" alt="user">
+                        <img src="{{ asset('img/faces/user.png') }}" alt="user">
                         <div class="user-name">
                             <div>
                                 <p class="username">Kelly Austin</p>
@@ -459,13 +459,13 @@
                 </div>
                 <div class="user-content">
                     <div>
-                        <img src="{{ Vite::asset('resources/img/foto/category/nature.jpg') }}" alt="">
+                        <img src="{{ asset('img/foto/category/nature.jpg') }}" alt="">
                     </div>
                     <div>
-                        <img src="{{ Vite::asset('resources/img/foto/category/landscape.jpg') }}" alt="">
+                        <img src="{{ asset('img/foto/category/landscape.jpg') }}" alt="">
                     </div>
                     <div>
-                        <img src="{{ Vite::asset('resources/img/foto/category/urban-cityscape.jpg') }}" alt="">
+                        <img src="{{ asset('img/foto/category/urban-cityscape.jpg') }}" alt="">
                     </div>
                 </div>
             </div>
@@ -576,13 +576,13 @@
                 </div>
                 <div class="user-content">
                     <div>
-                        <img src="{{ Vite::asset('resources/img/foto/category/nature.jpg') }}" alt="">
+                        <img src="{{ asset('img/foto/category/nature.jpg') }}" alt="">
                     </div>
                     <div>
-                        <img src="{{ Vite::asset('resources/img/foto/category/landscape.jpg') }}" alt="">
+                        <img src="{{ asset('img/foto/category/landscape.jpg') }}" alt="">
                     </div>
                     <div>
-                        <img src="{{ Vite::asset('resources/img/foto/category/urban-cityscape.jpg') }}" alt="">
+                        <img src="{{ asset('img/foto/category/urban-cityscape.jpg') }}" alt="">
                     </div>
                 </div>
             </div>
@@ -622,5 +622,5 @@
 @endsection
 
 @section('scripts')
-    @vite('resources/js/leaderboard.js')
+    <script src="{{ asset('js/leaderboard.js') }}"></script>
 @endsection

@@ -1,5 +1,3 @@
-import Chart from "chart.js/auto";
-
 document.addEventListener("DOMContentLoaded", function () {
     var role = "own-profile";
 

@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
 
     <!-- Modal Content Styles -->
-    <link rel="stylesheet" href="{{ Vite::asset('resources/css/modal-detail-comment.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/modal-detail-comment.css') }}">
 
     @yield('styles')
 
