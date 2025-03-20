@@ -113,12 +113,12 @@
             <button>example</button>
         </div>
 
-        <div id="comment-assets" data-user-image="{{ Vite::asset('resources/img/icons/user-elipse.svg') }}"
+        <!-- Comment Wrapper -->
+        <div class="comment-wrapper"
+            data-user-image="{{ Vite::asset('resources/img/icons/user-elipse.svg') }}"
             data-love-icon="{{ Vite::asset('resources/img/icons/love-black.svg') }}"
-            data-options-icon="{{ Vite::asset('resources/img/icons/horiz-dots-variant-2.svg') }}">
-        </div>
-
-        <div class="comment-wrapper">
+            data-options-icon="{{ Vite::asset('resources/img/icons/horiz-dots-variant-2.svg') }}"
+        >
             <div class="comment-header">
                 <h3>Comment</h3>
                 <div>
@@ -133,7 +133,7 @@
                         <p id="commentUserName">{{ auth()->user()->name }}</p>
 
                     </div>
-                    <input type="hidden" id="idContent" name="id_content" value="">
+                    <input type="hidden" id="id_content" name="id_content" value="">
                     <input type="text" name="comment" class="comment-input-area" placeholder="Write a comment..."
                         autocomplete="off">
                     <hr>
@@ -208,8 +208,8 @@
                 $('#modal-content .like-btn')[0].dataset.id = data.id;
                 $('#modal-content .like-btn i').attr('class', ((data.is_liked) ? `fas fa-heart` : `far fa-heart`));
                 $('#modal-content .image-content').attr('src', `${BASEURL}/image/${data.photo}`);
-                $('#modal-content .profile').attr('src', (data.user) ? `${BASEURL}/profile/${data.user.photo}` :
-                    tmp_user);
+                $('#modal-content .profile').attr('src', (data.user) ? 
+                    `${BASEURL}/profile/${data.user.photo}` : tmp_user);
                 $('#modal-content .follow').attr('href', `${BASEURL}/profile/${data.id_user}`);
                 $('#modal-content .username').text((data.user) ? data.user.name : 'anonymous');
                 $('#modal-content .downloads').text(data.downloads);
@@ -234,6 +234,7 @@
 
 
             function setCommentField(comments) {
+                console.log(comments)
                 const commentList = document.getElementById("commentList");
                 const commentCount = document.getElementById("commentCount");
                 const noCommentsText = document.getElementById("noCommentsText");
@@ -414,8 +415,7 @@
             // }
 
             document.querySelector(".comment-wrapper")?.addEventListener("click", function(event) {
-                console.log("clicked");
-
+                
                 if (event.target.classList.contains("like-comment-btn")) {
                     let commentId = event.target.getAttribute("data-comment-id");
                     let isLiked = event.target.classList.contains("liked");
@@ -511,7 +511,6 @@
                         if (data.success) {
                             console.log('Upload Comment Success!')
                             let commentList = document.getElementById("commentList");
-
                             document.getElementById("commentUserName").textContent = data.comment
                                 .user_name;
 
@@ -529,8 +528,8 @@
                     <div class="d-flex gap-1 comment-content">
                         <p class="comment-text">${data.comment.comment}</p>
                         <div class="comment-action d-flex flex-column align-items-center justify-content-center">
-                            <img class="cursor-pointer like-comment-btn ${comment.is_liked ? 'alr-liked liked' : ''}"  data-comment-id="${comment.id}" src="${loveIcon}" alt="love-icon">
-                            <p class="font-weight-bold" id="like-count-${comment.id}">${comment.likes}</p>
+                            <img class="cursor-pointer like-comment-btn ${data.comment.is_liked ? 'alr-liked liked' : ''}"  data-comment-id="${data.comment.id}" src="${loveIcon}" alt="love-icon">
+                            <p class="font-weight-bold" id="like-count-${data.comment.id}">${data.comment.likes}</p>
                         </div>
                     </div>
                     <p class="comment-time-duration">Just now</p>
@@ -597,6 +596,7 @@
                 }
             }
 
+            // Open Modal
             $('[data-modal-target="modal-content"]').on('click', async function() {
                 const id = $(this).data('id');
 
@@ -607,6 +607,7 @@
                 photoModal.fadeIn(300);
             });
 
+
             // Hide modal on close button
             $("#modal-content .close").on("click", () => {
                 photoModal.fadeOut(300);
@@ -614,23 +615,23 @@
 
             // Hide modal on outside click
             window.addEventListener("click", (e) => {
-                if (e.target === photoModal[0]) {
+                if (e.target === photoModal[0])
                     photoModal.fadeOut(300);
-                }
             });
+
+
+
+            // Dropdown Events
 
             $(".dropdown-toggle").click(function(event) {
                 event.stopPropagation();
                 let dropdown = $(this).next(".dropdown-report");
 
-                // Tutup dropdown lain dulu biar gak dobel
                 $(".dropdown-report").not(dropdown).addClass("hidden");
 
-                // Toggle dropdown yang diklik
                 dropdown.toggleClass("hidden");
             });
 
-            // Klik di luar dropdown buat nutup
             $(document).click(function() {
                 $(".dropdown-report").addClass("hidden");
             });

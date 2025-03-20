@@ -32,7 +32,10 @@ class CommentController extends Controller
             'comment' => [
                 'user_name' => $user->name,
                 // 'user_image' => asset('storage/profile/' . auth()->user()->profile_image),
-                'comment' => $comment->comment
+                'comment' => $comment->comment,
+                'id' => $comment->id,
+                'likes' => $comment->likes->count() ?? 0,
+                'is_liked' => $comment->likes()->where('user_id', auth()->id())->exists()
             ]
         ]);
     }
@@ -87,7 +90,7 @@ class CommentController extends Controller
                     'user_image' => null,
                     'comment' => $comment->comment,
                     'created_at' => $comment->created_at->diffForHumans(),
-                    'likes' => $comment->likes->count(),
+                    'likes' => $comment->likes->count() ?? 0,
                     'is_liked' => $comment->likes()->where('user_id', auth()->id())->exists()
                 ];
             }),

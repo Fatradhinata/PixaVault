@@ -9,7 +9,7 @@
 @section('content')
     <!-- banner -->
     <section class="mil-banner">
-        <img src="{{ Vite::asset('resources/img/foto/jan-derungs-XMwAnYLHShE-unsplash.jpg') }}" class="mil-bg-img mil-scale"
+        <img src="{{ asset('img/foto/jan-derungs-XMwAnYLHShE-unsplash.jpg') }}" class="mil-bg-img mil-scale"
             data-value-1=".4" data-value-2="1.4" alt="image" />
 
         <div class="mil-overlay"></div>
@@ -25,7 +25,7 @@
                             <div class="mil-sidebar-search mil-up mil-mb-30" id="search-input">
                                 <input type="text" placeholder="Search images..." />
                                 <button>
-                                    <img src="{{ Vite::asset('resources/img/icons/13.svg') }}" alt="search" />
+                                    <img src="{{ asset('img/icons/13.svg') }}" alt="search" />
                                 </button>
                             </div>
                         </div>
@@ -79,7 +79,7 @@
                     <span class="mil-suptitle mil-upper mil-up mil-mb-30">Insights</span>
                     <h2 class="mil-upper mil-up mil-mb-30">Trending Images</h2>
                     <a href="{{ 'trending' }}" class="mil-link mil-upper mil-up">See All
-                        <span class="mil-arrow"><img src="{{ Vite::asset('resources/img/icons/1.svg') }}"
+                        <span class="mil-arrow"><img src="{{ asset('img/icons/1.svg') }}"
                                 alt="arrow" /></span></a>
                 </div>
             </div>
@@ -105,7 +105,7 @@
                             <img src="{{ route('image', $content->photo) }}" height="300" class="w-100 shadow-1-strong rounded" alt="Photo"
                                 loading="lazy" data-modal-target="modal-content" data-id="{{ $content->id }}" />
                             <div class="image-profile">
-                                <img src="{{ $content->user['photo'] ?? Vite::asset('resources/img/icons/user-elipse.svg') }}"
+                                <img src="{{ $content->user['photo'] ?? asset('img/icons/user-elipse.svg') }}"
                                     alt="Profile Picture" class="mil-profile-img" />
                                 <p class="mil-username">
                                     {{ $content->user['name'] ?? "anonymous" }}
@@ -136,7 +136,7 @@
                             <img src="{{ route('image', $content->photo) }}" height="300" class="w-100 shadow-1-strong rounded" alt="Photo"
                                 loading="lazy" data-modal-target="modal-content" data-id="{{ $content->id }}" />
                             <div class="image-profile">
-                                <img src="{{ $content->user['photo'] ?? Vite::asset('resources/img/icons/user-elipse.svg') }}"
+                                <img src="{{ $content->user['photo'] ?? asset('img/icons/user-elipse.svg') }}"
                                     alt="Profile Picture" class="mil-profile-img" />
                                 <p class="mil-username">
                                     {{ $content->user['name'] ?? "anonymous" }}
@@ -167,7 +167,7 @@
                             <img src="{{ route('image', $content->photo) }}" height="300" class="w-100 shadow-1-strong rounded" alt="Photo"
                                 loading="lazy" data-modal-target="modal-content" data-id="{{ $content->id }}" />
                             <div class="image-profile">
-                                <img src="{{ $content->user['photo'] ?? Vite::asset('resources/img/icons/user-elipse.svg') }}"
+                                <img src="{{ $content->user['photo'] ?? asset('img/icons/user-elipse.svg') }}"
                                     alt="Profile Picture" class="mil-profile-img" />
                                 <p class="mil-username">
                                     {{ $content->user['name'] ?? "anonymous" }}
@@ -194,7 +194,7 @@
                             Dive into a world of creativity with handpicked collections tailored to your interests.
                         </p>
                         <a href="{{ 'explore' }}" class="mil-link mil-upper mil-up">See All
-                            <span class="mil-arrow"><img src="{{ Vite::asset('resources/img/icons/1.svg') }}"
+                            <span class="mil-arrow"><img src="{{ asset('img/icons/1.svg') }}"
                                     alt="arrow" /></span></a>
                     </div>
                 </div>
@@ -220,7 +220,7 @@
                                         alt="Photo" loading="lazy" data-modal-target="modal-content"
                                         data-id="{{ $content->id }}" />
                                     <div class="image-profile">
-                                        <img src="{{ $content->user['photo'] ?? Vite::asset('resources/img/icons/user-elipse.svg') }}"
+                                        <img src="{{ $content->user['photo'] ?? asset('img/icons/user-elipse.svg') }}"
                                             alt="Profile Picture" class="mil-profile-img" />
                                         <p class="mil-username">
                                             {{ $content->user['name'] ?? "anonymous" }}
@@ -250,7 +250,7 @@
                                         alt="Photo" loading="lazy" data-modal-target="modal-content"
                                         data-id="{{ $content->id }}" />
                                     <div class="image-profile">
-                                        <img src="{{ $content->user['photo'] ?? Vite::asset('resources/img/icons/user-elipse.svg') }}"
+                                        <img src="{{ $content->user['photo'] ?? asset('img/icons/user-elipse.svg') }}"
                                             alt="Profile Picture" class="mil-profile-img" />
                                         <p class="mil-username">
                                             {{ $content->user['name'] ?? "anonymous" }}
@@ -280,7 +280,7 @@
                                         alt="Photo" loading="lazy" data-modal-target="modal-content"
                                         data-id="{{ $content->id }}" />
                                     <div class="image-profile">
-                                        <img src="{{ $content->user['photo'] ?? Vite::asset('resources/img/icons/user-elipse.svg') }}"
+                                        <img src="{{ $content->user['photo'] ?? asset('img/icons/user-elipse.svg') }}"
                                             alt="Profile Picture" class="mil-profile-img" />
                                         <p class="mil-username">
                                             {{ $content->user['name'] ?? "anonymous" }}

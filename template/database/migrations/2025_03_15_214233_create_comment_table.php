@@ -17,8 +17,7 @@ return new class extends Migration
             $table->uuid('id_content');
             $table->text('comment');
             $table->timestamps();
-
-            // Foreign Key Constraints
+            
             $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('id_content')->references('id')->on('contents')->onDelete('cascade');
         });
