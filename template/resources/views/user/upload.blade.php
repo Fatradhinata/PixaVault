@@ -17,7 +17,7 @@
             <div class="header">
                 <h5>Upload Photo</h5>
                 <a href="{{ route('profile') . '/' . Auth::id() }}">
-                    <img src="{{ asset('img/icons/cancel.svg') }}" width="35px" height="35px" alt="cancel">
+                    <img src="{{ asset('img/icons/back.svg') }}" width="35px" height="35px" alt="back">
                 </a>
             </div>
             <hr>

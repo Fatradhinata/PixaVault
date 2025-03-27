@@ -150,6 +150,22 @@
     <script>
         window.isAuthenticated = @json(auth()->check());
 
+        document.addEventListener("DOMContentLoaded", function() {
+            const hamburger = document.querySelector(".nav-min-sm img");
+            const navMenu = document.querySelector(".nav-max-sm"); 
+
+            hamburger.addEventListener("click", function() {
+                navMenu.classList.toggle("active"); 
+            });
+
+            document.addEventListener("click", function(event) {
+                if (!hamburger.contains(event.target) && !navMenu.contains(event.target)) {
+                    navMenu.classList.remove("active");
+                }
+            });
+        });
+
+
         // Disable right click on images
         document.querySelectorAll("img").forEach((img) => {
             img.addEventListener("contextmenu", (event) => {

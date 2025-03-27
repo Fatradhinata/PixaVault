@@ -5,7 +5,7 @@
 @endsection
 
 @section('navbar')
-    @include('components.navbar-white')
+    @include('components.navbar-black')
 @endsection
 
 @section('content')
@@ -28,7 +28,7 @@
         </div>
         <!-- Gallery -->
         <div class="row">
-            <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+            <div class="col-lg-4 col-md-4 mb-4 col-sm-4 mb-lg-0 px-sm-2">
                 <div class="content-item mil-up position-relative">
                     <div class="mil-buttons">
                         <button class="mil-love-btn"><i class="fas fa-heart"></i></button>
@@ -66,7 +66,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-4 mb-4 mb-lg-0">
+            <div class="col-lg-4 col-md-4 mb-4 col-sm-4 mb-lg-0 px-sm-2">
                 <div class="content-item mil-up position-relative">
                     <div class="mil-buttons">
                         <button class="mil-love-btn"><i class="fas fa-heart"></i></button>
@@ -104,7 +104,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-4 mb-4 mb-lg-0">
+            <div class="col-lg-4 col-md-4 mb-4 col-sm-4 mb-lg-0 px-sm-2">
                 <div class="content-item mil-up position-relative">
                     <div class="mil-buttons">
                         <button class="mil-love-btn"><i class="fas fa-heart"></i></button>

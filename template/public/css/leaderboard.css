@@ -20,12 +20,17 @@
   }
 
   @media (max-width: 1024px) {
-    padding: 120px 15px;
+    padding: 150px 15px;
   }
 
   @media (max-width: 768px) {
+    width: inherit;
     margin: 0 20px;
-    padding: 100px 10px;
+    padding: 150px 10px;
+  }
+
+  @media (max-width: 576px) {    
+    padding: 150px 0px;
   }
 }
 
@@ -33,6 +38,10 @@
   display: flex;
   position: relative;
   justify-content: space-between;
+
+  @media (max-width: 992px) {
+    justify-content: center;
+  }
 
   .tab-nav {
     display: flex;
@@ -71,17 +80,6 @@
       filter: none;
     }
   }
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: center;
-
-    .tab-nav {
-      flex-wrap: wrap;
-      gap: 10px;
-      justify-content: center;
-    }
-  }
 }
 
 .tab-content {
@@ -89,6 +87,12 @@
   opacity: 0;
   transition: opacity 0.3s ease;
   min-height: 70vh;
+  margin-left: 0px !important;
+  width: inherit;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 
   .leaderboard-row {
     display: flex;
@@ -96,22 +100,17 @@
     align-items: center;
     padding: 10px 0;
 
-    @media (max-width: 768px) {
-      flex-direction: column;
+    @media (max-width: 992px) {
       gap: 20px;
-      align-items: flex-start;
+      flex-direction: column;
+      border-bottom: 1px solid #D9D9D9;
+      padding: 40px 0px;
     }
 
     .user-detail {
       display: flex;
       gap: 36px;
       align-items: center;
-
-      @media (max-width: 768px) {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-      }
 
       .user-detail-core {
         display: flex;
@@ -166,13 +165,12 @@
       display: flex;
       gap: 14px;
 
-      img {
-        object-fit: cover;
+      @media (max-width: 768px) {
+        width: 100%;
       }
 
-      @media (max-width: 768px) {
-        flex-wrap: wrap;
-        justify-content: center;
+      img {
+        object-fit: cover;
       }
 
       div {
@@ -183,16 +181,11 @@
 
         @media (max-width: 768px) {
           width: 100%;
-          height: auto;
         }
 
         img {
           width: 100%;
           height: 100%;
-
-          @media (max-width: 768px) {
-            height: auto;
-          }
         }
       }
     }
@@ -204,4 +197,8 @@
   flex-direction: column;
   gap: 50px;
   opacity: 1;
+
+  @media (max-width: 992px) {
+    gap: 0px;
+  }
 }

@@ -62,7 +62,7 @@
 
                 @if (count($contents[0]))
                     <div class="row">
-                        <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+                        <div class="col-lg-4 col-md-4 mb-4 col-sm-4 mb-lg-0 px-sm-2">
                             @foreach ($contents[0] as $content)
                                 <div class="content-item mil-up position-relative" 
                                     data-modal-target="modal-detail" data-id="{{ $content->id }}">
@@ -77,7 +77,7 @@
                             @endforeach
                         </div>
         
-                        <div class="col-lg-4 mb-4 mb-lg-0">
+                        <div class="col-lg-4 col-md-4 mb-4 col-sm-4 mb-lg-0 px-sm-2">
                             @foreach ($contents[1] as $content)
                                 <div class="content-item mil-up position-relative" 
                                     data-modal-target="modal-detail" data-id="{{ $content->id }}">
@@ -92,7 +92,7 @@
                             @endforeach
                         </div>
         
-                        <div class="col-lg-4 mb-4 mb-lg-0">
+                        <div class="col-lg-4 col-md-4 mb-4 col-sm-4 mb-lg-0 px-sm-2">
                             @foreach ($contents[2] as $content)
                                 <div class="content-item mil-up position-relative" 
                                     data-modal-target="modal-detail" data-id="{{ $content->id }}">

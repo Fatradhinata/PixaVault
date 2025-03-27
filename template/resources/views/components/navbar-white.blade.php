@@ -18,7 +18,10 @@
             </button>
         </div>
         <div class="mil-navigation">
-            <nav>
+            <nav class="nav-min-sm">
+                <img src="{{ asset('img/icons/hamburger.svg') }}" alt="">
+            </nav>
+            <nav class="nav-max-sm">
                 <div class="mil-top-panel-right">
                     @auth
                         <p style="color: white;" class="mil-credit">
@@ -31,10 +34,18 @@
                             @endif
                         </p>
                     @endauth
-                    <a href="{{ url('explore') }}" class="mil-top-panel-link mil-explore" style="color: black">Explore</a>
+                    <a href="{{ url('explore') }}" class="mil-top-panel-link mil-explore"
+                        style="color: black">Explore</a>
+                    <a href="{{ route('leaderboard') }}"
+                        class="mil-top-panel-link mil-leaderboard mil-top-panel-link-max-sm">Leaderboard</a>
+                    <a href="{{ route('pricing') }}"
+                        class="mil-top-panel-link mil-pricing mil-top-panel-link-max-sm">Pricing</a>
+                    <a href="{{ route('profile', ['id' => Auth::user()->id]) }}"
+                        class="mil-top-panel-link mil-pricing mil-top-panel-link-max-sm">View Profile</a>
                     <div class="nav-horizontal-dot-wrapper">
                         <div class="nav-horizontal-dot toggleDropdown">
-                            <img src="{{ asset('img/icons/horiz-dots-variant-2.svg') }}" width="30px" height="30px" alt="Horizontal-Dot">
+                            <img src="{{ asset('img/icons/horiz-dots-variant-2.svg') }}" width="30px" height="30px"
+                                alt="Horizontal-Dot">
                         </div>
                         <div class="mil-nav-dropdown dropdownMenu">
                             <div>
@@ -43,6 +54,19 @@
                                 </a>
                                 <a href="{{ route('pricing') }}">
                                     <button>Pricing</button>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="mil-nav-dropdown dropdownMenu mil-nav-dropdown-md">
+                            <div>
+                                <a href="{{ route('leaderboard') }}">
+                                    <button>Leaderboard</button>
+                                </a>
+                                <a href="{{ route('pricing') }}">
+                                    <button>Pricing</button>
+                                </a>
+                                <a href="{{ route('pricing') }}">
+                                    <button>Explore</button>
                                 </a>
                             </div>
                         </div>
@@ -64,11 +88,12 @@
                                         <button class="mil-nav-dropdown-logout">Logout</button>
                                     </a>
                                 </div>
-                            </div>
+                            </div>                           
                         </div>
-                        <a href="{{ route('upload') }}" class="mil-top-panel-buttons">
+                        <a href="{{ route('upload') }}" class="mil-top-panel-buttons upload-title">
                             <img src="{{ asset('img/icons/upload-icon.svg') }}"
-                                style="height: 24px; margin-right: 8px;"> UPLOAD
+                                style="height: 24px; margin-right: 8px;">
+                            <p>UPLOAD</p>
                         </a>
                     </div>
                 @else

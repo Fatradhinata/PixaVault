@@ -1,15 +1,16 @@
 /* ---------- THIS CONTENT STYLE --------- */
 
 .container {
-  margin: 0 145px;
   padding: 180px 20px;
   display: flex;
   flex-direction: column;
   gap: 40px;
   /* padding-top: 180px; */
 
-  @media (max-width: 1400px) {
-    margin: 0 auto;
+  h3 {
+    @media (max-width: 576px) {
+      text-align: center;
+    }
   }
 }
 
@@ -40,6 +41,12 @@
     z-index: 1;
     color: black;
     border-bottom: 2px solid black;
+
+    @media (max-width: 576px) {
+      img {
+        width: 20px;
+      }
+    }
   }
 }
 
@@ -47,6 +54,15 @@
   display: flex;
   align-items: center;
   gap: 20px;
+
+  @media (max-width: 576px) {
+    p {
+      display: none;
+    }
+    .dropdown {
+      padding: 7px 10px;
+    }
+  }
 
   p {
     font-size: 16px;

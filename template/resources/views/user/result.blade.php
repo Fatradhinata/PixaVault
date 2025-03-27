@@ -47,7 +47,7 @@
         </div>
         <!-- Gallery -->
         <div class="row tab-content active" id="photos">
-            <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+            <div class="col-lg-4 col-md-4 mb-4 col-sm-4 mb-lg-0 px-sm-2">
 
                 @foreach ($contents[0] as $content)
                     <div class="content-item mil-up position-relative">
@@ -73,7 +73,7 @@
                 @endforeach
             </div>
 
-            <div class="col-lg-4 mb-4 mb-lg-0">
+            <div class="col-lg-4 col-md-4 mb-4 col-sm-4 mb-lg-0 px-sm-2">
                 @foreach ($contents[1] as $content)
                     <div class="content-item mil-up position-relative">
                         <div class="mil-buttons">
@@ -98,7 +98,7 @@
                 @endforeach
             </div>
 
-            <div class="col-lg-4 mb-4 mb-lg-0">
+            <div class="col-lg-4 col-md-4 mb-4 col-sm-4 mb-lg-0 px-sm-2">
                 @foreach ($contents[2] as $content)
                     <div class="content-item mil-up position-relative">
                         <div class="mil-buttons">

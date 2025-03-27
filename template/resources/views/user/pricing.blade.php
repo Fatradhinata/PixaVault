@@ -41,11 +41,11 @@
                 <div class="col-lg-6">
                     <div class="mil-price-card mil-up mil-mb-30">
                         <div class="mil-price-head mil-up mil-mb-15">
-                            <div class="mil-upper mil-dark mil-mb-10">Premium Pro</div>
-                            <div class="mil-flex align-items-center mil-mb-30 justify-content-between">
-                                <div class="mil-dark font-lg-24 l-height-normal font-700 l-height-30">UPGRADE TO<br>12
+                            <div class="mil-upper mil-dark mil-mb-10 mil-sm-center">Premium Pro</div>
+                            <div class="mil-flex align-items-center gap-sm flex-max-sm-column mil-mb-30 justify-content-between">
+                                <div class="mil-dark font-lg-24 text-max-sm-center l-height-normal font-700 l-height-30">UPGRADE TO <br class="d-max-sm-none">12
                                     MONTHS</div>
-                                <h3 class="mil-dark mil-price-text mil-right l-height-30">$56.00 <br><span
+                                <h3 class="mil-dark mil-price-text text-max-sm-center mil-right l-height-30">$56.00<br class="d-max-sm-none"><span
                                         class="mil-text-lg mil-extra-thin">/ Year</span></h3>
                             </div>
                         </div>
@@ -54,12 +54,12 @@
                             <ul class="mil-icon-list mil-mb-30">
                                 <li class="mil-accent mil-up"><img
                                         src="{{ asset('img/icons/checklist-black.svg') }}"
-                                        style="width: 47.65px; height: 37px; padding: 7px;" alt="icon">
-                                    Free access Download Photo</li>
+                                        style="width: 47.65px; height: 37px; padding: 7px;" alt="icon" class="mx-2 mx-sm-4">
+                                    <p class="break-sm-spaces">Free access Download Photo</p></li>
                                 <li class="mil-accent mil-up"><img
                                         src="{{ asset('img/icons/checklist-black.svg') }}"
-                                        style="width: 47.65px; height: 37px; padding: 7px;" alt="icon">
-                                    Free access Upload Photo</li>
+                                        style="width: 47.65px; height: 37px; padding: 7px;" alt="icon" class="mx-2 mx-sm-4">
+                                    <p class="break-sm-spaces">Free access Upload Photo</p></li>
                             </ul>
                         </div>
                         <div class="mil-price-button mil-up">
@@ -71,11 +71,11 @@
                 <div class="col-lg-6">
                     <div class="mil-price-card mil-up mil-mb-30">
                         <div class="mil-price-head mil-up mil-mb-15">
-                            <div class="mil-upper mil-dark mil-mb-10">Premium Pro</div>
-                            <div class="mil-flex align-items-center mil-mb-30 justify-content-between">
-                                <div class="mil-dark font-lg-24 l-height-normal font-700 l-height-30">UPGRADE TO<br>1 MONTH
+                            <div class="mil-upper mil-dark mil-mb-10 mil-sm-center">Premium Pro</div>
+                            <div class="mil-flex align-items-center gap-sm flex-max-sm-column mil-mb-30 justify-content-between">
+                                <div class="mil-dark font-lg-24 text-max-sm-center l-height-normal font-700 l-height-30">UPGRADE TO <br class="d-max-sm-none">1 MONTH
                                 </div>
-                                <h3 class="mil-dark mil-price-text mil-right l-height-30">$7.00 <br><span
+                                <h3 class="mil-dark mil-price-text text-max-sm-center mil-right l-height-30">$7.00<br class="d-max-sm-none"><span
                                         class="mil-text-lg mil-extra-thin">/ Month</span></h3>
                             </div>
                         </div>
@@ -84,12 +84,12 @@
                             <ul class="mil-icon-list mil-mb-30">
                                 <li class="mil-accent mil-up"><img
                                         src="{{ asset('img/icons/checklist-black.svg') }}"
-                                        style="width: 47.65px; height: 37px; padding: 7px;" alt="icon">
-                                    Free access Download Photo</li>
+                                        style="width: 47.65px; height: 37px; padding: 7px;" alt="icon" class="mx-2 mx-sm-4">
+                                    <p class="break-sm-spaces">Free access Download Photo</p></li>
                                 <li class="mil-accent mil-up"><img
                                         src="{{ asset('img/icons/checklist-black.svg') }}"
-                                        style="width: 47.65px; height: 37px; padding: 7px;" alt="icon">
-                                    Free access Upload Photo</li>
+                                        style="width: 47.65px; height: 37px; padding: 7px;" alt="icon" class="mx-2 mx-sm-4">
+                                    <p class="break-sm-spaces">Free access Upload Photo</p></li>
                             </ul>
                         </div>
                         <div class="mil-price-button mil-up">

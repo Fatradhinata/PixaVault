@@ -2291,6 +2291,95 @@ top panel
   text-align: center;
 }
 
+.mil-navigation {
+  .nav-min-sm {
+    display: none;
+  }
+
+  .mil-top-panel-link-max-sm {
+    display: none;
+  }
+
+  .logout-title {
+    display: none;
+  }
+
+  @media screen and (max-width: 640px) {
+    .nav-min-sm {
+      display: flex;
+      flex-direction: column;
+
+      img {
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+      }
+    }
+
+    .mil-top-panel-user {
+      display: none !important;
+    }
+
+    .mil-top-panel-right {
+      flex-direction: column;
+
+      .upload-title {
+        gap: 6px;
+        width: 100%;
+        justify-content: space-evenly;
+        
+        p {
+          display: flex;
+          font-size: 18px;
+        }
+      }
+      
+      .logout-title {
+        display: flex;
+        width: 100%;
+        justify-content: space-evenly;
+        background-color: red;
+        color: white;
+        text-transform: uppercase;
+        gap: 6px;
+
+        p {
+          display: flex;
+          font-size: 18px;
+        }
+      }
+    }
+
+    .nav-max-sm {
+      display: none;
+      position: absolute;
+      top: 90px;
+      left: 0;
+      width: 100%;
+      background-color: #7F7F7F;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      z-index: 1000;
+    }
+
+    .nav-max-sm.active {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .mil-top-panel-link-max-sm {
+      display: flex;
+    }
+
+    .nav-horizontal-dot-wrapper {
+      display: none;
+    }
+
+  }
+}
+
 .mil-navigation nav {
   width: 100%;
   display: flex;
@@ -2383,9 +2472,14 @@ top panel
   transform: translateY(0) scale(1);
 }
 
+.mil-nav-dropdown-md {
+  display: none;
+}
+
+
+
 @media screen and (max-width: 1200px) {
-  .mil-navigation {
-    position: absolute;
+  /* .mil-navigation {
     top: 100%;
     left: 0;
     opacity: 0;
@@ -2396,7 +2490,7 @@ top panel
     width: 100%;
     background-color: rgb(188, 255, 0);
     transition: 0.4s cubic-bezier(0, 0, 0.3642, 1);
-  }
+  } */
 
   .mil-navigation.mil-active {
     height: auto;
@@ -2498,6 +2592,80 @@ top panel
 
 @media screen and (max-width: 1200px) {
   .mil-top-panel-buttons .mil-button {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  /* .mil-navigation {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(0) !important;
+  transform: translateY(10px);
+  box-shadow: 0px 0px 40px 0px rgba(18, 24, 32, 0.1);
+  width: 100%;
+  background-color: rgb(188, 255, 0);
+  transition: 0.4s cubic-bezier(0, 0, 0.3642, 1);
+} */
+
+  .mil-navigation {
+    nav {
+      padding: 20px 0px;
+      gap: 15px !important;
+    }
+
+    .mil-top-panel-right {
+      gap: 15px;
+    }
+  }
+
+  .upload-title {
+    padding: 10px !important;
+
+    img {
+      margin: 0px !important;
+    }
+
+    p {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  /* .mil-navigation {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(0) !important;
+  transform: translateY(10px);
+  box-shadow: 0px 0px 40px 0px rgba(18, 24, 32, 0.1);
+  width: 100%;
+  background-color: rgb(188, 255, 0);
+  transition: 0.4s cubic-bezier(0, 0, 0.3642, 1);
+} */
+
+  .mil-navigation {
+    nav {
+      padding: 20px 0px;
+      gap: 15px !important;
+    }
+
+    .mil-top-panel-right {
+      gap: 15px;
+    }
+  }
+
+  .mil-nav-dropdown-md {
+    display: flex;
+  }
+
+  .mil-nav-dropdown {
     display: none;
   }
 }
@@ -2946,6 +3114,16 @@ price
 @media screen and (max-width: 992px) {
   .mil-price-card {
     padding: 30px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .mil-price-card {
+    padding: 15px;
+  }
+}
+@media screen and (max-width: 576px) {
+  .mil-price-card {
+    padding: 10px;
   }
 }
 
@@ -4736,4 +4914,22 @@ load more
 
 .text-light-gray {
   color: #D9D9D9;
+}
+
+@media (max-width: 576px) {
+  .d-max-sm-none {
+    display: none;
+  }
+
+  .flex-max-sm-column {
+    flex-direction: column;
+  }
+
+  .text-max-sm-center {
+    text-align: center;
+  }
+
+  .break-sm-spaces {
+    white-space: break-spaces;
+  }
 }

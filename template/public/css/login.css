@@ -5,17 +5,26 @@
     padding: 0 148px;
     height: 100vh;
     gap: 73px;
-  
+    
     @media (max-width: 768px) {
-      padding: 0 1.5rem;
+      padding: 1rem 1.5rem;
+    }
+    @media (max-width: 992px) {
+      padding: 2rem 1.5rem;
     }
 
     @media (min-width: 1400px) {
       padding: 0 112px;
     }
-  
+    
     @media (min-width: 1000px) {
-      padding: 0 100px;
+      padding: 20px 100px;
+      form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+      }
     }
   
     & > * {
@@ -36,9 +45,12 @@
         }      
       }
     }
-    @media (max-width: 992px) {
+    @media (max-width: 992px) {      
       .right-content {  
         display: none;
+      }
+      form {
+        height: 100%;
       }
     }
 

@@ -16,24 +16,20 @@
         <div class="header">
             <h3 style="font-weight: 400;">Discover the best of <b>Pixavault</b></h3>
             <p>Discover a curated collection of high-definition photos</p>
-        </div>
-        <div class="tag-wrapper">
-            <h4>Trending Tag</h4>
-            <div class="tag-row">
-                <button>Natures</button>
-                <button>Bromo</button>
-                <button>Indonesia</button>
-                <button>Mountain</button>
-                <button>Outdoor</button>
-                <button>East java</button>
+
+            <div class="search-explore">
+                <div class="input-group">
+                    <input type="text" placeholder="Search for photos" name="search-explore" class="search-explore-sm">
+                    <img src="{{ asset('img/icons/search-button.svg') }}" alt="">
+                </div>
             </div>
         </div>
         
+       
         <!-- Gallery -->
         <div class="row core-content">
-            <h4>Fresh Images</h4>
             <div class="row">
-                <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+                <div class="col-lg-4 col-md-4 mb-4 col-sm-4 mb-lg-0 px-sm-2">
                     @foreach ($contents[0] as $content)
                         <div class="content-item mil-up position-relative">
                             <div class="mil-buttons">
@@ -58,7 +54,7 @@
                     @endforeach
                 </div>
 
-                <div class="col-lg-4 mb-4 mb-lg-0">
+                <div class="col-lg-4 col-md-4 mb-4 col-sm-4 mb-lg-0 px-sm-2">
                     @foreach ($contents[1] as $content)
                         <div class="content-item mil-up position-relative">
                             <div class="mil-buttons">
@@ -83,7 +79,7 @@
                     @endforeach
                 </div>
 
-                <div class="col-lg-4 mb-4 mb-lg-0">
+                <div class="col-lg-4 col-md-4 mb-4 col-sm-4 mb-lg-0 px-sm-2">
                     @foreach ($contents[2] as $content)
                         <div class="content-item mil-up position-relative">
                             <div class="mil-buttons">

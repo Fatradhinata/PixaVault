@@ -39,6 +39,7 @@
   }
 }
 
+
 .mil-navigation .mil-explore, .mil-credit {
   color: white !important;
 }
@@ -247,6 +248,10 @@
   border-radius: 10px;
   padding: 6px 7px 6px 15px;
   gap: 20px;
+
+  @media (max-width: 1024px) {
+    display: none !important;
+  }
 
   input {
     width: 100%;

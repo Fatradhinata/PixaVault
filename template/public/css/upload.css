@@ -52,6 +52,12 @@ input {
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
+
+  a:hover {
+    img {
+      filter: brightness(0) saturate(100%) invert(56%) sepia(0%) saturate(1668%) hue-rotate(148deg) brightness(89%) contrast(81%);
+    }
+  }
 }
 
 .header h5 {
@@ -292,6 +298,11 @@ input {
   .core {
     flex-direction: column;
     gap: 20px;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
   }
 
   .upload,

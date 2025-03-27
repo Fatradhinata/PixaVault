@@ -12,6 +12,10 @@
         color: #7F7F7F;
         font-weight: 500;
 
+        @media (max-width: 576px) {
+          text-align: center;
+        }
+
         span {
           color: black;
           font-weight: 600;
@@ -26,8 +30,11 @@
     .tag-row {
       display: flex;
       gap: 10px;
+      max-width: 100%;
+      overflow-x: scroll;
 
       button {
+        min-width: fit-content;
         padding: 8px 18px;
         font-size: 16px;
         color: #7F7F7F;
@@ -104,8 +111,16 @@
       align-items: center;
       gap: 20px;
 
+      @media (max-width: 480px) {
+        display: none;
+      }
+
       p {
         font-size: 16px;
+
+        @media (max-width: 576px) {
+          display: none;
+        }
       }
 
       .dropdown {

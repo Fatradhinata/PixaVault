@@ -30,7 +30,15 @@
                     </div>
                     <div class="input-group">
                         <label for="username" class="input-label">Username</label>
-                        <input type="text" id="username" class="input-field" placeholder="Username">
+                        <input type="text" id="username" class="input-field" placeholder="Username" value="{{ $user->name }}">
+                    </div>
+                    <div class="input-group">
+                        <label for="fullname" class="input-label">Fullname</label>
+                        <input type="text" id="fullname" class="input-field" placeholder="Fullname" value="{{ $user->full_name }}">
+                    </div>
+                    <div class="input-group">
+                        <label for="email" class="input-label">Email</label>
+                        <input type="text" id="email" class="input-field" placeholder="Email" value="{{ $user->email }}">
                     </div>
                     <div class="bio-section">
                         <div class="bio-header">
@@ -39,14 +47,7 @@
                         </div>
                         <textarea name="bio" id="bio" class="bio-textarea" cols="30" rows="10" maxlength="500"></textarea>
                         <button class="save-button">Save Changes</button>
-                    </div>
-                    <div class="email-section">
-                        <p class="email-label">Email address</p>
-                        <div class="email-content">
-                            <p class="email-text">Your email address is <strong>{{ $user->email }}</strong></p>
-                            <span class="change-email-link">Change</span>
-                        </div>
-                    </div>
+                    </div>                   
                 </div>
                 <div class="change-password d-none">
                     <h4 class="settings-title">Password</h4>
