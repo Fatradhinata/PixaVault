@@ -56,8 +56,11 @@ Route::middleware('auth')->group(function () {
         Route::post('/upload', [ContentController::class, 'store']);
 
         Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+        Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
         Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::get('/profile/{id}', [ProfileController::class, 'details']);
+        Route::post('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password.update');
+
 
         Route::post('/midtrans/token', [MidtransController::class, 'getToken']);
         Route::post('/report-content', [ReportController::class, 'store']);

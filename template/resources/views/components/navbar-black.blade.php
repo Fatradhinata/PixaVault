@@ -29,10 +29,14 @@
                     </p>
                 @endauth
                 <a href="{{ url('explore') }}" class="mil-top-panel-link mil-explore" style="color: black">Explore</a>
-                <a href="{{ route('leaderboard') }}" class="mil-top-panel-link mil-leaderboard mil-top-panel-link-max-sm">Leaderboard</a>
-                <a href="{{ route('pricing') }}" class="mil-top-panel-link mil-pricing mil-top-panel-link-max-sm">Pricing</a>
-                <a href="{{ route('profile', ['id' => Auth::user()->id]) }}"
-                    class="mil-top-panel-link mil-pricing mil-top-panel-link-max-sm">View Profile</a>
+                <a href="{{ route('leaderboard') }}"
+                    class="mil-top-panel-link mil-leaderboard mil-top-panel-link-max-sm">Leaderboard</a>
+                <a href="{{ route('pricing') }}"
+                    class="mil-top-panel-link mil-pricing mil-top-panel-link-max-sm">Pricing</a>
+                @if (Auth::check())
+                    <a href="{{ route('profile', ['id' => Auth::user()->id]) }}"
+                        class="mil-top-panel-link mil-pricing mil-top-panel-link-max-sm">View Profile</a>
+                @endif
                 <div class="nav-horizontal-dot-wrapper">
                     <div class="nav-horizontal-dot toggleDropdown">
                         <img src="{{ asset('img/icons/horiz-dots-variant-2.svg') }}" width="30px" height="30px"

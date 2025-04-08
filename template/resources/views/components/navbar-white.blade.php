@@ -40,8 +40,10 @@
                         class="mil-top-panel-link mil-leaderboard mil-top-panel-link-max-sm">Leaderboard</a>
                     <a href="{{ route('pricing') }}"
                         class="mil-top-panel-link mil-pricing mil-top-panel-link-max-sm">Pricing</a>
-                    <a href="{{ route('profile', ['id' => Auth::user()->id]) }}"
-                        class="mil-top-panel-link mil-pricing mil-top-panel-link-max-sm">View Profile</a>
+                    @if (Auth::check())
+                        <a href="{{ route('profile', ['id' => Auth::user()->id]) }}" 
+                            class="mil-top-panel-link mil-pricing mil-top-panel-link-max-sm">View Profile</a>
+                    @endif
                     <div class="nav-horizontal-dot-wrapper">
                         <div class="nav-horizontal-dot toggleDropdown">
                             <img src="{{ asset('img/icons/horiz-dots-variant-2.svg') }}" width="30px" height="30px"
@@ -88,7 +90,7 @@
                                         <button class="mil-nav-dropdown-logout">Logout</button>
                                     </a>
                                 </div>
-                            </div>                           
+                            </div>
                         </div>
                         <a href="{{ route('upload') }}" class="mil-top-panel-buttons upload-title">
                             <img src="{{ asset('img/icons/upload-icon.svg') }}"

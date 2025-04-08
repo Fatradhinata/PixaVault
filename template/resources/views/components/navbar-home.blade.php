@@ -22,14 +22,18 @@
                     </p>
                 @endauth
                 <a href="{{ route('explore') }}" class="mil-top-panel-link mil-explore">Explore</a>
-                <a href="{{ route('leaderboard') }}" class="mil-top-panel-link mil-leaderboard mil-top-panel-link-max-sm">Leaderboard</a>
-                <a href="{{ route('pricing') }}" class="mil-top-panel-link mil-pricing mil-top-panel-link-max-sm">Pricing</a>
-                <a href="{{ route('profile', ['id' => Auth::user()->id]) }}"
-                    class="mil-top-panel-link mil-pricing mil-top-panel-link-max-sm">View Profile</a>
+                <a href="{{ route('leaderboard') }}"
+                    class="mil-top-panel-link mil-leaderboard mil-top-panel-link-max-sm">Leaderboard</a>
+                <a href="{{ route('pricing') }}"
+                    class="mil-top-panel-link mil-pricing mil-top-panel-link-max-sm">Pricing</a>
+                @if (Auth::check())
+                    <a href="{{ route('profile', ['id' => Auth::user()->id]) }}"
+                        class="mil-top-panel-link mil-pricing mil-top-panel-link-max-sm">View Profile</a>
+                @endif
                 <div class="nav-horizontal-dot-wrapper">
                     <div class="nav-horizontal-dot toggleDropdown">
-                        <img src="{{ asset('img/icons/horiz-dots-variant-2.svg') }}" width="30px"
-                            height="30px" alt="Horizontal-Dot">
+                        <img src="{{ asset('img/icons/horiz-dots-variant-2.svg') }}" width="30px" height="30px"
+                            alt="Horizontal-Dot">
                     </div>
                     <div class="mil-nav-dropdown dropdownMenu">
                         <div>
@@ -63,14 +67,12 @@
                         </div>
                     </div>
                     <a href="{{ route('upload') }}" class="mil-top-panel-buttons upload-title">
-                        <img src="{{ asset('img/icons/upload-icon.svg') }}"
-                            style="height: 24px; margin-right: 8px;">
-                            <p>UPLOAD</p>
+                        <img src="{{ asset('img/icons/upload-icon.svg') }}" style="height: 24px; margin-right: 8px;">
+                        <p>UPLOAD</p>
                     </a>
                     <a href="{{ route('logout') }}" class="mil-top-panel-buttons logout-title">
-                        <img src="{{ asset('img/icons/logout.svg') }}"
-                            style="height: 24px; margin-right: 8px;">
-                            <p>Logout</p>
+                        <img src="{{ asset('img/icons/logout.svg') }}" style="height: 24px; margin-right: 8px;">
+                        <p>Logout</p>
                     </a>
                 </div>
             @else

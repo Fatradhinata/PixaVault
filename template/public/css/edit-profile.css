@@ -6,6 +6,24 @@
          /* padding-top: 180px; */
        }
 
+       .hidden-file-input {
+         display: none;
+       }
+
+       .profile-image {
+         width: 150px;
+         height: 150px;
+         object-fit: cover;
+         border-radius: 50%;
+         border: 1px solid #d9d9d9;
+       }
+
+       .change-image-text {
+         cursor: pointer;
+         color: blue;
+         text-decoration: underline;
+       }
+
        .section-title {
          font-size: 24px;
          font-weight: bold;
@@ -55,6 +73,14 @@
          align-items: flex-start;
          gap: 30px;
          text-align: left;
+         
+         form {
+           display: flex;
+           gap: 30px;
+           flex-direction: column;
+           align-items: flex-start;
+           text-align: left;
+         }
        }
 
        .settings-title {
@@ -232,7 +258,7 @@
            border-bottom: 1px solid #d9d9d9;
 
            li {
-            width: fit-content;
+             width: fit-content;
            }
          }
 

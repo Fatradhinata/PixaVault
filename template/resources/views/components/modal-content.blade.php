@@ -25,8 +25,7 @@
                             <!-- Dropdown menu -->
                             <div
                                 class="dropdown-report hidden absolute right-0 mt-2 w-40 bg-white border border-gray-300 rounded shadow-md">
-                                <p class="block px-4 py-2 text-gray-800 hover:bg-gray-200 report-btn"
-                                id="report-btn"
+                                <p class="block px-4 py-2 text-gray-800 hover:bg-gray-200 report-btn" id="report-btn"
                                     data-id="" data-modal-target="modal-report">
                                     Report Content
                                 </p>
@@ -103,8 +102,7 @@
 
         <!-- Shoot By -->
         <div class="d-flex align-items-center my-1 mil-up publish-cam">
-            <img src="{{ asset('img/icons/camera-variant-1.svg') }}" width="28px" height="28px"
-                alt="cam-1">
+            <img src="{{ asset('img/icons/camera-variant-1.svg') }}" width="28px" height="28px" alt="cam-1">
             <p class="mb-0 shoot-by" style="color: #6c757d">-</p>
         </div>
 
@@ -113,12 +111,15 @@
             <button>example</button>
         </div>
 
+        <div id="comment-assets" data-user-image="{{ Vite::asset('resources/img/icons/user-elipse.svg') }}"
+            data-love-icon="{{ Vite::asset('resources/img/icons/love-black.svg') }}"
+            data-options-icon="{{ Vite::asset('resources/img/icons/horiz-dots-variant-2.svg') }}">
+        </div>
+
         <!-- Comment Wrapper -->
-        <div class="comment-wrapper"
-            data-user-image="{{ asset('img/icons/user-elipse.svg') }}"
+        <div class="comment-wrapper" data-user-image="{{ asset('img/icons/user-elipse.svg') }}"
             data-love-icon="{{ asset('img/icons/love-black.svg') }}"
-            data-options-icon="{{ asset('img/icons/horiz-dots-variant-2.svg') }}"
-        >
+            data-options-icon="{{ asset('img/icons/horiz-dots-variant-2.svg') }}">
             <div class="comment-header">
                 <h3>Comment</h3>
                 <div>
@@ -208,7 +209,7 @@
                 $('#modal-content .like-btn')[0].dataset.id = data.id;
                 $('#modal-content .like-btn i').attr('class', ((data.is_liked) ? `fas fa-heart` : `far fa-heart`));
                 $('#modal-content .image-content').attr('src', `${BASEURL}/image/${data.photo}`);
-                $('#modal-content .profile').attr('src', (data.user) ? 
+                $('#modal-content .profile').attr('src', (data.user) ?
                     `${BASEURL}/profile/${data.user.photo}` : tmp_user);
                 $('#modal-content .follow').attr('href', `${BASEURL}/profile/${data.id_user}`);
                 $('#modal-content .username').text((data.user) ? data.user.name : 'anonymous');
@@ -219,7 +220,7 @@
                 $('#modal-content .content-description').text(data.desc);
                 $('#modal-content .shoot-by').text(data.shoot_by);
                 $('#modal-content .created-at').text(data.created_at);
-                $('#modal-content #report-btn').attr('data-id', data.id);                
+                $('#modal-content #report-btn').attr('data-id', data.id);
 
                 if ($('#idContent').length) {
                     $('#idContent').val(data.id);
@@ -415,14 +416,14 @@
             // }
 
             document.querySelector(".comment-wrapper")?.addEventListener("click", function(event) {
-                
+
                 if (event.target.classList.contains("like-comment-btn")) {
                     let commentId = event.target.getAttribute("data-comment-id");
                     let isLiked = event.target.classList.contains("liked");
 
-                    if (!window.isAuthenticated) { 
-                        window.location.href = "/login"; 
-                        return; 
+                    if (!window.isAuthenticated) {
+                        window.location.href = "/login";
+                        return;
                     }
 
                     let url = isLiked ? `/comment/${commentId}/unlike` : `/comment/${commentId}/like`;
