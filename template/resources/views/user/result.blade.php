@@ -46,6 +46,7 @@
 
                     &:hover {
                         background-color: #fff;
+
                         img {
                             filter: invert(1) !important;
                         }
@@ -85,8 +86,8 @@
                     Photos <b>{{ count(array_merge($contents[0], $contents[1], $contents[2])) }}</b>
                 </button>
                 <button class="tab-btn" data-tab="users">
-                    <img src="{{ asset('img/icons/people.svg') }}" alt="multiple image"
-                    >Users 3
+                    <img src="{{ asset('img/icons/people.svg') }}" alt="users icon">
+                    Users <b>{{ count($users) }}</b>
                 </button>
             </div>
             <div class="filter-wrapper">
@@ -117,10 +118,11 @@
                                 <i class="fas fa-download"></i>
                             </button>
                         </div>
-                        <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded" alt="Photo" 
-                            data-modal-target="modal-content" data-id="{{ $content->id }}" />
+                        <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded"
+                            alt="Photo" data-modal-target="modal-content" data-id="{{ $content->id }}" />
                         <div class="image-profile">
-                            <img src="{{ $content->user['photo'] ?? asset('img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />
+                            <img src="{{ $content->user['photo'] ?? asset('img/icons/user-elipse.svg') }}"
+                                alt="Profile Picture" class="mil-profile-img" />
                             <p class="mil-username">{{ $content->user['name'] ?? 'anonymous' }}</p>
                         </div>
                     </div>
@@ -142,10 +144,11 @@
                                 <i class="fas fa-download"></i>
                             </button>
                         </div>
-                        <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded" alt="Photo" 
-                            data-modal-target="modal-content" data-id="{{ $content->id }}" />
+                        <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded"
+                            alt="Photo" data-modal-target="modal-content" data-id="{{ $content->id }}" />
                         <div class="image-profile">
-                            <img src="{{ $content->user['photo'] ?? asset('img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />
+                            <img src="{{ $content->user['photo'] ?? asset('img/icons/user-elipse.svg') }}"
+                                alt="Profile Picture" class="mil-profile-img" />
                             <p class="mil-username">{{ $content->user['name'] ?? 'anonymous' }}</p>
                         </div>
                     </div>
@@ -167,10 +170,11 @@
                                 <i class="fas fa-download"></i>
                             </button>
                         </div>
-                        <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded" alt="Photo" 
-                            data-modal-target="modal-content" data-id="{{ $content->id }}" />
+                        <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded"
+                            alt="Photo" data-modal-target="modal-content" data-id="{{ $content->id }}" />
                         <div class="image-profile">
-                            <img src="{{ $content->user['photo'] ?? asset('img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />
+                            <img src="{{ $content->user['photo'] ?? asset('img/icons/user-elipse.svg') }}"
+                                alt="Profile Picture" class="mil-profile-img" />
                             <p class="mil-username">{{ $content->user['name'] ?? 'anonymous' }}</p>
                         </div>
                     </div>
@@ -179,10 +183,32 @@
 
         </div>
 
-        <div class="tab-content" is="users">
-
+        <div class="tab-content users-content" id="users">
+            <div class="users__list">
+                @forelse ($users as $user)
+                    <a href="{{ route('user.profile', $user->id) }}" class="users__list--link">
+                        <div class="users__item">
+                            <div class="users__item--photo">
+                                <img src="{{ $user->photo ?? asset('img/icons/user-elipse.svg') }}"
+                                    alt="Users Item Profile Photo">
+                            </div>
+                            <div class="users__item--identity">
+                                <p class="users__item--username">{{ $user->username }}</p>
+                                <p class="users__item--fullname">
+                                    {{ $user->name }} <span class="dot">·</span>
+                                    <strong>{{ $user->followers_count ?? '0' }} <span>Followers</span></strong>
+                                </p>
+                                <p class="users__item--bio">{{ $user->bio ?? 'No bio' }}</p>
+                            </div>
+                        </div>
+                    </a>
+                @empty
+                    <p class="px-3">No users found for "{{ $search }}"</p>
+                @endforelse
+            </div>
         </div>
-        
+
+
     </div>
     <!-- content -->
 
@@ -192,4 +218,20 @@
 
 @section('scripts')
     <script src="{{ asset('js/misc.js') }}"></script>
+    <script>
+        document.querySelectorAll('.tab-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+
+                button.classList.add('active');
+                const targetTab = button.getAttribute('data-tab');
+
+                document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+
+
+                document.getElementById(targetTab).classList.add('active');
+            });
+        });
+    </script>
+
 @endsection

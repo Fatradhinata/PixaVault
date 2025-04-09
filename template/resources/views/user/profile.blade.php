@@ -73,7 +73,7 @@
             </div>
             <div class="profile-info d-flex flex-column">
                 <div class="profile-header d-flex">
-                    <h3 class="role-own-profile">
+                    <h3>
                         {{ $user->name }}
                     </h3>
                     <div class="profile-actions d-flex">

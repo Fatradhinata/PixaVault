@@ -111,7 +111,6 @@ class ContentController extends Controller
                 'id_content' => $id_content,
             ]);
             return response()->json(['status' => 'success', 'like' => true], 201);
-
         } catch (\Exception $e) {
             return response()->json(['status' => 'fail', 'message' => 'Something went wrong!'], 500);
         }
@@ -146,7 +145,7 @@ class ContentController extends Controller
     //         $image = Image::make($imageData);
     //         $quality = 50;
     //         $maxSizeKB = 200;
-            
+
     //         while (true) {
     //             $compressedImage = $image->encode('webp', $quality);
     //             if (strlen($compressedImage) / 1024 <= $maxSizeKB || $quality <= 10) {
@@ -173,9 +172,9 @@ class ContentController extends Controller
         if (empty($publicId)) {
             return response()->json(['error' => 'Public ID is required'], 400);
         }
-    
+
         $cacheKey = "cloudinary_image_{$publicId}";
-    
+
         try {
             // Cek apakah gambar sudah ada di cache
             $cachedImage = Cache::get($cacheKey);
@@ -186,33 +185,32 @@ class ContentController extends Controller
                     flush();
                 }, 200, ['Content-Type' => 'image/webp']);
             }
-    
+
             // Ambil gambar dari Cloudinary dengan kualitas dikontrol langsung dari URL
             $imageUrl = Cloudinary::getImage($publicId)
                 ->quality('auto:low') // Bisa diubah jadi 'auto:eco', 'auto:best', atau angka spesifik
                 ->format('webp') // Pastikan format WebP untuk efisiensi
                 ->toUrl();
-    
+
             // Ambil gambar dari Cloudinary menggunakan Guzzle
             $client = new Client();
             $response = $client->get($imageUrl, ['stream' => true]);
-    
+
             if ($response->getStatusCode() !== 200) {
                 return response()->json(['error' => 'Failed to fetch image from Cloudinary'], 500);
             }
-    
+
             // Ambil isi gambar
             $imageData = $response->getBody()->getContents();
-    
+
             // Simpan ke cache
             Cache::put($cacheKey, base64_encode($imageData), 3600);
-    
+
             // Kirim gambar sebagai stream response
             return response()->stream(function () use ($imageData) {
                 echo $imageData;
                 flush();
             }, 200, ['Content-Type' => 'image/webp']);
-    
         } catch (\Exception $e) {
             return response()->json(['error' => 'Error fetching image: ' . $e->getMessage()], 500);
         }
@@ -270,7 +268,6 @@ class ContentController extends Controller
                     'Content-Type' => $contentType,
                     'Content-Disposition' => 'attachment; filename="' . $fileName . '"'
                 ])->deleteFileAfterSend(true);
-
             } catch (\Exception $e) {
                 return response()->json(['error' => 'Error downloading image: ' . $e->getMessage()], 500);
             }
@@ -307,6 +304,7 @@ class ContentController extends Controller
         $search = $req->input('q');
         $tag = $req->input('t');
 
+        // === CONTENT SEARCH ===
         $data = Content::select('contents.*', DB::raw('CASE WHEN likes.id IS NOT NULL THEN 1 ELSE 0 END as is_liked'))
             ->leftJoin(
                 'likes',
@@ -318,18 +316,36 @@ class ContentController extends Controller
             ->with('user');
 
         if ($search)
-            $data = $data->where('contents.name', 'like', "%$search%")->orWhere('contents.desc', 'like', "%$search%");
+            $data = $data->where(function ($q) use ($search) {
+                $q->where('contents.name', 'like', "%$search%")
+                    ->orWhere('contents.desc', 'like', "%$search%");
+            });
+
         if ($tag)
-            $data = $data->where('contents.tags', 'like', "%$tag%", 'and');
+            $data = $data->where('contents.tags', 'like', "%$tag%");
 
         $data = $data->get();
         $data = $this->getTripleColumn($data);
 
+        // === USER SEARCH ===
+        $users = collect();
+        if ($search) {
+            $users = User::where('id', '<>', Auth::id())
+                ->where(function ($q) use ($search) {
+                    $q->where('name', 'like', "%$search%")
+                        ->orWhere('full_name', 'like', "%$search%");
+                })
+                ->take(20)
+                ->get();
+        }
+
         return view('user.result', [
             'contents' => $data,
             'search' => $search,
+            'users' => $users,
         ]);
     }
+
 
     public function upload()
     {
@@ -376,7 +392,6 @@ class ContentController extends Controller
                 ]);
 
                 Content::create($data);
-
             } catch (\Exception $e) {
                 return redirect()->back()
                     ->with('error', 'Something went wrong when uploading. Please try again.');
@@ -389,6 +404,4 @@ class ContentController extends Controller
         return redirect()->to(route('pricing') . '#subscribe')
             ->with('warning', 'You have reached your free limit! <br>Please purchase the subscription to upload more photos.');
     }
-
-
 }

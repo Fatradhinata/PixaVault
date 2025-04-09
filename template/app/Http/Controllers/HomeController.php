@@ -27,22 +27,24 @@ class HomeController extends Controller
 
         return $tmp;
     }
-    
+
     public function index()
     {
         $contents = Content::select('contents.*', DB::raw('CASE WHEN likes.id IS NOT NULL THEN 1 ELSE 0 END as is_liked'))
-        ->leftJoin('likes', fn($join) => 
-            $join->on('contents.id', '=', 'likes.id_content')
-                ->where('likes.id_user', '=', Auth::id())
-        )
-        ->inRandomOrder()
-        ->with('user')
-        ->limit(10)
-        ->get();
+            ->leftJoin(
+                'likes',
+                fn($join) =>
+                $join->on('contents.id', '=', 'likes.id_content')
+                    ->where('likes.id_user', '=', Auth::id())
+            )
+            ->inRandomOrder()
+            ->with('user')
+            ->limit(10)
+            ->get();
 
         $trending = $this->getTripleColumn($contents);
         $explore = $this->getTripleColumn($contents);
-            
+
         return view('user.home', [
             'trending' => array_map(fn($col) => array_reverse($col), $trending),
             'explore' => $explore,
@@ -68,9 +70,26 @@ class HomeController extends Controller
     // {
     //     return view('user.payment');
     // }
+
+    public function trending()
+    {
+        $contents = Content::select('contents.*', DB::raw('CASE WHEN likes.id IS NOT NULL THEN 1 ELSE 0 END as is_liked'))
+        ->leftJoin(
+            'likes',
+            fn($join) =>
+            $join->on('contents.id', '=', 'likes.id_content')
+                ->where('likes.id_user', '=', Auth::id())
+        )
+        ->where('contents.id_user', '<>', Auth::id())
+        ->orderBy('contents.created_at', 'desc') 
+        ->with('user')
+        ->get();
     
-    // public function trending()
-    // {
-    //     return view('user.trending');
-    // }
+
+        $data = $this->getTripleColumn($contents);
+
+        return view('user.trending', [
+            'contents' => $data
+        ]);
+    }
 }
