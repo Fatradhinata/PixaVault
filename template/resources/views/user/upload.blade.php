@@ -24,6 +24,7 @@
             <div class="core">
               <form class="form" action="{{ route('upload') }}" method="POST" enctype="multipart/form-data">
                     @csrf
+                    @method('POST')
 
                     <!-- Upload Area -->
                     <div class="upload">

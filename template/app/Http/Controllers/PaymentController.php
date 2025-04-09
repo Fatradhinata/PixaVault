@@ -2,15 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Subscription;
-use Midtrans\Config;
 use Midtrans\Snap;
+use Midtrans\Config;
 use Illuminate\Support\Str;
+use App\Models\Subscription;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 
 class PaymentController extends Controller
 {
+    public function index()
+    {
+        return view('user.pricing');
+    }
+
     public function createTransaction(Request $request)
     {
         // Debugging server key
@@ -66,7 +72,7 @@ class PaymentController extends Controller
     public function handleNotification(Request $request)
     {
 
-        \Log::info('Payment Notification Received: ', $request->all());
+        Log::info('Payment Notification Received: ', $request->all());
         $serverKey = env('MIDTRANS_SERVER_KEY');
         $signatureKey = hash("sha512", $request->order_id . $request->status_code . $request->gross_amount . $serverKey);
 
@@ -77,12 +83,12 @@ class PaymentController extends Controller
         }
 
         
-        \Log::info('Transaction Status: ', ['status' => $request->fraud_status == 'accept']);
+        Log::info('Transaction Status: ', ['status' => $request->fraud_status == 'accept']);
         // dd($request->all());
         
         $user = $subscription->user;
         if ($request->fraud_status == "accept") {
-            \Log::info('asdsadsad Statasdasdus: ', ['status' => $request->fraud_status]);
+            Log::info('asdsadsad Statasdasdus: ', ['status' => $request->fraud_status]);
             $subscription->update(['status' => 'active']);
             $user->update(['free_limit' => -1]);
             dd($request->all());

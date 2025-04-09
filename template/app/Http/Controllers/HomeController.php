@@ -48,32 +48,29 @@ class HomeController extends Controller
             'explore' => $explore,
         ]);
     }
-    public function blog()
-    {
-        return view('user.blog');
-    }
-    public function leaderboard()
-    {
-        return view('user.leaderboard');
-    }
-    public function favorites()
-    {
-        return view('user.favorites');
-    }
-    public function history_download()
-    {
-        return view('user.history_download');
-    }
-    public function payment()
-    {
-        return view('user.payment');
-    }
-    public function pricing()
-    {
-        return view('user.pricing');
-    }
-    public function trending()
-    {
-        return view('user.trending');
-    }
+    // public function blog()
+    // {
+    //     return view('user.blog');
+    // }
+    // public function leaderboard()
+    // {
+    //     return view('user.leaderboard');
+    // }
+    // public function favorites()
+    // {
+    //     return view('user.favorites');
+    // }
+    // public function history_download()
+    // {
+    //     return view('user.history_download');
+    // }
+    // public function payment()
+    // {
+    //     return view('user.payment');
+    // }
+    
+    // public function trending()
+    // {
+    //     return view('user.trending');
+    // }
 }

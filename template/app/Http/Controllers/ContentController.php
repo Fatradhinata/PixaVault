@@ -346,7 +346,7 @@ class ContentController extends Controller
     public function store(Request $req)
     {
         $validated = $req->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'image' => 'required|image|mimes:jpg,jpeg,png,heic,arw,tiff|min:1024|max:12288',
             'name' => 'required|string|max:255',
             'desc' => 'required|string',
             'tags' => 'required|string',

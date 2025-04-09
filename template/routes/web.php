@@ -13,6 +13,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CommentLikeController;
+use App\Http\Controllers\LeaderboardController;
 use PharIo\Manifest\AuthorElementCollection;
 use App\Http\Controllers\SocialiteController;
 use App\Models\Content;
@@ -20,9 +21,8 @@ use App\Models\Content;
 Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('unverified');
 Route::get('/verify-user/{id}', [AuthController::class, 'verify']);
 
-Route::get('/pricing', [HomeController::class, 'pricing'])->name('pricing');
+Route::get('/pricing', [PaymentController::class, 'index'])->name('pricing');
 Route::get('/trending', [HomeController::class, 'trending'])->name('trending');
-
 Route::get('/result', [ContentController::class, 'result'])->name('result');
 Route::get('/explore', [ContentController::class, 'index'])->name('explore');
 
@@ -42,21 +42,24 @@ Route::middleware('auth')->group(function () {
         Route::get('/blog', [HomeController::class, 'blog'])->name('content');
         Route::get('/blog', [HomeController::class, 'blog'])->name('blog');
         Route::get('/favorites', [HomeController::class, 'favorites'])->name('favorites');
-        Route::get('/leaderboard', [HomeController::class, 'leaderboard'])->name('leaderboard');
         Route::get('/history_download', [HomeController::class, 'history_download'])->name('history_download');
-
-        Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
-        Route::delete('/comments/{id}', [CommentController::class, 'destroy'])->name('comments.destroy');
-        Route::post('/comment/{commentId}/like', [CommentLikeController::class, 'likeComment']);
-        Route::delete('/comment/{commentId}/unlike', [CommentLikeController::class, 'unlikeComment']);
 
         Route::get('/content/download/{id}', [ContentController::class, 'downloadImage'])->name('image.download');
         Route::get('/content/like/{id}', [ContentController::class, 'updateLike']);
         Route::get('/upload', [ContentController::class, 'upload'])->name('upload');
         Route::post('/upload', [ContentController::class, 'store']);
 
+        Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
+        Route::delete('/comments/{id}', [CommentController::class, 'destroy'])->name('comments.destroy');
+        Route::post('/comment/{commentId}/like', [CommentLikeController::class, 'likeComment']);
+        Route::delete('/comment/{commentId}/unlike', [CommentLikeController::class, 'unlikeComment']);
+
+        Route::get('/leaderboard', [LeaderboardController::class, 'index'])->name('leaderboard');
+
         Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
         Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::post('/profile/edit', [ProfileController::class, 'update'])->name('profile.update');
+        Route::put('/profile/edit', [ProfileController::class, 'changePassword'])->name('profile.password');
         Route::get('/profile/{id}', [ProfileController::class, 'details']);
 
         Route::post('/midtrans/token', [MidtransController::class, 'getToken']);

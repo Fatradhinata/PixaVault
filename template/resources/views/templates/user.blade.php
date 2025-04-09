@@ -107,7 +107,7 @@
                         <div class="col-lg-4">
                             <a href="home-1.html" class="mil-footer-logo mil-up mil-mb-30">
                                 <img src="{{ asset('img/logo/logo_pixavault.png') }}" alt="Logo"
-                                    style="width: 130px" />
+                                    style="height: 60px" />
                             </a>
                         </div>
                     </div>

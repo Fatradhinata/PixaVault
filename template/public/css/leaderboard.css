@@ -1,6 +1,6 @@
 .container {
-  margin: 0 145px;
-  padding: 180px 20px;
+  margin: 0 auto;
+  padding: 180px 100px;
   display: flex;
   flex-direction: column;
   gap: 40px;
@@ -98,7 +98,15 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 0;
+    padding: 24px 32px;
+    transition: 0.3s ease;
+    transition-property: transform, box-shadow;
+    border-radius: 8px;
+
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    }
 
     @media (max-width: 992px) {
       gap: 20px;

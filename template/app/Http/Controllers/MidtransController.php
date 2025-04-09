@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Midtrans\Config;
 use Midtrans\Snap;
-use Midtrans\Transaction;
+use Midtrans\Config;
 use App\Models\Payment;
+use Midtrans\Transaction;
+use Illuminate\Support\Str;
 use App\Models\Subscription;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MidtransController extends Controller
 {
@@ -49,8 +51,8 @@ class MidtransController extends Controller
 
             // Simpan ke database
             Payment::create([
-                'id' => \Illuminate\Support\Str::uuid(),
-                'user_id' => auth()->id(), 
+                'id' => Str::uuid(),
+                'user_id' => Auth::id(), 
                 'order_id' => $orderId,
                 'amount' => $grossAmount,
                 'payment_type' => 'midtrans',

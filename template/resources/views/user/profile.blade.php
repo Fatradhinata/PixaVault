@@ -7,15 +7,69 @@
 @endsection
 
 @section('navbar')
-    @include('components.navbar-black')
+    @include('components.navbar')
+    <style>
+        .mil-top-panel {
+            .mil-logo img {
+                filter: invert(1);
+            }
+
+            .nav-min-sm {
+                filter: invert(1);
+                transition: filter 0.3s ease;
+            }
+
+            .mil-credit,
+            .mil-explore {
+                color: black
+            }
+
+            .nav-horizontal-dot {
+                img {
+                    filter: invert(1);
+                }
+
+                &:hover {
+                    background-color: #000;
+
+                    img {
+                        filter: invert(0);
+                    }
+                }
+            }
+
+            &.mil-active {
+                .nav-horizontal-dot {
+                    img {
+                        filter: invert(0) !important;
+                    }
+
+                    &:hover {
+                        background-color: #fff;
+                        img {
+                            filter: invert(1) !important;
+                        }
+                    }
+                }
+
+                .nav-min-sm {
+                    filter: invert(0) !important;
+                }
+
+                .mil-credit * {
+                    color: white;
+                }
+            }
+        }
+    </style>
 @endsection
 
 @section('content')
     
     <div class="profile-banner">
         <div class="profile-detail d-flex align-items-center">
-            <div class="profile-image d-flex align-items-center">
-                <img src="{{ asset('/img/icons/user-elipse.svg') }}" alt="user">
+            <div class="preview-image-container">
+                <img class="preview-image" src="{{ $user->photo ? asset('storage/profile_photos/' . $user->photo) : asset('img/icons/user-elipse.svg') }}" alt="User Profile">
             </div>
             <div class="profile-info d-flex flex-column">
                 <div class="profile-header d-flex">

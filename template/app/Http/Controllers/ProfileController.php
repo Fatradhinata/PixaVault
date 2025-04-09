@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Content;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+
+use function PHPUnit\Framework\isEmpty;
 
 class ProfileController extends Controller
 {
@@ -18,9 +22,9 @@ class ProfileController extends Controller
         $tmp = [[], [], []];
 
         for ($i = 0; $i < $divided_len; $i++) {
-            if (isset($content[$i*3])) array_push($tmp[0], (object) $content[$i*3]);
-            if (isset($content[$i*3+1])) array_push($tmp[1], (object) $content[$i*3+1]);
-            if (isset($content[$i*3+2])) array_push($tmp[2], (object) $content[$i*3+2]);
+            if (isset($content[$i * 3])) array_push($tmp[0], (object) $content[$i * 3]);
+            if (isset($content[$i * 3 + 1])) array_push($tmp[1], (object) $content[$i * 3 + 1]);
+            if (isset($content[$i * 3 + 2])) array_push($tmp[2], (object) $content[$i * 3 + 2]);
         }
 
         return $tmp;
@@ -52,18 +56,78 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function details(User $id) {
+    public function details(User $id)
+    {
         return view('user.profile', [
             'user' => $id,
             'contents' => $this->getTripleColumn($id->contents),
             'liked' => $this->getTripleColumn($this->getLikedContent())
-        ]); 
+        ]);
     }
-    
-    public function edit(User $id)
+
+    public function edit()
     {
         return view('user.profile_edit', [
-            'user' => $id,
+            'user' => Auth::user(),
         ]);
+    }
+
+    public function update(Request $req)
+    {
+        $validated = $req->validate([
+            'photo' => 'image|mimes:jpg,jpeg,png|max:2048',
+            'name' => 'required|string|max:20',
+            'full_name' => 'string|max:100',
+            'phone_number' => 'string|max:72',
+            'bio' => 'string|max:500',
+        ]);
+
+        try {
+            $user = Auth::user();
+
+            if ($req->hasFile('photo')) {
+                if (!$user->photo !== "" && Storage::exists("profile_photos/" . $user->photo))
+                    Storage::delete("profile_photos/" . $user->photo);
+
+                $file = $req->file('photo');
+                $filename = uniqid('profile_', true) . '.' . $file->getClientOriginalExtension();
+                $file->storeAs('profile_photos', $filename, 'public');
+
+                $validated['photo'] = $filename;
+            }
+
+            $user->update($validated);
+
+            return redirect()->back()->with('success', 'Data updated successfully!');
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', 'Something went wrong. Please try again.');
+        }
+    }
+
+    public function changePassword(Request $req)
+    {
+        $validated = $req->validate([
+            'old-password' => 'required|string',
+            'new-password' => 'required|string',
+            'confirm-password' => 'required|string',
+        ]);
+
+        try {
+            $user = Auth::user();
+
+            if (!password_verify($validated['old-password'], $user->password))
+                return redirect()->back()->with('warning', 'Invalid old password');
+
+            if ($validated['new-password'] !== $validated['confirm-password'])
+                return redirect()->back()->with('warning', 'Confirm password must be same as new password!');
+
+            $user->update([
+                'password' => bcrypt($validated['new-password'])
+            ]);
+
+            return redirect()->back()->with('success', 'Password changed successfully!');
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', 'Something went wrong. Please try again.');
+        }
     }
 }

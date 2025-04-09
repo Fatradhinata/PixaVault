@@ -7,7 +7,61 @@
 @endsection
 
 @section('navbar')
-    @include('components.navbar-black')
+    @include('components.navbar', ['search' => true])
+    <style>
+        .mil-top-panel {
+            .mil-logo img {
+                filter: invert(1);
+            }
+
+            .nav-min-sm {
+                filter: invert(1);
+                transition: filter 0.3s ease;
+            }
+
+            .mil-credit,
+            .mil-explore {
+                color: black
+            }
+
+            .nav-horizontal-dot {
+                img {
+                    filter: invert(1);
+                }
+
+                &:hover {
+                    background-color: #000;
+
+                    img {
+                        filter: invert(0);
+                    }
+                }
+            }
+
+            &.mil-active {
+                .nav-horizontal-dot {
+                    img {
+                        filter: invert(0) !important;
+                    }
+
+                    &:hover {
+                        background-color: #fff;
+                        img {
+                            filter: invert(1) !important;
+                        }
+                    }
+                }
+
+                .nav-min-sm {
+                    filter: invert(0) !important;
+                }
+
+                .mil-credit * {
+                    color: white;
+                }
+            }
+        }
+    </style>
 @endsection
 
 @section('content')

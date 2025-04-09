@@ -1,139 +1,131 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const menuItems = document.querySelectorAll(".menu-item");
-  const editProfileSection = document.querySelector(".edit-profile");
-  const changePasswordSection = document.querySelector(".change-password");
+    const menuItems = document.querySelectorAll(".menu-item");
+    const editProfileSection = document.querySelector(".edit-profile");
+    const changePasswordSection = document.querySelector(".change-password");
 
-  // Fungsi untuk menampilkan tab yang dipilih
-  function showTab(tabName) {
-    if (tabName === "Edit Profile") {
-      editProfileSection.classList.remove("d-none");
-      changePasswordSection.classList.add("d-none");
-    } else if (tabName === "Password") {
-      changePasswordSection.classList.remove("d-none");
-      editProfileSection.classList.add("d-none");
-    }
-  }
-
-  // Event listener untuk setiap menu item
-  menuItems.forEach((item) => {
-    console.log(menuItems)
-    item.addEventListener("click", function () {
-      // Hapus class 'active' dari semua menu item
-      menuItems.forEach((menu) => menu.classList.remove("active"));
-
-      // Tambahkan class 'active' ke item yang diklik
-      this.classList.add("active");
-
-      // Tampilkan tab sesuai dengan menu yang diklik
-      showTab(this.textContent.trim());
-    });
-  });
-
-  // Default tampilkan Password
-  showTab("Edit Profile");
-});
-
-// Menonaktifkan klik kanan pada elemen gambar
-document.querySelectorAll("img").forEach((img) => {
-  img.addEventListener("contextmenu", (event) => {
-    event.preventDefault(); // Mencegah menu konteks default
-    alert("Fitur penyimpanan gambar telah dinonaktifkan!");
-  });
-});
-
-// Get elements
-const photoTrigger = document.getElementById("photo-trigger");
-const photoModal = document.getElementById("photo-modal");
-const closeModal = document.getElementById("close-modal");
-
-// Show modal on click
-photoTrigger.addEventListener("click", (e) => {
-  e.preventDefault();
-  photoModal.style.display = "flex";
-});
-
-// Hide modal on close button
-closeModal.addEventListener("click", () => {
-  photoModal.style.display = "none";
-});
-
-// Hide modal on outside click
-window.addEventListener("click", (e) => {
-  if (e.target === photoModal) {
-    photoModal.style.display = "none";
-  }
-});
-
-document.addEventListener("DOMContentLoaded", function () {
-  const searchInput = document.querySelector(".mil-sidebar-search input");
-  const searchButton = document.querySelector(
-    ".mil-sidebar-search button"
-  );
-
-  searchButton.addEventListener("click", function () {
-    let query = searchInput.value.trim(); // Ambil teks input
-    if (query) {
-      alert("Mencari: " + query); // Gantilah ini dengan fungsi pencarian yang sesuai
-      // Misalnya, bisa diarahkan ke halaman pencarian
-      // window.location.href = `search.html?q=${encodeURIComponent(query)}`;
-    } else {
-      alert("Masukkan kata kunci pencarian!");
-    }
-  });
-
-  // Jika tekan Enter dalam input, pencarian juga bisa berjalan
-  searchInput.addEventListener("keypress", function (event) {
-    if (event.key === "Enter") {
-      searchButton.click();
-    }
-  });
-});
-
-document.addEventListener("DOMContentLoaded", function () {
-  // Ambil semua elemen dengan kelas .mil-randomimage
-  const randomImageElements =
-    document.querySelectorAll(".mil-randomimage");
-
-  randomImageElements.forEach((imgElement) => {
-    // Mengambil gambar acak dari Picsum dengan ukuran 600x400 (sesuaikan ukuran sesuai kebutuhan)
-    const randomImageUrl = `https://picsum.photos/600/400?random=${Math.floor(
-      Math.random() * 1000
-    )}`;
-
-    // Ganti atribut src dengan URL gambar acak dari Picsum
-    imgElement.src = randomImageUrl;
-  });
-});
-
-
-document.addEventListener("DOMContentLoaded", function () {
-  const toggleButtons = document.querySelectorAll(".toggleDropdown");
-  const dropdownMenus = document.querySelectorAll(".dropdownMenu");
-
-  toggleButtons.forEach((button, index) => {
-    button.addEventListener("click", function (event) {
-      event.stopPropagation(); // Mencegah event bubble
-
-      // Tutup semua dropdown sebelum membuka yang baru
-      dropdownMenus.forEach((menu, i) => {
-        if (i !== index) {
-          menu.style.display = "none";
+    // Fungsi untuk menampilkan tab yang dipilih
+    function showTab(tabName) {
+        if (tabName === "Edit Profile") {
+            editProfileSection.classList.remove("d-none");
+            changePasswordSection.classList.add("d-none");
+        } else if (tabName === "Password") {
+            changePasswordSection.classList.remove("d-none");
+            editProfileSection.classList.add("d-none");
         }
-      });
+    }
 
-      // Toggle dropdown yang diklik
-      const dropdownMenu = button.nextElementSibling;
-      dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
-    });
-  });
+    // Event listener untuk setiap menu item
+    menuItems.forEach((item) => {
+        console.log(menuItems);
+        item.addEventListener("click", function () {
+            // Hapus class 'active' dari semua menu item
+            menuItems.forEach((menu) => menu.classList.remove("active"));
 
-  // Menutup dropdown saat klik di luar
-  document.addEventListener("click", function () {
-    dropdownMenus.forEach(menu => {
-      menu.style.display = "none";
+            // Tambahkan class 'active' ke item yang diklik
+            this.classList.add("active");
+
+            // Tampilkan tab sesuai dengan menu yang diklik
+            showTab(this.textContent.trim());
+        });
     });
-  });
+
+    // Default tampilkan Password
+    showTab("Edit Profile");
+
+    // Event listener untuk update foto
+    const preview = document.querySelector('img.preview-image');
+    const fileHandler = document.querySelector('input#photo');
+    const button = document.querySelector('label.change-image-text');
+    const allowedTypes = [
+        'image/jpeg',
+        'image/png',
+        'image/heic',
+        'image/tiff',
+        'image/x-tiff',
+        'image/arw'
+    ];
+
+    button.addEventListener('click', function() {
+        fileHandler.click();
+    });
+
+    fileHandler.addEventListener('change', function () {
+        const file = this.files[0];
+
+        if (file) {
+            if (!allowedTypes.includes(file.type)) {
+                alert('File harus berupa JPG atau PNG.');
+                return;
+            }
+    
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                preview.src = e.target.result;
+            };
+
+            reader.readAsDataURL(file);
+        }
+    });
+    
+    // Counter max character bio
+    const bio = document.getElementById('bio');
+    const counter = document.querySelector('span.bio-counter');
+    
+    bio.addEventListener('input', function() {
+        let maximumChars = 500 - bio.value.length;
+    
+        if (maximumChars <= 0) {
+            Swal.fire({
+                icon: "warning",
+                title: "Caution",
+                text: "Maximum message length exceeded!",
+            });
+        }
+    
+        counter.innerText = maximumChars;
+    });
+
+
+    // Show password
+    $('.change-password .input-group img').on('click', function() {
+        $(this).hide();
+        $(this).siblings('img').show();
+    
+        const input = $(this).siblings('input');
+        let showPassword = (input.prop('type') === "password");
+        
+        input.prop('type', (showPassword) ? "text" : "password"); 
+    });
+
+
+    // Submit handler
+    const buttons = document.querySelectorAll('.save-button');
+    buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            Swal.fire({
+                icon: "warning",
+                title: "Caution",
+                text: "Are you sure want to change your user data?",
+                showCancelButton: true,
+                confirmButtonColor: "#bcff00",
+                cancelButtonColor: "#000000",
+                confirmButtonText: `<span style="color: black; font-weight: bold;">Submit</span>`,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    let form = btn.closest('form');
+
+                    if (!form.checkValidity()) {
+                        return Swal.fire({
+                            icon: 'info',
+                            title: 'Warning',
+                            text: "The username field cannot be empty!"
+                        });
+                    }
+
+                    form.submit();
+                }
+            });
+        })
+    })
 });
-
-
 

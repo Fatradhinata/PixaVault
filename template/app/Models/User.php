@@ -26,6 +26,7 @@ class User extends Authenticatable
         'google_refresh_token',
         'full_name',
         'name',
+        'bio',
         'email',
         'password',
         'role',

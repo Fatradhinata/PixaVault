@@ -34,20 +34,23 @@ document.addEventListener("DOMContentLoaded", () => {
     const searchInput = document.querySelector("#search-input input");
     const searchButton = document.querySelector("#search-input button");
 
-    searchButton.addEventListener("click", function () {
-        let query = searchInput.value.trim(); // Ambil teks input
-        if (query) {
-            window.location.href = `${BASEURL}/result?q=${query}`;
-        } else {
-            Swal.fire({
-                icon: "warning",
-                title: "Caution",
-                text: "Please enter the search value!",
-            });
-        }
-    });
+    if (searchInput && searchButton) {
+        searchButton.addEventListener("click", function () {
+            let query = searchInput.value.trim(); // Ambil teks input
+            if (query) {
+                window.location.href = `${BASEURL}/result?q=${query}`;
+            } else {
+                Swal.fire({
+                    icon: "warning",
+                    title: "Caution",
+                    text: "Please enter the search value!",
+                });
+            }
+        });
+    
+        searchInput.addEventListener("keypress", function (e) {
+            if (e.key === "Enter") searchButton.click();
+        });
+    }
 
-    searchInput.addEventListener("keypress", function (e) {
-        if (e.key === "Enter") searchButton.click();
-    });
 });

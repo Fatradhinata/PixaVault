@@ -3,7 +3,41 @@
 @section('title', 'Pricing')
 
 @section('navbar')
-    @include('components.navbar-white')
+    @include('components.navbar', ['search' => true])
+    <style>
+        .mil-top-panel {
+            &.mil-active {
+                background-color: rgba(255, 255, 255, 0.6) !important;
+
+                .nav-horizontal-dot {
+                    img {
+                        filter: invert(1) !important;
+                    }
+
+                    &:hover {
+                        background-color: #000;
+
+                        img {
+                            filter: invert(0) !important;
+                        }
+                    }
+                }
+                
+                .mil-logo img {
+                    filter: invert(1);
+                }
+
+                .nav-min-sm {
+                    filter: invert(1);
+                    transition: filter 0.3s ease;
+                }
+
+                .nav-max-sm * {
+                    color: black
+                }
+            }
+        }
+    </style>
 @endsection
 
 @section('content')
