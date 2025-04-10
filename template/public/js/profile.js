@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    var role = "own-profile";
+    var role = "other-user";
 
     const buttons = document.querySelectorAll(".tab-btn");
     const contents = document.querySelectorAll(".tab-content");
