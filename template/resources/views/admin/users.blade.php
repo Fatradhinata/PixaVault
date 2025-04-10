@@ -46,13 +46,13 @@
                                                 <span class="text-secondary text-xs font-weight-bold">{{ $item->name }}</span>
                                             </td>
                                             <td class="align-middle text-center px-4">
-                                                <span class="text-secondary text-xs font-weight-bold">{{ $item->full_name ?? "-" }}</span>
+                                                <span class="text-secondary text-xs font-weight-bold">{{ $item->full_name ?: "-" }}</span>
                                             </td>
                                             <td class="px-4 text-center">
                                                 <span class="text-secondary text-xs font-weight-bold">{{ $item->email }}</span>
                                             </td>
                                             <td class="px-4 text-center">
-                                                <p class="text-sm font-weight-bold mb-0">{{ $item->phone_number ?? '-' }}</p>
+                                                <p class="text-sm font-weight-bold mb-0">{{ $item->phone_number ?: '-' }}</p>
                                             </td>
                                             <td class="align-middle text-center px-4">
                                                 <span class="text-secondary text-xs">{{ $item->free_limit }}</span>
@@ -80,7 +80,16 @@
             </div>
         </div>
     </div>
+
+    <!-- Delete Form -->
+    <form action="{{ route('admin.users') }}" method="POST" style="display: none" id="form-delete">
+        @csrf
+        @method('DELETE')
+        <input type="hidden" name="id">
+    </form>
+
 @endsection
 
 @section('scripts')
+    <script src="{{ asset('js/admin-users.js') }}"></script>
 @endsection

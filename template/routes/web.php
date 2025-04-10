@@ -81,10 +81,12 @@ Route::middleware('auth')->group(function () {
         Route::delete('/admin/content', [ContentController::class, 'destroy']);
 
         Route::get('/admin/subscription', [AdminController::class, 'subscription'])->name('admin.subscription');
+        Route::delete('/admin/subscription', [PaymentController::class, 'destroy']);
         
         Route::get('/admin/leaderboard', [AdminController::class, 'leaderboard'])->name('admin.leaderboard');
-
+        
         Route::get('/admin/users', [AdminController::class, 'users'])->name('admin.users');
+        Route::delete('/admin/users', [AuthController::class, 'destroy']);
         
         Route::get('/admin/report', [AdminController::class, 'report'])->name('admin.report');
     });

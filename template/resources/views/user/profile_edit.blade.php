@@ -1,5 +1,7 @@
 @extends('templates.user')
 
+@section('title', 'Edit Profile')
+
 @section('styles')
     <link rel="stylesheet" href="{{ asset('css/edit-profile.css') }}">
 @endsection

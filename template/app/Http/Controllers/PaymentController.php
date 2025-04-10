@@ -17,6 +17,11 @@ class PaymentController extends Controller
         return view('user.pricing');
     }
 
+    public function paymentSuccess()
+    {
+        return view('user.profile');
+    }
+
     public function createTransaction(Request $request)
     {
         // Debugging server key
@@ -62,13 +67,6 @@ class PaymentController extends Controller
 
     }
 
-    public function paymentSuccess()
-    {
-        return view('user.profile');
-    }
-
-
-
     public function handleNotification(Request $request)
     {
 
@@ -98,6 +96,24 @@ class PaymentController extends Controller
         }
 
         return response()->json(['message' => 'Notification received']);
+    }
+
+    public function destroy(Request $req)
+    {
+
+        $id = Subscription::find($req->input('id'));
+        if (!$id) return redirect()->back()->with('error', 'Data not found!');
+
+        try {
+            if (Auth::user()->role == 'admin') {
+                $id->delete();
+                return redirect()->back()->with('success', 'Subscription deleted successfully!');
+            }
+    
+            return redirect()->back()->with('warning', 'You are not authorized to delete this content!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Something went wrong! Please try again.');
+        }
     }
 
 }

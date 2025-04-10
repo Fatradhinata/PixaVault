@@ -37,7 +37,7 @@ class AdminController extends Controller
     }
     public function users()
     {
-        $users = User::get();
+        $users = User::orderByRaw("FIELD(role, 'admin', 'user')")->get();
         
         return view('admin.users', [
             'users' => $users,

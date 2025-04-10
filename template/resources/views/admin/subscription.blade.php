@@ -99,7 +99,7 @@
     </div>
 
     <!-- Delete Form -->
-    <form action="{{ route('admin.content') }}" method="POST" style="display: none" id="form-delete">
+    <form action="{{ route('admin.subscription') }}" method="POST" style="display: none" id="form-delete">
         @csrf
         @method('DELETE')
         <input type="hidden" name="id">
@@ -108,5 +108,5 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('js/admin-delete.js') }}"></script>
+    <script src="{{ asset('js/admin-subscription.js') }}"></script>
 @endsection
