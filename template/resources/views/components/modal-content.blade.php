@@ -111,9 +111,9 @@
             <button>example</button>
         </div>
 
-        <div id="comment-assets" data-user-image="{{ Vite::asset('resources/img/icons/user-elipse.svg') }}"
-            data-love-icon="{{ Vite::asset('resources/img/icons/love-black.svg') }}"
-            data-options-icon="{{ Vite::asset('resources/img/icons/horiz-dots-variant-2.svg') }}">
+        <div id="comment-assets" data-user-image="{{ asset('img/icons/user-elipse.svg') }}"
+            data-love-icon="{{ asset('img/icons/love-black.svg') }}"
+            data-options-icon="{{ asset('img/icons/horiz-dots-variant-2.svg') }}">
         </div>
 
         <!-- Comment Wrapper -->

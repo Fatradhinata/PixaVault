@@ -16,8 +16,10 @@ class AuthVerified
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::user()->verified_at) return $next($request);
+        $user = Auth::user();
+        if ($user->role == "admin") return redirect('/admin');
         
+        if ($user->verified_at) return $next($request);
         return redirect('/need-to-verify');
     }
 }

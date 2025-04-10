@@ -9,18 +9,18 @@ class AdminController extends Controller
 {
     public function index()
     {
-        return view('admin.pages.dashboard'); 
+        return view('admin.dashboard'); 
     }
     public function content()
     {
-        return view('admin.pages.content'); 
+        return view('admin.content'); 
     }
     public function subscription()
     {
-        return view('admin.pages.subscription'); 
+        return view('admin.subscription'); 
     }
     public function user()
     {
-        return view('admin.pages.user-admin'); 
+        return view('admin.user-admin'); 
     }
 }
