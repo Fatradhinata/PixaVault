@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
+use App\Models\Content;
+use App\Models\Subscription;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class AdminController extends Controller
 {
@@ -13,14 +17,30 @@ class AdminController extends Controller
     }
     public function content()
     {
-        return view('admin.content'); 
+        $content = Content::with('user')->get();
+
+        return view('admin.content', [
+            'content' => $content,
+        ]);
     }
     public function subscription()
     {
-        return view('admin.subscription'); 
+        $subscription = Subscription::select('*',
+            DB::raw('
+                PERIOD_DIFF(EXTRACT(YEAR_MONTH FROM date_limit), EXTRACT(YEAR_MONTH FROM created_at)) AS month_diff,
+                (NOW() < date_limit) AS ex_status'
+            ))->with('user')->get();
+        
+        return view('admin.subscription', [
+            'subscription' => $subscription,
+        ]); 
     }
-    public function user()
+    public function users()
     {
-        return view('admin.user-admin'); 
+        $users = User::get();
+        
+        return view('admin.users', [
+            'users' => $users,
+        ]); 
     }
 }

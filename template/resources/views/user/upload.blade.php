@@ -84,4 +84,5 @@
     </div>
 @endsection
 
+<script src="{{ asset('js/plugins/jquery.min.js') }}"></script>
 <script src="{{ asset('js/upload.js') }}"></script>

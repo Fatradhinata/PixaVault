@@ -155,5 +155,5 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('js/editProfile.js') }}" type="module"></script>
+    <script src="{{ asset('js/editProfile.js') }}"></script>
 @endsection

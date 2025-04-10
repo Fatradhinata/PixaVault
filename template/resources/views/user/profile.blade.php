@@ -77,14 +77,17 @@
                         {{ $user->name }}
                     </h3>
                     <div class="profile-actions d-flex">
-                        <div class="d-flex align-items-center role-other-user d-none">
-                            <button id="button-follow" class="btn-follow">Follow</button>
-                            <button class="btn-options"><img src="{{ asset('/img/icons/horiz-dots.svg') }}" alt=""></button>
-                            <button class="btn-report d-none">Report</button>
-                        </div>
-                        <div class="d-flex align-items-center role-own-profile">
-                            <a href="{{ route('profile.edit') }}"><button class="btn-edit-profile"><img src="{{ asset('/img/icons/edit-pen.svg') }}" alt="">Edit Profile</button></a>
-                        </div>
+                        @if ($user->id == Auth::user()->id)
+                            <div class="d-flex align-items-center">
+                                <a href="{{ route('profile.edit') }}"><button class="btn-edit-profile"><img src="{{ asset('/img/icons/edit-pen.svg') }}" alt="">Edit Profile</button></a>
+                            </div>
+                        @else
+                            <div class="d-flex align-items-center">
+                                <button id="button-follow" class="btn-follow">Follow</button>
+                                <button class="btn-options"><img src="{{ asset('/img/icons/horiz-dots.svg') }}" alt=""></button>
+                                <button class="btn-report d-none">Report</button>
+                            </div>
+                        @endif
                     </div>
                 </div>
                 <p class="profile-email">
