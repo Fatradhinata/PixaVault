@@ -18,6 +18,8 @@ class PaymentController extends Controller
 {
     public function index()
     {
+        $payment = Payment::where('status', 'pending')->first();
+
         return view('user.pricing');
     }
 
@@ -34,7 +36,7 @@ class PaymentController extends Controller
         ->orderBy('created_at', 'desc')
         ->first();
 
-        if (!$subscription) return redirect()->route('pricing')->with('error', 'You do not have an active subscription!');
+        if (!$subscription) return redirect()->route('pricing')->with('warning', "You don't have an active subscription!");
 
         return view('user.subscription', [
             'subscription' => $subscription,
@@ -76,7 +78,7 @@ class PaymentController extends Controller
             $subscription = Subscription::create([
                 'user_id' => Auth::id(),
                 'plans' => ($type == 1) ? 'Premium Pro' : 'Premium',
-                'date_limit' => ($type == 1) ? now()->addMonth(1) : now()->addMonth(12),
+                'date_limit' => ($type == 1) ? now()->addMonth(12) : now()->addMonth(1),
             ]);
     
             $payment = Payment::create([
@@ -164,6 +166,8 @@ class PaymentController extends Controller
                 ->first();
 
             if (!$payment) return redirect()->back()->with('error', 'Data payment not found!');
+            
+            $payment->update(['status' => 'paid']);
 
             $action = $payment->action;
             $subscription = Subscription::where('id', $payment->subscription_id)->orderBy('created_at', 'desc')->first();
@@ -196,7 +200,24 @@ class PaymentController extends Controller
                 return redirect()->route('subscription')->with('success', 'Subscription extended successfully!');
             }
         } catch (Exception $e) {
-            return redirect()->back()->with('error', 'Something went wrong! Please try again.');
+            return redirect()->back('')->with('error', 'Something went wrong! Please try again.');
+        }
+    }
+
+    public function cancelPayment(Payment $id)
+    {
+        try {
+            $subscription = $id->with('subscription')->first()->subscription;
+            
+            if ($subscription->status == 'pending') {
+                $subscription->delete();
+            } else {
+                $id->update(['status' => 'rejected']);
+            }
+
+            return redirect()->route('pricing')->with('success', 'Subscription canceled successfully!');
+        } catch (\Exception $e) {
+            return redirect()->route('pricing')->with('error', 'Something went wrong! Please try again.');
         }
     }
 

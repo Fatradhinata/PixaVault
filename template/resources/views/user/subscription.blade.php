@@ -22,7 +22,7 @@
                         }
                     }
                 }
-                
+
                 .mil-logo img {
                     filter: invert(1);
                 }
@@ -41,13 +41,13 @@
         /* card subscription */
 
         .card-subscription {
-            background: rgba( 255, 255, 255, 0.20 );
+            background: rgba(255, 255, 255, 0.20);
             box-shadow: 0 0 8px 0 rgba(120, 120, 120, 0.30);
-            backdrop-filter: blur( 4px );
+            backdrop-filter: blur(4px);
 
             .detail-subscription {
                 gap: 8px;
-                
+
                 & * {
                     text-align: left;
                     color: white;
@@ -93,7 +93,7 @@
             }
 
             @media (max-width: 768px) {
-                & > .row > :not(.detail-subscription) {
+                &>.row> :not(.detail-subscription) {
                     padding-top: 5rem !important;
                     padding-bottom: 0 !important;
                 }
@@ -105,8 +105,7 @@
 @section('content')
     <!-- banner -->
     <section class="mil-banner mil-banner-sm" style="height: min-content; min-height: 60vh;">
-        <img src="{{ asset('img/foto/jan-derungs-XMwAnYLHShE-unsplash.jpg') }}" class="mil-bg-img mil-scale"
-            data-value-1=".4" data-value-2="1.4" alt="image" />
+        <img src="{{ asset('img/foto/jan-derungs-XMwAnYLHShE-unsplash.jpg') }}" class="mil-bg-img mil-scale" data-value-1=".4" data-value-2="1.4" alt="image" />
         <div class="mil-overlay"></div>
         <div class="container h-100 px-4 pb-5" style="padding-top: 10rem;">
             <div class="mil-banner-content mil-center card card-subscription h-100 p-0">
@@ -126,7 +125,7 @@
                             $now = new DateTime();
                             $end = new DateTime($subscription->date_limit);
                             $total_diff = (new DateTime($subscription->created_at))->diff($end)->days;
-                            
+
                             $remaining_days = $subscription->day_diff;
                         @endphp
                         <p class="badge badge-pfimary">CREATED : <b>{{ date('d-m-Y', strtotime($subscription->created_at)) }}</b></p>
@@ -150,7 +149,8 @@
             <div class="row">
                 <div class="col-12">
                     <div class="mil-center mil-mb-90">
-                        <h3 class="mil-upper mil-up mil-mb-30">Extend <span style="color: #575757;">Subscriptions</span></h3>
+                        <span class="mil-suptitle mil-upper mil-up mil-mb-30">Flexible Plans</span>
+                        <h3 class="mil-upper mil-up mil-mb-30">Affordable Memberships, <br>Premium Features</h3>
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -177,9 +177,11 @@
                             </ul>
                         </div>
                         <div class="mil-price-button mil-up">
-                            <a href="{{ route('extends', 1) }}">
-                                <div class="mil-button mil-fw radius-8" style="background-color: #BCFF00 !important;">SUBSCRIBE</div>
-                            </a>
+                            <form href="{{ route('extends', 1) }}" method="POST">
+                                @csrf
+                                @method('POST')
+                                <button type="submit" class="mil-button mil-fw radius-8" style="background-color: #BCFF00 !important;">SUBSCRIBE</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -207,9 +209,11 @@
                             </ul>
                         </div>
                         <div class="mil-price-button mil-up">
-                            <a href="{{ route('extends', 2) }}">
-                                <div class="mil-button mil-fw radius-8">SUBSCRIBE</div>
-                            </a>
+                            <form action="{{ route('extends', 2) }}" method="POST">
+                                @csrf
+                                @method('POST')
+                                <button type="submit" class="mil-button mil-fw radius-8">SUBSCRIBE</button>
+                            </form>
                         </div>
                     </div>
                 </div>

@@ -169,7 +169,7 @@
                                                 <td>Type</td>
                                                 <td class="fw-bold">
                                                     @if ($payment->action == 'purchase')
-                                                        @if ($payment->subscription->plans == 'premium')
+                                                        @if ($payment->subscription->plans == 'Premium')
                                                             Premium (1 Month)
                                                         @else
                                                             Premium Pro (1 Year)
@@ -193,10 +193,14 @@
 
                                 <div class="row buttons">
                                     <div class="col-md-6">
-                                        <button type="button" class="mil-button mil-fw radius-8 mt-4" id="pay-btn">Pay Now</button>
+                                        <button type="button" class="mil-button mil-fw radius-8 mt-4" id="pay-btn">
+                                            Pay Now
+                                        </button>
                                     </div>
                                     <div class="col-md-6">
-                                        <button type="button" class="mil-button-danger mil-fw radius-8 mt-4" id="cancel-btn">Cancel</button>
+                                        <button type="button" class="mil-button-danger mil-fw radius-8 mt-4" id="cancel-btn" data-id="{{ $payment->id }}">
+                                            Cancel
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -209,6 +213,12 @@
             </div>
         </div>
     </section>
+
+    <form action="{{ route('payment.cancel', $payment->id) }}" method="POST" id="delete-form">
+        @csrf
+        @method('DELETE')
+    </form>
+
 @endsection
 
 
@@ -236,21 +246,21 @@
                 }
             });
 
-            // cancelBtn.addEventListener('click', function() {
-            //    Swal.fire({
-            //         title: 'Are you sure?',
-            //         text: "You won't be able to revert this!",
-            //         icon: 'warning',
-            //         showCancelButton: true,
-            //         confirmButtonColor: '#3085d6',
-            //         cancelButtonColor: '#d33',
-            //         confirmButtonText: 'Confirm'
-            //     }).then(res => {
-            //         if (res.isConfirmed) {
-            //             window.location.href = "";
-            //         }
-            //     });
-            // });
+            cancelBtn.addEventListener('click', function() {
+               Swal.fire({
+                    title: 'Caution',
+                    text: "Are you sure want to cancel this payment?",
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#1f1f1f',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then(res => {
+                    if (res.isConfirmed) {
+                        document.getElementById('delete-form').submit();   
+                    }
+                });
+            });
         });
     </script>
 

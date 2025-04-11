@@ -70,10 +70,11 @@ Route::middleware('auth')->group(function () {
         Route::post('/report-content', [ReportController::class, 'store']);
         
         Route::get('/subscription', [PaymentController::class, 'subscription'])->name('subscription');
-        Route::get('/purchase/{type}', [PaymentController::class, 'purchase'])->name('purchase');
-        Route::get('/extends/{type}', [PaymentController::class, 'extends'])->name('extends');
+        Route::post('/purchase/{type}', [PaymentController::class, 'purchase'])->name('purchase');
+        Route::post('/extends/{type}', [PaymentController::class, 'extends'])->name('extends');
         Route::get('/checkout/{id}/{snapToken}', [PaymentController::class, 'checkout'])->name('checkout');
         Route::get('/payment/{orderId}', [PaymentController::class, 'payment'])->name('payment');
+        Route::delete('/payment/{id}', [PaymentController::class, 'cancelPayment'])->name('payment.cancel');
     });
 
     Route::middleware('admin')->group(function () {

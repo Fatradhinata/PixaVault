@@ -95,9 +95,11 @@
                             </ul>
                         </div>
                         <div class="mil-price-button mil-up">
-                            <a href="{{ route('purchase', 1) }}">
-                                <div class="mil-button mil-fw radius-8" style="background-color: #BCFF00 !important;">SUBSCRIBE</div>
-                            </a>
+                            <form href="{{ route('purchase', 1) }}" method="POST">
+                                @csrf
+                                @method('POST')
+                                <button type="submit" class="mil-button mil-fw radius-8" style="background-color: #BCFF00 !important;">SUBSCRIBE</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -125,9 +127,11 @@
                             </ul>
                         </div>
                         <div class="mil-price-button mil-up">
-                            <a href="{{ route('purchase', 2) }}">
-                                <div class="mil-button mil-fw radius-8">SUBSCRIBE</div>
-                            </a>
+                            <form action="{{ route('purchase', 2) }}" method="POST">
+                                @csrf
+                                @method('POST')
+                                <button type="submit" class="mil-button mil-fw radius-8">SUBSCRIBE</button>
+                            </form>
                         </div>
                     </div>
                 </div>
