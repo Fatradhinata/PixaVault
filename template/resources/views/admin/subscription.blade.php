@@ -69,7 +69,7 @@
                                             <td class="align-middle text-center px-4">
                                                 @if ($item->status == 'pending')
                                                     <span class="badge bg-gradient-warning">Pending</span>
-                                                @elseif ($item->ex_status)
+                                                @elseif ($item->status == 'pending' && $item->ex_status)
                                                     <span class="badge bg-gradient-info">Active</span>
                                                 @else
                                                     <span class="badge bg-gradient-danger">Expired</span>
@@ -83,7 +83,7 @@
                                             </td>
                                             <td class="px-4 text-center">
                                                 <div class="text-center flex justify-center space-x-4 actions">
-                                                    <img src="{{ asset('assets/img/weui_eyes-on-filled.svg') }}" class="btn-detail">
+                                                    <img src="{{ asset('assets/img/material-symbols_edit.svg') }}" class="btn-edit">
                                                     <img src="{{ asset('assets/img/material-symbols_delete.svg') }}" class="btn-delete" data-id="{{ $item->id }}">
                                                 </div>
                                             </td>
@@ -108,5 +108,5 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('js/admin-subscription.js') }}"></script>
+    <script src="{{ asset('js/admin/subscription.js') }}"></script>
 @endsection

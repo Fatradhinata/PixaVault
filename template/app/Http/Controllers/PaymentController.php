@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
+use Carbon\Carbon;
 use Midtrans\Snap;
 use Midtrans\Config;
+use App\Models\Payment;
 use Illuminate\Support\Str;
 use App\Models\Subscription;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,90 +21,187 @@ class PaymentController extends Controller
         return view('user.pricing');
     }
 
-    public function paymentSuccess()
+    public function subscription()
     {
-        return view('user.profile');
-    }
+        $subscription = Subscription::select('*', DB::raw(
+            'PERIOD_DIFF(EXTRACT(YEAR_MONTH FROM date_limit), EXTRACT(YEAR_MONTH FROM created_at)) AS month_diff,
+            DATEDIFF(date_limit, NOW()) AS day_diff,
+            (NOW() < date_limit) AS ex_status'
+        ))
+        ->where('user_id', Auth::id())
+        ->where('status', 'active')
+        ->whereRaw('(NOW() < date_limit)')
+        ->orderBy('created_at', 'desc')
+        ->first();
 
-    public function createTransaction(Request $request)
-    {
-        // Debugging server key
-        if (!env('MIDTRANS_SERVER_KEY')) {
-            throw new \Exception("MIDTRANS_SERVER_KEY is not set in .env");
-        }
+        if (!$subscription) return redirect()->route('pricing')->with('error', 'You do not have an active subscription!');
 
-        Config::$serverKey = env('MIDTRANS_SERVER_KEY');
-        Config::$isProduction = false;
-        Config::$isSanitized = true;
-        Config::$is3ds = true;
-
-        // Buat ID pesanan unik
-        $orderId = strtoupper(Str::random(10));
-
-        // Simpan ke database
-        $subscription = Subscription::create([
-            'id' => Str::uuid(),
-            'user_id' => Auth::id(),
-            'order_id' => $orderId,
-            'amount' => $request->amount,
-            'payment_type' => 'midtrans',
-            'status' => 'pending',
-            'date_limit' => now()->addMonth(),
+        return view('user.subscription', [
+            'subscription' => $subscription,
         ]);
-
-        // Buat data transaksi ke Midtrans
-        $transactionDetails = [
-            'transaction_details' => [
-                'order_id' => $orderId,
-                'gross_amount' => $request->amount,
-            ],
-            'customer_details' => [
-                'first_name' => Auth::user()->name ?? 'Guest',
-                'email' => Auth::user()->email ?? 'guest@example.com',
-            ]
-        ];
-
-        // Buat Snap Token
-        $snapToken = Snap::getSnapToken($transactionDetails);
-
-        return response()->json(['snap_token' => $snapToken]);
-
     }
 
-    public function handleNotification(Request $request)
+    public function checkout($id, $snapToken)
     {
+        if (!$id) return redirect()->back()->with('error', 'Data not found!');
 
-        Log::info('Payment Notification Received: ', $request->all());
-        $serverKey = env('MIDTRANS_SERVER_KEY');
-        $signatureKey = hash("sha512", $request->order_id . $request->status_code . $request->gross_amount . $serverKey);
+        $data = Payment::with('subscription')
+            ->where('id', $id)
+            ->where('status', 'pending')
+            ->orderBy('created_at', 'desc')
+            ->first();
 
-        $subscription = Subscription::where('order_id', $request->order_id)->first();
+        return view('user.checkout', [
+            'payment' => $data,
+            'snapToken' => $snapToken,
+        ]);
+    }
 
-        if (!$subscription) {
-            return response()->json(['message' => 'Order not found'], 404);
+    public function purchase(int $type)
+    {
+        try {
+            Config::$serverKey = env('MIDTRANS_SERVER_KEY');
+            Config::$isProduction = false;
+            Config::$isSanitized = true;
+            Config::$is3ds = true;
+            
+            if (!in_array($type, [1, 2]))
+                return redirect()->back()->with('error', 'Invalid type!');
+    
+            $user = Auth::user();
+            $IDR = json_decode(file_get_contents('https://api.exchangerate-api.com/v4/latest/USD'), true)['rates']['IDR'];
+            $amount = ($type == 1) ? intval(56 * $IDR) : intval(7 * $IDR);
+            $orderId = strtoupper(Str::random(10));
+    
+            $subscription = Subscription::create([
+                'user_id' => Auth::id(),
+                'plans' => ($type == 1) ? 'Premium Pro' : 'Premium',
+                'date_limit' => ($type == 1) ? now()->addMonth(1) : now()->addMonth(12),
+            ]);
+    
+            $payment = Payment::create([
+                'amount' => $amount,
+                'order_id' => $orderId,
+                'action' => 'purchase',
+                'subscription_id' => $subscription->id,
+            ]);
+    
+            $transactionDetails = [
+                'transaction_details' => [
+                    'order_id' => $orderId,
+                    'gross_amount' => $amount,
+                ],
+                'customer_details' => [
+                    'first_name' => $user->name,
+                    'email' => $user->email,
+                ]
+            ];
+    
+            $snapToken = Snap::getSnapToken($transactionDetails);
+    
+            return redirect("/checkout/{$payment->id}/$snapToken");
+
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Something went wrong! Please try again.');
         }
+    }
 
-        
-        Log::info('Transaction Status: ', ['status' => $request->fraud_status == 'accept']);
-        // dd($request->all());
-        
-        $user = $subscription->user;
-        if ($request->fraud_status == "accept") {
-            Log::info('asdsadsad Statasdasdus: ', ['status' => $request->fraud_status]);
-            $subscription->update(['status' => 'active']);
-            $user->update(['free_limit' => -1]);
-            dd($request->all());
-        } elseif ($request->fraud_status == 'expire' || $request->fraud_status == 'cancel') {
-            $subscription->update(['status' => 'expired']);
-            $user->update(['free_limit' => 15]);
+    public function extends(int $type)
+    {
+        try {
+            Config::$serverKey = env('MIDTRANS_SERVER_KEY');
+            Config::$isProduction = false;
+            Config::$isSanitized = true;
+            Config::$is3ds = true;
+
+            if (!in_array($type, [1, 2]))
+            return redirect()->back()->with('error', 'Invalid type!');
+
+            $user = Auth::user();
+            $IDR = json_decode(file_get_contents('https://api.exchangerate-api.com/v4/latest/USD'), true)['rates']['IDR'];
+            $amount = ($type == 1) ? intval(56 * $IDR) : intval(7 * $IDR);
+            $orderId = strtoupper(Str::random(10));
+
+            $subscription = Subscription::where('user_id', $user->id)
+                ->where('status', 'active')
+                ->whereRaw('NOW() < date_limit')
+                ->first();
+
+            if (!$subscription) return redirect()->back()->with('error', 'Data not found!');
+
+            $payment = Payment::create([
+                'amount' => $amount,
+                'order_id' => $orderId,
+                'action' => ($type == 1) ? 'extends 1 year' : 'extends 1 month',
+                'subscription_id' => $subscription->id,
+            ]);
+    
+            $transactionDetails = [
+                'transaction_details' => [
+                    'order_id' => $orderId,
+                    'gross_amount' => $amount,
+                ],
+                'customer_details' => [
+                    'first_name' => $user->name,
+                    'email' => $user->email,
+                ]
+            ];
+    
+            $snapToken = Snap::getSnapToken($transactionDetails);
+    
+            return redirect("/checkout/{$payment->id}/$snapToken");
+
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Something went wrong! Please try again.');
         }
+    }
 
-        return response()->json(['message' => 'Notification received']);
+    public function payment(string $orderId)
+    {
+        try {
+            $payment = Payment::where('order_id', $orderId)
+                ->where('status', 'pending')
+                ->first();
+
+            if (!$payment) return redirect()->back()->with('error', 'Data payment not found!');
+
+            $action = $payment->action;
+            $subscription = Subscription::where('id', $payment->subscription_id)->orderBy('created_at', 'desc')->first();
+
+            if (!$subscription) return redirect()->back()->with('error', 'Data subscription not found!');
+
+
+            if ($action == 'purchase') {
+
+                $subscription->update(['status' => 'active']);
+                return redirect()->route('subscription')->with('success', 'Subscription activated successfully!');
+
+            } elseif (str_contains($action, 'extends')) {
+
+                switch ($action) {
+                    case "extends 1 month":
+                        $months = 1;
+                        break;
+                    case "extends 1 year":
+                        $months = 12;
+                        break;
+                    default:
+                        return redirect()->back()->with('error', 'Invalid action!');
+                }
+                
+                $subscription->update([
+                    'date_limit' => Carbon::parse($subscription->date_limit)->addMonths($months),
+                ]);
+
+                return redirect()->route('subscription')->with('success', 'Subscription extended successfully!');
+            }
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', 'Something went wrong! Please try again.');
+        }
     }
 
     public function destroy(Request $req)
     {
-
         $id = Subscription::find($req->input('id'));
         if (!$id) return redirect()->back()->with('error', 'Data not found!');
 

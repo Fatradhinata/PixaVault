@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
         User::create([
             'id' => fake()->uuid(),
             'name' => 'Admin',
+            'role' => 'admin',
             'email' => 'pixavaultt@gmail.com',
             'password' => '$2y$12$nwMoptaNZEbguk.FwaqMee1ZGTQrzPxrvTTI2Wxrga4QnsR.y6ZmS',
             'verified_at' => date('Y-m-d H:i:s'),
@@ -29,6 +30,7 @@ class DatabaseSeeder extends Seeder
         User::create([
             'id' => $user_id,
             'name' => 'fami0110',
+            'photo' => 'profile_67f4b69966ba81.68936057.png',
             'email' => 'masandofami@gmail.com',
             'password' => '$2y$12$GL.0J7JkYJVhzBDL.iU2junCLJrriE9Dm6iLV7irxTG6Eo.U6PTYO',
             'verified_at' => date('Y-m-d H:i:s'),
@@ -68,16 +70,17 @@ class DatabaseSeeder extends Seeder
 
         User::create([
             'id' => $user_id,
-            'name' => 'Dummy',
-            'email' => 'dummy@example.com',
-            'password' => bcrypt('dummy123'),
+            'name' => 'Fami',
+            'photo' => 'profile_67f7e59db16b52.72854008.png',
+            'email' => 'masando0110@gmail.com',
+            'password' => bcrypt('fami123'),
             'verified_at' => date('Y-m-d H:i:s'),
         ]);
 
-        Content::create([
+        Content::insert([
             [
-                'id' => $user_id,
-                'id_user' => fake()->uuid(),
+                'id' => fake()->uuid(),
+                'id_user' => $user_id,
                 'name' => 'Blooming Flower',
                 'desc' => 'Lorem tellus ipsum elit nisi leo elementum. Consectetur lorem vivamus. Consectetur sit lorem vivamus ipsum.',
                 'photo' => 'p36woypktoix8bgaabal',
@@ -85,8 +88,8 @@ class DatabaseSeeder extends Seeder
                 'tags' => '["Nature", "Flower", "Landscape"]',
             ],
             [
-                'id' => $user_id,
-                'id_user' => fake()->uuid(),
+                'id' => fake()->uuid(),
+                'id_user' => $user_id,
                 'name' => 'Pinus',
                 'desc' => 'Lorem tellus ipsum elit nisi leo elementum. Consectetur lorem vivamus. Consectetur sit lorem vivamus ipsum.',
                 'photo' => 'xnz6q76o1zs5ebpy9njq',

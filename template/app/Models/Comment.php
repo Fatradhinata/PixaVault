@@ -2,18 +2,21 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUuids;
     
     protected $table = 'comments';
-    protected $fillable = ['id', 'id_user', 'id_content', 'comment'];
-
-    public $incrementing = false; // Karena pakai UUID
-    protected $keyType = 'string';
+    protected $fillable = [
+        'id', 
+        'id_user', 
+        'id_content', 
+        'comment'
+    ];
 
     public function user()
     {
@@ -26,8 +29,8 @@ class Comment extends Model
     }
     
     public function likes()
-{
-    return $this->hasMany(CommentLike::class, 'comment_id');
-}
+    {
+        return $this->hasMany(CommentLike::class, 'comment_id');
+    }
 
 }

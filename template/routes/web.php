@@ -17,6 +17,7 @@ use App\Http\Controllers\LeaderboardController;
 use PharIo\Manifest\AuthorElementCollection;
 use App\Http\Controllers\SocialiteController;
 use App\Models\Content;
+use App\Models\Payment;
 
 Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('unverified');
 Route::get('/verify-user/{id}', [AuthController::class, 'verify']);
@@ -63,15 +64,14 @@ Route::middleware('auth')->group(function () {
         Route::put('/profile/edit', [ProfileController::class, 'changePassword'])->name('profile.password');
         Route::get('/profile/{id}', [ProfileController::class, 'details'])->name('user.profile');
         Route::post('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password.update');
-
-
-        Route::post('/midtrans/token', [MidtransController::class, 'getToken']);
+        
         Route::post('/report-content', [ReportController::class, 'store']);
-
-        Route::get('/payment', [HomeController::class, 'payment'])->name('payment');
-        Route::get('/payment-success', [PaymentController::class, 'paymentSuccess'])->name('payment.success');
-        Route::post('/pricing', [PaymentController::class, 'createTransaction'])->name('create.transaction');
-        Route::post('/payment-notification', [PaymentController::class, 'handleNotification'])->name('payment.notification');
+        
+        Route::get('/subscription', [PaymentController::class, 'subscription'])->name('subscription');
+        Route::get('/purchase/{type}', [PaymentController::class, 'purchase'])->name('purchase');
+        Route::get('/extends/{type}', [PaymentController::class, 'extends'])->name('extends');
+        Route::get('/checkout/{id}/{snapToken}', [PaymentController::class, 'checkout'])->name('checkout');
+        Route::get('/payment/{orderId}', [PaymentController::class, 'payment'])->name('payment');
     });
 
     Route::middleware('admin')->group(function () {
