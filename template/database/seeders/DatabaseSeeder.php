@@ -6,6 +6,7 @@ use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Content;
 use Illuminate\Database\Seeder;
+use Database\Seeders\TagSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,15 +17,20 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        $user_id = fake()->uuid();
+        // $user_id = fake()->uuid();
 
-        User::create([
-            'id' => $user_id,
-            'name' => 'fami0110',
-            'email' => 'masandofami@gmail.com',
-            'password' => '$2y$12$GL.0J7JkYJVhzBDL.iU2junCLJrriE9Dm6iLV7irxTG6Eo.U6PTYO',
-            'verified_at' => date('Y-m-d H:i:s'),
+        // User::create([
+        //     'id' => $user_id,
+        //     'name' => 'fami0110',
+        //     'email' => 'masandofami@gmail.com',
+        //     'password' => '$2y$12$GL.0J7JkYJVhzBDL.iU2junCLJrriE9Dm6iLV7irxTG6Eo.U6PTYO',
+        //     'verified_at' => date('Y-m-d H:i:s'),
+        // ]);
+
+        $this->call([
+            TagSeeder::class,
         ]);
+        
 
         Content::insert([
             [
