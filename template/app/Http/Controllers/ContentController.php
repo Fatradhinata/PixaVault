@@ -6,6 +6,7 @@ use App\Models\Like;
 use App\Models\User;
 use GuzzleHttp\Client;
 use App\Models\Content;
+use App\Models\Tag;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Number;
@@ -308,6 +309,28 @@ class ContentController extends Controller
         return view('user.upload');
     }
 
+    public function initialTags()
+    {
+        return Tag::orderBy('name')->limit(15)->pluck('name');
+    }
+
+    public function searchTags(Request $request)
+    {
+        $start = microtime(true);
+
+        $query = $request->get('q');
+        $results = Tag::where('name', 'like', "$query%")
+            ->orderBy('name')
+            ->limit(15)
+            ->pluck('name');
+
+        $duration = number_format((microtime(true) - $start) * 1000, 2);
+        logger("🔍 searchTags for '{$query}' took {$duration} ms");
+
+        return $results;
+    }
+
+
     public function store(Request $req)
     {
         $validated = $req->validate([
@@ -325,18 +348,24 @@ class ContentController extends Controller
             $user->decrement('free_limit');
 
             try {
-                $tags = json_encode(
-                    array_map(
-                        fn($a) => htmlspecialchars(trim($a)),
-                        explode(',', $validated['tags'])
-                    )
-                );
+                $tagObjects = json_decode($validated['tags']);
+                $inputTags = array_map(fn($tag) => htmlspecialchars(trim($tag->value)), $tagObjects);
+
+                $tagsJson = json_encode($inputTags);
+
+                foreach ($inputTags as $tagName) {
+                    $exists = Tag::where('name', $tagName)->exists();
+
+                    if (!$exists) {
+                        Tag::create(['name' => $tagName]);
+                    }
+                }
 
                 $photo = Cloudinary::upload($req->file('image')->getRealPath());
 
                 $data = array_merge($validated, [
                     'id_user' => $user->id,
-                    'tags' => $tags,
+                    'tags' => $tagsJson,
                     'photo' => $photo->getPublicId(),
                 ]);
 

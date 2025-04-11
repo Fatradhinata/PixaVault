@@ -4,6 +4,56 @@
 
 @section('styles')
     <link rel="stylesheet" href="{{ asset('css/upload.css') }}">
+    <!-- Tagify CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css">
+
+    <style>
+        /* Container dropdown */
+        .ui-autocomplete {
+            max-height: 200px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            border-radius: 8px;
+            padding: 4px 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            z-index: 99999;
+        }
+
+        .ui-menu-item {
+            padding: 6px 12px;
+            cursor: pointer;
+        }
+
+        .tagify {
+            width: 100%;
+            border: 2px solid #D9D9D9;
+            border-radius: 5px;
+            color: black;
+            font-weight: 600;
+            font-family: 'Figtree', sans-serif;
+            font-size: 14px;
+            background-color: #fff;
+            transition: border 0.2s ease-in-out;
+            align-items: center
+        }
+
+
+        .tagify:focus-within {
+            border-color: #6366f1;
+            outline: none;
+        }
+
+        .tagify__tag {
+            background: #f3f4f6;
+            color: #111827;
+            border-radius: 9999px;
+            font-family: 'Poppins', sans-serif;
+            padding: 4px 8px;
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -22,7 +72,7 @@
             </div>
             <hr>
             <div class="core">
-              <form class="form" action="{{ route('upload') }}" method="POST" enctype="multipart/form-data">
+                <form class="form" action="{{ route('upload') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('POST')
 
@@ -31,11 +81,14 @@
                         <div class="upload-area">
                             <img src="{{ asset('img/icons/camera.svg') }}" alt="icon-cam">
                             <p>Drag & Drop<br>photo to Upload<br>or <span>browse</span></p>
-                          </div>
-                          <input type="file" name="image" id="imageInput" accept="image/*" required hidden>
+                        </div>
+                        <input type="file" name="image" id="imageInput" accept="image/*" required hidden>
                         <div class="file-detail-wrapper" style="display: none;">
                             <div class="file-detail">
-                                <img src="{{ asset('img/icons/document-jpg.svg') }}" width="46px" height="46px" alt="doc-jpg">
+                                <img src="{{ asset('img/icons/document-jpg.svg') }}" width="46px" height="46px"
+                                    alt="doc-jpg" data-icon-jpg="{{ asset('img/icons/document-jpg.svg') }}"
+                                    data-icon-png="{{ asset('img/icons/document-png.svg') }}"
+                                    data-icon-default="{{ asset('img/icons/document-img.svg') }}">
                                 <div class="filename-wrapper">
                                     <p class="filename">filename.jpg</p>
                                     <p class="file-size">3MB</p>
@@ -54,14 +107,18 @@
 
                         <div class="input-wrapper">
                             <p>Description</p>
-                            <input type="text" name="desc" placeholder="Immerse yourself in the serene beauty of nature , where..." required>
+                            <input type="text" name="desc"
+                                placeholder="Immerse yourself in the serene beauty of nature , where..." required>
                         </div>
 
-                        <div class="input-wrapper input-wrapper-row">
+                        <div class="input-wrapper ">
                             <div class="input-group">
                                 <p>Category Tag</p>
-                                <input type="text" name="tags" placeholder="Nature, Landscape" required>
+                                <input name="tags" id="tags" placeholder="Nature, City, Sunset" required>
+
                             </div>
+                        </div>
+                        <div class="input-wrapper ">
                             <div class="input-group">
                                 <p>Shoot by</p>
                                 <input type="text" name="shoot_by" placeholder="Iphone 16 pro">
@@ -83,6 +140,56 @@
         </div>
     </div>
 @endsection
+@section('scripts')
+    <script src="{{ asset('js/upload.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Tagify JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>
 
+<<<<<<< HEAD
+    <script>
+        let tagify;
+
+        document.addEventListener("DOMContentLoaded", function() {
+            // Inisialisasi Tagify
+            const input = document.querySelector('#tags');
+            tagify = new Tagify(input, {
+                whitelist: [],
+                maxTags: 5,
+                dropdown: {
+                    maxItems: 15,
+                    classname: "tags-look",
+                    enabled: 0,
+                    closeOnSelect: false,
+                    duplicates: false
+                }
+            });
+
+            // Ambil daftar tag dari server untuk autocomplete
+            fetch("/api/tags")
+                .then(RES => RES.json())
+                .then(function(tagList) {
+                    tagify.settings.whitelist = tagList;
+                });
+
+            // Saat user ngetik, ambil dari server (live search)
+            tagify.on("input", function(e) {
+                let value = e.detail.value;
+
+                fetch(`/api/tags/search?q=${value}`)
+                    .then(RES => RES.json())
+                    .then(function(suggestions) {
+                        tagify.settings.whitelist = suggestions;
+                        tagify.dropdown.show.call(tagify, value);
+                    });
+            });
+        });
+    </script>
+
+
+
+@endsection
+=======
 <script src="{{ asset('js/plugins/jquery.min.js') }}"></script>
 <script src="{{ asset('js/upload.js') }}"></script>
+>>>>>>> 96129f7541e85ffcb964f405beeab9efd9ce4462

@@ -49,6 +49,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/content/like/{id}', [ContentController::class, 'updateLike']);
         Route::get('/upload', [ContentController::class, 'upload'])->name('upload');
         Route::post('/upload', [ContentController::class, 'store']);
+        Route::get('/api/tags', [ContentController::class, 'initialTags']);       
+        Route::get('/api/tags/search', [ContentController::class, 'searchTags']);
 
         Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
         Route::delete('/comments/{id}', [CommentController::class, 'destroy'])->name('comments.destroy');
