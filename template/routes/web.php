@@ -78,9 +78,19 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware('admin')->group(function () {
         Route::get('/admin', [AdminController::class, 'index'])->name('admin');
+
         Route::get('/admin/content', [AdminController::class, 'content'])->name('admin.content');
+        Route::delete('/admin/content', [ContentController::class, 'destroy']);
+
         Route::get('/admin/subscription', [AdminController::class, 'subscription'])->name('admin.subscription');
-        Route::get('/admin/user', [AdminController::class, 'user'])->name('admin.user-admin');
+        Route::delete('/admin/subscription', [PaymentController::class, 'destroy']);
+        
+        Route::get('/admin/leaderboard', [AdminController::class, 'leaderboard'])->name('admin.leaderboard');
+        
+        Route::get('/admin/users', [AdminController::class, 'users'])->name('admin.users');
+        Route::delete('/admin/users', [AuthController::class, 'destroy']);
+        
+        Route::get('/admin/report', [AdminController::class, 'report'])->name('admin.report');
     });
 });
 
@@ -99,4 +109,3 @@ Route::middleware('guest')->group(function () {
     Route::get('/auth/google/callback', [SocialiteController::class, 'callback']);
 });
 
-// ------

@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const uploadArea = document.querySelector(".upload-area");
-  const fileInput = document.getElementById("imageInput");
+    const uploadArea = document.querySelector(".upload-area");
+    const fileInput = document.getElementById("imageInput");
 
   const fileDetailWrapper = document.querySelector(".file-detail-wrapper");
   const fileNameElement = document.querySelector(".filename");
@@ -9,20 +9,20 @@ document.addEventListener("DOMContentLoaded", function () {
   const fileIcon = document.querySelector(".file-detail img");
 
 
-  uploadArea.addEventListener("click", () => fileInput.click());
+    uploadArea.addEventListener("click", () => fileInput.click());
 
-  fileInput.addEventListener("change", (event) => {
-    handleFile(event.target.files[0]);
-  });
+    fileInput.addEventListener("change", (event) => {
+        handleFile(event.target.files[0]);
+    });
 
-  uploadArea.addEventListener("dragover", (event) => {
-    event.preventDefault();
-    uploadArea.classList.add("drag-over");
-  });
+    uploadArea.addEventListener("dragover", (event) => {
+        event.preventDefault();
+        uploadArea.classList.add("drag-over");
+    });
 
-  uploadArea.addEventListener("dragleave", () => {
-    uploadArea.classList.remove("drag-over");
-  });
+    uploadArea.addEventListener("dragleave", () => {
+        uploadArea.classList.remove("drag-over");
+    });
 
   uploadArea.addEventListener("drop", (event) => {
     event.preventDefault();

@@ -17,18 +17,22 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        // $user_id = fake()->uuid();
+        $user_id = fake()->uuid();
 
-        // User::create([
-        //     'id' => $user_id,
-        //     'name' => 'fami0110',
-        //     'email' => 'masandofami@gmail.com',
-        //     'password' => '$2y$12$GL.0J7JkYJVhzBDL.iU2junCLJrriE9Dm6iLV7irxTG6Eo.U6PTYO',
-        //     'verified_at' => date('Y-m-d H:i:s'),
-        // ]);
+        User::create([
+            'id' => fake()->uuid(),
+            'name' => 'Admin',
+            'email' => 'pixavaultt@gmail.com',
+            'password' => '$2y$12$nwMoptaNZEbguk.FwaqMee1ZGTQrzPxrvTTI2Wxrga4QnsR.y6ZmS',
+            'verified_at' => date('Y-m-d H:i:s'),
+        ]);
 
-        $this->call([
-            TagSeeder::class,
+        User::create([
+            'id' => $user_id,
+            'name' => 'fami0110',
+            'email' => 'masandofami@gmail.com',
+            'password' => '$2y$12$GL.0J7JkYJVhzBDL.iU2junCLJrriE9Dm6iLV7irxTG6Eo.U6PTYO',
+            'verified_at' => date('Y-m-d H:i:s'),
         ]);
         
 
@@ -60,8 +64,21 @@ class DatabaseSeeder extends Seeder
                 'shoot_by' => 'Sony 17',
                 'tags' => '["Sea", "Nature"]',
             ],
+        ]);
+
+        $user_id = fake()->uuid();
+
+        User::create([
+            'id' => $user_id,
+            'name' => 'Dummy',
+            'email' => 'dummy@example.com',
+            'password' => bcrypt('dummy123'),
+            'verified_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        Content::create([
             [
-                'id' => fake()->uuid(),
+                'id' => $user_id,
                 'id_user' => fake()->uuid(),
                 'name' => 'Blooming Flower',
                 'desc' => 'Lorem tellus ipsum elit nisi leo elementum. Consectetur lorem vivamus. Consectetur sit lorem vivamus ipsum.',
@@ -70,7 +87,7 @@ class DatabaseSeeder extends Seeder
                 'tags' => '["Nature", "Flower", "Landscape"]',
             ],
             [
-                'id' => fake()->uuid(),
+                'id' => $user_id,
                 'id_user' => fake()->uuid(),
                 'name' => 'Pinus',
                 'desc' => 'Lorem tellus ipsum elit nisi leo elementum. Consectetur lorem vivamus. Consectetur sit lorem vivamus ipsum.',

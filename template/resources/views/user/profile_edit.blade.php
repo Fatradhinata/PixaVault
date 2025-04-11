@@ -1,5 +1,7 @@
 @extends('templates.user')
 
+@section('title', 'Edit Profile')
+
 @section('styles')
     <link rel="stylesheet" href="{{ asset('css/edit-profile.css') }}">
 @endsection
@@ -155,5 +157,5 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('js/editProfile.js') }}" type="module"></script>
+    <script src="{{ asset('js/editProfile.js') }}"></script>
 @endsection

@@ -53,7 +53,12 @@
 
         & p.mil-bold {
             font-size: 18px;
+            font-weight: bold;
             margin-bottom: 4px;
+        }
+
+        & p:not(.mil-bold) {
+            margin-bottom: 0;
         }
 
         .cancel-icon {
@@ -77,6 +82,7 @@
     }
 
     .alert-success {
+        background-image: unset !important;
         background-color: #DEF2D6;
         border-color: #63775B;
 
@@ -91,6 +97,7 @@
     }
 
     .alert-danger {
+        background-image: unset !important;
         background-color: #EBC8C4;
         border-color: #9B4244;
         animation: shake 0.6s linear 1;
@@ -106,6 +113,7 @@
     }
 
     .alert-warning {
+        background-image: unset !important;
         background-color: #F8F3D6;
         border-color: #847147;
 
@@ -127,7 +135,7 @@
         justify-content: center;
         width: 100%;
         padding: 35px;
-        z-index: 1000 !important;
+        z-index: 99999 !important;
 
         .left-icon {
             width: 34px;

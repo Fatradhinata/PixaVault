@@ -146,6 +146,7 @@
     <!-- Tagify JS -->
     <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>
 
+<<<<<<< HEAD
     <script>
         let tagify;
 
@@ -188,3 +189,7 @@
 
 
 @endsection
+=======
+<script src="{{ asset('js/plugins/jquery.min.js') }}"></script>
+<script src="{{ asset('js/upload.js') }}"></script>
+>>>>>>> 96129f7541e85ffcb964f405beeab9efd9ce4462

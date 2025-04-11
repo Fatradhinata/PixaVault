@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\SendVerificationLink;
-use App\Models\User;
 use Exception;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Mail\SendVerificationLink;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 
 class AuthController extends Controller
 {
@@ -107,5 +108,23 @@ class AuthController extends Controller
         $req->session()->invalidate();
         $req->session()->regenerate();
         return redirect()->route('login')->with('success', "Logout successful!");
+    }
+
+    public function destroy(Request $req) {
+        $id = User::find($req->input('id'));
+        if (!$id) return redirect()->back()->with('error', 'Data not found!');
+
+        try {
+            if (Auth::user()->role == 'admin') {
+                Storage::delete('profile_photos/' . $id->profile_photo);
+                
+                $id->delete();
+                return redirect()->back()->with('success', 'User deleted successfully!');
+            }
+    
+            return redirect()->back()->with('warning', 'You are not authorized to delete this content!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Something went wrong! Please try again.');
+        }
     }
 }

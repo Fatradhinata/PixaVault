@@ -77,9 +77,9 @@ class ProfileController extends Controller
         $validated = $req->validate([
             'photo' => 'image|mimes:jpg,jpeg,png|max:2048',
             'name' => 'required|string|max:20',
-            'full_name' => 'string|max:100',
-            'phone_number' => 'string|max:72',
-            'bio' => 'string|max:500',
+            'full_name' => 'nullable|string|max:100',
+            'phone_number' => 'nullable|string|max:72',
+            'bio' => 'nullable|string|max:500',
         ]);
 
         try {

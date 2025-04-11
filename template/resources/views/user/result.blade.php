@@ -189,7 +189,7 @@
                     <a href="{{ route('user.profile', $user->id) }}" class="users__list--link">
                         <div class="users__item">
                             <div class="users__item--photo">
-                                <img src="{{ $user->photo ?? asset('img/icons/user-elipse.svg') }}"
+                                <img src="{{ $user->photo ? asset('storage/profile_photos/' . $user->photo) : asset('img/icons/user-elipse.svg') }}"
                                     alt="Users Item Profile Photo">
                             </div>
                             <div class="users__item--identity">

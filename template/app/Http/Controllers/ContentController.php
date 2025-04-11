@@ -116,57 +116,6 @@ class ContentController extends Controller
             return response()->json(['status' => 'fail', 'message' => 'Something went wrong!'], 500);
         }
     }
-    // public function showImage($publicId)
-    // {
-    //     if (empty($publicId))
-    //         return response()->json(['error' => 'Public ID is required'], 400);
-
-    //     $cacheKey = "cloudinary_image_{$publicId}";
-
-    //     try {
-    //         $cachedImage = Cache::get($cacheKey);
-    //         if ($cachedImage) {
-    //             $cachedImage = base64_decode($cachedImage);
-    //             return response()->stream(function () use ($cachedImage) {
-    //                 echo $cachedImage;
-    //                 flush();
-    //             }, 200, ['Content-Type' => 'image/webp']);
-    //         }
-
-    //         $imageUrl = Cloudinary::getImage($publicId)->toUrl();
-    //         $client = new Client();
-    //         $response = $client->get($imageUrl, ['stream' => true]);
-    //         $statusCode = $response->getStatusCode();
-
-    //         if ($statusCode != 200)
-    //             return response()->json(['error' => 'Failed to fetch image from Cloudinary'], $statusCode);
-
-    //         $imageData = $response->getBody()->getContents();
-
-    //         $image = Image::make($imageData);
-    //         $quality = 50;
-    //         $maxSizeKB = 200;
-
-    //         while (true) {
-    //             $compressedImage = $image->encode('webp', $quality);
-    //             if (strlen($compressedImage) / 1024 <= $maxSizeKB || $quality <= 10) {
-    //                 $imageData = $compressedImage; 
-    //                 break; 
-    //             }
-    //             $quality -= 3;
-    //         }
-
-    //         Cache::put($cacheKey, base64_encode($imageData), 3600);
-
-    //         return response()->stream(function() use ($imageData) {
-    //             echo $imageData;
-    //             flush();
-    //         }, 200, [ 'Content-Type' => 'image/webp' ]);
-
-    //     } catch (\Exception $e) {
-    //         return response()->json(['error' => 'Error fetching image: ' . $e->getMessage()], 500);
-    //     }
-    // }
 
     public function showImage($publicId)
     {
@@ -432,5 +381,24 @@ class ContentController extends Controller
 
         return redirect()->to(route('pricing') . '#subscribe')
             ->with('warning', 'You have reached your free limit! <br>Please purchase the subscription to upload more photos.');
+    }
+
+    public function destroy(Request $req)
+    {
+        $id = Content::find($req->input('id'));
+        if (!$id) return redirect()->back()->with('error', 'Data not found!');
+
+        try {
+            if (Auth::user()->role == 'admin') {
+                Cloudinary::destroy($id->photo);
+    
+                $id->delete();
+                return redirect()->back()->with('success', 'Content deleted successfully!');
+            }
+    
+            return redirect()->back()->with('warning', 'You are not authorized to delete this content!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Something went wrong! Please try again.');
+        }
     }
 }
