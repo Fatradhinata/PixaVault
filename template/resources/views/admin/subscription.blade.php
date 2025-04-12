@@ -28,7 +28,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($subscription as $index => $item)
-                                        <tr>
+                                        <tr {!! Request::get('q') == $item->id ? 'class="bg-warning-subtle"' : '' !!} data-k="{{ Request::get('q') }}" data-n="{{ $item->id }}">
                                             <td class="align-middle text-center px-4">
                                                 <span class="text-secondary text-xs font-weight-bold">{{ $index + 1 }}</span>
                                             </td>

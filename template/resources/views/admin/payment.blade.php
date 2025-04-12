@@ -68,6 +68,9 @@
                                             </td> --}}
                                             <td class="px-4 text-center">
                                                 <div class="text-center flex justify-center space-x-4 actions">
+                                                    <a href="{{ route('admin.subscription') }}?q={{ $item->subscription_id }}">
+                                                        <i class="fas fa-credit-card" style="transform: translateY(1px);"></i>
+                                                    </a>
                                                     <img src="{{ asset('assets/img/material-symbols_delete.svg') }}" class="btn-delete" data-id="{{ $item->id }}">
                                                 </div>
                                             </td>

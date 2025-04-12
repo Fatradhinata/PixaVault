@@ -17,7 +17,8 @@
     
     <link rel="stylesheet" href="{{ asset('assets/css/soft-ui-dashboard.css') }}" />
     <style>
-        .actions > img {
+        .actions :is(img, i) {
+            color: #868686;
             cursor: pointer;
             transition: filter 0.3s ease;
 
