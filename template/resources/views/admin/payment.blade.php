@@ -1,15 +1,6 @@
 @extends('templates.admin')
 
 @section('styles')
-    <style>
-        .hover {
-            transition: transform 0.2s;
-
-            &:hover {
-                transform: scale(1.1);
-            }
-        }
-    </style>
 @endsection
 
 @section('breadcrumb')

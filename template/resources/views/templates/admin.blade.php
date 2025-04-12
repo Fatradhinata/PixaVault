@@ -26,6 +26,14 @@
                 filter: brightness(0.5);
             }
         }
+
+        .hover {
+            transition: transform 0.2s;
+
+            &:hover {
+                transform: scale(1.1);
+            }
+        }
     </style>
     @yield('styles')
 

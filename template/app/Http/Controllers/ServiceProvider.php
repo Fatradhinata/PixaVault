@@ -15,8 +15,8 @@ class ServiceProvider extends Controller
 
         $subscription = Subscription::where('user_id', $userId)
             ->where('status', 'active')
-            ->whereRaw("NOW() < date_limit")->first()
-            ->orderBy('created_at', 'desc');
+            ->whereRaw("NOW() < date_limit")
+            ->orderBy('created_at', 'desc')->first();
 
         if (!$subscription) return False;
 

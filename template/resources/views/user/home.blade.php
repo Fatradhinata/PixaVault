@@ -105,7 +105,7 @@
                             <img src="{{ route('image', $content->photo) }}" height="300" class="w-100 shadow-1-strong rounded" alt="Photo"
                                 loading="lazy" data-modal-target="modal-content" data-id="{{ $content->id }}" />
                             <div class="image-profile">
-                                <img src="{{ $content->user['photo'] ?? asset('img/icons/user-elipse.svg') }}"
+                                <img src="{{ $content->user['photo'] ? asset('storage/profile_photos/' . $content->user['photo']) : asset('img/icons/user-elipse.svg') }}"
                                     alt="Profile Picture" class="mil-profile-img" loading="lazy" />
                                 <p class="mil-username">
                                     {{ $content->user['name'] ?? "anonymous" }}
@@ -136,7 +136,7 @@
                             <img src="{{ route('image', $content->photo) }}" height="300" class="w-100 shadow-1-strong rounded" alt="Photo"
                                 loading="lazy" data-modal-target="modal-content" data-id="{{ $content->id }}" />
                             <div class="image-profile">
-                                <img src="{{ $content->user['photo'] ?? asset('img/icons/user-elipse.svg') }}"
+                                <img src="{{ $content->user['photo'] ? asset('storage/profile_photos/' . $content->user['photo']) : asset('img/icons/user-elipse.svg') }}"
                                     alt="Profile Picture" class="mil-profile-img" loading="lazy" />
                                 <p class="mil-username">
                                     {{ $content->user['name'] ?? "anonymous" }}
@@ -167,7 +167,7 @@
                             <img src="{{ route('image', $content->photo) }}" height="300" class="w-100 shadow-1-strong rounded" alt="Photo"
                                 loading="lazy" data-modal-target="modal-content" data-id="{{ $content->id }}" />
                             <div class="image-profile">
-                                <img src="{{ $content->user['photo'] ?? asset('img/icons/user-elipse.svg') }}"
+                                <img src="{{ $content->user['photo'] ? asset('storage/profile_photos/' . $content->user['photo']) : asset('img/icons/user-elipse.svg') }}"
                                     alt="Profile Picture" class="mil-profile-img" loading="lazy" />
                                 <p class="mil-username">
                                     {{ $content->user['name'] ?? "anonymous" }}
@@ -220,7 +220,7 @@
                                         alt="Photo" loading="lazy" data-modal-target="modal-content" loading="lazy"
                                         data-id="{{ $content->id }}" />
                                     <div class="image-profile">
-                                        <img src="{{ $content->user['photo'] ?? asset('img/icons/user-elipse.svg') }}"
+                                        <img src="{{ $content->user['photo'] ? asset('storage/profile_photos/' . $content->user['photo']) : asset('img/icons/user-elipse.svg') }}"
                                             alt="Profile Picture" class="mil-profile-img" loading="lazy" />
                                         <p class="mil-username">
                                             {{ $content->user['name'] ?? "anonymous" }}
@@ -250,7 +250,7 @@
                                         alt="Photo" loading="lazy" data-modal-target="modal-content" loading="lazy"
                                         data-id="{{ $content->id }}" />
                                     <div class="image-profile">
-                                        <img src="{{ $content->user['photo'] ?? asset('img/icons/user-elipse.svg') }}"
+                                        <img src="{{ $content->user['photo'] ? asset('storage/profile_photos/' . $content->user['photo']) : asset('img/icons/user-elipse.svg') }}"
                                             alt="Profile Picture" class="mil-profile-img" loading="lazy" />
                                         <p class="mil-username">
                                             {{ $content->user['name'] ?? "anonymous" }}
@@ -280,7 +280,7 @@
                                         alt="Photo" loading="lazy" data-modal-target="modal-content" loading="lazy"
                                         data-id="{{ $content->id }}" />
                                     <div class="image-profile">
-                                        <img src="{{ $content->user['photo'] ?? asset('img/icons/user-elipse.svg') }}"
+                                        <img src="{{ $content->user['photo'] ? asset('storage/profile_photos/' . $content->user['photo']) : asset('img/icons/user-elipse.svg') }}"
                                             alt="Profile Picture" class="mil-profile-img" loading="lazy" />
                                         <p class="mil-username">
                                             {{ $content->user['name'] ?? "anonymous" }}

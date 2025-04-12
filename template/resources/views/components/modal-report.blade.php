@@ -16,11 +16,11 @@
                     <label for="report-option">What are you reporting ?</label>
                     <select name="report-option" id="report-option" required>
                         <option value="-" hidden>Select Option</option>
-                        <option value="spam">Spam or misleading content</option>
-                        <option value="harassment">Harassment or bullying</option>
-                        <option value="hate_speech">Hate speech or symbols</option>
-                        <option value="violence">Violence or dangerous acts</option>
-                        <option value="other">Other</option>
+                        <option value="Spam or misleading content">Spam or misleading content</option>
+                        <option value="Harassment or bullying">Harassment or bullying</option>
+                        <option value="Hate speech or symbols">Hate speech or symbols</option>
+                        <option value="Violence or dangerous acts">Violence or dangerous acts</option>
+                        <option value="Other">Other</option>
                     </select>
                 </div>
                 <div class="input-group">
@@ -44,11 +44,18 @@
         $(document).ready(function() {
             const reportModal = $("#modal-report");
             const reportTextArea = $("#details-report");
-            const charCounter = $('.textarea-length'); // Elemen di bawah textarea            
+            const charCounter = $('.textarea-length');
+            
+            let id_user = null;
+            let id_content = null;
+            let id_comment = null;
 
             // Open modal when report button is clicked
-            $(document).on("click", ".report-btn", function() {
+            $(".report-btn").on("click", function() {
                 reportModal.css("display", "flex").hide().fadeIn(300);
+                id_user = $(this).data("id-user") || null;
+                id_content = $(this).data("id-content") || null;
+                id_comment = $(this).data("id-comment") || null;
             });
 
             // Close modal when clicking outside or cancel button
@@ -69,8 +76,11 @@
             $("#reportForm").on("submit", function(e) {
                 e.preventDefault(); // Prevent default form submission
                 const reportData = {
-                    // reason: $("#report-option").val(),
-                    details: reportTextArea.val().trim(),
+                    id_user,
+                    id_content,
+                    id_comment,
+                    reason: $("#report-option").val(),
+                    detail: reportTextArea.val().trim(),
                 };
 
                 // Simulate AJAX request (replace with actual API call)
@@ -100,9 +110,9 @@
                                 });
                             });
 
-                            // setTimeout(() => {
-                            //     $(".top-alert .cancel-icon").click();
-                            // }, 4000);
+                            setTimeout(() => {
+                                $(".top-alert .cancel-icon").click();
+                            }, 4000);
 
                             $("form")[0].reset(); // Reset form
                             $("#charCounter").text(500); // Reset character counter

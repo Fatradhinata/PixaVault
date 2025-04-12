@@ -18,8 +18,8 @@ return new class extends Migration
             $table->uuid('id_content')->nullable();
             $table->uuid('id_comment')->nullable();
             $table->string('reason', 30);
-            $table->string('detail', 200);
-            $table->boolean('is_approved')->default(false);
+            $table->string('detail', 200)->nullable();
+            $table->enum('status', ['pending', 'resolved', 'rejected'])->default('pending');
             $table->timestamps();
 
             $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');

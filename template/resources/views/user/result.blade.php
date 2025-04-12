@@ -121,7 +121,7 @@
                         <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded"
                             alt="Photo" data-modal-target="modal-content" data-id="{{ $content->id }}" />
                         <div class="image-profile">
-                            <img src="{{ $content->user['photo'] ?? asset('img/icons/user-elipse.svg') }}"
+                            <img src="{{ $content->user['photo'] ? asset('storage/profile_photos/' . $content->user['photo']) : asset('img/icons/user-elipse.svg') }}"
                                 alt="Profile Picture" class="mil-profile-img" />
                             <p class="mil-username">{{ $content->user['name'] ?? 'anonymous' }}</p>
                         </div>
@@ -147,7 +147,7 @@
                         <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded"
                             alt="Photo" data-modal-target="modal-content" data-id="{{ $content->id }}" />
                         <div class="image-profile">
-                            <img src="{{ $content->user['photo'] ?? asset('img/icons/user-elipse.svg') }}"
+                            <img src="{{ $content->user['photo'] ? asset('storage/profile_photos/' . $content->user['photo']) : asset('img/icons/user-elipse.svg') }}"
                                 alt="Profile Picture" class="mil-profile-img" />
                             <p class="mil-username">{{ $content->user['name'] ?? 'anonymous' }}</p>
                         </div>
@@ -173,7 +173,7 @@
                         <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded"
                             alt="Photo" data-modal-target="modal-content" data-id="{{ $content->id }}" />
                         <div class="image-profile">
-                            <img src="{{ $content->user['photo'] ?? asset('img/icons/user-elipse.svg') }}"
+                            <img src="{{ $content->user['photo'] ? asset('storage/profile_photos/' . $content->user['photo']) : asset('img/icons/user-elipse.svg') }}"
                                 alt="Profile Picture" class="mil-profile-img" />
                             <p class="mil-username">{{ $content->user['name'] ?? 'anonymous' }}</p>
                         </div>

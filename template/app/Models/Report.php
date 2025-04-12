@@ -2,19 +2,22 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Report extends Model
 {
+    use HasFactory, HasUuids;
+    
     protected $fillable = [
-        'id',
         'id_user',
         'id_content',
         'id_comment',
         'id_reported_user',
         'reason',
         'detail',
-        'is_approved',
+        'status',
     ];
 
     public function user()
