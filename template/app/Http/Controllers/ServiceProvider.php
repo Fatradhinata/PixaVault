@@ -9,15 +9,14 @@ use Illuminate\Support\Facades\Auth;
 
 class ServiceProvider extends Controller
 {
-    public static function subscriptionCheck()
+    public static function subscriptionCheck($userId)
     {
         if (!Auth::check()) return False;
 
-        $userId = Auth::user()->id;
-
         $subscription = Subscription::where('user_id', $userId)
             ->where('status', 'active')
-            ->whereRaw("NOW() < date_limit")->first();
+            ->whereRaw("NOW() < date_limit")->first()
+            ->orderBy('created_at', 'desc');
 
         if (!$subscription) return False;
 

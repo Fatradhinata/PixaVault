@@ -25,7 +25,7 @@
             <div class="mil-top-panel-right">
                 @auth
                     <p class="mil-credit">
-                        @if ($services::subscriptionCheck())
+                        @if ($services::subscriptionCheck(Auth::user()->id))
                             <a href="{{ route('subscription') }}">
                                 <b>Unlimited</b> Credit Available
                             </a>

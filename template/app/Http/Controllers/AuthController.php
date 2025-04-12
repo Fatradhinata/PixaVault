@@ -20,6 +20,19 @@ class AuthController extends Controller
         return view('auth.register');
     }
 
+    public function getDataById($id)
+    {
+        $data = User::find($id);
+
+        return response()->json(($data) ? [
+            'status' => 'success',
+            'data' => $data,
+        ] : [
+            'status' => 'fail',
+            'message' => 'Data is not found/empty',
+        ]);
+    }
+
     public function processLogin(Request $req) {
         $credential = $req->validate([
             'email' => 'required|email|max:50',
@@ -103,11 +116,38 @@ class AuthController extends Controller
         abort(404);
     }
 
-    function logout(Request $req) {
+    public function logout(Request $req) {
         Auth::logout();
         $req->session()->invalidate();
         $req->session()->regenerate();
         return redirect()->route('login')->with('success', "Logout successful!");
+    }
+
+    public function update(Request $req)
+    {
+        foreach (['full_name', 'phone_number'] as $field)
+            if ($req->has($field) && $req->input($field) === null) $req->merge([$field => '']);
+
+        $validated = $req->validate([
+            'id' => 'required|string',
+            'name' => 'required|string|max:20',
+            'full_name' => 'nullable|string|max:100',
+            'role' => 'required|string|in:admin,user',
+            'email' => 'required|email',
+            'phone_number' => 'nullable|string',
+            'free_limit' => 'required|integer',
+            'verified_at' => 'nullable|date'
+        ]);
+
+        try {
+            $data = User::find($validated['id']);
+            if (!$data) return redirect()->back()->with('error', 'Data not found!');
+    
+            $data->update($validated);
+            return redirect()->back()->with('success', 'Data updated successfully!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Something went wrong! Please try again.');
+        }
     }
 
     public function destroy(Request $req) {

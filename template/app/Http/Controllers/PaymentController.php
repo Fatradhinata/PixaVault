@@ -23,26 +23,6 @@ class PaymentController extends Controller
         return view('user.pricing');
     }
 
-    public function subscription()
-    {
-        $subscription = Subscription::select('*', DB::raw(
-            'PERIOD_DIFF(EXTRACT(YEAR_MONTH FROM date_limit), EXTRACT(YEAR_MONTH FROM created_at)) AS month_diff,
-            DATEDIFF(date_limit, NOW()) AS day_diff,
-            (NOW() < date_limit) AS ex_status'
-        ))
-        ->where('user_id', Auth::id())
-        ->where('status', 'active')
-        ->whereRaw('(NOW() < date_limit)')
-        ->orderBy('created_at', 'desc')
-        ->first();
-
-        if (!$subscription) return redirect()->route('pricing')->with('warning', "You don't have an active subscription!");
-
-        return view('user.subscription', [
-            'subscription' => $subscription,
-        ]);
-    }
-
     public function checkout($id, $snapToken)
     {
         if (!$id) return redirect()->back()->with('error', 'Data not found!');
@@ -120,7 +100,7 @@ class PaymentController extends Controller
             return redirect()->back()->with('error', 'Invalid type!');
 
             $user = Auth::user();
-            $IDR = json_decode(file_get_contents('https://api.exchangerate-api.com/v4/latest/USD'), true)['rates']['IDR'];
+            $IDR = json_decode(file_get_contents('https://api.exchangerate-api.com/v4/latest/USD'), true)['rates']['IDR'] ?: 16000;
             $amount = ($type == 1) ? intval(56 * $IDR) : intval(7 * $IDR);
             $orderId = strtoupper(Str::random(10));
 
@@ -223,13 +203,13 @@ class PaymentController extends Controller
 
     public function destroy(Request $req)
     {
-        $id = Subscription::find($req->input('id'));
+        $id = Payment::find($req->input('id'));
         if (!$id) return redirect()->back()->with('error', 'Data not found!');
 
         try {
             if (Auth::user()->role == 'admin') {
                 $id->delete();
-                return redirect()->back()->with('success', 'Subscription deleted successfully!');
+                return redirect()->back()->with('success', 'Payment deleted successfully!');
             }
     
             return redirect()->back()->with('warning', 'You are not authorized to delete this content!');
