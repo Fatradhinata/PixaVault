@@ -17,12 +17,21 @@
     
     <link rel="stylesheet" href="{{ asset('assets/css/soft-ui-dashboard.css') }}" />
     <style>
-        .actions > img {
+        .actions :is(img, i) {
+            color: #868686;
             cursor: pointer;
             transition: filter 0.3s ease;
 
             &:hover {
                 filter: brightness(0.5);
+            }
+        }
+
+        .hover {
+            transition: transform 0.2s;
+
+            &:hover {
+                transform: scale(1.1);
             }
         }
     </style>
@@ -82,6 +91,15 @@
                 </li>
 
                 <li class="nav-item">
+                    <a class="nav-link {{ Route::is('admin.payment') ? 'active' : '' }}" href="{{ route('admin.payment') }}">
+                        <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="fas text-sm fa-receipt" style="transform: scale(1) translateY(-2px); color: black;"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">Payment</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a class="nav-link {{ Route::is('admin.users') ? 'active' : '' }}" href="{{ route('admin.users') }}">
                         <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="fas text-sm fa-user" style="transform: scale(1) translateY(-2px); color: black;"></i>
@@ -109,7 +127,7 @@
         <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
             <div class="container-fluid py-1 px-3">
                 <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+                    <ol class="breadcrumb bg-transparent mb-0 p-0 ps-2 px-0 me-sm-6 me-5">
                         <li class="breadcrumb-item text-sm">
                             <a class="opacity-5 text-dark">Admin</a>
                         </li>

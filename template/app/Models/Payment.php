@@ -2,26 +2,24 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Payment extends Model
 {
     use HasFactory, HasUuids;
 
     protected $fillable = [
-        'id',
-        'user_id',
-        'order_id',
         'amount',
-        'payment_type',
+        'order_id',
+        'action',
+        'subscription_id',
         'status',
-        'transaction_id',
-        'midtrans_response',
     ];
 
-    protected $casts = [
-        'midtrans_response' => 'array',
-    ];
+    public function subscription()
+    {
+        return $this->hasOne(Subscription::class, 'id', 'subscription_id');
+    }
 }

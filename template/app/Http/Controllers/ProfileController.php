@@ -74,6 +74,9 @@ class ProfileController extends Controller
 
     public function update(Request $req)
     {
+        foreach (['full_name', 'phone_number', 'bio'] as $field)
+            if ($req->has($field) && $req->input($field) === null) $req->merge([$field => '']);
+
         $validated = $req->validate([
             'photo' => 'image|mimes:jpg,jpeg,png|max:2048',
             'name' => 'required|string|max:20',

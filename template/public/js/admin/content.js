@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
         formDelete.querySelector('input[name="id"]').value = $(this).data('id');
 
         Swal.fire({
-            title: 'Caution!',
+            title: 'Warning!',
             html: 'Are you sure want to delete this content?<br><span class="text-danger">(This action cannot be undone)</span>',
             icon: 'warning',
             showCancelButton: true,

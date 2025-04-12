@@ -23,10 +23,15 @@
                             </button>
 
                             <!-- Dropdown menu -->
+<<<<<<< HEAD
                             <div
                                 class="dropdown-report hidden absolute right-0 mt-2 w-40 bg-white border border-gray-300 rounded shadow-md">
                                 <p class="block px-4 py-2 text-gray-800 hover:bg-gray-200 report-btn" id="report-btn"
                                     data-id="" data-modal-target="modal-report">
+=======
+                            <div class="dropdown-report hidden absolute right-0 mt-2 w-40 bg-white border border-gray-300 rounded shadow-md">
+                                <p class="block px-4 py-2 text-gray-800 hover:bg-gray-200 report-btn" data-modal-target="modal-report">
+>>>>>>> 027612a7e0690fe913ff3a7608f9e8e8a2511501
                                     Report Content
                                 </p>
                             </div>
@@ -221,7 +226,9 @@
                 $('#modal-content .content-description').text(data.desc);
                 $('#modal-content .shoot-by').text(data.shoot_by);
                 $('#modal-content .created-at').text(data.created_at);
-                $('#modal-content #report-btn').attr('data-id', data.id);
+                
+                $('#modal-content .report-btn').attr('data-id-user', data.id_user);
+                $('#modal-content .report-btn').attr('data-id-content', data.id);
 
                 if ($('#idContent').length) {
                     $('#idContent').val(data.id);
@@ -521,22 +528,22 @@
                             let newComment = document.createElement("div");
                             newComment.classList.add("comment-item");
                             newComment.innerHTML = `
-                    <div class="comment-profile">
-                        <div>
-                            <img src="${userImage}" alt="User Profile">
-                            <p>${data.comment.user_name}</p>
-                        </div>
-                        <img class="option-icon" src="${optionsIcon}" alt="">
-                    </div>
-                    <div class="d-flex gap-1 comment-content">
-                        <p class="comment-text">${data.comment.comment}</p>
-                        <div class="comment-action d-flex flex-column align-items-center justify-content-center">
-                            <img class="cursor-pointer like-comment-btn ${data.comment.is_liked ? 'alr-liked liked' : ''}"  data-comment-id="${data.comment.id}" src="${loveIcon}" alt="love-icon">
-                            <p class="font-weight-bold" id="like-count-${data.comment.id}">${data.comment.likes}</p>
-                        </div>
-                    </div>
-                    <p class="comment-time-duration">Just now</p>
-                `;
+                                <div class="comment-profile">
+                                    <div>
+                                        <img src="${userImage}" alt="User Profile">
+                                        <p>${data.comment.user_name}</p>
+                                    </div>
+                                    <img class="option-icon" src="${optionsIcon}" alt="">
+                                </div>
+                                <div class="d-flex gap-1 comment-content">
+                                    <p class="comment-text">${data.comment.comment}</p>
+                                    <div class="comment-action d-flex flex-column align-items-center justify-content-center">
+                                        <img class="cursor-pointer like-comment-btn ${data.comment.is_liked ? 'alr-liked liked' : ''}"  data-comment-id="${data.comment.id}" src="${loveIcon}" alt="love-icon">
+                                        <p class="font-weight-bold" id="like-count-${data.comment.id}">${data.comment.likes}</p>
+                                    </div>
+                                </div>
+                                <p class="comment-time-duration">Just now</p>
+                            `;
 
                             // Masukkan ke atas daftar komentar
                             commentList.prepend(newComment);
@@ -574,22 +581,22 @@
                     let newComment = document.createElement("div");
                     newComment.classList.add("comment-item");
                     newComment.innerHTML = `
-                <div class="comment-profile">
-                    <div>
-                        <img src="${comment.user_image ?? userImage}" alt="User Profile">
-                        <p>${comment.user_name}</p>
-                    </div>
-                    <img class="option-icon" src="${optionsIcon}" alt="">
-                </div>
-                <div class="d-flex gap-1 comment-content">
-                    <p class="comment-text">${comment.comment}</p>
-                    <div class="comment-action d-flex flex-column align-items-center justify-content-center">
-                        <img class="cursor-pointer like-comment-btn ${comment.is_liked ? 'alr-liked liked' : ''}"  data-comment-id="${comment.id}" src="${loveIcon}" alt="love-icon">
-                        <p class="font-weight-bold" id="like-count-${comment.id}">${comment.likes}</p>
-                    </div>
-                </div>
-                <p class="comment-time-duration">${comment.created_at}</p>
-            `;
+                            <div class="comment-profile">
+                                <div>
+                                    <img src="${comment.user_image ?? userImage}" alt="User Profile">
+                                    <p>${comment.user_name}</p>
+                                </div>
+                                <img class="option-icon" src="${optionsIcon}" alt="">
+                            </div>
+                            <div class="d-flex gap-1 comment-content">
+                                <p class="comment-text">${comment.comment}</p>
+                                <div class="comment-action d-flex flex-column align-items-center justify-content-center">
+                                    <img class="cursor-pointer like-comment-btn ${comment.is_liked ? 'alr-liked liked' : ''}"  data-comment-id="${comment.id}" src="${loveIcon}" alt="love-icon">
+                                    <p class="font-weight-bold" id="like-count-${comment.id}">${comment.likes}</p>
+                                </div>
+                            </div>
+                            <p class="comment-time-duration">${comment.created_at}</p>
+                        `;
 
                     commentList.appendChild(newComment);
                 });

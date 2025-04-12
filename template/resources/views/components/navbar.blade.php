@@ -1,3 +1,5 @@
+@inject('services', 'App\Http\Controllers\ServiceProvider')
+
 <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
 
 <!-- top bar -->
@@ -23,8 +25,10 @@
             <div class="mil-top-panel-right">
                 @auth
                     <p class="mil-credit">
-                        @if (Auth::user()->free_limit == -1)
-                            <b>Unlimited</b> Credit Available
+                        @if ($services::subscriptionCheck(Auth::user()->id))
+                            <a href="{{ route('subscription') }}">
+                                <b>Unlimited</b> Credit Available
+                            </a>
                         @else
                             <a href="{{ route('pricing') }}">
                                 <b id="amount-limit">{{ Auth::user()->free_limit }}</b> Credit Available

@@ -10,11 +10,9 @@ return new class extends Migration {
         Schema::create('subscriptions', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->char('user_id', 36);
-            $table->string('order_id')->unique();
-            $table->decimal('amount', 10, 2);
-            $table->string('payment_type');
-            $table->string('status')->default('pending');
-            $table->date('date_limit')->nullable();
+            $table->enum('plans', ['Premium', 'Premium Pro']);
+            $table->enum('status', ['pending', 'active'])->default('pending');
+            $table->timestamp('date_limit');
             $table->timestamps();
             
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

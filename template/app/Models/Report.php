@@ -6,16 +6,18 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Comment extends Model
+class Report extends Model
 {
     use HasFactory, HasUuids;
     
-    protected $table = 'comments';
     protected $fillable = [
-        'id', 
-        'id_user', 
-        'id_content', 
-        'comment'
+        'id_user',
+        'id_content',
+        'id_comment',
+        'id_reported_user',
+        'reason',
+        'detail',
+        'status',
     ];
 
     public function user()
@@ -27,10 +29,14 @@ class Comment extends Model
     {
         return $this->belongsTo(Content::class, 'id_content');
     }
-    
-    public function likes()
+
+    public function comment()
     {
-        return $this->hasMany(CommentLike::class, 'comment_id');
+        return $this->belongsTo(Comment::class, 'id_comment');
     }
 
+    public function reportedUser()
+    {
+        return $this->belongsTo(User::class, 'id_reported_user');
+    }
 }

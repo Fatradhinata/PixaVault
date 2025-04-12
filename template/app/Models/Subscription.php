@@ -11,16 +11,12 @@ class Subscription extends Model
     use HasFactory, HasUuids;
 
     protected $fillable = [
-        'id',
         'user_id',
-        'order_id',
-        'amount',
-        'payment_type',
+        'plans',
         'status',
         'date_limit',
     ];
 
-    // Relasi ke User
     public function user()
     {
         return $this->belongsTo(User::class);

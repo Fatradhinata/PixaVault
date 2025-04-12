@@ -37,23 +37,105 @@
                 }
             }
         }
+
+        /* card subscription */
+
+        .card-subscription {
+            background: rgba(255, 255, 255, 0.20);
+            box-shadow: 0 0 8px 0 rgba(120, 120, 120, 0.30);
+            backdrop-filter: blur(4px);
+
+            .detail-subscription {
+                gap: 8px;
+
+                & * {
+                    text-align: left;
+                    color: white;
+                }
+
+                h3 {
+                    display: inline-block;
+                    width: 100%;
+                    padding-bottom: 10px;
+                    font-size: clamp(2rem, 2vw, 3rem);
+                    margin-bottom: 1rem;
+                    border-bottom: 4px solid rgb(229, 229, 229);
+                    border-image: repeating-linear-gradient(-45deg, transparent, transparent 1px, rgb(229, 229, 229) 1px, rgb(229, 229, 229) 3px) 5;
+                }
+
+                progress {
+                    margin-top: 2rem;
+                    width: 100%;
+                    height: 12px;
+                    border: none;
+                    border-radius: 6px;
+                    overflow: hidden;
+                }
+
+                progress::-webkit-progress-bar {
+                    background-color: rgba(170, 170, 170, 0.464);
+                }
+
+                progress::-webkit-progress-value {
+                    background-color: #BCFF00;
+                }
+
+                span {
+                    display: inline-block;
+                    width: 100%;
+                    text-align: end;
+                    font-size: 12px;
+                }
+
+                @media (max-width: 768px) {
+                    order: 2;
+                }
+            }
+
+            @media (max-width: 768px) {
+                &>.row> :not(.detail-subscription) {
+                    padding-top: 5rem !important;
+                    padding-bottom: 0 !important;
+                }
+            }
+        }
     </style>
 @endsection
 
 @section('content')
     <!-- banner -->
-    <section class="mil-banner mil-banner-sm">
+    <section class="mil-banner mil-banner-sm" style="height: min-content; min-height: 60vh;">
         <img src="{{ asset('img/foto/jan-derungs-XMwAnYLHShE-unsplash.jpg') }}" class="mil-bg-img mil-scale" data-value-1=".4" data-value-2="1.4" alt="image" />
         <div class="mil-overlay"></div>
-        <div class="container">
-            <div class="mil-background-grid mil-top-space"></div>
-            <div class="mil-banner-content mil-center">
-                <div class="mil-mb-90">
-                    <h1 class="mil-light mil-upper mil-mb-30">Pricing</h1>
-                    <ul class="mil-breadcrumbs mil-center">
-                        <li><a href="home-1.html">Home</a></li>
-                        <li><a href="about.html">Pricing</a></li>
-                    </ul>
+        <div class="container h-100 px-4 pb-5" style="padding-top: 10rem;">
+            <div class="mil-banner-content mil-center card card-subscription h-100 p-0">
+                <div class="row m-0 h-100">
+                    <div class="col-md-7 col-lg-6 d-flex flex-column align-items-start justify-content-center detail-subscription p-5">
+                        <h3>Detail Subscription</h3>
+                        <p>TYPE :
+                            <b style="color: #c0fd00;">
+                                @if ($subscription->month_diff >= 12)
+                                    Premium Pro (1 Year)
+                                @else
+                                    Premium (1 Month)
+                                @endif
+                            </b>
+                        </p>
+                        @php
+                            $now = new DateTime();
+                            $end = new DateTime($subscription->date_limit);
+                            $total_diff = (new DateTime($subscription->created_at))->diff($end)->days;
+
+                            $remaining_days = $subscription->day_diff;
+                        @endphp
+                        <p class="badge badge-pfimary">CREATED : <b>{{ date('d-m-Y', strtotime($subscription->created_at)) }}</b></p>
+                        <p class="badge badge-pfimary">EXPIRED : <b>{{ date('d-m-Y', strtotime($subscription->date_limit)) }}</b></p>
+                        <progress id="file" value="{{ $remaining_days }}" max="{{ $total_diff }}"></progress>
+                        <span>Expiry Left: <b>{{ $remaining_days }} day</b></span>
+                    </div>
+                    <div class="col-md-5 col-lg-6 d-flex justify-content-center align-items-center p-5">
+                        <img src="{{ asset('img/logo/logo_pixavault.png') }}" style="width: min(360px, 100%); height: unset; border-radius: unset;" alt="pixavault">
+                    </div>
                 </div>
             </div>
         </div>
@@ -95,7 +177,7 @@
                             </ul>
                         </div>
                         <div class="mil-price-button mil-up">
-                            <form href="{{ route('purchase', 1) }}" method="POST">
+                            <form href="{{ route('extends', 1) }}" method="POST">
                                 @csrf
                                 @method('POST')
                                 <button type="submit" class="mil-button mil-fw radius-8" style="background-color: #BCFF00 !important;">SUBSCRIBE</button>
@@ -127,7 +209,7 @@
                             </ul>
                         </div>
                         <div class="mil-price-button mil-up">
-                            <form action="{{ route('purchase', 2) }}" method="POST">
+                            <form action="{{ route('extends', 2) }}" method="POST">
                                 @csrf
                                 @method('POST')
                                 <button type="submit" class="mil-button mil-fw radius-8">SUBSCRIBE</button>

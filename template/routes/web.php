@@ -1,22 +1,24 @@
 <?php
 
 use App\Models\User;
+use App\Models\Content;
+use App\Models\Payment;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ContentController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MidtransController;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\ReportController;
-use App\Http\Controllers\CommentController;
-use App\Http\Controllers\CommentLikeController;
-use App\Http\Controllers\LeaderboardController;
 use PharIo\Manifest\AuthorElementCollection;
 use App\Http\Controllers\SocialiteController;
-use App\Models\Content;
+use App\Http\Controllers\CommentLikeController;
+use App\Http\Controllers\LeaderboardController;
+use App\Http\Controllers\SubscriptionController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('unverified');
 Route::get('/verify-user/{id}', [AuthController::class, 'verify']);
@@ -66,15 +68,15 @@ Route::middleware('auth')->group(function () {
         Route::put('/profile/edit', [ProfileController::class, 'changePassword'])->name('profile.password');
         Route::get('/profile/{id}', [ProfileController::class, 'details'])->name('user.profile');
         Route::post('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password.update');
-
-
-        Route::post('/midtrans/token', [MidtransController::class, 'getToken']);
+        
         Route::post('/report-content', [ReportController::class, 'store']);
-
-        Route::get('/payment', [HomeController::class, 'payment'])->name('payment');
-        Route::get('/payment-success', [PaymentController::class, 'paymentSuccess'])->name('payment.success');
-        Route::post('/pricing', [PaymentController::class, 'createTransaction'])->name('create.transaction');
-        Route::post('/payment-notification', [PaymentController::class, 'handleNotification'])->name('payment.notification');
+        
+        Route::get('/subscription', [SubscriptionController::class, 'index'])->name('subscription');
+        Route::post('/purchase/{type}', [PaymentController::class, 'purchase'])->name('purchase');
+        Route::post('/extends/{type}', [PaymentController::class, 'extends'])->name('extends');
+        Route::get('/checkout/{id}/{snapToken}', [PaymentController::class, 'checkout'])->name('checkout');
+        Route::get('/payment/{orderId}', [PaymentController::class, 'payment'])->name('payment');
+        Route::delete('/payment/{id}', [PaymentController::class, 'cancelPayment'])->name('payment.cancel');
     });
 
     Route::middleware('admin')->group(function () {
@@ -84,14 +86,23 @@ Route::middleware('auth')->group(function () {
         Route::delete('/admin/content', [ContentController::class, 'destroy']);
 
         Route::get('/admin/subscription', [AdminController::class, 'subscription'])->name('admin.subscription');
-        Route::delete('/admin/subscription', [PaymentController::class, 'destroy']);
+        Route::get('/admin/subscription/{id}', [SubscriptionController::class, 'getDataById']);
+        Route::put('/admin/subscription', [SubscriptionController::class, 'update']);
+        Route::delete('/admin/subscription', [SubscriptionController::class, 'destroy']);
+
+        Route::get('/admin/payment', [AdminController::class, 'payment'])->name('admin.payment');
+        Route::delete('/admin/payment', [PaymentController::class, 'destroy']); 
         
         Route::get('/admin/leaderboard', [AdminController::class, 'leaderboard'])->name('admin.leaderboard');
         
         Route::get('/admin/users', [AdminController::class, 'users'])->name('admin.users');
+        Route::get('/admin/users/{id}', [AuthController::class, 'getDataById']);
+        Route::put('/admin/users', [AuthController::class, 'update']);
         Route::delete('/admin/users', [AuthController::class, 'destroy']);
         
         Route::get('/admin/report', [AdminController::class, 'report'])->name('admin.report');
+        Route::get('/admin/report/resolve/{id}', [ReportController::class, 'resolve']);
+        Route::delete('/admin/report', [ReportController::class, 'destroy']);
     });
 });
 
