@@ -66,6 +66,25 @@ class ContentController extends Controller
         ]);
     }
 
+    public function update(Request $request, $id)
+{
+    $request->validate([
+        'name' => 'required|string|max:100',
+        'desc' => 'required|string|max:500',
+        'shoot_by' => 'nullable|string|max:50',
+    ]);
+    
+
+    $content = Content::findOrFail($id);
+
+    $content->name = $request->name;
+    $content->desc = $request->desc;
+    $content->shoot_by = $request->shoot_by;
+    $content->save();
+
+    return response()->json(['status' => 'success']);
+}
+
     public function getRandom($limit)
     {
         $contents = Content::select('contents.*', DB::raw('CASE WHEN likes.id IS NOT NULL THEN 1 ELSE 0 END as is_liked'))

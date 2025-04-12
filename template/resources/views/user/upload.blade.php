@@ -146,12 +146,10 @@
     <!-- Tagify JS -->
     <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>
 
-<<<<<<< HEAD
     <script>
         let tagify;
 
         document.addEventListener("DOMContentLoaded", function() {
-            // Inisialisasi Tagify
             const input = document.querySelector('#tags');
             tagify = new Tagify(input, {
                 whitelist: [],
@@ -165,14 +163,12 @@
                 }
             });
 
-            // Ambil daftar tag dari server untuk autocomplete
             fetch("/api/tags")
                 .then(RES => RES.json())
                 .then(function(tagList) {
                     tagify.settings.whitelist = tagList;
                 });
 
-            // Saat user ngetik, ambil dari server (live search)
             tagify.on("input", function(e) {
                 let value = e.detail.value;
 
@@ -189,7 +185,3 @@
 
 
 @endsection
-=======
-<script src="{{ asset('js/plugins/jquery.min.js') }}"></script>
-<script src="{{ asset('js/upload.js') }}"></script>
->>>>>>> 96129f7541e85ffcb964f405beeab9efd9ce4462

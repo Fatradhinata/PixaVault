@@ -61,7 +61,7 @@
                                                 <span class="text-secondary text-xs fw-bold">{{ $item->order_id }}</span>
                                             </td>
                                             <td class="px-4 text-center">
-                                                <p class="text-sm fw-bold mb-0">Rp {{ number_format($item->amount, 0, ',', '.'); }}</p>
+                                                <p class="text-sm fw-bold mb-0">Rp {{ number_format($item->amount, 0, ',', '.') }}</p>
                                             </td>
                                             <td class="px-4 text-center">
                                                 <span class="text-secondary text-xs fw-bold">{{ ucfirst($item->payment_type) }}</span>
