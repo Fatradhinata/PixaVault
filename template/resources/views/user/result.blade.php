@@ -70,14 +70,6 @@
     <div class="container">
         <h3>Showing result for <b>"{{ $search }}"</b></h3>
 
-        <div class="tag-row">
-            <button>Natures</button>
-            <button>Bromo</button>
-            <button>Indonesia</button>
-            <button>Mountain</button>
-            <button>Outdoor</button>
-            <button>East java</button>
-        </div>
 
         <div class="tab-header">
             <div class="tab-nav">
@@ -90,7 +82,7 @@
                     Users <b>{{ count($users) }}</b>
                 </button>
             </div>
-            <div class="filter-wrapper">
+            {{-- <div class="filter-wrapper">
                 <p>Sort by :</p>
                 <select class="dropdown select-sort">
                     <option value="newest">Newest</option>
@@ -98,7 +90,7 @@
                     <option value="highest-resolution">Highest Resolution</option>
                     <option value="lowest-resolution">Lowest Resolution</option>
                 </select>
-            </div>
+            </div> --}}
         </div>
         <!-- Gallery -->
         <div class="row tab-content active" id="photos">

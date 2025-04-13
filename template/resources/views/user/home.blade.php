@@ -9,8 +9,8 @@
 @section('content')
     <!-- banner -->
     <section class="mil-banner">
-        <img src="{{ asset('img/foto/jan-derungs-XMwAnYLHShE-unsplash.jpg') }}" class="mil-bg-img mil-scale"
-            data-value-1=".4" data-value-2="1.4" alt="image" loading="lazy" />
+        <img src="{{ asset('img/foto/jan-derungs-XMwAnYLHShE-unsplash.jpg') }}" class="mil-bg-img mil-scale" data-value-1=".4"
+            data-value-2="1.4" alt="image" loading="lazy" />
 
         <div class="mil-overlay"></div>
 
@@ -82,14 +82,14 @@
                         <span class="mil-suptitle mil-upper mil-up mil-mb-30">Insights</span>
                         <h2 class="mil-upper mil-up mil-mb-30">Trending Images</h2>
                         <a href="{{ 'trending' }}" class="mil-link mil-upper mil-up">See All
-                            <span class="mil-arrow"><img src="{{ asset('img/icons/1.svg') }}"
-                                loading="lazy" alt="arrow" /></span></a>
+                            <span class="mil-arrow"><img src="{{ asset('img/icons/1.svg') }}" loading="lazy"
+                                    alt="arrow" /></span></a>
                     </div>
                 </div>
-                
+
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+                        <div class="col-lg-4 col-md-4 mb-4 col-sm-4 mb-lg-0 px-sm-2">
                             @foreach ($trending[0] as $content)
                                 <div class="content-item mil-up position-relative">
                                     <div class="mil-buttons">
@@ -106,20 +106,18 @@
                                         </button>
                                     </div>
                                     <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded"
-                                        alt="Photo" loading="lazy" data-modal-target="modal-content" loading="lazy"
+                                        height="300px" alt="Photo" data-modal-target="modal-content"
                                         data-id="{{ $content->id }}" />
                                     <div class="image-profile">
                                         <img src="{{ $content->user['photo'] ? asset('storage/profile_photos/' . $content->user['photo']) : asset('img/icons/user-elipse.svg') }}"
-                                            alt="Profile Picture" class="mil-profile-img" loading="lazy" />
-                                        <p class="mil-username">
-                                            {{ $content->user['name'] ?? "anonymous" }}
-                                        </p>
+                                            alt="Profile Picture" class="mil-profile-img" />
+                                        <p class="mil-username">{{ $content->user['name'] ?? 'anonymous' }}</p>
                                     </div>
                                 </div>
                             @endforeach
                         </div>
 
-                        <div class="col-lg-4 mb-4 mb-lg-0">
+                        <div class="col-lg-4 col-md-4 mb-4 col-sm-4 mb-lg-0 px-sm-2">
                             @foreach ($trending[1] as $content)
                                 <div class="content-item mil-up position-relative">
                                     <div class="mil-buttons">
@@ -136,20 +134,18 @@
                                         </button>
                                     </div>
                                     <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded"
-                                        alt="Photo" loading="lazy" data-modal-target="modal-content" loading="lazy"
+                                        height="300px" alt="Photo" data-modal-target="modal-content"
                                         data-id="{{ $content->id }}" />
                                     <div class="image-profile">
                                         <img src="{{ $content->user['photo'] ? asset('storage/profile_photos/' . $content->user['photo']) : asset('img/icons/user-elipse.svg') }}"
-                                            alt="Profile Picture" class="mil-profile-img" loading="lazy" />
-                                        <p class="mil-username">
-                                            {{ $content->user['name'] ?? "anonymous" }}
-                                        </p>
+                                            alt="Profile Picture" class="mil-profile-img" />
+                                        <p class="mil-username">{{ $content->user['name'] ?? 'anonymous' }}</p>
                                     </div>
                                 </div>
                             @endforeach
                         </div>
 
-                        <div class="col-lg-4 mb-4 mb-lg-0">
+                        <div class="col-lg-4 col-md-4 mb-4 col-sm-4 mb-lg-0 px-sm-2">
                             @foreach ($trending[2] as $content)
                                 <div class="content-item mil-up position-relative">
                                     <div class="mil-buttons">
@@ -165,15 +161,14 @@
                                             <i class="fas fa-download"></i>
                                         </button>
                                     </div>
-                                    <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded"
-                                        alt="Photo" loading="lazy" data-modal-target="modal-content" loading="lazy"
+                                    <img src="{{ route('image', $content->photo) }}"
+                                        class="w-100 shadow-1-strong rounded" alt="Photo"
+                                        data-modal-target="modal-content" height="300px"
                                         data-id="{{ $content->id }}" />
                                     <div class="image-profile">
                                         <img src="{{ $content->user['photo'] ? asset('storage/profile_photos/' . $content->user['photo']) : asset('img/icons/user-elipse.svg') }}"
-                                            alt="Profile Picture" class="mil-profile-img" loading="lazy" />
-                                        <p class="mil-username">
-                                            {{ $content->user['name'] ?? "anonymous" }}
-                                        </p>
+                                            alt="Profile Picture" class="mil-profile-img" />
+                                        <p class="mil-username">{{ $content->user['name'] ?? 'anonymous' }}</p>
                                     </div>
                                 </div>
                             @endforeach
@@ -192,7 +187,8 @@
             <div class="row">
                 <div class="col-12 mb-15">
                     <div class="mil-center mil-mb-90">
-                        <a href="{{ 'explore' }}"><span class="mil-suptitle mil-upper mil-up mil-mb-30">EXPLORE</span></a>
+                        <a href="{{ 'explore' }}"><span
+                                class="mil-suptitle mil-upper mil-up mil-mb-30">EXPLORE</span></a>
                         <h2 class="mil-upper mil-up">FRAME BY FRAME DISCOVERY</h2>
                         <p class="mil-mb-30">
                             Dive into a world of creativity with handpicked collections tailored to your interests.
@@ -202,10 +198,10 @@
                                     alt="arrow" /></span></a>
                     </div>
                 </div>
-                
+
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+                        <div class="col-lg-4 col-md-4 mb-4 col-sm-4 mb-lg-0 px-sm-2">
                             @foreach ($explore[0] as $content)
                                 <div class="content-item mil-up position-relative">
                                     <div class="mil-buttons">
@@ -221,21 +217,19 @@
                                             <i class="fas fa-download"></i>
                                         </button>
                                     </div>
-                                    <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded"
-                                        alt="Photo" loading="lazy" data-modal-target="modal-content" loading="lazy"
-                                        data-id="{{ $content->id }}" />
+                                    <img src="{{ route('image', $content->photo) }}"
+                                        class="w-100 shadow-1-strong rounded" alt="Photo"
+                                        data-modal-target="modal-content" data-id="{{ $content->id }}" />
                                     <div class="image-profile">
                                         <img src="{{ $content->user['photo'] ? asset('storage/profile_photos/' . $content->user['photo']) : asset('img/icons/user-elipse.svg') }}"
-                                            alt="Profile Picture" class="mil-profile-img" loading="lazy" />
-                                        <p class="mil-username">
-                                            {{ $content->user['name'] ?? "anonymous" }}
-                                        </p>
+                                            alt="Profile Picture" class="mil-profile-img" />
+                                        <p class="mil-username">{{ $content->user['name'] ?? 'anonymous' }}</p>
                                     </div>
                                 </div>
                             @endforeach
                         </div>
 
-                        <div class="col-lg-4 mb-4 mb-lg-0">
+                        <div class="col-lg-4 col-md-4 mb-4 col-sm-4 mb-lg-0 px-sm-2">
                             @foreach ($explore[1] as $content)
                                 <div class="content-item mil-up position-relative">
                                     <div class="mil-buttons">
@@ -251,21 +245,19 @@
                                             <i class="fas fa-download"></i>
                                         </button>
                                     </div>
-                                    <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded"
-                                        alt="Photo" loading="lazy" data-modal-target="modal-content" loading="lazy"
-                                        data-id="{{ $content->id }}" />
+                                    <img src="{{ route('image', $content->photo) }}"
+                                        class="w-100 shadow-1-strong rounded" alt="Photo"
+                                        data-modal-target="modal-content" data-id="{{ $content->id }}" />
                                     <div class="image-profile">
                                         <img src="{{ $content->user['photo'] ? asset('storage/profile_photos/' . $content->user['photo']) : asset('img/icons/user-elipse.svg') }}"
-                                            alt="Profile Picture" class="mil-profile-img" loading="lazy" />
-                                        <p class="mil-username">
-                                            {{ $content->user['name'] ?? "anonymous" }}
-                                        </p>
+                                            alt="Profile Picture" class="mil-profile-img" />
+                                        <p class="mil-username">{{ $content->user['name'] ?? 'anonymous' }}</p>
                                     </div>
                                 </div>
                             @endforeach
                         </div>
 
-                        <div class="col-lg-4 mb-4 mb-lg-0">
+                        <div class="col-lg-4 col-md-4 mb-4 col-sm-4 mb-lg-0 px-sm-2">
                             @foreach ($explore[2] as $content)
                                 <div class="content-item mil-up position-relative">
                                     <div class="mil-buttons">
@@ -281,15 +273,13 @@
                                             <i class="fas fa-download"></i>
                                         </button>
                                     </div>
-                                    <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded"
-                                        alt="Photo" loading="lazy" data-modal-target="modal-content" loading="lazy"
-                                        data-id="{{ $content->id }}" />
+                                    <img src="{{ route('image', $content->photo) }}"
+                                        class="w-100 shadow-1-strong rounded" alt="Photo"
+                                        data-modal-target="modal-content" data-id="{{ $content->id }}" />
                                     <div class="image-profile">
                                         <img src="{{ $content->user['photo'] ? asset('storage/profile_photos/' . $content->user['photo']) : asset('img/icons/user-elipse.svg') }}"
-                                            alt="Profile Picture" class="mil-profile-img" loading="lazy" />
-                                        <p class="mil-username">
-                                            {{ $content->user['name'] ?? "anonymous" }}
-                                        </p>
+                                            alt="Profile Picture" class="mil-profile-img" />
+                                        <p class="mil-username">{{ $content->user['name'] ?? 'anonymous' }}</p>
                                     </div>
                                 </div>
                             @endforeach
@@ -305,14 +295,16 @@
 @endsection
 
 @section('scripts')
+    <script src="{{ asset('js/misc.js') }}"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
             // JS Random Image //
             const randomImageElements =
                 document.querySelectorAll(".mil-randomimage");
 
             randomImageElements.forEach((imgElement) => {
-                const randomImageUrl = `https://picsum.photos/600/400?random=${Math.floor(Math.random() * 1000)}`;
+                const randomImageUrl =
+                    `https://picsum.photos/600/400?random=${Math.floor(Math.random() * 1000)}`;
                 imgElement.src = randomImageUrl;
             });
         });

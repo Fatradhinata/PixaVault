@@ -1,16 +1,19 @@
-window.refreshLikeEvent =  function() {
-    document.querySelectorAll('.like-btn').forEach((e) => {
-        e.onclick = async function () {
-            const id = e.dataset.id;
+window.refreshLikeEvent = function () {
+    document.querySelectorAll('.like-btn').forEach((btn) => {
+        btn.onclick = async function () {
+            const id = btn.dataset.id;
 
             const response = await fetch(`${BASEURL}/content/like/${id}`);
             const { status, like } = await response.json();
-            if (status === 'fail') return console.error('Server error')
+            if (status === 'fail') return console.error('Server error');
 
-            e.querySelector('i').setAttribute('class', like ? 'fas fa-heart' : 'far fa-heart');
-        }
+            document.querySelectorAll(`.like-btn[data-id="${id}"]`).forEach((b) => {
+                b.querySelector('i').setAttribute('class', like ? 'fas fa-heart' : 'far fa-heart');
+            });
+        };
     });
-}
+};
+
 
 const Toast = Swal.mixin({
     toast: true,
@@ -27,7 +30,7 @@ const Toast = Swal.mixin({
     },
 });
 
-window.downloadImage = async function(url) {
+window.downloadImage = async function (url) {
 
     Toast.fire({
         timer: 3000,
@@ -48,7 +51,7 @@ window.downloadImage = async function(url) {
 
         const contentType = response.headers.get('Content-Type');
 
-        if (contentType && contentType.startsWith('application/octet-stream') || 
+        if (contentType && contentType.startsWith('application/octet-stream') ||
             contentType && contentType.includes('image/')) {
 
             const contentDisposition = response.headers.get('Content-Disposition');
@@ -70,7 +73,7 @@ window.downloadImage = async function(url) {
             });
 
             // Decrement limit UI
-            $('#amount-limit').text(parseInt($('#amount-limit').text())-1);
+            $('#amount-limit').text(parseInt($('#amount-limit').text()) - 1);
 
         } else if (contentType && contentType.includes('text/html')) {
             Toast.fire({
@@ -91,10 +94,10 @@ window.downloadImage = async function(url) {
     }
 }
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     refreshLikeEvent();
-    
-    $('.mil-download-btn').on('click', function() {
+
+    $('.mil-download-btn').on('click', function () {
         downloadImage($(this).data('href'));
     });
 });

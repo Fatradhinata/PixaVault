@@ -51,27 +51,27 @@ class ContentController extends Controller
             ->where('contents.id', $id)
             ->with('user')
             ->first();
-    
+
         if (!$content) {
             return response()->json([
                 'status' => 'fail',
                 'message' => 'Data is not found/empty',
             ]);
         }
-    
+
         $content->increment('views');
-    
+
         $data = $content->toArray();
-    
+
         $data['created_at'] = date('d-m-Y', strtotime($data['created_at']));
         $data['updated_at'] = date('d-m-Y', strtotime($data['updated_at']));
-    
+
         return response()->json([
             'status' => 'success',
-            'data' => $data, 
+            'data' => $data,
         ]);
     }
-    
+
 
     public function update(Request $request, $id)
     {
@@ -94,6 +94,8 @@ class ContentController extends Controller
 
     public function getRandom($limit)
     {
+        $excludeId = request()->query('exclude_id');
+
         $contents = Content::select('contents.*', DB::raw('CASE WHEN likes.id IS NOT NULL THEN 1 ELSE 0 END as is_liked'))
             ->leftJoin(
                 'likes',
@@ -102,6 +104,9 @@ class ContentController extends Controller
                     ->where('likes.id_user', '=', Auth::id())
             )
             ->where('contents.id_user', '<>', Auth::id())
+            ->when($excludeId, function ($query, $excludeId) {
+                $query->where('contents.id', '<>', $excludeId);
+            })
             ->inRandomOrder()
             ->with('user')
             ->limit($limit)
@@ -117,6 +122,7 @@ class ContentController extends Controller
             'message' => 'Data is not found/empty',
         ]);
     }
+
 
     public function updateLike(Content $id)
     {
@@ -291,11 +297,14 @@ class ContentController extends Controller
             ->where('contents.id_user', '<>', Auth::id())
             ->with('user');
 
-        if ($search)
+        if ($search) {
             $data = $data->where(function ($q) use ($search) {
                 $q->where('contents.name', 'like', "%$search%")
-                    ->orWhere('contents.desc', 'like', "%$search%");
+                    ->orWhere('contents.desc', 'like', "%$search%")
+                    ->orWhere('contents.tags', 'like', "%$search%");
             });
+        }
+
 
         if ($tag)
             $data = $data->where('contents.tags', 'like', "%$tag%");

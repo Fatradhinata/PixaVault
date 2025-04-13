@@ -44,6 +44,7 @@
 
                     &:hover {
                         background-color: #fff;
+
                         img {
                             filter: invert(1) !important;
                         }
@@ -69,7 +70,7 @@
         <div class="tab-header">
             <button class="tab-btn active" data-tab="photos">
                 <img src="{{ asset('img/icons/multi-image.svg') }}" alt="multiple image">Photos 12
-            </button>           
+            </button>
         </div>
         <!-- Gallery -->
         <div class="row">
@@ -88,11 +89,12 @@
                                 <i class="fas fa-download"></i>
                             </button>
                         </div>
-                        <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded" alt="Photo"
-                            data-modal-target="modal-content" data-id="{{ $content->id }}"/>
+                        <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded"
+                            alt="Photo" data-modal-target="modal-content" data-id="{{ $content->id }}" />
                         <div class="image-profile">
-                            <img src="{{ $content->user['photo'] ?? asset('/img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />
-                            <p class="mil-username">{{ $content->user['name'] ?? "anonymous" }}</p>
+                            <img src="{{ $content->user['photo'] ?? asset('/img/icons/user-elipse.svg') }}"
+                                alt="Profile Picture" class="mil-profile-img" />
+                            <p class="mil-username">{{ $content->user['name'] ?? 'anonymous' }}</p>
                         </div>
                     </div>
                 @endforeach
@@ -113,11 +115,12 @@
                                 <i class="fas fa-download"></i>
                             </button>
                         </div>
-                        <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded" alt="Photo"
-                            data-modal-target="modal-content" data-id="{{ $content->id }}"/>
+                        <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded"
+                            alt="Photo" data-modal-target="modal-content" data-id="{{ $content->id }}" />
                         <div class="image-profile">
-                            <img src="{{ $content->user['photo'] ?? asset('/img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />
-                            <p class="mil-username">{{ $content->user['name'] ?? "anonymous" }}</p>
+                            <img src="{{ $content->user['photo'] ?? asset('/img/icons/user-elipse.svg') }}"
+                                alt="Profile Picture" class="mil-profile-img" />
+                            <p class="mil-username">{{ $content->user['name'] ?? 'anonymous' }}</p>
                         </div>
                     </div>
                 @endforeach
@@ -138,11 +141,12 @@
                                 <i class="fas fa-download"></i>
                             </button>
                         </div>
-                        <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded" alt="Photo"
-                            data-modal-target="modal-content" data-id="{{ $content->id }}"/>
+                        <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded"
+                            alt="Photo" data-modal-target="modal-content" data-id="{{ $content->id }}" />
                         <div class="image-profile">
-                            <img src="{{ $content->user['photo'] ?? asset('/img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />
-                            <p class="mil-username">{{ $content->user['name'] ?? "anonymous" }}</p>
+                            <img src="{{ $content->user['photo'] ?? asset('/img/icons/user-elipse.svg') }}"
+                                alt="Profile Picture" class="mil-profile-img" />
+                            <p class="mil-username">{{ $content->user['name'] ?? 'anonymous' }}</p>
                         </div>
                     </div>
                 @endforeach
@@ -151,4 +155,7 @@
         <!-- Gallery -->
     </div>
     <!-- content -->
+@endsection
+@section('scripts')
+    <script src="{{ asset('js/misc.js') }}"></script>
 @endsection
