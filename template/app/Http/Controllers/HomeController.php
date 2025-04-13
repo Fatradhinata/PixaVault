@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 use App\Models\Content;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -28,19 +29,6 @@ class HomeController extends Controller
         return $tmp;
     }
 
-    private function getTripleColumnWithUser($collection)
-{
-    $tmp = [collect(), collect(), collect()];
-
-    $chunks = $collection->values();
-
-    for ($i = 0; $i < $chunks->count(); $i++) {
-        $tmp[$i % 3]->push($chunks[$i]);
-    }
-
-    return $tmp;
-}
-
 
     public function index()
     {
@@ -57,13 +45,36 @@ class HomeController extends Controller
             ->limit(10)
             ->get();
 
-        $trending = $this->getTripleColumn($contents);
-        $explore = $this->getTripleColumn($contents);
+        $startOfMonth = Carbon::now()->startOfMonth()->toDateTimeString();
+        $endOfMonth = Carbon::now()->endOfMonth()->toDateTimeString();
+        
+        $trending = Content::select('contents.*', DB::raw('CASE WHEN likes.id IS NOT NULL THEN 1 ELSE 0 END as is_liked'))
+            ->leftJoin(
+                'likes',
+                fn($join) =>
+                $join->on('contents.id', '=', 'likes.id_content')
+                    ->where('likes.id_user', '=', Auth::id())
+            )
+            ->where('contents.id_user', '<>', Auth::id())
+            ->orderBy('contents.created_at', 'desc')
+            ->orderByRaw(
+                "CASE 
+                    WHEN contents.created_at BETWEEN ? AND ? THEN 0 
+                    ELSE 1 
+                END", [$startOfMonth, $endOfMonth]
+            )
+            ->orderByDesc('downloads')
+            ->orderByDesc('views')
+            ->orderByDesc('likes')
+            ->limit(10)
+            ->with('user')
+            ->get();
 
-        // dd($trending[1][0]->user, $trending[1][0]->user['name'], $trending);        
+        $trending = $this->getTripleColumn($trending);
+        $explore = $this->getTripleColumn($contents);       
 
         return view('user.home', [
-            'trending' => array_map(fn($col) => array_reverse($col), $trending),
+            'trending' => $trending,
             'explore' => $explore,
         ]);
     }
@@ -88,25 +99,4 @@ class HomeController extends Controller
     //     return view('user.payment');
     // }
 
-    public function trending()
-    {
-        $contents = Content::select('contents.*', DB::raw('CASE WHEN likes.id IS NOT NULL THEN 1 ELSE 0 END as is_liked'))
-            ->leftJoin(
-                'likes',
-                fn($join) =>
-                $join->on('contents.id', '=', 'likes.id_content')
-                    ->where('likes.id_user', '=', Auth::id())
-            )
-            ->where('contents.id_user', '<>', Auth::id())
-            ->orderBy('contents.created_at', 'desc')
-            ->with('user')
-            ->get();
-
-
-        $data = $this->getTripleColumn($contents);
-
-        return view('user.trending', [
-            'contents' => $data
-        ]);
-    }
 }

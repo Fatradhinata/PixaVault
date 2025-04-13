@@ -24,10 +24,10 @@ use App\Http\Controllers\TokenController;
 Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('unverified');
 Route::get('/verify-user/{id}', [AuthController::class, 'verify']);
 
-Route::get('/pricing', [PaymentController::class, 'index'])->name('pricing');
-Route::get('/trending', [HomeController::class, 'trending'])->name('trending');
+Route::get('/trending', [ContentController::class, 'trending'])->name('trending');
 Route::get('/result', [ContentController::class, 'result'])->name('result');
 Route::get('/explore', [ContentController::class, 'index'])->name('explore');
+Route::get('/pricing', [PaymentController::class, 'index'])->name('pricing');
 Route::get('/leaderboard', [LeaderboardController::class, 'index'])->name('leaderboard');
 
 // APIs
@@ -46,9 +46,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/blog', [HomeController::class, 'blog'])->name('blog');
         Route::get('/favorites', [HomeController::class, 'favorites'])->name('favorites');
         Route::get('/history_download', [HomeController::class, 'history_download'])->name('history_download');
-
-        Route::post('/follow/{id}', [ProfileController::class, 'toggleFollow'])->middleware('auth')->name('follow.toggle');
-
 
         Route::get('/content/download/{id}', [ContentController::class, 'downloadImage'])->name('image.download');
         Route::get('/content/like/{id}', [ContentController::class, 'updateLike']);
@@ -70,6 +67,7 @@ Route::middleware('auth')->group(function () {
         Route::put('/profile/edit', [ProfileController::class, 'changePassword'])->name('profile.password');
         Route::get('/profile/{id}', [ProfileController::class, 'details'])->name('user.profile');
         Route::post('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password.update');
+        Route::post('/follow/{id}', [ProfileController::class, 'toggleFollow'])->middleware('auth')->name('profile.follow');
         
         Route::post('/report-content', [ReportController::class, 'store']);
         

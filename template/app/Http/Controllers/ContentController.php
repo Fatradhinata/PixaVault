@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use App\Models\Tag;
 use App\Models\Like;
 use App\Models\User;
 use GuzzleHttp\Client;
 use App\Models\Content;
-use App\Models\Tag;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Number;
@@ -271,6 +272,40 @@ class ContentController extends Controller
 
         return view('user.explore', [
             'contents' => $data,
+        ]);
+    }
+
+    public function trending()
+    {
+        $startOfMonth = Carbon::now()->startOfMonth()->toDateTimeString();
+        $endOfMonth = Carbon::now()->endOfMonth()->toDateTimeString();
+        
+        $contents = Content::select('contents.*', DB::raw('CASE WHEN likes.id IS NOT NULL THEN 1 ELSE 0 END as is_liked'))
+            ->leftJoin(
+                'likes',
+                fn($join) =>
+                $join->on('contents.id', '=', 'likes.id_content')
+                    ->where('likes.id_user', '=', Auth::id())
+            )
+            ->where('contents.id_user', '<>', Auth::id())
+            ->orderBy('contents.created_at', 'desc')
+            ->orderByRaw(
+                "CASE 
+                    WHEN contents.created_at BETWEEN ? AND ? THEN 0 
+                    ELSE 1 
+                END", [$startOfMonth, $endOfMonth]
+            )
+            ->orderByDesc('downloads')
+            ->orderByDesc('views')
+            ->orderByDesc('likes')
+            ->limit(50)
+            ->with('user')
+            ->get();
+
+        $data = $this->getTripleColumn($contents);
+
+        return view('user.trending', [
+            'contents' => $data
         ]);
     }
 

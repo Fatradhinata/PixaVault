@@ -66,14 +66,16 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function toggleFollow($id)
+    public function follow($id)
     {
-        $userToFollow = User::findOrFail($id);
-        $currentUser = auth()->user();
+        $userToFollow = User::find($id);
+        if (!$userToFollow)
+            return response()->json(['error' => 'User not found!'], 400);
 
-        if ($userToFollow->id === $currentUser->id) {
+        $currentUser = Auth::user();
+
+        if ($userToFollow->id === $currentUser->id)
             return response()->json(['error' => 'You cannot follow yourself'], 400);
-        }
 
         $alreadyFollowing = DB::table('follows')->where([
             ['follower_id', $currentUser->id],
