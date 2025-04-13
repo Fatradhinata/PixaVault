@@ -39,7 +39,7 @@
                                                             class="avatar avatar-sm me-3" loading="lazy" alt="User Profile">
                                                     </div>
                                                     <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm">{{ $item->user?->name ?? 'anonymous' }}</h6>
+                                                        <h6 class="mb-0 text-sm">{{ $item->user?->name ?? 'Guest' }}</h6>
                                                         <p class="text-xs text-secondary mb-0">{{ $item->user?->email ?? '-' }}</p>
                                                     </div>
                                                 </div>
@@ -50,7 +50,7 @@
                                                 @elseif (is_null($item->id_comment))
                                                     <span class="badge badge-warning">Content</span>
                                                 @else
-                                                    <span class="badge badge-dark">Comment</span>
+                                                    <span class="badge badge-secondary">Comment</span>
                                                 @endif
                                             </td>
                                             <td class="align-middle text-center px-4">

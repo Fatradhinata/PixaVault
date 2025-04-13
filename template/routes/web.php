@@ -19,21 +19,24 @@ use App\Http\Controllers\SocialiteController;
 use App\Http\Controllers\CommentLikeController;
 use App\Http\Controllers\LeaderboardController;
 use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\TokenController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('unverified');
 Route::get('/verify-user/{id}', [AuthController::class, 'verify']);
 
-Route::get('/pricing', [PaymentController::class, 'index'])->name('pricing');
-Route::get('/trending', [HomeController::class, 'trending'])->name('trending');
+Route::get('/trending', [ContentController::class, 'trending'])->name('trending');
 Route::get('/result', [ContentController::class, 'result'])->name('result');
 Route::get('/explore', [ContentController::class, 'index'])->name('explore');
+Route::get('/pricing', [PaymentController::class, 'index'])->name('pricing');
+Route::get('/leaderboard', [LeaderboardController::class, 'index'])->name('leaderboard');
 
 // APIs
-Route::get('/image/{publicId}', [ContentController::class, 'showImage'])->name('image');
+Route::get('/image/{publicId}', [ContentController::class, 'show'])->name('image');
 Route::get('/content/{id}', [ContentController::class, 'getDataById']);
 Route::get('/content/get/{limit}', [ContentController::class, 'getRandom']);
 Route::get('/comments/{id_content}', [CommentController::class, 'index'])->name('comments.index');
-
+Route::get('/content/like/{id}', [ContentController::class, 'like'])->name('content.like');
+Route::get('/content/download/{id}', [ContentController::class, 'download'])->name('image.download');
 
 Route::middleware('auth')->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -46,23 +49,15 @@ Route::middleware('auth')->group(function () {
         Route::get('/favorites', [HomeController::class, 'favorites'])->name('favorites');
         Route::get('/history_download', [HomeController::class, 'history_download'])->name('history_download');
 
-        Route::post('/follow/{id}', [ProfileController::class, 'toggleFollow'])->middleware('auth')->name('follow.toggle');
-
-
-        Route::get('/content/download/{id}', [ContentController::class, 'downloadImage'])->name('image.download');
-        Route::get('/content/like/{id}', [ContentController::class, 'updateLike']);
         Route::get('/upload', [ContentController::class, 'upload'])->name('upload');
         Route::post('/upload', [ContentController::class, 'store']);
-        Route::get('/api/tags', [ContentController::class, 'initialTags']);       
-        Route::get('/api/tags/search', [ContentController::class, 'searchTags']);
+        Route::get('/api/tags', [ContentController::class, 'tags']);
 
         Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
         Route::post('/content/{id}', [ContentController::class, 'update'])->name('content.update')->middleware('auth');
         Route::delete('/comments/{id}', [CommentController::class, 'destroy'])->name('comments.destroy');
         Route::post('/comment/{commentId}/like', [CommentLikeController::class, 'likeComment']);
         Route::delete('/comment/{commentId}/unlike', [CommentLikeController::class, 'unlikeComment']);
-
-        Route::get('/leaderboard', [LeaderboardController::class, 'index'])->name('leaderboard');
 
         Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
         Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
@@ -71,6 +66,7 @@ Route::middleware('auth')->group(function () {
         Route::put('/profile/edit', [ProfileController::class, 'changePassword'])->name('profile.password');
         Route::get('/profile/{id}', [ProfileController::class, 'details'])->name('user.profile');
         Route::post('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password.update');
+        Route::post('/follow/{id}', [ProfileController::class, 'toggleFollow'])->middleware('auth')->name('profile.follow');
         
         Route::post('/report-content', [ReportController::class, 'store']);
         
@@ -80,6 +76,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/checkout/{id}/{snapToken}', [PaymentController::class, 'checkout'])->name('checkout');
         Route::get('/payment/{orderId}', [PaymentController::class, 'payment'])->name('payment');
         Route::delete('/payment/{id}', [PaymentController::class, 'cancelPayment'])->name('payment.cancel');
+
+        Route::get('/activation/{id}', [TokenController::class, 'activateToken'])->name('tokenActivation');
     });
 
     Route::middleware('admin')->group(function () {
@@ -97,6 +95,7 @@ Route::middleware('auth')->group(function () {
         Route::delete('/admin/payment', [PaymentController::class, 'destroy']); 
         
         Route::get('/admin/leaderboard', [AdminController::class, 'leaderboard'])->name('admin.leaderboard');
+        Route::post('/admin/leaderboard', [LeaderboardController::class, 'sendGift']);
         
         Route::get('/admin/users', [AdminController::class, 'users'])->name('admin.users');
         Route::get('/admin/users/{id}', [AuthController::class, 'getDataById']);

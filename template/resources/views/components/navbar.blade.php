@@ -64,7 +64,7 @@
                         </div>
                         <div class="mil-nav-dropdown mil-nav-dropdown-user dropdownMenu">
                             <div>
-                                <a href="{{ route('profile', ['id' => Auth::user()->id]) }}">
+                                <a href="{{ route('profile') }}">
                                     <button>View Profile</button>
                                 </a>
                                 <a href="{{ route('profile.edit') }}"><button>Account Settings</button></a>

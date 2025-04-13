@@ -80,6 +80,14 @@
                     background-color: #BCFF00;
                 }
 
+                progress::-moz-progress-bar {
+                    background-color: rgba(170, 170, 170, 0.464);
+                }
+
+                progress::-moz-progress-bar {
+                    background-color: #BCFF00;
+                }
+
                 span {
                     display: inline-block;
                     width: 100%;
@@ -149,8 +157,8 @@
             <div class="row">
                 <div class="col-12">
                     <div class="mil-center mil-mb-90">
-                        <span class="mil-suptitle mil-upper mil-up mil-mb-30">Flexible Plans</span>
-                        <h3 class="mil-upper mil-up mil-mb-30">Affordable Memberships, <br>Premium Features</h3>
+                        <span class="mil-suptitle mil-upper mil-up mil-mb-30">Extend Subscription</span>
+                        <h3 class="mil-upper mil-up mil-mb-30">Extend Premium Features</h3>
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -177,7 +185,7 @@
                             </ul>
                         </div>
                         <div class="mil-price-button mil-up">
-                            <form href="{{ route('extends', 1) }}" method="POST">
+                            <form action="{{ route('extends', 1) }}" method="POST">
                                 @csrf
                                 @method('POST')
                                 <button type="submit" class="mil-button mil-fw radius-8" style="background-color: #BCFF00 !important;">SUBSCRIBE</button>

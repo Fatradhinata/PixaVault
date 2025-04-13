@@ -296,17 +296,4 @@
 
 @section('scripts')
     <script src="{{ asset('js/misc.js') }}"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // JS Random Image //
-            const randomImageElements =
-                document.querySelectorAll(".mil-randomimage");
-
-            randomImageElements.forEach((imgElement) => {
-                const randomImageUrl =
-                    `https://picsum.photos/600/400?random=${Math.floor(Math.random() * 1000)}`;
-                imgElement.src = randomImageUrl;
-            });
-        });
-    </script>
 @endsection

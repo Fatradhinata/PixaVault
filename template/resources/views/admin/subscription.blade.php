@@ -28,7 +28,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($subscription as $index => $item)
-                                        <tr {!! Request::get('q') == $item->id ? 'class="bg-warning-subtle"' : '' !!} data-k="{{ Request::get('q') }}" data-n="{{ $item->id }}">
+                                        <tr {!! Request::get('q') == $item->id ? 'class="bg-warning-subtle"' : '' !!}>
                                             <td class="align-middle text-center px-4">
                                                 <span class="text-secondary text-xs font-weight-bold">{{ $index + 1 }}</span>
                                             </td>
@@ -50,17 +50,17 @@
                                             <td class="align-middle text-center px-4">
                                                 @if ($item->status == 'pending')
                                                     <span class="badge bg-gradient-warning">Pending</span>
-                                                @elseif ($item->ex_status)
+                                                @elseif ($item->status == 'active')
                                                     <span class="badge bg-gradient-info">Active</span>
                                                 @else
                                                     <span class="badge bg-gradient-danger">Expired</span>
                                                 @endif
                                             </td>
                                             <td class="align-middle text-center px-4">
-                                                <span class="text-secondary fw-bold text-xs">{{ date('d-m-Y H:m', strtotime($item->date_limit)) }}</span>
+                                                <span class="text-secondary fw-bold text-xs">{{ date('d-m-Y H:i', strtotime($item->date_limit)) }}</span>
                                             </td>
                                             <td class="align-middle text-center px-4">
-                                                <span class="text-secondary fw-bold text-xs">{{ date('d-m-Y H:m', strtotime($item->created_at)) }}</span>
+                                                <span class="text-secondary fw-bold text-xs">{{ date('d-m-Y H:i', strtotime($item->created_at)) }}</span>
                                             </td>
                                             <td class="px-4 text-center">
                                                 <div class="text-center flex justify-center space-x-4 actions">
@@ -107,6 +107,7 @@
                             <select class="form-control" name="status" id="status" required>
                                 <option value="pending">Pending</option>
                                 <option value="active">Active</option>
+                                <option value="expired">Expired</option>
                             </select>
                         </div>
                         <div class="mb-3">

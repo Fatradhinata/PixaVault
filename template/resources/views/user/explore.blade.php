@@ -3,6 +3,7 @@
 @section('title', 'Explore')
 
 @section('styles')
+    @parent
     <link rel="stylesheet" href="{{ asset('css/explore.css') }}">
 @endsection
 

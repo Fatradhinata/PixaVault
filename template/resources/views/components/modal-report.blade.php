@@ -1,6 +1,7 @@
 @section('styles')
     <link rel="stylesheet" href="{{ asset('css/modal-report.css') }}">
 @endsection
+
 <div class="modal" id="modal-report">
     <div class="modal-report">
         <form action="" id="reportForm">
@@ -52,7 +53,7 @@
 
             // Open modal when report button is clicked
             $(document).on("click", ".report-btn", function() {
-                console.log(this.className);
+                // console.log(this.className);
 
                 if (this.className.includes('user-report')) {
                     $('.report-title').text('Report User');
@@ -67,6 +68,8 @@
                 id_user = $(this).data("id-user") ?? null;
                 id_content = $(this).data("id-content") ?? null;
                 id_comment = $(this).data("id-comment") ?? null;
+
+                console.log({ id_user, id_content, id_comment });
             });
 
 
@@ -126,13 +129,18 @@
                                 $(".top-alert .cancel-icon").click();
                             }, 4000);
 
-                            $("form")[0].reset(); // Reset form
-                            $("#charCounter").text(500); // Reset character counter
+                            // Reset Form and close the modal
+                            $("form")[0].reset();
+                            $("#charCounter").text(500);
                             reportModal.fadeOut(300);
+                            
+
+                        } else {
+                            console.error("Failed to submit report: " + response.message);
                         }
                     },
-                    error: function() {
-                        alert("Failed to submit report.");
+                    error: function(xhr) {
+                        console.error("Failed to submit report: " + xhr.responseText);
                     }
                 });
             });

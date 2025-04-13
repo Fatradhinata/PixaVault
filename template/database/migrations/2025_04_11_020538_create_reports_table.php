@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('reports', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('id_user');
-            $table->uuid('id_reported_user');
+            $table->uuid('id_user')->nullable();
+            $table->uuid('id_reported_user')->nullable();
             $table->uuid('id_content')->nullable();
             $table->uuid('id_comment')->nullable();
             $table->string('reason', 30);

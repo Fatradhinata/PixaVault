@@ -34,6 +34,12 @@
                 transform: scale(1.1);
             }
         }
+
+        .dataTable-container {
+            max-width: 100% !important;
+            overflow-x: auto !important;
+            margin-bottom: 1rem !important;
+        }
     </style>
     
     @yield('styles')

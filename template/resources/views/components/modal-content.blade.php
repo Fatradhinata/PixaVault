@@ -234,7 +234,6 @@
                 $('#modal-content .shoot-by').text(data.shoot_by);
                 $('#modal-content .created-at').text(data.created_at);
 
-                $('#modal-content .report-btn').attr('data-id-user', data.id_user);
                 $('#modal-content .report-btn').attr('data-id-content', data.id);
 
                 if ($('#idContent').length) {

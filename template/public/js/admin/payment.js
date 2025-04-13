@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const formDelete = document.querySelector('#form-delete');
 
-    $('.btn-delete').click(function() {
+    $(document).on('click', '.btn-delete', function() {
         formDelete.querySelector('input[name="id"]').value = $(this).data('id');
 
         Swal.fire({

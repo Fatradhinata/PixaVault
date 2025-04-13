@@ -18,7 +18,12 @@ class PaymentController extends Controller
 {
     public function index()
     {
-        $payment = Payment::where('status', 'pending')->first();
+        $subscription = Subscription::where('user_id', Auth::id())
+            ->where('status', 'active')
+            ->whereRaw("NOW() < date_limit")
+            ->orderBy('created_at', 'desc')->first();
+
+        if ($subscription) return redirect()->route('subscription')->with('warning', 'You already have an active subscription!');
 
         return view('user.pricing');
     }
@@ -195,9 +200,9 @@ class PaymentController extends Controller
                 $id->update(['status' => 'rejected']);
             }
 
-            return redirect()->route('pricing')->with('success', 'Subscription canceled successfully!');
+            return redirect()->route('home')->with('success', 'Subscription canceled successfully!');
         } catch (\Exception $e) {
-            return redirect()->route('pricing')->with('error', 'Something went wrong! Please try again.');
+            return redirect()->route('home')->with('error', 'Something went wrong! Please try again.');
         }
     }
 

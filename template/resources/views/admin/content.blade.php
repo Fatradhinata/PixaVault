@@ -29,7 +29,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($content as $index => $item)
-                                        <tr>
+                                        <tr {!! Request::get('q') == $item->id ? 'class="bg-warning-subtle"' : '' !!}>
                                             <td class="align-middle text-center px-4">
                                                 <span class="text-secondary text-xs font-weight-bold">{{ $index + 1 }}</span>
                                             </td>
@@ -64,7 +64,6 @@
                                             </td>
                                             <td class="px-4 text-center">
                                                 <div class="text-center flex justify-center space-x-4 actions">
-                                                    <img src="{{ asset('assets/img/weui_eyes-on-filled.svg') }}" class="btn-detail">
                                                     <img src="{{ asset('assets/img/material-symbols_delete.svg') }}" class="btn-delete" data-id="{{ $item->id }}">
                                                 </div>
                                             </td>

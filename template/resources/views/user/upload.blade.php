@@ -85,10 +85,8 @@
                         <input type="file" name="image" id="imageInput" accept="image/*" required hidden>
                         <div class="file-detail-wrapper" style="display: none;">
                             <div class="file-detail">
-                                <img src="{{ asset('img/icons/document-jpg.svg') }}" width="46px" height="46px"
-                                    alt="doc-jpg" data-icon-jpg="{{ asset('img/icons/document-jpg.svg') }}"
-                                    data-icon-png="{{ asset('img/icons/document-png.svg') }}"
-                                    data-icon-default="{{ asset('img/icons/document-img.svg') }}">
+                                <img src="{{ asset('img/icons/document-jpg.svg') }}" width="46px" height="46px" alt="doc-jpg" data-icon-jpg="{{ asset('img/icons/document-jpg.svg') }}"
+                                    data-icon-png="{{ asset('img/icons/document-png.svg') }}" data-icon-default="{{ asset('img/icons/document-img.svg') }}">
                                 <div class="filename-wrapper">
                                     <p class="filename">filename.jpg</p>
                                     <p class="file-size">3MB</p>
@@ -107,8 +105,7 @@
 
                         <div class="input-wrapper">
                             <p>Description</p>
-                            <input type="text" name="desc"
-                                placeholder="Immerse yourself in the serene beauty of nature , where..." required>
+                            <input type="text" name="desc" placeholder="Immerse yourself in the serene beauty of nature , where..." required>
                         </div>
 
                         <div class="input-wrapper ">
@@ -127,7 +124,7 @@
 
                         <!-- Submit Buttons -->
                         <div class="upload-submit-wrapper">
-                            <button type="submit" class="upload-button">
+                            <button type="button" class="upload-button">
                                 Upload Photo
                             </button>
                             <button type="reset" class="upload-cancel-button">
@@ -140,48 +137,10 @@
         </div>
     </div>
 @endsection
+
 @section('scripts')
-    <script src="{{ asset('js/upload.js') }}"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Tagify JS -->
     <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>
-
-    <script>
-        let tagify;
-
-        document.addEventListener("DOMContentLoaded", function() {
-            const input = document.querySelector('#tags');
-            tagify = new Tagify(input, {
-                whitelist: [],
-                maxTags: 5,
-                dropdown: {
-                    maxItems: 15,
-                    classname: "tags-look",
-                    enabled: 0,
-                    closeOnSelect: false,
-                    duplicates: false
-                }
-            });
-
-            fetch("/api/tags")
-                .then(RES => RES.json())
-                .then(function(tagList) {
-                    tagify.settings.whitelist = tagList;
-                });
-
-            tagify.on("input", function(e) {
-                let value = e.detail.value;
-
-                fetch(`/api/tags/search?q=${value}`)
-                    .then(RES => RES.json())
-                    .then(function(suggestions) {
-                        tagify.settings.whitelist = suggestions;
-                        tagify.dropdown.show.call(tagify, value);
-                    });
-            });
-        });
-    </script>
-
-
-
+    <script src="{{ asset('js/plugins/jquery.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/swal.min.js') }}"></script>
+    <script src="{{ asset('js/upload.js') }}"></script>
 @endsection

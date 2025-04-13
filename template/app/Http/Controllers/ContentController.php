@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use App\Models\Tag;
 use App\Models\Like;
 use App\Models\User;
 use GuzzleHttp\Client;
 use App\Models\Content;
-use App\Models\Tag;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Number;
@@ -123,13 +124,15 @@ class ContentController extends Controller
         ]);
     }
 
-
-    public function updateLike(Content $id)
+    public function like(Content $id)
     {
-        $id_user = Auth::id();
-        $id_content = $id->id;
-
         try {
+            if (!Auth::check())
+                return response()->json(['redirect' => route('login')], 403);
+            
+            $id_user = Auth::id();
+            $id_content = $id->id;
+
             $like = Like::where('id_user', $id_user, 'and')->where('id_content', $id_content)->first();
 
             if ($like) {
@@ -149,11 +152,10 @@ class ContentController extends Controller
         }
     }
 
-    public function showImage($publicId)
+    public function show(string $publicId)
     {
-        if (empty($publicId)) {
+        if (empty($publicId))
             return response()->json(['error' => 'Public ID is required'], 400);
-        }
 
         $cacheKey = "cloudinary_image_{$publicId}";
 
@@ -174,88 +176,88 @@ class ContentController extends Controller
                 ->format('webp') // Pastikan format WebP untuk efisiensi
                 ->toUrl();
 
-            // Ambil gambar dari Cloudinary menggunakan Guzzle
             $client = new Client();
             $response = $client->get($imageUrl, ['stream' => true]);
 
-            if ($response->getStatusCode() !== 200) {
+            if ($response->getStatusCode() !== 200)
                 return response()->json(['error' => 'Failed to fetch image from Cloudinary'], 500);
-            }
 
-            // Ambil isi gambar
             $imageData = $response->getBody()->getContents();
 
-            // Simpan ke cache
             Cache::put($cacheKey, base64_encode($imageData), 3600);
 
-            // Kirim gambar sebagai stream response
             return response()->stream(function () use ($imageData) {
                 echo $imageData;
                 flush();
             }, 200, ['Content-Type' => 'image/webp']);
+
         } catch (\Exception $e) {
             return response()->json(['error' => 'Error fetching image: ' . $e->getMessage()], 500);
         }
     }
 
-    public function downloadImage(Content $id)
+    public function download(Content $id)
     {
-        if (!$id)
-            return redirect()->back()->with('error', 'Data not found!');
+        try {
+            if (!Auth::check())
+                return response()->json(['redirect' => route('login')], 403);
+    
+            if (!$id)
+                return response()->json(['error' => 'Data not found!'], 404);
+    
+            $user = User::find(Auth::id());
+            $subscription = ServiceProvider::subscriptionCheck($user->id);
+    
+            if (!$subscription) {
+                if ($user->free_limit <= 0) {
+                    return response()->json(['error' => "You've reached your free limit!"], 403);
+                }
 
-        $publicId = $id->photo;
-        $user = User::find(Auth::id());
+                $user->decrement('free_limit');
+            }
 
-        if ($user->free_limit > 0) {
-
-            $user->decrement('free_limit');
+            $publicId = $id->photo;
             $id->increment('downloads');
 
-            try {
-                if (empty($publicId))
-                    return response()->json(['error' => 'Public ID is required'], 400);
+            if (empty($publicId))
+                return response()->json(['error' => 'Public ID is required'], 400);
 
-                $client = new Client();
-                $imageUrl = Cloudinary::getImage($publicId)->toUrl();
-                $response = $client->get($imageUrl, ['stream' => true]);
-                $statusCode = $response->getStatusCode();
+            $client = new Client();
+            $imageUrl = Cloudinary::getImage($publicId)->toUrl();
+            $response = $client->get($imageUrl, ['stream' => true]);
+            $statusCode = $response->getStatusCode();
 
-                if ($statusCode != 200)
-                    return response()->json(['error' => 'Failed to fetch image from Cloudinary'], $statusCode);
+            if ($statusCode != 200)
+                return response()->json(['error' => 'Failed to fetch image from Cloudinary'], $statusCode);
 
-                $contentType = $response->getHeaderLine('Content-Type');
-                if (!$contentType)
-                    $contentType = 'application/octet-stream';
+            $contentType = $response->getHeaderLine('Content-Type') ?: 'application/octet-stream';
 
-                $mimes = [
-                    'image/jpeg' => 'jpg',
-                    'image/png' => 'png',
-                    'image/heic' => 'heic',
-                    'image/webp' => 'webp',
-                    'image/tiff' => 'tiff',
-                ];
+            $mimes = [
+                'image/jpeg' => 'jpg',
+                'image/png' => 'png',
+                'image/heic' => 'heic',
+                'image/webp' => 'webp',
+                'image/tiff' => 'tiff',
+            ];
 
-                $extention = isset($mimes[$contentType]) ? "." . $mimes[$contentType] : '';
-                $fileName = str_replace(' ', '_', $id->name) . $extention;
+            $extention = isset($mimes[$contentType]) ? "." . $mimes[$contentType] : '';
+            $fileName = str_replace(' ', '_', $id->name) . $extention;
 
-                $tempFile = tempnam(sys_get_temp_dir(), 'download_');
-                $tempHandle = fopen($tempFile, 'w+');
+            $tempFile = tempnam(sys_get_temp_dir(), 'download_');
+            $tempHandle = fopen($tempFile, 'w+');
 
-                $stream = $response->getBody();
-                while (!$stream->eof())
-                    fwrite($tempHandle, $stream->read(4096));
-                fclose($tempHandle);
+            $stream = $response->getBody();
+            while (!$stream->eof())
+                fwrite($tempHandle, $stream->read(4096));
+            fclose($tempHandle);
 
-                return response()->download($tempFile, $fileName, [
-                    'Content-Type' => $contentType,
-                    'Content-Disposition' => 'attachment; filename="' . $fileName . '"'
-                ])->deleteFileAfterSend(true);
-            } catch (\Exception $e) {
-                return response()->json(['error' => 'Error downloading image: ' . $e->getMessage()], 500);
-            }
-        } else {
-            return redirect()->to(route('pricing') . '#subscribe')
-                ->with('warning', 'You have reached your free limit! <br>Please purchase the subscription to download more photos.');
+            return response()->download($tempFile, $fileName, [
+                'Content-Type' => $contentType,
+                'Content-Disposition' => 'attachment; filename="' . $fileName . '"'
+            ])->deleteFileAfterSend(true);
+
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Error downloading image: ' . $e->getMessage()], 500);
         }
     }
 
@@ -277,6 +279,40 @@ class ContentController extends Controller
 
         return view('user.explore', [
             'contents' => $data,
+        ]);
+    }
+
+    public function trending()
+    {
+        $startOfMonth = Carbon::now()->startOfMonth()->toDateTimeString();
+        $endOfMonth = Carbon::now()->endOfMonth()->toDateTimeString();
+        
+        $contents = Content::select('contents.*', DB::raw('CASE WHEN likes.id IS NOT NULL THEN 1 ELSE 0 END as is_liked'))
+            ->leftJoin(
+                'likes',
+                fn($join) =>
+                $join->on('contents.id', '=', 'likes.id_content')
+                    ->where('likes.id_user', '=', Auth::id())
+            )
+            ->where('contents.id_user', '<>', Auth::id())
+            ->orderBy('contents.created_at', 'desc')
+            ->orderByRaw(
+                "CASE 
+                    WHEN contents.created_at BETWEEN ? AND ? THEN 0 
+                    ELSE 1 
+                END", [$startOfMonth, $endOfMonth]
+            )
+            ->orderByDesc('downloads')
+            ->orderByDesc('views')
+            ->orderByDesc('likes')
+            ->limit(50)
+            ->with('user')
+            ->get();
+
+        $data = $this->getTripleColumn($contents);
+
+        return view('user.trending', [
+            'contents' => $data
         ]);
     }
 
@@ -337,36 +373,32 @@ class ContentController extends Controller
     public function upload()
     {
         $user = User::find(Auth::id());
+        $subscription = ServiceProvider::subscriptionCheck($user->id);
+    
+        if (!$subscription) {
+            if ($user->free_limit <= 0) {
+                return redirect()
+                    ->to(route('pricing') . '#subscribe')
+                    ->with('warning', 'You have reached your free limit! <br>Please purchase the subscription to upload more photos.');
+            }
 
-        if ($user->free_limit <= 0) {
-            return redirect()->to(route('pricing') . '#subscribe')
-                ->with('warning', 'You have reached your free limit! <br>Please purchase the subscription to upload more photos.');
+            $user->decrement('free_limit');
         }
 
         return view('user.upload');
     }
 
-    public function initialTags()
+    public function tags(Request $req)
     {
-        return Tag::orderBy('name')->limit(15)->pluck('name');
-    }
+        $q = $req->get('q');
 
-    public function searchTags(Request $request)
-    {
-        $start = microtime(true);
-
-        $query = $request->get('q');
-        $results = Tag::where('name', 'like', "$query%")
+        $results = Tag::where('name', 'like', "$q%")
             ->orderBy('name')
             ->limit(15)
             ->pluck('name');
 
-        $duration = number_format((microtime(true) - $start) * 1000, 2);
-        logger("🔍 searchTags for '{$query}' took {$duration} ms");
-
-        return $results;
+        return response()->json($results);
     }
-
 
     public function store(Request $req)
     {
@@ -378,46 +410,47 @@ class ContentController extends Controller
             'shoot_by' => 'nullable|string',
         ]);
 
-        $user = User::find(Auth::id());
-
-        if ($user->free_limit > 0) {
-
-            $user->decrement('free_limit');
-
-            try {
-                $tagObjects = json_decode($validated['tags']);
-                $inputTags = array_map(fn($tag) => htmlspecialchars(trim($tag->value)), $tagObjects);
-
-                $tagsJson = json_encode($inputTags);
-
-                foreach ($inputTags as $tagName) {
-                    $exists = Tag::where('name', $tagName)->exists();
-
-                    if (!$exists) {
-                        Tag::create(['name' => $tagName]);
-                    }
+        try {
+            $user = User::find(Auth::id());
+            $subscription = ServiceProvider::subscriptionCheck($user->id);
+        
+            if (!$subscription) {
+                if ($user->free_limit <= 0) {
+                    return redirect()
+                        ->to(route('pricing') . '#subscribe')
+                        ->with('warning', 'You have reached your free limit! <br>Please purchase the subscription to upload more photos.');
                 }
+    
+                $user->decrement('free_limit');
+            }
+            
+            $tagObjects = json_decode($validated['tags']);
+            $inputTags = array_map(fn($tag) => htmlspecialchars(trim($tag->value)), $tagObjects);
 
-                $photo = Cloudinary::upload($req->file('image')->getRealPath());
+            $tagsJson = json_encode($inputTags);
 
-                $data = array_merge($validated, [
-                    'id_user' => $user->id,
-                    'tags' => $tagsJson,
-                    'photo' => $photo->getPublicId(),
-                ]);
+            foreach ($inputTags as $tagName) {
+                $exists = Tag::where('name', $tagName)->exists();
 
-                Content::create($data);
-            } catch (\Exception $e) {
-                return redirect()->back()
-                    ->with('error', 'Something went wrong when uploading. Please try again.');
+                if (!$exists) {
+                    Tag::create(['name' => $tagName]);
+                }
             }
 
-            return redirect()->route('profile')
-                ->with('success', 'Photo uploaded successfully!');
-        }
+            $photo = Cloudinary::upload($req->file('image')->getRealPath());
 
-        return redirect()->to(route('pricing') . '#subscribe')
-            ->with('warning', 'You have reached your free limit! <br>Please purchase the subscription to upload more photos.');
+            $data = array_merge($validated, [
+                'id_user' => $user->id,
+                'tags' => $tagsJson,
+                'photo' => $photo->getPublicId(),
+            ]);
+
+            Content::create($data);
+
+            return redirect()->route('profile')->with('success', 'Photo uploaded successfully!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Something went wrong. Please try again.');
+        }
     }
 
     public function destroy(Request $req)

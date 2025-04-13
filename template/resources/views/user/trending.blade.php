@@ -1,11 +1,14 @@
 @extends('templates.user')
 
+@section('title', 'Trending')
+
 @section('styles')
+    @parent
     <link rel="stylesheet" href="{{ asset('css/trending.css') }}">
 @endsection
 
 @section('navbar')
-    @include('components.navbar')
+    @include('components.navbar', ['search' => true])
     <style>
         .mil-top-panel {
             .mil-logo img {
@@ -64,15 +67,18 @@
 @endsection
 
 @section('content')
-    <!-- content -->
+    
     <div class="container">
+
         <h3>TRENDING IMAGES</h3>
+
         <div class="tab-header">
             <button class="tab-btn active" data-tab="photos">
-                <img src="{{ asset('img/icons/multi-image.svg') }}" alt="multiple image">Photos 12
-            </button>
+                <img src="{{ asset('img/icons/multi-image.svg') }}" alt="multiple image">
+                Photos {{ count($contents[0])+count($contents[1])+count($contents[2]) }}
+            </button>           
         </div>
-        <!-- Gallery -->
+
         <div class="row">
             <div class="col-lg-4 col-md-4 mb-4 col-sm-4 mb-lg-0 px-sm-2">
                 @foreach ($contents[0] as $content)
@@ -152,9 +158,14 @@
                 @endforeach
             </div>
         </div>
-        <!-- Gallery -->
     </div>
-    <!-- content -->
+
+    @include('components.modal-content')
+
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('js/misc.js') }}"></script>
 @endsection
 @section('scripts')
     <script src="{{ asset('js/misc.js') }}"></script>

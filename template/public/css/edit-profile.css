@@ -67,12 +67,14 @@
 }
 
 /* Settings Content */
-.edit-profile {
+.edit-profile,
+.change-password {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 30px;
     text-align: left;
+    min-width: min(100vw, 440px);
 }
 
 .settings-title {
