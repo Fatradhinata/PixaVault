@@ -196,7 +196,7 @@
                                 <p class="users__item--username">{{ $user->username }}</p>
                                 <p class="users__item--fullname">
                                     {{ $user->name }} <span class="dot">·</span>
-                                    <strong>{{ $user->followers_count ?? '0' }} <span>Followers</span></strong>
+                                    <strong>{{ $user->followers_count }} <span>Followers</span></strong>
                                 </p>
                                 <p class="users__item--bio">{{ $user->bio ?? 'No bio' }}</p>
                             </div>

@@ -28,9 +28,23 @@ class HomeController extends Controller
         return $tmp;
     }
 
+    private function getTripleColumnWithUser($collection)
+{
+    $tmp = [collect(), collect(), collect()];
+
+    $chunks = $collection->values();
+
+    for ($i = 0; $i < $chunks->count(); $i++) {
+        $tmp[$i % 3]->push($chunks[$i]);
+    }
+
+    return $tmp;
+}
+
+
     public function index()
     {
-        $contents = Content::select('contents.*', DB::raw('CASE WHEN likes.id IS NOT NULL THEN 1 ELSE 0 END as is_liked'))
+        $contents = Content::select('contents.*', 'contents.id_user', DB::raw('CASE WHEN likes.id IS NOT NULL THEN 1 ELSE 0 END as is_liked'))
             ->leftJoin(
                 'likes',
                 fn($join) =>
@@ -45,6 +59,8 @@ class HomeController extends Controller
 
         $trending = $this->getTripleColumn($contents);
         $explore = $this->getTripleColumn($contents);
+
+        // dd($trending[1][0]->user, $trending[1][0]->user['name'], $trending);        
 
         return view('user.home', [
             'trending' => array_map(fn($col) => array_reverse($col), $trending),
@@ -75,17 +91,17 @@ class HomeController extends Controller
     public function trending()
     {
         $contents = Content::select('contents.*', DB::raw('CASE WHEN likes.id IS NOT NULL THEN 1 ELSE 0 END as is_liked'))
-        ->leftJoin(
-            'likes',
-            fn($join) =>
-            $join->on('contents.id', '=', 'likes.id_content')
-                ->where('likes.id_user', '=', Auth::id())
-        )
-        ->where('contents.id_user', '<>', Auth::id())
-        ->orderBy('contents.created_at', 'desc') 
-        ->with('user')
-        ->get();
-    
+            ->leftJoin(
+                'likes',
+                fn($join) =>
+                $join->on('contents.id', '=', 'likes.id_content')
+                    ->where('likes.id_user', '=', Auth::id())
+            )
+            ->where('contents.id_user', '<>', Auth::id())
+            ->orderBy('contents.created_at', 'desc')
+            ->with('user')
+            ->get();
+
 
         $data = $this->getTripleColumn($contents);
 

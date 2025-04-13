@@ -6,7 +6,7 @@
         <form action="" id="reportForm">
             @csrf
             <div class="modal-report-header">
-                <h4>Report Content</h4>
+                <h4 class="report-title">Report Content</h4>
                 <p>Your report will remain anonymous unless you are reporting an intellectual property infringement.
                     Refer
                     to our policies for more details on what is and isn’t allowed.</p>
@@ -45,18 +45,30 @@
             const reportModal = $("#modal-report");
             const reportTextArea = $("#details-report");
             const charCounter = $('.textarea-length');
-            
+
             let id_user = null;
             let id_content = null;
             let id_comment = null;
 
             // Open modal when report button is clicked
-            $(".report-btn").on("click", function() {
+            $(document).on("click", ".report-btn", function() {
+                console.log(this.className);
+
+                if (this.className.includes('user-report')) {
+                    $('.report-title').text('Report User');
+                } else if (this.className.includes('content-report')) {
+                    $('.report-title').text('Report Content');
+                } else if (this.className.includes('comment-report')) {
+                    $('.report-title').text('Report Comment');
+                }
+
                 reportModal.css("display", "flex").hide().fadeIn(300);
-                id_user = $(this).data("id-user") || null;
-                id_content = $(this).data("id-content") || null;
-                id_comment = $(this).data("id-comment") || null;
+
+                id_user = $(this).data("id-user") ?? null;
+                id_content = $(this).data("id-content") ?? null;
+                id_comment = $(this).data("id-comment") ?? null;
             });
+
 
             // Close modal when clicking outside or cancel button
             $(".cancel-btn, #modal-report").on("click", function(e) {

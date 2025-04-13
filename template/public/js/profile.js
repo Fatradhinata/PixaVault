@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const labels = {
         weekly: ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"],
         monthly: Array.from({ length: 30 }, (_, i) => (i + 1).toString()), // Tanggal 1-30
-        yearly: ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"], // Nama bulan
+        yearly: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], // Nama bulan
     };
 
     function getStepSize(data) {
@@ -227,11 +227,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     statsDropdown.forEach((dropdown) => {
         dropdown.addEventListener("click", function () {
-            // Toggle class 'open' untuk rotate icon arrow
             this.classList.toggle("open");
         });
 
-        // Menutup dropdown saat klik di luar
         document.addEventListener("click", function (event) {
             if (!dropdown.contains(event.target)) {
                 dropdown.classList.remove("open");
@@ -239,17 +237,85 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    var followBtn = document.getElementById("button-follow");
+    const followBtn = document.getElementById("button-follow");
 
-    followBtn.addEventListener("click", function () {
-        if (followBtn.className == "btn-follow") {
-            followBtn.classList.add("btn-followed");
-            followBtn.classList.remove("btn-follow");
-            followBtn.innerText = "Followed";
-        } else if (followBtn.className == "btn-followed") {
-            followBtn.classList.add("btn-follow");
-            followBtn.classList.remove("btn-followed");
-            followBtn.innerText = "Follow";
+    followBtn?.addEventListener("click", async function () {
+        const userId = followBtn.dataset.userId;
+
+        const isFollowing = followBtn.classList.contains("btn-followed");
+
+        // === UNFOLLOW ===
+        if (isFollowing) {
+            const confirm = await Swal.fire({
+                icon: "warning",
+                title: "Unfollow this user?",
+                text: "Are you sure you want to unfollow?",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#aaa",
+                confirmButtonText: `<span style="color: white; font-weight: bold; font-family: 'Figtree'">Yes, Unfollow</span>`,
+                cancelButtonText: "Cancel",
+                customClass: {
+                    confirmButton: 'swal2-confirm-btn',
+                    cancelButton: 'swal2-cancel-btn',
+                }
+            });
+
+
+            if (!confirm.isConfirmed) return;
         }
+
+        // === AJAX follow/unfollow ===
+        try {
+            const res = await fetch(`/follow/${userId}`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                    'Accept': 'application/json'
+                }
+            });
+
+            const result = await res.json();
+
+            if (result.status === "followed") {
+                followBtn.classList.add("btn-followed");
+                followBtn.classList.remove("btn-follow");
+                followBtn.innerText = "Followed";
+            } else if (result.status === "unfollowed") {
+                followBtn.classList.add("btn-follow");
+                followBtn.classList.remove("btn-followed");
+                followBtn.innerText = "Follow";
+
+                Swal.fire({
+                    icon: "success",
+                    title: "Unfollowed",
+                    text: "You have unfollowed this user.",
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+            }
+        } catch (err) {
+            console.error("Follow action failed", err);
+            Swal.fire({
+                icon: "error",
+                title: "Oops!",
+                text: "Something went wrong while processing your request.",
+            });
+        }
+    });
+
+    // Dropdown Events
+
+    $(".dropdown-toggle").click(function (event) {
+        event.stopPropagation();
+        let dropdown = $(this).next(".dropdown-report");
+
+        $(".dropdown-report").not(dropdown).addClass("hidden");
+
+        dropdown.toggleClass("hidden");
+    });
+
+    $(document).click(function () {
+        $(".dropdown-report").addClass("hidden");
     });
 });

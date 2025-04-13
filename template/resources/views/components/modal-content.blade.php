@@ -23,8 +23,15 @@
                             </button>
 
                             <!-- Dropdown menu -->
+<<<<<<< HEAD
+                            <div
+                                class="dropdown-report hidden absolute right-0 mt-2 w-40 bg-white border border-gray-300 rounded shadow-md">
+                                <p class="block px-4 py-2 text-gray-800 hover:bg-gray-200 report-btn report-content"
+                                    data-modal-target="modal-report">
+=======
                             <div class="dropdown-report hidden absolute right-0 mt-2 w-40 bg-white border border-gray-300 rounded shadow-md">
                                 <p class="block px-4 py-2 text-gray-800 hover:bg-gray-200 report-btn" data-modal-target="modal-report">
+>>>>>>> ce2107dff90b399d3dcf5608e6a26207cebde147
                                     Report Content
                                 </p>
                             </div>
@@ -130,9 +137,8 @@
                     <div class="comment-profile">
                         <img src="{{ asset('img/faces/user.jpg') }}" alt="User Profile">
                         <p id="commentUserName">{{ auth()->user()->name }}</p>
-
                     </div>
-                    <input type="hidden" id="id_content" name="id_content" value="">
+                    <input type="hidden" id="idContent" name="id_content" value="">
                     <input type="text" name="comment" class="comment-input-area" placeholder="Write a comment..."
                         autocomplete="off">
                     <hr>
@@ -180,9 +186,12 @@
             window.BASEURL = `{{ url('/') }}`;
             window.tmp_user = `{{ asset('img/icons/user-elipse.svg') }}`;
         }
+        const PROFILE_BASE_URL = `{{ asset('storage/profile_photos') }}`;
 
         document.addEventListener('DOMContentLoaded', () => {
             let commentAssets = document.getElementById("comment-assets");
+
+            const currentUser = @json(auth()->user());
 
             let userImage = commentAssets.dataset.userImage;
             let loveIcon = commentAssets.dataset.loveIcon;
@@ -208,8 +217,18 @@
                 $('#modal-content .like-btn')[0].dataset.id = data.id;
                 $('#modal-content .like-btn i').attr('class', ((data.is_liked) ? `fas fa-heart` : `far fa-heart`));
                 $('#modal-content .image-content').attr('src', `${BASEURL}/image/${data.photo}`);
-                $('#modal-content .profile').attr('src', (data.user) ?
-                    `${BASEURL}/profile/${data.user.photo}` : tmp_user);
+
+                $('#idContent').val(data.id);
+                contentId = data.id
+
+                $('#modal-content .profile').attr(
+                    'src', data.user?.photo ? `${PROFILE_BASE_URL}/${data.user.photo}` : tmp_user
+                );
+
+                $('#modal-content .comment-profile img').attr(
+                    'src', currentUser?.photo ? `${PROFILE_BASE_URL}/${currentUser.photo}` : tmp_user
+                );
+
                 $('#modal-content .follow').attr('href', `${BASEURL}/profile/${data.id_user}`);
                 $('#modal-content .username').text((data.user) ? data.user.name : 'anonymous');
                 $('#modal-content .downloads').text(data.downloads);
@@ -219,7 +238,7 @@
                 $('#modal-content .content-description').text(data.desc);
                 $('#modal-content .shoot-by').text(data.shoot_by);
                 $('#modal-content .created-at').text(data.created_at);
-                
+
                 $('#modal-content .report-btn').attr('data-id-user', data.id_user);
                 $('#modal-content .report-btn').attr('data-id-content', data.id);
 
@@ -236,22 +255,16 @@
 
 
             function setCommentField(comments) {
-                console.log(comments)
                 const commentList = document.getElementById("commentList");
                 const commentCount = document.getElementById("commentCount");
                 const noCommentsText = document.getElementById("noCommentsText");
 
-                console.log(comments, 'asdasds')
-
-                // Kosongkan daftar komentar sebelum diisi ulang
                 commentList.innerHTML = "";
 
                 if (comments.length === 0) {
-                    // Jika tidak ada komentar, tampilkan teks "No comments yet."
                     commentList.innerHTML =
                         `<p id="noCommentsText" class="text-center text-muted">No comments yet.</p>`;
                 } else {
-                    // Iterasi setiap komentar dan tambahkan ke dalam `commentList`
                     comments.forEach(comment => {
                         const commentItem = document.createElement("div");
                         commentItem.classList.add("comment-item");
@@ -259,11 +272,22 @@
 
                         commentItem.innerHTML = `
                 <div class="comment-profile">
-                    <div>
+                    <div class="comment-identity">
                         <img src="${comment.user_image ?? userImage}" alt="User Profile">
                         <p>${comment.user_name}</p>
                     </div>
-                    <img class="option-icon" src="${optionsIcon}" alt="">
+                    <div class="relative">
+                        <button class="option-btn dropdown-toggle">
+                            <img src="${optionsIcon}" alt="">
+                        </button>
+
+                        <div class="dropdown-report hidden absolute right-0 mt-2 w-40 bg-white border border-gray-300 rounded shadow-md">
+                            <p class="block px-4 py-2 text-gray-800 hover:bg-gray-200 report-btn comment-report"
+                                data-modal-target="modal-report" data-id-comment="${comment.id}">
+                                Report Comment
+                            </p>
+                        </div>
+                    </div>
                 </div>
                 <div class="d-flex gap-1 comment-content">
                     <p class="comment-text">${comment.comment}</p>
@@ -375,10 +399,8 @@
                         }
 
                         if (loadMore) {
-                            console.log("Appending more comments...");
-                            setLoadMoreComment(jsonData.data);
+                            setLoadMoreComment(jsonData.data, jsonData);
                         } else {
-                            console.log("Replacing comments...");
                             setCommentField(jsonData.data);
                         }
                     } else {
@@ -467,8 +489,6 @@
 
                         const id = $(this).data('id');
                         await displayData(id);
-                        console.log('askndjasndkadasmdsa')
-                        console.log(commentPage, 'asdasdsad')
                         if (commentPage == null) {
                             commentPage = 1
                         }
@@ -483,7 +503,7 @@
                     window.downloadImage(`${BASEURL}/content/download/${id}`);
                 };
 
-                window.refreshLikeEvent();
+                // window.refreshLikeEvent();
             }
 
             document.getElementById("commentForm")?.addEventListener("submit", function(event) {
@@ -512,7 +532,7 @@
                     })
                     .then(data => {
                         if (data.success) {
-                            console.log('Upload Comment Success!')
+                            commentCount.innerHTML = data.comment.total_comment
                             let commentList = document.getElementById("commentList");
                             document.getElementById("commentUserName").textContent = data.comment
                                 .user_name;
@@ -522,11 +542,22 @@
                             newComment.classList.add("comment-item");
                             newComment.innerHTML = `
                                 <div class="comment-profile">
-                                    <div>
-                                        <img src="${userImage}" alt="User Profile">
-                                        <p>${data.comment.user_name}</p>
-                                    </div>
-                                    <img class="option-icon" src="${optionsIcon}" alt="">
+                                     <div class="comment-identity">
+                                    <img src="${data.comment.user_image ?? userImage}" alt="User Profile">
+                                    <p>${data.comment.user_name}</p>
+                            </div>
+                            <div class="relative">
+                                <button class="option-btn dropdown-toggle">
+                                    <img src="${optionsIcon}" alt="">
+                                </button>
+
+                                <div class="dropdown-report hidden absolute right-0 mt-2 w-40 bg-white border border-gray-300 rounded shadow-md">
+                                    <p class="block px-4 py-2 text-gray-800 hover:bg-gray-200 report-btn comment-report"
+                                        data-modal-target="modal-report" data-id-comment="${data.comment.id}">
+                                        Report Comment
+                                    </p>
+                                </div>
+                            </div>
                                 </div>
                                 <div class="d-flex gap-1 comment-content">
                                     <p class="comment-text">${data.comment.comment}</p>
@@ -558,8 +589,8 @@
                 fetchComment(contentId, commentPage, true);
             });
 
-            function setLoadMoreComment(data) {
-                console.log(data)
+            function setLoadMoreComment(data, jsonData) {
+                console.log(jsonData)
                 if (data.status === "fail") {
                     loadMoreButton.style.display = "none";
                     return;
@@ -575,11 +606,22 @@
                     newComment.classList.add("comment-item");
                     newComment.innerHTML = `
                             <div class="comment-profile">
-                                <div>
-                                    <img src="${comment.user_image ?? userImage}" alt="User Profile">
-                                    <p>${comment.user_name}</p>
+                                <div class="comment-identity">
+                                <img src="${comment.user_image ?? userImage}" alt="User Profile">
+                                <p>${comment.user_name}</p>
+                            </div>
+                            <div class="relative">
+                                <button class="option-btn dropdown-toggle">
+                                    <img src="${optionsIcon}" alt="">
+                                </button>
+
+                                <div class="dropdown-report hidden absolute right-0 mt-2 w-40 bg-white border border-gray-300 rounded shadow-md">
+                                    <p class="block px-4 py-2 text-gray-800 hover:bg-gray-200 report-btn comment-report"
+                                        data-modal-target="modal-report" data-id-comment="${comment.id}">
+                                        Report Comment
+                                    </p>
                                 </div>
-                                <img class="option-icon" src="${optionsIcon}" alt="">
+                            </div>
                             </div>
                             <div class="d-flex gap-1 comment-content">
                                 <p class="comment-text">${comment.comment}</p>
@@ -594,7 +636,7 @@
                     commentList.appendChild(newComment);
                 });
 
-                if (!data.hasMore) {
+                if (!jsonData.hasMore) {
                     loadMoreButton.style.display = "none";
                 }
             }
@@ -623,19 +665,16 @@
             });
 
 
-
-            // Dropdown Events
-
-            $(".dropdown-toggle").click(function(event) {
+            // Show/hide dropdown report
+            $(document).on("click", ".dropdown-toggle", function(event) {
                 event.stopPropagation();
                 let dropdown = $(this).next(".dropdown-report");
-
                 $(".dropdown-report").not(dropdown).addClass("hidden");
-
                 dropdown.toggleClass("hidden");
             });
 
-            $(document).click(function() {
+            // Hide dropdown if clicked outside
+            $(document).on("click", function() {
                 $(".dropdown-report").addClass("hidden");
             });
 

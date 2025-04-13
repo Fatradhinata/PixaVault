@@ -15,6 +15,25 @@
                 </div>
             </div>
             <div class="actions">
+                @auth
+                    <div class="actions-btn">
+                        <div class="relative">
+                            <button class="option-btn dropdown-toggle">
+                                <img src="{{ asset('img/icons/horiz-dots-variant-2.svg') }}" alt="">
+                            </button>
+
+                            <div
+                                class="dropdown-report hidden absolute right-0 mt-2 w-40 bg-white border border-gray-300 rounded shadow-md">
+                                <p class="block px-4 py-2 text-gray-800 hover:bg-gray-200 report-btn report-content"
+                                    data-modal-target="modal-report">
+                                    Report Content
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                @endauth
+                <button class="like-btn" data-id=""><i class="far fa-heart"></i></button>
                 <button class="edit-btn">
                     <div>
                         <img src="{{ asset('img/icons/edit-pen.svg') }}" alt="Edit">
@@ -96,6 +115,44 @@
         <div class="tag-row">
             <button>example</button>
         </div>
+
+        <div id="comment-assets" data-user-image="{{ asset('img/icons/user-elipse.svg') }}"
+            data-love-icon="{{ asset('img/icons/love-black.svg') }}"
+            data-options-icon="{{ asset('img/icons/horiz-dots-variant-2.svg') }}">
+        </div>
+
+        <!-- Comment Wrapper -->
+        <div class="comment-wrapper" data-user-image="{{ asset('img/icons/user-elipse.svg') }}"
+            data-love-icon="{{ asset('img/icons/love-black.svg') }}"
+            data-options-icon="{{ asset('img/icons/horiz-dots-variant-2.svg') }}">
+            <div class="comment-header">
+                <h3>Comment</h3>
+                <div>
+                    <p id="commentCount">0</p>
+                </div>
+            </div>
+            @auth
+                <form class="comment-input" id="commentForm">
+                    @csrf
+                    <div class="comment-profile">
+                        <img src="{{ asset('img/faces/user.jpg') }}" alt="User Profile">
+                        <p id="commentUserName">{{ auth()->user()->name }}</p>
+
+                    </div>
+                    <input type="hidden" id="idContent" name="id_content" value="">
+                    <input type="text" name="comment" class="comment-input-area" placeholder="Write a comment..."
+                        autocomplete="off">
+                    <hr>
+                    <div class="btn comment-send-btn">
+                        <button type="submit">Send</button>
+                    </div>
+                </form>
+            @endauth
+            <div class="comment-list" id="commentList">
+                <p id="noCommentsText" class="text-center text-muted">No comments yet.</p>
+            </div>
+            <button class="btn comment-load-btn">Load More</button>
+        </div>
     </div>
 </div>
 
@@ -104,6 +161,7 @@
     <script>
         const ICON_EDIT = "{{ asset('img/icons/edit-pen.svg') }}";
         const ICON_CHECK = "{{ asset('img/icons/checklist.svg') }}";
+        const PROFILE_BASE_URL = `{{ asset('storage/profile_photos') }}`;
         if (typeof BASEURL === 'undefined') {
             window.BASEURL = `{{ url('/') }}`;
             window.tmp_user = `{{ asset('img/icons/user-elipse.svg') }}`;
@@ -117,17 +175,40 @@
 
             const currentUser = @json(auth()->user());
 
+            var commentPage = 1;
+            var contentId;
+
+            let loadMoreButton = document.querySelector(".comment-load-btn");
+            let commentList = document.getElementById("commentList");
+
+            let commentAssets = document.getElementById("comment-assets");
+
+            let userImage = commentAssets.dataset.userImage;
+            let loveIcon = commentAssets.dataset.loveIcon;
+            let optionsIcon = commentAssets.dataset.optionsIcon;
+
             let cache = {};
 
             function setField(data) {
-                console.log(data, currentUser)
+                console.log(data, currentUser.photo)
                 $('#modal-detail').data('id', data.id);
+                $('#idContent').val(data.id);
+                contentId = data.id
+
                 $('#modal-detail .image-content').attr('src', `${BASEURL}/image/${data.photo}`);
-                // src="{{ $user->photo ? asset('storage/profile_photos/' . $user->photo) : asset('img/icons/user-elipse.svg') }}" alt="User Profile">
-                $('#modal-detail .profile').attr('src', currentUser.photo ?
-                    `storage/profile_photos/${currentUser.photo}` : tmp_user);
+
+                $('#modal-detail .profile').attr(
+                    'src', data.user?.photo ? `${PROFILE_BASE_URL}/${data.user.photo}` : tmp_user
+                );
+
+                $('#modal-detail .comment-profile img').attr(
+                    'src', currentUser?.photo ? `${PROFILE_BASE_URL}/${currentUser.photo}` : tmp_user
+                );
+
+
                 $('#modal-detail .follow').attr('href', `${BASEURL}/profile/${data.id_user}`);
-                $('#modal-detail .username').text((currentUser) ? currentUser.name : 'anonymous');
+                $('#modal-detail .username').text(data.user?.name ?? 'anonymous');
+
                 $('#modal-detail .downloads').text(data.downloads);
                 $('#modal-detail .views').text(data.views);
                 $('#modal-detail .likes').text(data.likes);
@@ -139,7 +220,14 @@
                 $('#modal-detail .tag-row').html('');
                 for (let tag of data.tags)
                     $('#modal-detail .tag-row').append(`<button>${tag}</button>`);
+
+                if (currentUser.id !== data.id_user) {
+                    $('#modal-detail .edit-btn').hide();
+                } else {
+                    $('#modal-detail .edit-btn').show();
+                }
             }
+
 
             $('.edit-btn').on('click', function() {
                 const modal = $('#modal-detail');
@@ -266,6 +354,57 @@
                 }
             });
 
+            function setCommentField(comments) {
+                const commentList = document.getElementById("commentList");
+                const commentCount = document.getElementById("commentCount");
+                const noCommentsText = document.getElementById("noCommentsText");
+
+                commentList.innerHTML = "";
+
+                if (comments.length === 0) {
+                    commentList.innerHTML =
+                        `<p id="noCommentsText" class="text-center text-muted">No comments yet.</p>`;
+                } else {
+                    comments.forEach(comment => {
+                        const commentItem = document.createElement("div");
+                        commentItem.classList.add("comment-item");
+
+                        commentItem.innerHTML = `
+                <div class="comment-profile">
+                    <div class="comment-identity">
+                        <img src="${comment.user_image ?? userImage}" alt="User Profile">
+                        <p>${comment.user_name}</p>
+                    </div>
+                    <div class="relative">
+                                        <button class="option-btn dropdown-toggle">
+                                            <img src="${optionsIcon}" alt="">
+                                        </button>
+
+                                        <div
+                                            class="dropdown-report hidden absolute right-0 mt-2 w-40 bg-white border border-gray-300 rounded shadow-md">
+                                            <p class="block px-4 py-2 text-gray-800 hover:bg-gray-200 report-btn comment-report"
+                                                data-modal-target="modal-report"
+                                                data-id-comment="${comment.id}">
+                                                Report Comment
+                                            </p>
+                                        </div>
+                                    </div>
+                </div>
+                <div class="d-flex gap-1 comment-content">
+                    <p class="comment-text">${comment.comment}</p>
+                    <div class="comment-action d-flex flex-column align-items-center justify-content-center">
+                        <img class="cursor-pointer like-comment-btn ${comment.is_liked ? 'alr-liked liked' : ''}" data-comment-id="${comment.id}" src="${loveIcon}" alt="love-icon">
+                        <p class="font-weight-bold" id="like-count-${comment.id}">${comment.likes}</p>
+                    </div>
+                </div>
+                <p class="comment-time-duration">${comment.created_at}</p>
+            `;
+
+                        commentList.appendChild(commentItem);
+                    });
+                }
+            }
+
 
             async function fetchData(url) {
                 const res = await fetch(url)
@@ -275,6 +414,48 @@
                 }
                 return false;
             };
+
+            async function fetchComment(id, page, loadMore) {
+                try {
+                    console.log(id)
+                    const response = await fetch(`${BASEURL}/comments/${id}?page=${page}`);
+
+                    const responseText = await response.text();
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP ${response.status}: ${responseText}`);
+                    }
+
+                    const jsonData = JSON.parse(responseText);
+
+                    if (jsonData.status === 'success') {
+                        commentCount.innerHTML = jsonData.totalComment
+
+                        if (!jsonData.hasMore) {
+                            loadMoreButton.style.display = "none";
+                        } else {
+                            loadMoreButton.style.display = "block";
+                        }
+
+                        if (loadMore) {
+                            setLoadMoreComment(jsonData.data, jsonData);
+                        } else {
+                            setCommentField(jsonData.data);
+                        }
+                    } else {
+                        if (jsonData.status == 'fail' && loadMore == false) {
+                            loadMoreButton.style.display = "none";
+
+                            commentList.innerHTML =
+                                `<p id="noCommentsText" class="text-center text-muted">No comments yet.</p>`;
+                            commentCount.innerHTML = 0
+                        }
+                        console.error(`Server Error: ${jsonData.message || 'Unknown error'}`);
+                    }
+                } catch (error) {
+                    console.error("Fetch failed:", error.message);
+                }
+            }
 
             async function displayData(id) {
                 if (id in cache) {
@@ -296,14 +477,194 @@
                 }
             };
 
+            // OPEN MODAL
             $('[data-modal-target="modal-detail"]').on('click', async function() {
                 const id = $(this).data('id');
 
                 await displayData(id);
+                await fetchComment(id, commentPage, false);
 
                 modal.fadeIn(300);
             });
 
+            document.querySelector(".comment-wrapper")?.addEventListener("click", function(event) {
+
+                if (event.target.classList.contains("like-comment-btn")) {
+                    let commentId = event.target.getAttribute("data-comment-id");
+                    let isLiked = event.target.classList.contains("liked");
+
+                    if (!window.isAuthenticated) {
+                        window.location.href = "/login";
+                        return;
+                    }
+
+                    let url = isLiked ? `/comment/${commentId}/unlike` : `/comment/${commentId}/like`;
+                    let method = isLiked ? "DELETE" : "POST";
+
+                    console.log(commentId, "Clicked");
+
+                    fetch(url, {
+                            method: method,
+                            headers: {
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute("content"),
+                                "Content-Type": "application/json"
+                            }
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.message.includes("successfully")) {
+                                let likeCountElement = document.getElementById(
+                                    `like-count-${commentId}`);
+                                let currentLikes = parseInt(likeCountElement.textContent);
+
+                                if (isLiked) {
+                                    likeCountElement.textContent = currentLikes - 1;
+                                    event.target.classList.remove("liked", "alr-liked");
+                                } else {
+                                    likeCountElement.textContent = currentLikes + 1;
+                                    event.target.classList.add("liked", "alr-liked");
+                                }
+                            }
+                        })
+                        .catch(error => console.error("Error:", error));
+                }
+            });
+
+            document.getElementById("commentForm")?.addEventListener("submit", function(event) {
+                event.preventDefault();
+
+                let form = this;
+                let formData = new FormData(form);
+                formData.forEach((value, key) => {
+                    console.log(`${key}:`, value);
+                });
+
+                fetch("{{ route('comments.store') }}", {
+                        method: "POST",
+                        headers: {
+                            "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                        },
+                        body: formData
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(
+                                `HTTP Error! Status: ${response.status} ${response.statusText}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.success) {
+                            commentCount.innerHTML = data.comment.total_comment
+                            let commentList = document.getElementById("commentList");
+                            document.getElementById("commentUserName").textContent = data.comment
+                                .user_name;
+
+                            let newComment = document.createElement("div");
+                            newComment.classList.add("comment-item");
+                            newComment.innerHTML = `
+                                <div class="comment-profile">
+                                    <div class="comment-identity">
+                                        <img src="${data.comment.user_image ?? userImage}" alt="User Profile">
+                                        <p>${data.comment.user_name}</p>
+                                    </div>
+                                    <div class="relative">
+                                        <button class="option-btn dropdown-toggle">
+                                            <img src="${optionsIcon}" alt="">
+                                        </button>
+
+                                        <div
+                                            class="dropdown-report hidden absolute right-0 mt-2 w-40 bg-white border border-gray-300 rounded shadow-md">
+                                            <p class="block px-4 py-2 text-gray-800 hover:bg-gray-200 report-btn comment-report"
+                                                data-modal-target="modal-report"
+                                                data-id-comment="${data.comment.id}">
+                                                Report Comment
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex gap-1 comment-content">
+                                    <p class="comment-text">${data.comment.comment}</p>
+                                    <div class="comment-action d-flex flex-column align-items-center justify-content-center">
+                                        <img class="cursor-pointer like-comment-btn ${data.comment.is_liked ? 'alr-liked liked' : ''}"  data-comment-id="${data.comment.id}" src="${loveIcon}" alt="love-icon">
+                                        <p class="font-weight-bold" id="like-count-${data.comment.id}">${data.comment.likes}</p>
+                                    </div>
+                                </div>
+                                <p class="comment-time-duration">Just now</p>
+                            `;
+
+                            commentList.prepend(newComment);
+
+                            form.reset();
+                        } else {
+                            console.error(data)
+                            console.error(data.success)
+                        }
+                    })
+                    .catch(error => console.error("Error:", error));
+            });
+
+            // loadMore Function
+            loadMoreButton.addEventListener("click", function() {
+                commentPage++;
+                console.log(contentId, commentPage)
+                fetchComment(contentId, commentPage, true);
+            });
+
+            function setLoadMoreComment(data, jsonData) {
+                console.log(data)
+                if (data.status === "fail") {
+                    loadMoreButton.style.display = "none";
+                    return;
+                }
+
+                if (data.length > 0 && document.getElementById("noCommentsText") != null) {
+                    document.getElementById("noCommentsText").style.display = "none";
+                }
+
+                data.forEach(comment => {
+                    console.log(comment)
+                    let newComment = document.createElement("div");
+                    newComment.classList.add("comment-item");
+                    newComment.innerHTML = `
+                            <div class="comment-profile">
+                                <div class="comment-identity">
+                                    <img src="${comment.user_image ?? userImage}" alt="User Profile">
+                                    <p>${comment.user_name}</p>
+                                </div>
+                                <div class="relative">
+                                        <button class="option-btn dropdown-toggle">
+                                            <img src="${optionsIcon}" alt="">
+                                        </button>
+
+                                        <div
+                                            class="dropdown-report hidden absolute right-0 mt-2 w-40 bg-white border border-gray-300 rounded shadow-md">
+                                            <p class="block px-4 py-2 text-gray-800 hover:bg-gray-200 report-btn comment-report"
+                                                data-modal-target="modal-report"
+                                                data-id-comment="${comment.id}">
+                                                Report Comment
+                                            </p>
+                                        </div>
+                                </div>
+                            </div>
+                            <div class="d-flex gap-1 comment-content">
+                                <p class="comment-text">${comment.comment}</p>
+                                <div class="comment-action d-flex flex-column align-items-center justify-content-center">
+                                    <img class="cursor-pointer like-comment-btn ${comment.is_liked ? 'alr-liked liked' : ''}"  data-comment-id="${comment.id}" src="${loveIcon}" alt="love-icon">
+                                    <p class="font-weight-bold" id="like-count-${comment.id}">${comment.likes}</p>
+                                </div>
+                            </div>
+                            <p class="comment-time-duration">${comment.created_at}</p>
+                        `;
+
+                    commentList.appendChild(newComment);
+                });
+
+                if (!jsonData.hasMore) {
+                    loadMoreButton.style.display = "none";
+                }
+            }
 
 
 
@@ -319,8 +680,22 @@
                 }
             });
 
-            // Like Button //
+            // Dropdown Reports Events
+
+            // Show/hide dropdown report
+            $(document).on("click", ".dropdown-toggle", function(event) {
+                event.stopPropagation();
+                let dropdown = $(this).next(".dropdown-report");
+                $(".dropdown-report").not(dropdown).addClass("hidden");
+                dropdown.toggleClass("hidden");
+            });
+
+            // Hide dropdown if clicked outside
+            $(document).on("click", function() {
+                $(".dropdown-report").addClass("hidden");
+            });
 
         });
     </script>
 @endsection
+@include('components.modal-report')

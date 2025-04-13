@@ -49,41 +49,48 @@ class ContentController extends Controller
                     ->where('likes.id_user', '=', Auth::id())
             )
             ->where('contents.id', $id)
+            ->with('user')
             ->first();
-
+    
+        if (!$content) {
+            return response()->json([
+                'status' => 'fail',
+                'message' => 'Data is not found/empty',
+            ]);
+        }
+    
         $content->increment('views');
-
+    
         $data = $content->toArray();
+    
         $data['created_at'] = date('d-m-Y', strtotime($data['created_at']));
         $data['updated_at'] = date('d-m-Y', strtotime($data['updated_at']));
-
-        return response()->json(($content) ? [
+    
+        return response()->json([
             'status' => 'success',
-            'data' => $data,
-        ] : [
-            'status' => 'fail',
-            'message' => 'Data is not found/empty',
+            'data' => $data, 
         ]);
     }
-
-    public function update(Request $request, $id)
-{
-    $request->validate([
-        'name' => 'required|string|max:100',
-        'desc' => 'required|string|max:500',
-        'shoot_by' => 'nullable|string|max:50',
-    ]);
     
 
-    $content = Content::findOrFail($id);
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|string|max:100',
+            'desc' => 'required|string|max:500',
+            'shoot_by' => 'nullable|string|max:50',
+        ]);
 
-    $content->name = $request->name;
-    $content->desc = $request->desc;
-    $content->shoot_by = $request->shoot_by;
-    $content->save();
 
-    return response()->json(['status' => 'success']);
-}
+        $content = Content::findOrFail($id);
+
+        $content->name = $request->name;
+        $content->desc = $request->desc;
+        $content->shoot_by = $request->shoot_by;
+        $content->save();
+
+        return response()->json(['status' => 'success']);
+    }
 
     public function getRandom($limit)
     {
@@ -299,7 +306,8 @@ class ContentController extends Controller
         // === USER SEARCH ===
         $users = collect();
         if ($search) {
-            $users = User::where('id', '<>', Auth::id())
+            $users = User::withCount('followers')
+                ->where('id', '<>', Auth::id())
                 ->where(function ($q) use ($search) {
                     $q->where('name', 'like', "%$search%")
                         ->orWhere('full_name', 'like', "%$search%");
@@ -307,6 +315,7 @@ class ContentController extends Controller
                 ->take(20)
                 ->get();
         }
+
 
         return view('user.result', [
             'contents' => $data,
@@ -410,11 +419,11 @@ class ContentController extends Controller
         try {
             if (Auth::user()->role == 'admin') {
                 Cloudinary::destroy($id->photo);
-    
+
                 $id->delete();
                 return redirect()->back()->with('success', 'Content deleted successfully!');
             }
-    
+
             return redirect()->back()->with('warning', 'You are not authorized to delete this content!');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Something went wrong! Please try again.');
