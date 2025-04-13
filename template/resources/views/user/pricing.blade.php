@@ -95,7 +95,7 @@
                             </ul>
                         </div>
                         <div class="mil-price-button mil-up">
-                            <form href="{{ route('purchase', 1) }}" method="POST">
+                            <form action="{{ route('purchase', 1) }}" method="POST">
                                 @csrf
                                 @method('POST')
                                 <button type="submit" class="mil-button mil-fw radius-8" style="background-color: #BCFF00 !important;">SUBSCRIBE</button>

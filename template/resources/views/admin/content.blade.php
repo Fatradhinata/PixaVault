@@ -29,7 +29,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($content as $index => $item)
-                                        <tr>
+                                        <tr {!! Request::get('q') == $item->id ? 'class="bg-warning-subtle"' : '' !!}>
                                             <td class="align-middle text-center px-4">
                                                 <span class="text-secondary text-xs font-weight-bold">{{ $index + 1 }}</span>
                                             </td>

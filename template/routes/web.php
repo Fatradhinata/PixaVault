@@ -19,6 +19,7 @@ use App\Http\Controllers\SocialiteController;
 use App\Http\Controllers\CommentLikeController;
 use App\Http\Controllers\LeaderboardController;
 use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\TokenController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('unverified');
 Route::get('/verify-user/{id}', [AuthController::class, 'verify']);
@@ -27,13 +28,13 @@ Route::get('/pricing', [PaymentController::class, 'index'])->name('pricing');
 Route::get('/trending', [HomeController::class, 'trending'])->name('trending');
 Route::get('/result', [ContentController::class, 'result'])->name('result');
 Route::get('/explore', [ContentController::class, 'index'])->name('explore');
+Route::get('/leaderboard', [LeaderboardController::class, 'index'])->name('leaderboard');
 
 // APIs
 Route::get('/image/{publicId}', [ContentController::class, 'showImage'])->name('image');
 Route::get('/content/{id}', [ContentController::class, 'getDataById']);
 Route::get('/content/get/{limit}', [ContentController::class, 'getRandom']);
 Route::get('/comments/{id_content}', [CommentController::class, 'index'])->name('comments.index');
-
 
 Route::middleware('auth')->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -59,8 +60,6 @@ Route::middleware('auth')->group(function () {
         Route::post('/comment/{commentId}/like', [CommentLikeController::class, 'likeComment']);
         Route::delete('/comment/{commentId}/unlike', [CommentLikeController::class, 'unlikeComment']);
 
-        Route::get('/leaderboard', [LeaderboardController::class, 'index'])->name('leaderboard');
-
         Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
         Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
         Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -77,6 +76,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/checkout/{id}/{snapToken}', [PaymentController::class, 'checkout'])->name('checkout');
         Route::get('/payment/{orderId}', [PaymentController::class, 'payment'])->name('payment');
         Route::delete('/payment/{id}', [PaymentController::class, 'cancelPayment'])->name('payment.cancel');
+
+        Route::get('/activation/{id}', [TokenController::class, 'activateToken'])->name('tokenActivation');
     });
 
     Route::middleware('admin')->group(function () {
@@ -94,6 +95,7 @@ Route::middleware('auth')->group(function () {
         Route::delete('/admin/payment', [PaymentController::class, 'destroy']); 
         
         Route::get('/admin/leaderboard', [AdminController::class, 'leaderboard'])->name('admin.leaderboard');
+        Route::post('/admin/leaderboard', [LeaderboardController::class, 'sendGift']);
         
         Route::get('/admin/users', [AdminController::class, 'users'])->name('admin.users');
         Route::get('/admin/users/{id}', [AuthController::class, 'getDataById']);

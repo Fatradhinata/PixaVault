@@ -11,7 +11,7 @@ return new class extends Migration {
             $table->uuid('id')->primary();
             $table->char('user_id', 36);
             $table->enum('plans', ['Premium', 'Premium Pro']);
-            $table->enum('status', ['pending', 'active'])->default('pending');
+            $table->enum('status', ['pending', 'active', 'expired'])->default('pending');
             $table->timestamp('date_limit');
             $table->timestamps();
             

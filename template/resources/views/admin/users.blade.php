@@ -68,14 +68,14 @@
                                             <td class="align-middle text-center px-4">
                                                 <span class="text-secondary text-xs">
                                                     @if ($item->verified_at)
-                                                        {{ date('d-m-Y H:m', strtotime($item->verified_at)) }}
+                                                        {{ date('d-m-Y H:i', strtotime($item->verified_at)) }}
                                                     @else
                                                         -
                                                     @endif
                                                 </span>
                                             </td>
                                             <td class="align-middle text-center px-4">
-                                                <span class="text-secondary text-xs">{{ date('d-m-Y H:m', strtotime($item->created_at)) }}</span>
+                                                <span class="text-secondary text-xs">{{ date('d-m-Y H:i', strtotime($item->created_at)) }}</span>
                                             </td>
                                             <td class="px-4 text-center">
                                                 <div class="text-center flex justify-center space-x-4 actions">

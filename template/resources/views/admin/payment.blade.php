@@ -43,7 +43,7 @@
                                                 <span class="text-secondary text-xs fw-bold">{{ ucfirst($item->action) }}</span>
                                             </td>
                                             <td class="align-middle text-center px-4">
-                                                <span class="text-secondary fw-bold text-xs">{{ date('d-m-Y H:m', strtotime($item->created_at)) }}</span>
+                                                <span class="text-secondary fw-bold text-xs">{{ date('d-m-Y H:i', strtotime($item->created_at)) }}</span>
                                             </td>
                                             <td class="align-middle text-center px-4">
                                                 @if ($item->status == 'pending')

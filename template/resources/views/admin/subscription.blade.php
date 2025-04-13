@@ -28,7 +28,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($subscription as $index => $item)
-                                        <tr {!! Request::get('q') == $item->id ? 'class="bg-warning-subtle"' : '' !!} data-k="{{ Request::get('q') }}" data-n="{{ $item->id }}">
+                                        <tr {!! Request::get('q') == $item->id ? 'class="bg-warning-subtle"' : '' !!}>
                                             <td class="align-middle text-center px-4">
                                                 <span class="text-secondary text-xs font-weight-bold">{{ $index + 1 }}</span>
                                             </td>
@@ -45,17 +45,7 @@
                                                 </div>
                                             </td>
                                             <td class="px-4 text-center">
-<<<<<<< HEAD
-                                                <span class="text-secondary text-xs fw-bold">{{ $item->order_id }}</span>
-                                            </td>
-                                            <td class="px-4 text-center">
-                                                <p class="text-sm fw-bold mb-0">Rp {{ number_format($item->amount, 0, ',', '.') }}</p>
-                                            </td>
-                                            <td class="px-4 text-center">
-                                                <span class="text-secondary text-xs fw-bold">{{ ucfirst($item->payment_type) }}</span>
-=======
                                                 <span class="text-secondary text-xs fw-bold">{{ $item->plans }}</span>
->>>>>>> 027612a7e0690fe913ff3a7608f9e8e8a2511501
                                             </td>
                                             <td class="align-middle text-center px-4">
                                                 @if ($item->status == 'pending')
@@ -67,10 +57,10 @@
                                                 @endif
                                             </td>
                                             <td class="align-middle text-center px-4">
-                                                <span class="text-secondary fw-bold text-xs">{{ date('d-m-Y H:m', strtotime($item->date_limit)) }}</span>
+                                                <span class="text-secondary fw-bold text-xs">{{ date('d-m-Y H:i', strtotime($item->date_limit)) }}</span>
                                             </td>
                                             <td class="align-middle text-center px-4">
-                                                <span class="text-secondary fw-bold text-xs">{{ date('d-m-Y H:m', strtotime($item->created_at)) }}</span>
+                                                <span class="text-secondary fw-bold text-xs">{{ date('d-m-Y H:i', strtotime($item->created_at)) }}</span>
                                             </td>
                                             <td class="px-4 text-center">
                                                 <div class="text-center flex justify-center space-x-4 actions">
