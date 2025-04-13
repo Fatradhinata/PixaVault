@@ -10,6 +10,17 @@ use Illuminate\Support\Facades\Auth;
 
 class ServiceProvider extends Controller
 {
+    /**
+     * Check the current active subscription of a given user.
+     *
+     * This function checks if the authenticated user has an active subscription.
+     * If a subscription is found but has passed its `date_limit`, the subscription
+     * status will be updated to 'expired' and the function will return false.
+     * 
+     * @param string $userId The UUID of the user whose subscription is being checked.
+     * 
+     * @return \App\Models\Subscription|false Returns the active Subscription model if valid, or false if no valid subscription exists.
+     */
     public static function subscriptionCheck($userId)
     {
         if (!Auth::check()) return false;
@@ -39,6 +50,7 @@ class ServiceProvider extends Controller
      * @param string $start Start date for the leaderboard
      * @param string $end End date for the leaderboard
      * @param string $type Type of leaderboard ('likes' or 'downloads')
+     * 
      * @return array Formatted leaderboard data
      */
     public static function getLeaderboardData(string $start, string $end, string $type)

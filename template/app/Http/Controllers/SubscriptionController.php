@@ -48,7 +48,7 @@ class SubscriptionController extends Controller
         $validated = $req->validate([
             'id' => 'required|string',
             'plans' => 'required|in:Premium,Premium Pro',
-            'status' => 'required|in:pending,active',
+            'status' => 'required|in:pending,active,expired',
             'date_limit' => 'required|date',
         ]);
 

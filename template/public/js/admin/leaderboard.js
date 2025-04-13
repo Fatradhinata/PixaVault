@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
         $("#tab-downloads").addClass("active");
     });
 
-    $(".fa-gift").on("click", function () {
+    $(document).on('click', '.fa-gift', function () {
         const id = $(this).data("id");
 
         formModal.reset();

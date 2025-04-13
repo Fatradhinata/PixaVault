@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const formDelete = document.querySelector('#form-delete');
     const formModal = document.querySelector('#formModal form');
 
-    $('.btn-delete').click(function() {
+    $(document).on('click', '.btn-delete', function() {
         formDelete.querySelector('input[name="id"]').value = $(this).data('id');
 
         Swal.fire({
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    $('.btn-edit').on('click', function() {
+    $(document).on('click', '.btn-edit', function() {
         const id = $(this).data('id'); 
         const baseurl = formModal.getAttribute('action');
 

@@ -52,12 +52,7 @@ class AdminController extends Controller
     {
         $q = $req->query('q');
 
-        $subscription = Subscription::select('*',
-            DB::raw(
-                'PERIOD_DIFF(EXTRACT(YEAR_MONTH FROM date_limit), EXTRACT(YEAR_MONTH FROM created_at)) AS month_diff,
-                (NOW() < date_limit) AS ex_status'
-            ))
-            ->with('user')
+        $subscription = Subscription::with('user')
             ->when($q, function ($query, $q) {
                 return $query->orderByRaw('id = ? DESC', [$q]);
             })

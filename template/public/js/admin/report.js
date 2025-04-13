@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const formDelete = document.querySelector('#form-delete');
 
-    $('.btn-delete').click(function() {
+    $(document).on('click', '.btn-delete', function() {
         formDelete.querySelector('input[name="id"]').value = $(this).data('id');
 
         Swal.fire({
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    $('.btn-resolve').on('click', function() {
+    $(document).on('click', '.btn-resolve', function() {
         let url = $(this).data('url');
 
         Swal.fire({
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    $('.btn-detail').on('click', function() {
+    $(document).on('click', '.btn-detail', function() {
         let id = $(this).data('id');
 
         $('.card-container').removeClass('show');

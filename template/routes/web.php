@@ -31,10 +31,12 @@ Route::get('/pricing', [PaymentController::class, 'index'])->name('pricing');
 Route::get('/leaderboard', [LeaderboardController::class, 'index'])->name('leaderboard');
 
 // APIs
-Route::get('/image/{publicId}', [ContentController::class, 'showImage'])->name('image');
+Route::get('/image/{publicId}', [ContentController::class, 'show'])->name('image');
 Route::get('/content/{id}', [ContentController::class, 'getDataById']);
 Route::get('/content/get/{limit}', [ContentController::class, 'getRandom']);
 Route::get('/comments/{id_content}', [CommentController::class, 'index'])->name('comments.index');
+Route::get('/content/like/{id}', [ContentController::class, 'like'])->name('content.like');
+Route::get('/content/download/{id}', [ContentController::class, 'download'])->name('image.download');
 
 Route::middleware('auth')->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -47,12 +49,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/favorites', [HomeController::class, 'favorites'])->name('favorites');
         Route::get('/history_download', [HomeController::class, 'history_download'])->name('history_download');
 
-        Route::get('/content/download/{id}', [ContentController::class, 'downloadImage'])->name('image.download');
-        Route::get('/content/like/{id}', [ContentController::class, 'updateLike']);
         Route::get('/upload', [ContentController::class, 'upload'])->name('upload');
         Route::post('/upload', [ContentController::class, 'store']);
-        Route::get('/api/tags', [ContentController::class, 'initialTags']);       
-        Route::get('/api/tags/search', [ContentController::class, 'searchTags']);
+        Route::get('/api/tags', [ContentController::class, 'tags']);
 
         Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
         Route::post('/content/{id}', [ContentController::class, 'update'])->name('content.update')->middleware('auth');

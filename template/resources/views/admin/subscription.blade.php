@@ -50,7 +50,7 @@
                                             <td class="align-middle text-center px-4">
                                                 @if ($item->status == 'pending')
                                                     <span class="badge bg-gradient-warning">Pending</span>
-                                                @elseif ($item->ex_status)
+                                                @elseif ($item->status == 'active')
                                                     <span class="badge bg-gradient-info">Active</span>
                                                 @else
                                                     <span class="badge bg-gradient-danger">Expired</span>
@@ -107,6 +107,7 @@
                             <select class="form-control" name="status" id="status" required>
                                 <option value="pending">Pending</option>
                                 <option value="active">Active</option>
+                                <option value="expired">Expired</option>
                             </select>
                         </div>
                         <div class="mb-3">
