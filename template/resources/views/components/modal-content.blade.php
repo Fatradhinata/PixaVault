@@ -23,15 +23,8 @@
                             </button>
 
                             <!-- Dropdown menu -->
-<<<<<<< HEAD
-                            <div
-                                class="dropdown-report hidden absolute right-0 mt-2 w-40 bg-white border border-gray-300 rounded shadow-md">
-                                <p class="block px-4 py-2 text-gray-800 hover:bg-gray-200 report-btn" id="report-btn"
-                                    data-id="" data-modal-target="modal-report">
-=======
                             <div class="dropdown-report hidden absolute right-0 mt-2 w-40 bg-white border border-gray-300 rounded shadow-md">
                                 <p class="block px-4 py-2 text-gray-800 hover:bg-gray-200 report-btn" data-modal-target="modal-report">
->>>>>>> 027612a7e0690fe913ff3a7608f9e8e8a2511501
                                     Report Content
                                 </p>
                             </div>
