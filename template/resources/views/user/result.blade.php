@@ -3,6 +3,7 @@
 @section('title', 'Search')
 
 @section('styles')
+    @parent
     <link rel="stylesheet" href="{{ asset('css/result.css') }}">
 @endsection
 

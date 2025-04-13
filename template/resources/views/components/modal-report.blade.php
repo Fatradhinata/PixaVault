@@ -1,6 +1,7 @@
 @section('styles')
     <link rel="stylesheet" href="{{ asset('css/modal-report.css') }}">
 @endsection
+
 <div class="modal" id="modal-report">
     <div class="modal-report">
         <form action="" id="reportForm">

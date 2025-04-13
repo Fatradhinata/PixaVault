@@ -3,8 +3,8 @@
 @section('title', 'Profile')
 
 @section('styles')
+    @parent
     <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/modal-report.css') }}">
 @endsection
 
 @section('navbar')
