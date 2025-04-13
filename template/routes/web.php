@@ -46,6 +46,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/favorites', [HomeController::class, 'favorites'])->name('favorites');
         Route::get('/history_download', [HomeController::class, 'history_download'])->name('history_download');
 
+        Route::post('/follow/{id}', [ProfileController::class, 'toggleFollow'])->middleware('auth')->name('follow.toggle');
+
+
         Route::get('/content/download/{id}', [ContentController::class, 'downloadImage'])->name('image.download');
         Route::get('/content/like/{id}', [ContentController::class, 'updateLike']);
         Route::get('/upload', [ContentController::class, 'upload'])->name('upload');

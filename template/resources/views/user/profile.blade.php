@@ -4,6 +4,7 @@
 
 @section('styles')
     <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/modal-report.css') }}">
 @endsection
 
 @section('navbar')
@@ -46,6 +47,7 @@
 
                     &:hover {
                         background-color: #fff;
+
                         img {
                             filter: invert(1) !important;
                         }
@@ -61,15 +63,22 @@
                 }
             }
         }
+
+        .swal2-confirm-btn,
+        .swal2-cancel-btn {
+            font-family: 'Figtree', sans-serif !important;
+        }
     </style>
 @endsection
 
 @section('content')
-    
+
     <div class="profile-banner">
         <div class="profile-detail d-flex align-items-center">
             <div class="preview-image-container">
-                <img class="preview-image" src="{{ $user->photo ? asset('storage/profile_photos/' . $user->photo) : asset('img/icons/user-elipse.svg') }}" alt="User Profile">
+                <img class="preview-image"
+                    src="{{ $user->photo ? asset('storage/profile_photos/' . $user->photo) : asset('img/icons/user-elipse.svg') }}"
+                    alt="User Profile">
             </div>
             <div class="profile-info d-flex flex-column">
                 <div class="profile-header d-flex">
@@ -79,13 +88,36 @@
                     <div class="profile-actions d-flex">
                         @if ($user->id == Auth::user()->id)
                             <div class="d-flex align-items-center">
-                                <a href="{{ route('profile.edit') }}"><button class="btn-edit-profile"><img src="{{ asset('/img/icons/edit-pen.svg') }}" alt="">Edit Profile</button></a>
+                                <a href="{{ route('profile.edit') }}"><button class="btn-edit-profile"><img
+                                            src="{{ asset('/img/icons/edit-pen.svg') }}" alt="">Edit
+                                        Profile</button></a>
                             </div>
                         @else
                             <div class="d-flex align-items-center">
-                                <button id="button-follow" class="btn-follow">Follow</button>
-                                <button class="btn-options"><img src="{{ asset('/img/icons/horiz-dots.svg') }}" alt=""></button>
-                                <button class="btn-report d-none">Report</button>
+                                @php
+                                    $isFollowing = Auth::user()->following->contains($user->id);
+                                @endphp
+
+                                <button id="button-follow" class="{{ $isFollowing ? 'btn-followed' : 'btn-follow' }}"
+                                    data-user-id="{{ $user->id }}">
+                                    {{ $isFollowing ? 'Followed' : 'Follow' }}
+                                </button>
+
+                                <div class="relative">
+                                    <button class="option-btn dropdown-toggle">
+                                        <img src="{{ asset('img/icons/horiz-dots-variant-2.svg') }}" alt="">
+                                    </button>
+
+                                    <!-- Dropdown menu -->
+                                    <div
+                                        class="dropdown-report hidden absolute right-0 mt-2 w-40 bg-white border border-gray-300 rounded shadow-md">
+                                        <p class="block px-4 py-2 text-gray-800 hover:bg-gray-200 report-btn user-report"
+                                            data-modal-target="modal-report">
+                                            Report User
+                                        </p>
+                                    </div>
+
+                                </div>
                             </div>
                         @endif
                     </div>
@@ -99,7 +131,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="profile-content">
         <div class="profile-tab-nav">
             <button class="tab-btn active" data-tab="photos">
@@ -121,49 +153,55 @@
                     <div class="row">
                         <div class="col-lg-4 col-md-4 mb-4 col-sm-4 mb-lg-0 px-sm-2">
                             @foreach ($contents[0] as $content)
-                                <div class="content-item mil-up position-relative" 
-                                    data-modal-target="modal-detail" data-id="{{ $content->id }}">
+                                <div class="content-item mil-up position-relative" data-modal-target="modal-detail"
+                                    data-id="{{ $content->id }}">
                                     <div class="mil-buttons">
-                                        <p class="mil-card-title"><span>Uploaded At</span> {{ date('d/m/y', strtotime($content->created_at)) }}</p>
+                                        <p class="mil-card-title"><span>Uploaded At</span>
+                                            {{ date('d/m/y', strtotime($content->created_at)) }}</p>
                                     </div>
-                                    <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded" alt="Photo" />
+                                    <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded"
+                                        alt="Photo" />
                                     <div class="image-profile">
                                         <p class="mil-card-subtitle">{{ $content->name }}</p>
                                     </div>
                                 </div>
                             @endforeach
                         </div>
-        
+
                         <div class="col-lg-4 col-md-4 mb-4 col-sm-4 mb-lg-0 px-sm-2">
                             @foreach ($contents[1] as $content)
-                                <div class="content-item mil-up position-relative" 
-                                    data-modal-target="modal-detail" data-id="{{ $content->id }}">
+                                <div class="content-item mil-up position-relative" data-modal-target="modal-detail"
+                                    data-id="{{ $content->id }}">
                                     <div class="mil-buttons">
-                                        <p class="mil-card-title"><span>Uploaded At</span> {{ date('d/m/y', strtotime($content->created_at)) }}</p>
+                                        <p class="mil-card-title"><span>Uploaded At</span>
+                                            {{ date('d/m/y', strtotime($content->created_at)) }}</p>
                                     </div>
-                                    <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded" alt="Photo" />
+                                    <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded"
+                                        alt="Photo" />
                                     <div class="image-profile">
                                         <p class="mil-card-subtitle">{{ $content->name }}</p>
                                     </div>
                                 </div>
                             @endforeach
                         </div>
-        
+
                         <div class="col-lg-4 col-md-4 mb-4 col-sm-4 mb-lg-0 px-sm-2">
                             @foreach ($contents[2] as $content)
-                                <div class="content-item mil-up position-relative" 
-                                    data-modal-target="modal-detail" data-id="{{ $content->id }}">
+                                <div class="content-item mil-up position-relative" data-modal-target="modal-detail"
+                                    data-id="{{ $content->id }}">
                                     <div class="mil-buttons">
-                                        <p class="mil-card-title"><span>Uploaded At</span> {{ date('d/m/y', strtotime($content->created_at)) }}</p>
+                                        <p class="mil-card-title"><span>Uploaded At</span>
+                                            {{ date('d/m/y', strtotime($content->created_at)) }}</p>
                                     </div>
-                                    <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded" alt="Photo" />
+                                    <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded"
+                                        alt="Photo" />
                                     <div class="image-profile">
                                         <p class="mil-card-subtitle">{{ $content->name }}</p>
                                     </div>
                                 </div>
                             @endforeach
                         </div>
-                        
+
                     </div>
                 @else
                     <div class="unavailable d-flex flex-column align-items-center ">
@@ -188,20 +226,22 @@
                                                 <i class="far fa-heart"></i>
                                             @endif
                                         </button>
-                                        <button class="mil-download-btn" data-href="{{ route('image.download', $content->id) }}">
+                                        <button class="mil-download-btn"
+                                            data-href="{{ route('image.download', $content->id) }}">
                                             <i class="fas fa-download"></i>
                                         </button>
                                     </div>
-                                    <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded" alt="Photo"
-                                        data-modal-target="modal-content" data-id="{{ $content->id }}"/>
+                                    <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded"
+                                        alt="Photo" data-modal-target="modal-content" data-id="{{ $content->id }}" />
                                     <div class="image-profile">
-                                        <img src="{{ $content->user['photo'] ?? asset('/img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />
-                                        <p class="mil-username">{{ $content->user['name'] ?? "anonymous" }}</p>
+                                        <img src="{{ $content->user['photo'] ?? asset('/img/icons/user-elipse.svg') }}"
+                                            alt="Profile Picture" class="mil-profile-img" />
+                                        <p class="mil-username">{{ $content->user['name'] ?? 'anonymous' }}</p>
                                     </div>
                                 </div>
                             @endforeach
                         </div>
-        
+
                         <div class="col-lg-4 mb-4 mb-lg-0">
                             @foreach ($liked[1] as $content)
                                 <div class="content-item mil-up position-relative">
@@ -213,20 +253,23 @@
                                                 <i class="far fa-heart"></i>
                                             @endif
                                         </button>
-                                        <button class="mil-download-btn" data-href="{{ route('image.download', $content->id) }}">
+                                        <button class="mil-download-btn"
+                                            data-href="{{ route('image.download', $content->id) }}">
                                             <i class="fas fa-download"></i>
                                         </button>
                                     </div>
-                                    <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded" alt="Photo"
-                                        data-modal-target="modal-content" data-id="{{ $content->id }}"/>
+                                    <img src="{{ route('image', $content->photo) }}"
+                                        class="w-100 shadow-1-strong rounded" alt="Photo"
+                                        data-modal-target="modal-content" data-id="{{ $content->id }}" />
                                     <div class="image-profile">
-                                        <img src="{{ $content->user['photo'] ?? asset('/img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />
-                                        <p class="mil-username">{{ $content->user['name'] ?? "anonymous" }}</p>
+                                        <img src="{{ $content->user['photo'] ?? asset('/img/icons/user-elipse.svg') }}"
+                                            alt="Profile Picture" class="mil-profile-img" />
+                                        <p class="mil-username">{{ $content->user['name'] ?? 'anonymous' }}</p>
                                     </div>
                                 </div>
                             @endforeach
                         </div>
-        
+
                         <div class="col-lg-4 mb-4 mb-lg-0">
                             @foreach ($liked[2] as $content)
                                 <div class="content-item mil-up position-relative">
@@ -238,20 +281,23 @@
                                                 <i class="far fa-heart"></i>
                                             @endif
                                         </button>
-                                        <button class="mil-download-btn" data-href="{{ route('image.download', $content->id) }}">
+                                        <button class="mil-download-btn"
+                                            data-href="{{ route('image.download', $content->id) }}">
                                             <i class="fas fa-download"></i>
                                         </button>
                                     </div>
-                                    <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded" alt="Photo"
-                                        data-modal-target="modal-content" data-id="{{ $content->id }}"/>
+                                    <img src="{{ route('image', $content->photo) }}"
+                                        class="w-100 shadow-1-strong rounded" alt="Photo"
+                                        data-modal-target="modal-content" data-id="{{ $content->id }}" />
                                     <div class="image-profile">
-                                        <img src="{{ $content->user['photo'] ?? asset('/img/icons/user-elipse.svg') }}" alt="Profile Picture" class="mil-profile-img" />
-                                        <p class="mil-username">{{ $content->user['name'] ?? "anonymous" }}</p>
+                                        <img src="{{ $content->user['photo'] ?? asset('/img/icons/user-elipse.svg') }}"
+                                            alt="Profile Picture" class="mil-profile-img" />
+                                        <p class="mil-username">{{ $content->user['name'] ?? 'anonymous' }}</p>
                                     </div>
                                 </div>
                             @endforeach
                         </div>
-                        
+
                     </div>
                 @else
                     <div class="unavailable d-flex flex-column align-items-center ">
@@ -319,8 +365,8 @@
     </div>
 
     @include('components.modal-detail')
-    @include('components.modal-content')
-    
+    {{-- @include('components.modal-content') --}}
+
 @endsection
 
 @section('scripts')

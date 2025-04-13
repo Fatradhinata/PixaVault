@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Content;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -64,6 +65,43 @@ class ProfileController extends Controller
             'liked' => $this->getTripleColumn($this->getLikedContent())
         ]);
     }
+
+    public function toggleFollow($id)
+    {
+        $userToFollow = User::findOrFail($id);
+        $currentUser = auth()->user();
+
+        if ($userToFollow->id === $currentUser->id) {
+            return response()->json(['error' => 'You cannot follow yourself'], 400);
+        }
+
+        $alreadyFollowing = DB::table('follows')->where([
+            ['follower_id', $currentUser->id],
+            ['followed_id', $userToFollow->id],
+        ])->exists();
+
+        if ($alreadyFollowing) {
+            // Unfollow
+            DB::table('follows')->where([
+                ['follower_id', $currentUser->id],
+                ['followed_id', $userToFollow->id],
+            ])->delete();
+
+            return response()->json(['status' => 'unfollowed']);
+        } else {
+            // Follow
+            DB::table('follows')->insert([
+                'id' => (string) Str::uuid(),
+                'follower_id' => $currentUser->id,
+                'followed_id' => $userToFollow->id,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+            return response()->json(['status' => 'followed']);
+        }
+    }
+
 
     public function edit()
     {

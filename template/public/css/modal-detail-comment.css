@@ -102,7 +102,7 @@
         display: flex;
         justify-content: space-between;
 
-        div {
+        .comment-identity {
           display: flex;
           align-items: center;
           gap: 8px;
@@ -119,20 +119,58 @@
             border-radius: 100px;
             object-fit: cover;
           }
-          
+
         }
+
+        .relative {
+          position: relative;
+
+          .dropdown-toggle {
+            filter: brightness(0) saturate(100%) invert(53%) sepia(0%) saturate(0%) hue-rotate(170deg) brightness(94%) contrast(80%);
+            background-color: transparent;
+            border: none;
+            
+            &:hover {
+              filter: brightness(0) saturate(100%) invert(0%) sepia(95%) saturate(20%) hue-rotate(39deg) brightness(93%) contrast(107%);
+            }
+          }
+
+          .dropdown-report {
+            position: absolute;
+            box-shadow: 0px 0px 2px black;
+            color: black;
+            border-radius: 8px;
+            padding: 5px 10px;
+            left: -275%;
+            z-index: 100;
+
+            &:hover {
+              color: red !important;
+            }
+
+            p {
+              display: flex;
+              width: max-content;
+              padding: 0px !important;
+              cursor: pointer;
+              font-size: 13px;
+            }
+          }
+        }
+
         .option-icon {
           width: 30px;
           height: 30px;
           cursor: pointer;
-          filter: brightness(0) saturate(100%) invert(53%) sepia(0%) saturate(0%) hue-rotate(170deg) brightness(94%) contrast(80%); 
+          filter: brightness(0) saturate(100%) invert(53%) sepia(0%) saturate(0%) hue-rotate(170deg) brightness(94%) contrast(80%);
 
           &:hover {
-            filter: brightness(.) saturate(100%) invert(73%) sepia(0%) saturate(0%) hue-rotate(170deg) brightness(94%) contrast(80%); 
+            filter: brightness(.) saturate(100%) invert(73%) sepia(0%) saturate(0%) hue-rotate(170deg) brightness(94%) contrast(80%);
           }
         }
 
       }
+
       .comment-time-duration {
         color: rgba(0, 0, 0, 0.4);
         font-weight: 500;
@@ -140,11 +178,12 @@
 
       .comment-content {
         justify-content: space-between;
+
         .comment-action {
           img {
             width: 30px;
             height: 30px;
-            filter: brightness(0) saturate(100%) invert(53%) sepia(0%) saturate(0%) hue-rotate(170deg) brightness(94%) contrast(80%); 
+            filter: brightness(0) saturate(100%) invert(53%) sepia(0%) saturate(0%) hue-rotate(170deg) brightness(94%) contrast(80%);
             cursor: pointer;
 
             &:hover {
@@ -152,11 +191,10 @@
             }
           }
 
-          .alr-liked.liked { 
-            filter: brightness(0) saturate(100%) invert(25%) sepia(46%) 
-                    saturate(4931%) hue-rotate(345deg) brightness(85%) contrast(105%);
-        }
-        
+          .alr-liked.liked {
+            filter: brightness(0) saturate(100%) invert(25%) sepia(46%) saturate(4931%) hue-rotate(345deg) brightness(85%) contrast(105%);
+          }
+
 
           p {
             font-family: 'Figtree';
@@ -166,7 +204,7 @@
 
     }
   }
-  
+
   p {
     font-size: 14px;
     font-family: 'Poppins';
@@ -185,12 +223,16 @@
     font-family: 'Poppins';
 
   }
-  
+
   button {
     cursor: pointer;
-    
+
     &:hover {
       filter: brightness(0.8);
     }
+  }
+
+  .hidden {
+    display: none !important;
   }
 }

@@ -156,6 +156,47 @@ h1 {
                         gap: 10px;
                     }
 
+                    .relative {
+                        position: relative;
+
+                        .option-btn {
+                            display: flex;
+                            cursor: pointer;
+                            border: none;
+                            border-radius: 8px;
+                            padding: 2px;
+                            background: #D9D9D9;
+
+                            &:hover {
+                                filter: brightness(.8);
+                            }
+                      
+                            img {
+                              filter: brightness(0) saturate(100%);
+                            }
+                          }
+
+                        .dropdown-report {
+                            position: absolute;
+                            box-shadow: 0px 0px 2px black;
+                            color: black;
+                            border-radius: 8px;
+                            padding: 5px 10px;
+                            left: -100%;
+
+                            &:hover {
+                                color: red;
+                            }
+
+                            p {
+                                display: flex;
+                                width: max-content;
+                                padding: 0px !important;
+                                cursor: pointer;
+                            }
+                        }
+                    }
+
                     .btn-follow {
                         background-color: #BCFF00;
                         color: #000;
@@ -573,3 +614,7 @@ h1 {
     border-radius: 20px;
     cursor: pointer;
 }
+
+.hidden {
+    display: none !important;
+  }

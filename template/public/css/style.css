@@ -3717,14 +3717,6 @@ load more
     }
   }
 
-  .option-icon {
-    filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(7500%) hue-rotate(56deg) brightness(96%) contrast(104%);
-    cursor: pointer;
-
-    &:hover {
-      filter: brightness(0) saturate(100%) invert(46%) sepia(58%) saturate(5%) hue-rotate(325deg) brightness(97%) contrast(93%);
-    }
-  }
 }
 
 .modal-header .actions i {

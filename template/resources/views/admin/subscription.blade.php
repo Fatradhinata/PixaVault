@@ -45,17 +45,7 @@
                                                 </div>
                                             </td>
                                             <td class="px-4 text-center">
-<<<<<<< HEAD
-                                                <span class="text-secondary text-xs fw-bold">{{ $item->order_id }}</span>
-                                            </td>
-                                            <td class="px-4 text-center">
-                                                <p class="text-sm fw-bold mb-0">Rp {{ number_format($item->amount, 0, ',', '.') }}</p>
-                                            </td>
-                                            <td class="px-4 text-center">
-                                                <span class="text-secondary text-xs fw-bold">{{ ucfirst($item->payment_type) }}</span>
-=======
                                                 <span class="text-secondary text-xs fw-bold">{{ $item->plans }}</span>
->>>>>>> 027612a7e0690fe913ff3a7608f9e8e8a2511501
                                             </td>
                                             <td class="align-middle text-center px-4">
                                                 @if ($item->status == 'pending')
