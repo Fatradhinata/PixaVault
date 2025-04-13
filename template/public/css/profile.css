@@ -543,3 +543,33 @@ h1 {
         opacity: 1;
     }
 }
+
+.tag-editable {
+    display: inline-flex;
+    align-items: center;
+    background: #e0e0e0;
+    border-radius: 20px;
+    padding: 5px 10px;
+    margin: 3px;
+}
+
+.tag-editable .remove-tag {
+    background: none;
+    border: none !important;
+    font-weight: bold;
+    margin-left: 3px;
+    cursor: pointer;
+    padding: 0px 5px !important;
+
+    &:hover {
+        color: red !important;
+    }
+}
+
+.add-tag-btn {
+    background: #d1e7dd;
+    border: none !important;
+    padding: 5px 10px;
+    border-radius: 20px;
+    cursor: pointer;
+}

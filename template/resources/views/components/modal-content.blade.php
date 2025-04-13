@@ -23,8 +23,15 @@
                             </button>
 
                             <!-- Dropdown menu -->
+<<<<<<< HEAD
+                            <div
+                                class="dropdown-report hidden absolute right-0 mt-2 w-40 bg-white border border-gray-300 rounded shadow-md">
+                                <p class="block px-4 py-2 text-gray-800 hover:bg-gray-200 report-btn" id="report-btn"
+                                    data-id="" data-modal-target="modal-report">
+=======
                             <div class="dropdown-report hidden absolute right-0 mt-2 w-40 bg-white border border-gray-300 rounded shadow-md">
                                 <p class="block px-4 py-2 text-gray-800 hover:bg-gray-200 report-btn" data-modal-target="modal-report">
+>>>>>>> 027612a7e0690fe913ff3a7608f9e8e8a2511501
                                     Report Content
                                 </p>
                             </div>
@@ -109,12 +116,14 @@
             <button>example</button>
         </div>
 
-        <div id="comment-assets" data-user-image="{{ asset('img/icons/user-elipse.svg') }}" data-love-icon="{{ asset('img/icons/love-black.svg') }}"
+        <div id="comment-assets" data-user-image="{{ asset('img/icons/user-elipse.svg') }}"
+            data-love-icon="{{ asset('img/icons/love-black.svg') }}"
             data-options-icon="{{ asset('img/icons/horiz-dots-variant-2.svg') }}">
         </div>
 
         <!-- Comment Wrapper -->
-        <div class="comment-wrapper" data-user-image="{{ asset('img/icons/user-elipse.svg') }}" data-love-icon="{{ asset('img/icons/love-black.svg') }}"
+        <div class="comment-wrapper" data-user-image="{{ asset('img/icons/user-elipse.svg') }}"
+            data-love-icon="{{ asset('img/icons/love-black.svg') }}"
             data-options-icon="{{ asset('img/icons/horiz-dots-variant-2.svg') }}">
             <div class="comment-header">
                 <h3>Comment</h3>
@@ -131,7 +140,8 @@
 
                     </div>
                     <input type="hidden" id="id_content" name="id_content" value="">
-                    <input type="text" name="comment" class="comment-input-area" placeholder="Write a comment..." autocomplete="off">
+                    <input type="text" name="comment" class="comment-input-area" placeholder="Write a comment..."
+                        autocomplete="off">
                     <hr>
                     <div class="btn comment-send-btn">
                         <button type="submit">Send</button>
@@ -197,6 +207,7 @@
 
 
             const photoModal = $("#modal-content");
+            console.log('jansjdasd')
 
             function setField(data) {
                 console.log(data)
@@ -296,6 +307,7 @@
                 } = await fetchData(`${BASEURL}/content/get/20`);
 
                 if (status !== 'fail') {
+                    console.log(data)
                     let addCard = function(data) {
                         return `
                         <div class="content-item mil-up position-relative">

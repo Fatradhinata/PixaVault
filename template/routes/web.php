@@ -40,7 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/need-to-verify', [AuthController::class, 'needToVerify']);
     Route::get('/send-verification-email', [AuthController::class, 'sendEmailVerification']);
 
-    Route::middleware('verified')->group(function () {
+    Route::middleware('verified')->group(function () {  
         Route::get('/blog', [HomeController::class, 'blog'])->name('content');
         Route::get('/blog', [HomeController::class, 'blog'])->name('blog');
         Route::get('/favorites', [HomeController::class, 'favorites'])->name('favorites');
@@ -54,6 +54,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/api/tags/search', [ContentController::class, 'searchTags']);
 
         Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
+        Route::post('/content/{id}', [ContentController::class, 'update'])->name('content.update')->middleware('auth');
         Route::delete('/comments/{id}', [CommentController::class, 'destroy'])->name('comments.destroy');
         Route::post('/comment/{commentId}/like', [CommentLikeController::class, 'likeComment']);
         Route::delete('/comment/{commentId}/unlike', [CommentLikeController::class, 'unlikeComment']);
