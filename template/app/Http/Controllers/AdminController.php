@@ -60,7 +60,7 @@ class AdminController extends Controller
 
     public function report()
     {
-        $report = Report::orderByRaw("FIELD(status, 'pending') DESC")->orderBy('created_at')->get();
+        $report = Report::orderByRaw("FIELD(status, 'pending') DESC")->orderBy('created_at', 'desc')->get();
         
         return view('admin.report', [
             'report' => $report,

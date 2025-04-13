@@ -23,6 +23,8 @@ return new class extends Migration
             $table->integer('views')->default(0);
             $table->json('tags');
             $table->timestamps();
+
+            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

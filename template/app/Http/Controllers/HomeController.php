@@ -51,6 +51,7 @@ class HomeController extends Controller
                 $join->on('contents.id', '=', 'likes.id_content')
                     ->where('likes.id_user', '=', Auth::id())
             )
+            ->where('contents.id_user', '<>', Auth::id())
             ->inRandomOrder()
             ->with('user')
             ->limit(10)

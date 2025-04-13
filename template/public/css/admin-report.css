@@ -1,0 +1,147 @@
+.card-container {
+    display: none;
+    position: relative;
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 1.5rem;
+
+    .photo-profile {
+        border-radius: 50%;
+        overflow: hidden;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    &.show {
+        display: block;
+    }
+
+    &.card-user {
+        
+        &.show {
+            display: flex !important;
+        }
+
+        padding: 1rem 0;
+        align-items: center;
+        gap: 1rem;
+
+        .photo-profile {
+            width: 56px;
+            height: 56px;
+            margin-left: 6px;
+        }
+
+        .user-info {
+            * {
+                margin: 0;
+            }
+
+            h3 {
+                font-size: 1.5rem;
+                font-weight: 600;
+
+            }
+            
+            p {
+                font-size: 1rem;
+                color: #6c757d;
+            }
+
+            .badge {
+                position: absolute;
+                top: 1rem;
+                right: 8px;
+                font-size: 12px;
+                text-transform: unset;
+            }
+        }
+    }
+
+    &.card-content {
+
+        .photo-content {
+            width: 100%;
+            height: 250px;
+            display: flex;
+            position: relative;
+            justify-content: center;
+            background-color: #0f0f0f;
+            overflow: hidden;;
+            
+            & > img {
+                max-height: 250px;
+                max-width: 100%;
+                object-fit: cover;
+            }
+
+            .info {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                display: flex;
+                align-items: center;
+                padding: 2rem 0 1rem;
+                background: #000000;
+                background: linear-gradient(0deg,rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+
+                .photo-profile {
+                    width: 30px;
+                    height: 30px;
+                    margin: 0 12px 0 1rem;
+                }
+
+                span {
+                    font-weight: medium;
+                    color: #fff;
+                }
+            }
+        }
+
+    }
+
+
+    &.card-comment {
+        padding: 1rem 0 1.5rem;
+
+        .photo-profile {
+            width: 56px;
+            height: 56px;
+            margin-left: 6px;
+            margin-right: 1rem;
+        }
+
+        .user-info {
+            * {
+                margin: 0;
+            }
+
+            h3 {
+                font-size: 1.5rem;
+                font-weight: 600;
+            }
+
+            p {
+                font-size: 1rem;
+                color: #6c757d;
+            }
+
+            .badge {
+                position: absolute;
+                top: 1rem;
+                right: 8px;
+                font-size: 12px;
+                text-transform: unset;
+            }
+        }
+
+    }
+}
+
+.form-control {
+    background-color: transparent !important;
+}

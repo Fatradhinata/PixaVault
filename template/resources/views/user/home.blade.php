@@ -73,108 +73,112 @@
 
     <!-- Trending Image -->
     <section>
-        <div class="container mil-p-0-60">
-            <div class="col-12">
-                <div class="mil-center mil-mb-90 mt-5">
-                    <span class="mil-suptitle mil-upper mil-up mil-mb-30">Insights</span>
-                    <h2 class="mil-upper mil-up mil-mb-30">Trending Images</h2>
-                    <a href="{{ 'trending' }}" class="mil-link mil-upper mil-up">See All
-                        <span class="mil-arrow"><img src="{{ asset('img/icons/1.svg') }}"
-                            loading="lazy" alt="arrow" /></span></a>
-                </div>
-            </div>
+        <div class="container mil-p-120-120">
+            <div class="mil-background-grid mil-softened"></div>
+
             <div class="row">
-                <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
-                    @foreach ($trending[0] as $index => $content)
-                        @if ($index == 2)
-                            @break
-                        @endif
-                        <div class="content-item mil-up position-relative">
-                            <div class="mil-buttons">
-                                <button class="mil-love-btn like-btn" data-id="{{ $content->id }}">
-                                    @if ($content->is_liked)
-                                        <i class="fas fa-heart"></i>
-                                    @else
-                                        <i class="far fa-heart"></i>
-                                    @endif
-                                </button>
-                                <button class="mil-download-btn" data-href="{{ route('image.download', $content->id) }}">
-                                    <i class="fas fa-download"></i>
-                                </button>
-                            </div>
-                            <img src="{{ route('image', $content->photo) }}" height="300" class="w-100 shadow-1-strong rounded" alt="Photo"
-                                loading="lazy" data-modal-target="modal-content" data-id="{{ $content->id }}" />
-                            <div class="image-profile">
-                                <img src="{{ $content->user['photo'] ? asset('storage/profile_photos/' . $content->user['photo']) : asset('img/icons/user-elipse.svg') }}"
-                                    alt="Profile Picture" class="mil-profile-img" loading="lazy" />
-                                <p class="mil-username">
-                                    {{ $content->user['name'] ?? "anonymous" }}
-                                </p>
-                            </div>
-                        </div>
-                    @endforeach
+                <div class="col-12 mb-15">
+                    <div class="mil-center mil-mb-90">
+                        <span class="mil-suptitle mil-upper mil-up mil-mb-30">Insights</span>
+                        <h2 class="mil-upper mil-up mil-mb-30">Trending Images</h2>
+                        <a href="{{ 'trending' }}" class="mil-link mil-upper mil-up">See All
+                            <span class="mil-arrow"><img src="{{ asset('img/icons/1.svg') }}"
+                                loading="lazy" alt="arrow" /></span></a>
+                    </div>
                 </div>
-
-                <div class="col-lg-4 mb-4 mb-lg-0">
-                    @foreach ($trending[1] as $index => $content)
-                        @if ($index == 2)
-                            @break
-                        @endif
-                        <div class="content-item mil-up position-relative">
-                            <div class="mil-buttons">
-                                <button class="mil-love-btn like-btn" data-id="{{ $content->id }}">
-                                    @if ($content->is_liked)
-                                        <i class="fas fa-heart"></i>
-                                    @else
-                                        <i class="far fa-heart"></i>
-                                    @endif
-                                </button>
-                                <button class="mil-download-btn" data-href="{{ route('image.download', $content->id) }}">
-                                    <i class="fas fa-download"></i>
-                                </button>
-                            </div>
-                            <img src="{{ route('image', $content->photo) }}" height="300" class="w-100 shadow-1-strong rounded" alt="Photo"
-                                loading="lazy" data-modal-target="modal-content" data-id="{{ $content->id }}" />
-                            <div class="image-profile">
-                                <img src="{{ $content->user['photo'] ? asset('storage/profile_photos/' . $content->user['photo']) : asset('img/icons/user-elipse.svg') }}"
-                                    alt="Profile Picture" class="mil-profile-img" loading="lazy" />
-                                <p class="mil-username">
-                                    {{ $content->user['name'] ?? "anonymous" }}
-                                </p>
-                            </div>
+                
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+                            @foreach ($trending[0] as $content)
+                                <div class="content-item mil-up position-relative">
+                                    <div class="mil-buttons">
+                                        <button class="mil-love-btn like-btn" data-id="{{ $content->id }}">
+                                            @if ($content->is_liked)
+                                                <i class="fas fa-heart"></i>
+                                            @else
+                                                <i class="far fa-heart"></i>
+                                            @endif
+                                        </button>
+                                        <button class="mil-download-btn"
+                                            data-href="{{ route('image.download', $content->id) }}">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                    </div>
+                                    <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded"
+                                        alt="Photo" loading="lazy" data-modal-target="modal-content" loading="lazy"
+                                        data-id="{{ $content->id }}" />
+                                    <div class="image-profile">
+                                        <img src="{{ $content->user['photo'] ? asset('storage/profile_photos/' . $content->user['photo']) : asset('img/icons/user-elipse.svg') }}"
+                                            alt="Profile Picture" class="mil-profile-img" loading="lazy" />
+                                        <p class="mil-username">
+                                            {{ $content->user['name'] ?? "anonymous" }}
+                                        </p>
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
-                    @endforeach
-                </div>
 
-                <div class="col-lg-4 mb-4 mb-lg-0">
-                    @foreach ($trending[2] as $index => $content)
-                        @if ($index == 2)
-                            @break
-                        @endif
-                        <div class="content-item mil-up position-relative">
-                            <div class="mil-buttons">
-                                <button class="mil-love-btn like-btn" data-id="{{ $content->id }}">
-                                    @if ($content->is_liked)
-                                        <i class="fas fa-heart"></i>
-                                    @else
-                                        <i class="far fa-heart"></i>
-                                    @endif
-                                </button>
-                                <button class="mil-download-btn" data-href="{{ route('image.download', $content->id) }}">
-                                    <i class="fas fa-download"></i>
-                                </button>
-                            </div>
-                            <img src="{{ route('image', $content->photo) }}" height="300" class="w-100 shadow-1-strong rounded" alt="Photo"
-                                loading="lazy" data-modal-target="modal-content" data-id="{{ $content->id }}" />
-                            <div class="image-profile">
-                                <img src="{{ $content->user['photo'] ? asset('storage/profile_photos/' . $content->user['photo']) : asset('img/icons/user-elipse.svg') }}"
-                                    alt="Profile Picture" class="mil-profile-img" loading="lazy" />
-                                <p class="mil-username">
-                                    {{ $content->user['name'] ?? "anonymous" }}
-                                </p>
-                            </div>
+                        <div class="col-lg-4 mb-4 mb-lg-0">
+                            @foreach ($trending[1] as $content)
+                                <div class="content-item mil-up position-relative">
+                                    <div class="mil-buttons">
+                                        <button class="mil-love-btn like-btn" data-id="{{ $content->id }}">
+                                            @if ($content->is_liked)
+                                                <i class="fas fa-heart"></i>
+                                            @else
+                                                <i class="far fa-heart"></i>
+                                            @endif
+                                        </button>
+                                        <button class="mil-download-btn"
+                                            data-href="{{ route('image.download', $content->id) }}">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                    </div>
+                                    <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded"
+                                        alt="Photo" loading="lazy" data-modal-target="modal-content" loading="lazy"
+                                        data-id="{{ $content->id }}" />
+                                    <div class="image-profile">
+                                        <img src="{{ $content->user['photo'] ? asset('storage/profile_photos/' . $content->user['photo']) : asset('img/icons/user-elipse.svg') }}"
+                                            alt="Profile Picture" class="mil-profile-img" loading="lazy" />
+                                        <p class="mil-username">
+                                            {{ $content->user['name'] ?? "anonymous" }}
+                                        </p>
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
-                    @endforeach
+
+                        <div class="col-lg-4 mb-4 mb-lg-0">
+                            @foreach ($trending[2] as $content)
+                                <div class="content-item mil-up position-relative">
+                                    <div class="mil-buttons">
+                                        <button class="mil-love-btn like-btn" data-id="{{ $content->id }}">
+                                            @if ($content->is_liked)
+                                                <i class="fas fa-heart"></i>
+                                            @else
+                                                <i class="far fa-heart"></i>
+                                            @endif
+                                        </button>
+                                        <button class="mil-download-btn"
+                                            data-href="{{ route('image.download', $content->id) }}">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                    </div>
+                                    <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded"
+                                        alt="Photo" loading="lazy" data-modal-target="modal-content" loading="lazy"
+                                        data-id="{{ $content->id }}" />
+                                    <div class="image-profile">
+                                        <img src="{{ $content->user['photo'] ? asset('storage/profile_photos/' . $content->user['photo']) : asset('img/icons/user-elipse.svg') }}"
+                                            alt="Profile Picture" class="mil-profile-img" loading="lazy" />
+                                        <p class="mil-username">
+                                            {{ $content->user['name'] ?? "anonymous" }}
+                                        </p>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -198,6 +202,7 @@
                                     alt="arrow" /></span></a>
                     </div>
                 </div>
+                
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
@@ -294,6 +299,7 @@
             </div>
         </div>
     </section>
+
     @include('components.modal-content')
 
 @endsection

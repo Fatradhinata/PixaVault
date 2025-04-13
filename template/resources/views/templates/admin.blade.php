@@ -35,6 +35,7 @@
             }
         }
     </style>
+    
     @yield('styles')
 
 </head>
