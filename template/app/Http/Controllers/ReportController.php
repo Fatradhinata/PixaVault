@@ -16,7 +16,7 @@ class ReportController extends Controller
     public function store(Request $req) {
 
         $validated = $req->validate([
-            'id_user' => 'required|uuid|exists:users,id',
+            'id_user' => 'nullable|uuid|exists:users,id',
             'id_content' => 'nullable|uuid|exists:contents,id',
             'id_comment' => 'nullable|uuid|exists:comments,id',
             'reason' => 'required|string',
@@ -24,7 +24,18 @@ class ReportController extends Controller
         ]);
 
         $validated['id_reported_user'] = $validated['id_user'];
-        $validated['id_user'] = Auth::user()->id;
+        $validated['id_user'] = (Auth::check()) ? Auth::user()->id : null;
+
+        if (
+            is_null($validated['id_reported_user']) &&
+            is_null($validated['id_content']) &&
+            is_null($validated['id_comment'])
+        ) {
+            return response()->json([
+                'success' => false,
+                'message' => "No subject was reported!"
+            ]);
+        }
 
         Report::create($validated);
         
@@ -39,11 +50,11 @@ class ReportController extends Controller
         $data = Report::find($id)->toArray();
         if (!$data) return response()->json(['error' => 'Data not found!'], 404);
 
-        if (is_null($data['id_content']) && is_null($data['id_comment'])) {
+        if (!is_null($data['id_reported_user'])) {
             $data['user'] = User::where('id', $data['id_reported_user'])->first()->toArray();
-        } elseif ($data['id_content'] && is_null($data['id_comment'])) {
+        } elseif (!is_null($data['id_content'])) {
             $data['content'] = Content::with('user')->where('id', $data['id_content'])->first()->toArray();
-        } else {
+        } elseif (!is_null($data['id_comment'])) {
             $data['comment'] = Comment::with('user')->where('id', $data['id_comment'])->first()->toArray();
             $data['comment']['likes'] = CommentLike::where('comment_id', $data['id_comment'])->count();
         }

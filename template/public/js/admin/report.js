@@ -103,17 +103,13 @@ document.addEventListener('DOMContentLoaded', function() {
                         let user = comment.user;
                         
                         $('.card-comment').html(`
-                            <div class="photo-profile">
-                                <img src="${data.user.photo ? "../../../image/" + data.user.photo : "../../../img/icons/user-elipse.svg"}" alt="User Profile">
-                            </div>
-                            
                             <div class="d-flex align-items-center">
                                 <div class="photo-profile">
-                                    <img src="${user.photo ? "../../../image/" + user.photo : "../../../img/icons/user-elipse.svg"}" alt="User Profile">
+                                    <img src="${comment.user.photo ? "../../../storage/profile_photos/" + comment.user.photo : "../../../img/icons/user-elipse.svg"}" alt="User Profile">
                                 </div>
                                 <div class="user-info">
-                                    <h3 class="fs-5">${user.name}</h3>
-                                    <p class="text-sm">${user.email}</p>
+                                    <h3 class="fs-5">${comment.user.name}</h3>
+                                    <p class="text-sm">${comment.user.email}</p>
                                 </div>
                             </div>
     
