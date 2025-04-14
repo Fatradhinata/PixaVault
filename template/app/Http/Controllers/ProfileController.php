@@ -77,7 +77,7 @@ class ProfileController extends Controller
                 'users.bio'
             )
             ->first();
-        
+
         return view('user.profile', [
             'user' => $user,
             'contents' => $this->getTripleColumn($user->contents),
@@ -94,10 +94,10 @@ class ProfileController extends Controller
 
         $currentUser = Auth::user();
         if ($userToFollow->id == $currentUser->id) return response()->json(['error' => 'You cannot follow yourself'], 400);
-        
+
         $follow = Follow::where('follower_id', $currentUser->id)
-                        ->where('followed_id', $userToFollow->id)
-                        ->first();
+            ->where('followed_id', $userToFollow->id)
+            ->first();
 
         if ($follow) {
             // Unfollow
@@ -181,5 +181,24 @@ class ProfileController extends Controller
         } catch (Exception $e) {
             return redirect()->back()->with('error', 'Something went wrong. Please try again.');
         }
+    }
+
+    public function getFollowers($id)
+    {
+        $user = User::with('followers')->findOrFail($id);
+
+        $followers = $user->followers->map(fn($follower) => [
+            'id' => $follower->id,
+            'name' => $follower->name,
+            'full_name' => $follower->full_name ?? '',
+            'photo' => $follower->photo
+                ? asset('storage/profile_photos/' . $follower->photo)
+                : asset('img/icons/user-elipse.svg'),
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'followers' => $followers
+        ]);
     }
 }

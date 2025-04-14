@@ -68,6 +68,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/profile/edit', [ProfileController::class, 'update'])->name('profile.update');
         Route::put('/profile/edit', [ProfileController::class, 'changePassword'])->name('profile.password');
         Route::post('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password.update');
+        Route::get('/profile/{id}/followers', [ProfileController::class, 'getFollowers']);
+
         Route::delete('/content/{id}', [ContentController::class, 'destroy'])->middleware('auth');
         
         Route::post('/report-content', [ReportController::class, 'store']);
