@@ -379,7 +379,7 @@ class ContentController extends Controller
                 return redirect()
                     ->to(route('pricing') . '#subscribe')
                     ->with('warning', 'You have reached your free limit! <br>Please purchase the subscription to upload more photos.');
-            }            
+            }
         }
 
         return view('user.upload');
@@ -469,5 +469,10 @@ class ContentController extends Controller
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'message' => 'Something went wrong!'], 500);
         }
+    }
+
+    public function showInExplore($id)
+    {
+        return redirect()->route('explore', ['show' => $id]);
     }
 }

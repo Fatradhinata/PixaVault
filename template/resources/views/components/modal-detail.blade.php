@@ -86,9 +86,9 @@
                 </p>
             </div>
 
-            <button class="share-btn">
-                <img src="{{ asset('img/icons/share.svg') }}" alt="share">
-                <p>Share</p>
+            <button class="copy-link-btn share-btn" data-id="">
+                <img src="{{ asset('img/icons/link.svg') }}" alt="copy link">
+                <p style="color: black; font-size: 14px; font-weight: 500;">Copy Link</p>
             </button>
         </div>
 
@@ -96,23 +96,23 @@
         <!-- Judul -->
         <div class="details">
             <div class="mb-1">
-                <h4 class="mil-up title">Background Furniture</h4>
+                <h4 class="title">Background Furniture</h4>
             </div>
             <!-- Deskripsi -->
-            <p class="mil-up mil-mb-30 content-description">
+            <p class="mil-mb-30 content-description">
                 Photo Descriptions...
             </p>
         </div>
 
 
         <!-- Tanggal -->
-        <div class="d-flex align-items-center my-1 mil-up created-date">
+        <div class="d-flex align-items-center my-1 created-date">
             <i class="fas fa-upload" style="margin-right: 10px; color: #6c757d"></i>
             <p class="mb-0 created-at" style="color: #6c757d">-</p>
         </div>
 
         <!-- Shoot By -->
-        <div class="d-flex align-items-center my-1 mil-up publish-cam">
+        <div class="d-flex align-items-center my-1 publish-cam">
             <img src="{{ asset('img/icons/camera-variant-1.svg') }}" width="28px" height="28px" alt="cam-1">
             <p class="mb-0 shoot-by" style="color: #6c757d">-</p>
         </div>
@@ -172,7 +172,7 @@
             window.BASEURL = `{{ url('/') }}`;
             window.tmp_user = `{{ asset('img/icons/user-elipse.svg') }}`;
         }
-        
+
         const commentCount = document.getElementById("commentCount");
 
         // JS Modal //
@@ -224,6 +224,8 @@
                 $('#modal-detail .content-description').text(data.desc);
                 $('#modal-detail .shoot-by').text(data.shoot_by);
                 $('#modal-detail .created-at').text(data.created_at);
+
+                $('.copy-link-btn').data('id', data.id);
 
                 $('#modal-detail .tag-row').html('');
                 for (let tag of data.tags)

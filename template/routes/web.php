@@ -37,6 +37,8 @@ Route::get('/content/get/{limit}', [ContentController::class, 'getRandom']);
 Route::get('/comments/{id_content}', [CommentController::class, 'index'])->name('comments.index');
 Route::get('/content/like/{id}', [ContentController::class, 'like'])->name('content.like');
 Route::get('/content/download/{id}', [ContentController::class, 'download'])->name('image.download');
+Route::get('/content/view/{id}', [ContentController::class, 'showInExplore'])->name('content.redirect');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');

@@ -75,9 +75,9 @@
                 </p>
             </div>
 
-            <button class="share-btn">
-                <img src="{{ asset('img/icons/share.svg') }}" alt="share">
-                <p>Share</p>
+            <button class="copy-link-btn share-btn" data-id="">
+                <img src="{{ asset('img/icons/link.svg') }}" alt="copy link">
+                <p style="color: black; font-size: 14px; font-weight: 500;">Copy Link</p>
             </button>
         </div>
 
@@ -85,23 +85,23 @@
         <!-- Judul -->
         <div class="details">
             <div class="mb-1">
-                <h4 class="mil-up title">Background Furniture</h4>
+                <h4 class="title">Background Furniture</h4>
             </div>
         </div>
 
         <!-- Deskripsi -->
-        <p class="mil-up mil-mb-30 content-description">
+        <p class="mil-mb-30 content-description">
             Photo Descriptions...
         </p>
 
         <!-- Tanggal -->
-        <div class="d-flex align-items-center my-1 mil-up created-date">
+        <div class="d-flex align-items-center my-1 created-date">
             <i class="fas fa-upload" style="margin-right: 10px; color: #6c757d"></i>
             <p class="mb-0 created-at" style="color: #6c757d">-</p>
         </div>
 
         <!-- Shoot By -->
-        <div class="d-flex align-items-center my-1 mil-up publish-cam">
+        <div class="d-flex align-items-center my-1 publish-cam">
             <img src="{{ asset('img/icons/camera-variant-1.svg') }}" width="28px" height="28px" alt="cam-1">
             <p class="mb-0 shoot-by" style="color: #6c757d">-</p>
         </div>
@@ -232,6 +232,8 @@
                 $('#modal-content .shoot-by').text(data.shoot_by);
                 $('#modal-content .created-at').text(data.created_at);
 
+                $('.copy-link-btn').data('id', data.id);
+
                 $('#modal-content .report-btn').attr('data-id-content', data.id);
 
                 if ($('#idContent').length) {
@@ -297,6 +299,7 @@
             }
 
             async function fetchData(url) {
+                console.log(url)
                 const res = await fetch(url)
                 if (res.ok) {
                     const data = await res.json();
@@ -359,9 +362,11 @@
                 } = await fetchData(`${BASEURL}/content/${id}`);
 
                 if (status !== 'fail') {
+                    console.log(data, 'asdasdsad')
                     data.tags = JSON.parse(data.tags);
                     setField(data);
                 } else {
+                    console.log(data, 'asdasdsad')
                     console.error('Error while fetching data: ' + message);
                 }
             };
@@ -670,6 +675,36 @@
             $(document).on("click", function() {
                 $(".dropdown-report").addClass("hidden");
             });
+
+            // Copy link when button clicked
+            $(document).on('click', '.copy-link-btn', function() {
+                const id = $(this).data("id");
+                const url = `${window.location.origin}/content/view/${id}`;
+
+                navigator.clipboard.writeText(url).then(() => {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Link copied!',
+                        text: 'You can now share this URL.',
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+                });
+            });
+
+            // AUTO OPEN MODAL IF URL HAS ?show=ID
+            const urlParams = new URLSearchParams(window.location.search);
+            const showId = urlParams.get('show');
+            console.log(showId)
+
+            if (showId) {
+                console.log(showId)
+                displayData(showId).then(() => {
+                    fetchComment(showId, 1, false);
+                    refreshContent();
+                    photoModal.fadeIn(300);
+                });
+            }
 
         });
     </script>
