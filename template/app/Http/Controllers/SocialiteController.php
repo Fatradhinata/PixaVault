@@ -8,11 +8,33 @@ use Laravel\Socialite\Facades\Socialite;
 
 class SocialiteController extends Controller
 {
+    /**
+     * Redirects the user to the Google OAuth provider for authentication.
+     * 
+     * This method initiates the OAuth flow by redirecting the user to Google's
+     * authentication page where they can grant permissions to the application.
+     * 
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function redirect()
     {
         return Socialite::driver('google')->redirect();
     }
 
+    /**
+     * Handles the callback from Google OAuth provider after authentication.
+     * 
+     * This method processes the user information returned by Google OAuth provider.
+     * It either:
+     * - Updates an existing user with Google OAuth credentials if the email exists
+     * - Creates a new user with Google OAuth credentials if the email doesn't exist
+     * 
+     * After successful authentication, the user is logged in and redirected:
+     * - To the verification page if their email isn't verified
+     * - To the home page if their email is verified
+     * 
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function callback()
     {
         $socialUser = Socialite::driver('google')->user();
@@ -41,7 +63,7 @@ class SocialiteController extends Controller
 
         Auth::login($auth);
         session()->save();
-        
+
 
         if (!Auth::user()->verified_at)
             return redirect('/need-to-verify')->with('success', "Login Successful! Please verify your email first.");

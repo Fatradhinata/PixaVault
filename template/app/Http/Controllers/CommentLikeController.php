@@ -45,9 +45,6 @@ class CommentLikeController extends Controller
      * If the user has liked the comment, the like is deleted and a success message is returned. If the user hasn't liked
      * the comment, a message is returned indicating this.
      *
-     * Expected request data:
-     * - commentId: string, required — the UUID of the comment to unlike.
-     *
      * @param  string  $commentId  The UUID of the comment to be unliked.
      * @return \Illuminate\Http\JsonResponse
      */

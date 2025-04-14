@@ -16,6 +16,19 @@ use Illuminate\Support\Facades\Auth;
 
 class PaymentController extends Controller
 {
+    /**
+     * Display pricing/subscription page.
+     * 
+     * This method checks if the authenticated user has an active subscription.
+     * If an active subscription exists (not expired and status is 'active'),
+     * it redirects to the subscription page with a warning message.
+     * Otherwise, it shows the pricing page for new subscriptions.
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     * Returns either:
+     * - Redirect to subscription page if active subscription exists
+     * - Pricing view if no active subscription
+     */
     public function index()
     {
         $subscription = Subscription::where('user_id', Auth::id())
@@ -28,7 +41,21 @@ class PaymentController extends Controller
         return view('user.pricing');
     }
 
-    public function checkout($id, $snapToken)
+    /**
+     * Display checkout page for payment.
+     *
+     * This method shows the checkout page for a pending payment.
+     * It verifies the payment exists and is in pending status before
+     * displaying the checkout form with the provided Snap token.
+     *
+     * @param  string  $id  The payment ID to checkout
+     * @param  string  $snapToken  The Snap token for payment processing
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     * Returns either:
+     * - Redirect back with error if payment not found
+     * - Checkout view with payment data and Snap token
+     */
+    public function checkout(string $id, string $snapToken)
     {
         if (!$id) return redirect()->back()->with('error', 'Data not found!');
 
@@ -44,6 +71,23 @@ class PaymentController extends Controller
         ]);
     }
 
+    /**
+     * Process new subscription purchase.
+     *
+     * This method handles the creation of a new subscription and payment transaction.
+     * It converts USD pricing to IDR using exchange rates, generates a unique order ID,
+     * creates subscription and payment records, and initiates the Midtrans payment process.
+     * 
+     * Expected behavior:
+     * - Validates subscription type (must be 1 or 2)
+     * - Creates new subscription with appropriate plan and duration
+     * - Creates payment record with converted IDR amount
+     * - Generates Midtrans payment token
+     * - Redirects to checkout page with payment details
+     * 
+     * @param int $type The subscription type (1 = "Premium Pro" annual, 2 = "Premium" monthly)
+     * @return \Illuminate\Http\RedirectResponse Redirects to checkout page or back with error
+     */
     public function purchase(int $type)
     {
         try {
@@ -93,6 +137,25 @@ class PaymentController extends Controller
         }
     }
 
+    /**
+     * Extend existing active subscription.
+     *
+     * This method handles extending an existing active subscription by creating
+     * a new payment transaction. It follows similar flow to purchase() but verifies
+     * an active subscription exists before proceeding.
+     *
+     * @param int $type The extension type (1 = 1 year, 2 = 1 month)
+     * @return \Illuminate\Http\RedirectResponse Redirects to checkout page or back with error
+     * 
+     * @throws \Exception On any processing error (caught internally)
+     * 
+     * Expected behavior:
+     * - Validates extension type (must be 1 or 2)
+     * - Verifies active subscription exists
+     * - Creates payment record with appropriate action description
+     * - Generates Midtrans payment token
+     * - Redirects to checkout page with payment details
+     */
     public function extends(int $type)
     {
         try {
@@ -143,6 +206,25 @@ class PaymentController extends Controller
         }
     }
 
+    /**
+     * Process successful payment and activate/extend subscription.
+     *
+     * This method handles successful payment confirmation by updating payment status
+     * and either activating a new subscription or extending an existing one based
+     * on the payment action. It supports both new purchases and extensions.
+     *
+     * @param string $orderId The unique order ID from payment gateway
+     * @return \Illuminate\Http\RedirectResponse Redirects with status message
+     * 
+     * @throws \Exception On processing errors (caught internally)
+     * 
+     * Expected behavior:
+     * - Verifies pending payment exists
+     * - Updates payment status to 'paid'
+     * - For 'purchase' action: activates new subscription
+     * - For 'extends' action: extends subscription duration (1 month or 1 year)
+     * - Handles invalid actions gracefully
+     */
     public function payment(string $orderId)
     {
         try {
@@ -189,6 +271,21 @@ class PaymentController extends Controller
         }
     }
 
+    /**
+     * Cancel a pending payment and or subscription.
+     *
+     * This method handles cancellation of pending payments. For pending subscriptions,
+     * it deletes the subscription record. For other cases, it marks the payment as rejected.
+     *
+     * @param \App\Models\Payment $id The payment model instance to cancel
+     * @return \Illuminate\Http\RedirectResponse Redirects to home with status message
+     * 
+     * @throws \Exception On processing errors (caught internally)
+     * 
+     * Note:
+     * - Different handling for pending subscriptions vs other payments
+     * - Always redirects to home route after processing
+     */
     public function cancelPayment(Payment $id)
     {
         try {
@@ -206,6 +303,18 @@ class PaymentController extends Controller
         }
     }
 
+    /**
+     * Delete a payment record (admin only).
+     *
+     * This method allows administrators to permanently delete payment records.
+     * It verifies the user has admin role before processing the deletion.
+     *
+     * Expected request data:
+     * - id: string, required — The payment ID to delete
+     *
+     * @param \Illuminate\Http\Request $req The incoming request containing payment ID
+     * @return \Illuminate\Http\RedirectResponse Redirects back with status message
+     */
     public function destroy(Request $req)
     {
         $id = Payment::find($req->input('id'));
@@ -222,5 +331,4 @@ class PaymentController extends Controller
             return redirect()->back()->with('error', 'Something went wrong! Please try again.');
         }
     }
-
 }

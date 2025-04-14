@@ -11,17 +11,25 @@ use App\Models\Content;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Number;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Intervention\Image\Facades\Image;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
-
-
 class ContentController extends Controller
 {
-    private function getTripleColumn($collection)
+    /**
+     * Divide a collection into three columns.
+     *
+     * This method takes a collection and splits it into three columns. The collection is first converted to an array,
+     * then divided into three parts as evenly as possible. Any extra elements will be distributed to the columns in order.
+     *
+     * @param  \Illuminate\Support\Collection  $collection  The collection to be divided.
+     * @return array  An array containing three sub-arrays, each representing a column.
+     */
+    private function getTripleColumn(Collection $collection)
     {
         $content = $collection->toArray();
         $divided_len = ceil(count($content) / 3);
@@ -40,7 +48,17 @@ class ContentController extends Controller
         return $tmp;
     }
 
-    public function getDataById($id)
+    /**
+     * Retrieve content data by its ID.
+     *
+     * This method fetches the content based on the provided ID and includes information about whether the content
+     * is liked by the authenticated user. It also increments the view count of the content. The retrieved content 
+     * data is formatted (dates are converted) and returned in a JSON response.
+     *
+     * @param  string  $id  The UUID of the content to retrieve.
+     * @return \Illuminate\Http\JsonResponse  The JSON response with the content data or an error message.
+     */
+    public function getDataById(string $id)
     {
         $content = Content::select('contents.*', DB::raw('CASE WHEN likes.id IS NOT NULL THEN 1 ELSE 0 END as is_liked'))
             ->leftJoin(
@@ -73,27 +91,18 @@ class ContentController extends Controller
         ]);
     }
 
-
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'name' => 'required|string|max:100',
-            'desc' => 'required|string|max:500',
-            'shoot_by' => 'nullable|string|max:50',
-        ]);
-
-
-        $content = Content::findOrFail($id);
-
-        $content->name = $request->name;
-        $content->desc = $request->desc;
-        $content->shoot_by = $request->shoot_by;
-        $content->save();
-
-        return response()->json(['status' => 'success']);
-    }
-
-    public function getRandom($limit)
+    /**
+     * Retrieve a random selection of contents.
+     *
+     * This method fetches a random selection of content from the database, excluding the authenticated user's content
+     * and optionally excluding a specific content ID passed via the query string. It also determines whether the 
+     * authenticated user has liked each piece of content. The results are formatted into groups of three columns 
+     * and returned in a JSON response.
+     *
+     * @param  int  $limit  The number of random contents to retrieve.
+     * @return \Illuminate\Http\JsonResponse  The JSON response containing the selected contents or an error message.
+     */
+    public function getRandom(int $limit)
     {
         $excludeId = request()->query('exclude_id');
 
@@ -124,6 +133,16 @@ class ContentController extends Controller
         ]);
     }
 
+    /**
+     * Like or unlike a content item.
+     *
+     * This method checks if the user is authenticated, and if so, either adds or removes a like
+     * for the specified content. It also updates the content's like count accordingly. If the user
+     * is not authenticated, it returns a redirect URL to the login page.
+     *
+     * @param  \App\Models\Content  $id  The content item being liked/unliked.
+     * @return \Illuminate\Http\JsonResponse  The JSON response indicating the status of the like action.
+     */
     public function like(Content $id)
     {
         try {
@@ -146,12 +165,24 @@ class ContentController extends Controller
                 'id_user' => $id_user,
                 'id_content' => $id_content,
             ]);
+
             return response()->json(['status' => 'success', 'like' => true], 201);
         } catch (\Exception $e) {
             return response()->json(['status' => 'fail', 'message' => 'Something went wrong!'], 500);
         }
     }
 
+    /**
+     * Display an image by its public ID from Cloudinary.
+     * 
+     * This method first checks if the image is available in the cache. If the image is cached, 
+     * it returns the cached image. If not, it fetches the image from Cloudinary, caches it, 
+     * and then returns the image in the WebP format. This method also compress fetched image
+     * in a low quality to optimize the page.
+     * 
+     * @param  string  $publicId  The public ID of the image in Cloudinary.
+     * @return \Illuminate\Http\Response  The image response, either from cache or fetched from Cloudinary.
+     */
     public function show(string $publicId)
     {
         if (empty($publicId))
@@ -195,6 +226,20 @@ class ContentController extends Controller
         }
     }
 
+    /**
+     * Download a file (image) from Cloudinary after checking subscription and free limit.
+     *
+     * This method performs several steps:
+     * 1. Verifies user authentication.
+     * 2. Checks if the user has subscription to download the image.
+     * 3. If not, check if the user has enough free limit to download the image.
+     * 4. Fetches the high quality image from Cloudinary.
+     * 5. Streams the image to the user, along with proper headers for downloading the file.
+     * 6. Handles errors gracefully with appropriate status codes and messages.
+     *
+     * @param  Content  $id  The content (image) to be downloaded.
+     * @return \Illuminate\Http\Response  The image file as a downloadable response.
+     */
     public function download(Content $id)
     {
         try {
@@ -259,6 +304,18 @@ class ContentController extends Controller
         }
     }
 
+    /**
+     * Display a list of contents that are not created by the authenticated user.
+     *
+     * This method fetches the contents from the database, checks if the authenticated user has liked
+     * each content, and returns the results in random order. The contents are grouped into 3 columns
+     * for presentation on the explore page.
+     *
+     * Expected response:
+     * - contents: array, contains a list of contents with associated data like user and like status.
+     *
+     * @return \Illuminate\View\View
+     */
     public function index()
     {
         $contents = Content::select('contents.*', DB::raw('CASE WHEN likes.id IS NOT NULL THEN 1 ELSE 0 END as is_liked'))
@@ -280,6 +337,33 @@ class ContentController extends Controller
         ]);
     }
 
+    /**
+     * Redirect to detail content's ID.
+     *
+     * This method redirects to the explore page with a query parameter `show` containing the content's ID.
+     * The content ID will be used to display more details in the explore view.
+     *
+     * @param  string  $id  The ID of the content to display in the explore view.
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function showInExplore(string $id)
+    {
+        return redirect()->route('explore', ['show' => $id]);
+    }
+
+    /**
+     * Display the trending contents for the current month.
+     *
+     * This method fetches contents that are trending based on several factors such as the number of
+     * views, likes, and downloads. The contents are sorted based on the popularity within the current
+     * month and across the entire platform. The results are ordered by the number of downloads, views,
+     * and likes, with the most popular content appearing first.
+     *
+     * Expected response:
+     * - contents: array, contains a list of trending contents with associated data like user and like status.
+     *
+     * @return \Illuminate\View\View
+     */
     public function trending()
     {
         $startOfMonth = Carbon::now()->startOfMonth()->toDateTimeString();
@@ -315,7 +399,21 @@ class ContentController extends Controller
         ]);
     }
 
-
+    /**
+     * Perform a search for contents and users.
+     *
+     * This method handles search functionality for both contents and users. It accepts a query string
+     * (`q`) and an optional tag filter (`t`). It then searches for contents whose name, description, or tags
+     * match the query string. It also searches for users whose name or full name matches the query string.
+     * The results are returned in a view with the contents and users that match the search criteria.
+     *
+     * Expected request data:
+     * - q: string, optional — the search query to match contents and users by name, description, or tags.
+     * - t: string, optional — the tag to filter contents by. If provided, only contents with matching tags will be included in the search.
+     *
+     * @param  \Illuminate\Http\Request  $req  The incoming request containing the search query and optional tag filter.
+     * @return \Illuminate\View\View
+     */
     public function result(Request $req)
     {
         $search = $req->input('q');
@@ -340,7 +438,6 @@ class ContentController extends Controller
             });
         }
 
-
         if ($tag)
             $data = $data->where('contents.tags', 'like', "%$tag%");
 
@@ -360,7 +457,6 @@ class ContentController extends Controller
                 ->get();
         }
 
-
         return view('user.result', [
             'contents' => $data,
             'search' => $search,
@@ -368,7 +464,15 @@ class ContentController extends Controller
         ]);
     }
 
-
+    /**
+     * Show the upload page or redirect if the user has reached their free upload limit.
+     *
+     * This method checks if the user has an active subscription or if they have reached their free upload limit.
+     * If the user has reached their free limit, they are redirected to the pricing page with a warning message.
+     * If the user has a valid subscription or hasn't reached their free limit, the method returns the upload page view.
+     *
+     * @return \Illuminate\View\View|\Illuminate\Http\RedirectResponse
+     */
     public function upload()
     {
         $user = User::find(Auth::id());
@@ -385,6 +489,18 @@ class ContentController extends Controller
         return view('user.upload');
     }
 
+    /**
+     * Search and retrieve tags that start with a given query string.
+     *
+     * This method searches for tags whose names start with the provided query string (`q`).
+     * It returns a list of tag names (up to a limit of 15) that match the query.
+     *
+     * Expected request data:
+     * - q: string, required — the search query to tags search.
+     * 
+     * @param  \Illuminate\Http\Request  $req  The incoming request containing the query parameter `q` for tag search.
+     * @return \Illuminate\Http\JsonResponse  A JSON response containing a list of tag names that match the query.
+     */
     public function tags(Request $req)
     {
         $q = $req->get('q');
@@ -397,6 +513,24 @@ class ContentController extends Controller
         return response()->json($results);
     }
 
+    /**
+     * Store a newly uploaded photo along with its details.
+     *
+     * This method handles the upload of a new photo, validates the input data, and processes the tags and other photo-related information.
+     * It also checks the user's subscription and free upload limit. If the user has exceeded the free limit, they are redirected to the pricing page.
+     * If the upload is successful, the photo's details (including tags) are stored in the database. A successful response is returned for AJAX requests,
+     * or the user is redirected to their profile page with a success message for non-AJAX requests.
+     *
+     * Expected request data:
+     * - image: file, required — the image file to upload (must be of type jpg, jpeg, png, heic, arw, tiff with size between 200KB and 12MB).
+     * - name: string, required — the name of the photo.
+     * - desc: string, required — a description of the photo.
+     * - tags: string, required — a JSON-encoded array of tag objects to associate with the photo.
+     * - shoot_by: string, optional — the name of the photographer, if provided.
+     * 
+     * @param  \Illuminate\Http\Request  $req  The incoming request containing the photo and metadata for the upload.
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse  A redirect response or JSON response based on the request type.
+     */
     public function store(Request $req)
     {
         $validated = $req->validate([
@@ -454,6 +588,52 @@ class ContentController extends Controller
         }
     }
 
+    /**
+     * Update content details.
+     *
+     * This method updates the details of a specific content item. It validates the incoming 
+     * request data, ensuring the content name, description, and optional "shoot_by" field 
+     * adhere to the specified constraints. If the validation is successful, the content record 
+     * is updated with the new data. If the content with the provided ID is found and updated 
+     * successfully, a success response is returned.
+     *
+     * Expected request data:
+     * - name: string, required — the name/title of the content (max length: 100 characters).
+     * - desc: string, required — the description of the content (max length: 500 characters).
+     * - shoot_by: string, optional — the camera or tool used to capture the content (max length: 50 characters).
+     *
+     * @param  \Illuminate\Http\Request  $req  The incoming HTTP request containing the updated content data.
+     * @param  string  $id  The ID of the content to update.
+     * @return \Illuminate\Http\JsonResponse The JSON response containing the status, wheter it success or not.
+     */
+    public function update(Request $req, string $id)
+    {
+        $validated = $req->validate([
+            'name' => 'required|string|max:100',
+            'desc' => 'required|string|max:500',
+            'shoot_by' => 'nullable|string|max:50',
+        ]);
+
+        Content::findOrFail($id)->update($validated);
+
+        return response()->json(['status' => 'success']);
+    }
+
+    /**
+     * Delete a content and its associated photo.
+     *
+     * This method handles the deletion of a content record. It checks whether the content 
+     * exists and if the currently authenticated user has the necessary permissions to 
+     * delete it (either as an admin or as the user who created the content). If the 
+     * content exists and the user is authorized, the associated photo is deleted from 
+     * Cloudinary, and the content record is removed from the database. If the request 
+     * is not authorized, a 403 error is returned. In case of any errors, a 500 error 
+     * is returned with an appropriate error message.
+     *
+     *
+     * @param  string  $id  The ID of the content to delete.
+     * @return \Illuminate\Http\JsonResponse The JSON response containing the status and the message for the client.
+     */
     public function destroy($id)
     {
         $content = Content::find($id);
@@ -473,10 +653,5 @@ class ContentController extends Controller
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'message' => 'Something went wrong!'], 500);
         }
-    }
-
-    public function showInExplore($id)
-    {
-        return redirect()->route('explore', ['show' => $id]);
     }
 }

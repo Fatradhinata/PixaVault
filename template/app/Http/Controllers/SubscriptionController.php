@@ -9,7 +9,16 @@ use Illuminate\Support\Facades\Auth;
 
 class SubscriptionController extends Controller
 {
-
+    /**
+     * Display the user's active subscription.
+     *
+     * This method checks whether the authenticated user has an active subscription.
+     * If a valid subscription is found, it calculates the difference in months and days
+     * from the current date, and determines whether the subscription is still active.
+     * If no active subscription is found, the user is redirected to the pricing page.
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
     public function index()
     {
         $subscription = Subscription::select('*', DB::raw(
@@ -30,7 +39,16 @@ class SubscriptionController extends Controller
         ]);
     }
 
-    public function getDataById($id)
+    /**
+     * Get the subscription data by ID.
+     *
+     * This method fetches a subscription based on the provided ID and returns the data
+     * as a JSON response. If the subscription is not found, it returns a failure message.
+     *
+     * @param  string  $id  The ID of the subscription.
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getDataById(string $id)
     {
         $data = Subscription::find($id);
 
@@ -43,6 +61,22 @@ class SubscriptionController extends Controller
         ]);
     }
 
+    /**
+     * Update the subscription details.
+     *
+     * This method updates the subscription's data, including the plan, status, and expiration date.
+     * It validates the input data and performs the update. If successful, the user is redirected back
+     * with a success message; otherwise, an error message is returned.
+     * 
+     * Expected request data:
+     * - id: required, string — the unique identifier of the subscription to be updated.
+     * - plans: required, enum — the subscription plan. Can be 'Premium' or 'Premium Pro'.
+     * - status: required, enum — the subscription status. Can be 'pending', 'active', or 'expired'.
+     * - date_limit: required, date — the expiration date of the subscription.
+     *
+     * @param  \Illuminate\Http\Request  $req  The incoming request containing the subscription data.
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(Request $req)
     {
         $validated = $req->validate([
@@ -63,6 +97,19 @@ class SubscriptionController extends Controller
         }
     }
 
+    /**
+     * Delete a subscription.
+     *
+     * This method deletes a subscription based on the provided ID. Only users with an "admin" role
+     * are authorized to delete a subscription. If the deletion is successful, a success message is
+     * returned. Otherwise, a warning message is shown for non-admin users.
+     * 
+     * Expected request data:
+     * - id: string, required — the UUID of the user to delete.
+     *
+     * @param  \Illuminate\Http\Request  $req  The incoming request containing the subscription ID to delete.
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroy(Request $req)
     {
         $id = Subscription::find($req->input('id'));

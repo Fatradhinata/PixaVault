@@ -13,8 +13,26 @@ use Illuminate\Support\Facades\Auth;
 
 class ReportController extends Controller
 {
-    public function store(Request $req) {
-
+    /**
+     * Store a new report in the database.
+     *
+     * This method handles the creation of a new report. It validates the request data to ensure
+     * at least one subject (user, content, or comment) is reported along with a required reason.
+     * The authenticated user's ID is automatically assigned as the reporter. Reports can be
+     * submitted by both authenticated and guest users (with null user ID).
+     *
+     * Expected request data:
+     * - id_user: uuid, nullable — the ID of the reported user (must exist in users table)
+     * - id_content: uuid, nullable — the ID of the reported content (must exist in contents table)
+     * - id_comment: uuid, nullable — the ID of the reported comment (must exist in comments table)
+     * - reason: string, required — the reason for the report
+     * - detail: string, nullable, max:500 — additional details about the report
+     *
+     * @param  \Illuminate\Http\Request  $req  The incoming request containing report details
+     * @return \Illuminate\Http\JsonResponse  JSON response indicating success or failure
+     */
+    public function store(Request $req) 
+    {
         $validated = $req->validate([
             'id_user' => 'nullable|uuid|exists:users,id',
             'id_content' => 'nullable|uuid|exists:contents,id',
@@ -45,6 +63,17 @@ class ReportController extends Controller
         ]);
     }
 
+    /**
+     * Retrieve detailed report data by ID.
+     *
+     * This method fetches a report by its ID and enriches it with related data based on the report type.
+     * If the report is about a user, it includes the user's details. If about content, it includes
+     * content details with the author. If about a comment, it includes comment details with the author
+     * and like count.
+     *
+     * @param  string  $id  The UUID of the report to retrieve
+     * @return \Illuminate\Http\JsonResponse  JSON response containing either the enriched report data or an error message
+     */
     public function getDataById($id) 
     {
         $data = Report::find($id)->toArray();
@@ -65,7 +94,17 @@ class ReportController extends Controller
         ]);
     }
 
-    public function resolve($id) {
+    /**
+     * Resolve a pending report.
+     *
+     * This method allows administrators to mark a report as resolved. Only users with 'admin' role
+     * can perform this action. The report must exist and be in 'pending' status to be resolved.
+     *
+     * @param  string  $id  The UUID of the report to resolve
+     * @return \Illuminate\Http\RedirectResponse  Redirects back with status message
+     */
+    public function resolve($id) 
+    {
         try {
             if (Auth::user()->role == 'admin') {
                 $data = Report::find($id);
@@ -84,7 +123,20 @@ class ReportController extends Controller
         }
     }
     
-    public function destroy(Request $req) {
+    /**
+     * Delete a report from the database.
+     *
+     * This method handles the deletion of a report. Only users with 'admin' role can perform
+     * this action. The report must exist to be deleted.
+     *
+     * Expected request data:
+     * - id: string, required — the ID of the report to delete
+     *
+     * @param  \Illuminate\Http\Request  $req  The incoming request containing the report ID to delete
+     * @return \Illuminate\Http\RedirectResponse  Redirects back with status message
+     */
+    public function destroy(Request $req) 
+    {
         $id = Report::find($req->input('id'));
         if (!$id) return redirect()->back()->with('error', 'Data not found!');
 

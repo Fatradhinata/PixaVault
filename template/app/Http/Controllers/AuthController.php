@@ -12,14 +12,41 @@ use Illuminate\Support\Facades\Storage;
 
 class AuthController extends Controller
 {
+    /**
+     * Display the login page.
+     *
+     * This method shows the login form view for unauthenticated users.
+     * 
+     * @return \Illuminate\View\View Returns the login view
+     */
     public function login() {
         return view('auth.login');
     }
 
+    /**
+     * Display the registration page.
+     *
+     * This method shows the registration form view for new users
+     * to create an account.
+     * 
+     * @return \Illuminate\View\View Returns the registration view
+     */
     public function register() {
         return view('auth.register');
     }
 
+    /**
+     * Display the email verification notice page.
+     *
+     * This method shows the verification notice view for authenticated
+     * users who haven't verified their email address. Automatically
+     * redirects to home if user is already verified.
+     * 
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     * Returns either:
+     * - Redirect to home if user is verified
+     * - Verification notice view if user needs verification
+     */
     public function needToVerify() {
         if (Auth::user()->verified_at) return redirect()->route('home');
         

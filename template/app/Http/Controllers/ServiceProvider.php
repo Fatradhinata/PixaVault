@@ -17,9 +17,8 @@ class ServiceProvider extends Controller
      * If a subscription is found but has passed its `date_limit`, the subscription
      * status will be updated to 'expired' and the function will return false.
      * 
-     * @param string $userId The UUID of the user whose subscription is being checked.
-     * 
-     * @return \App\Models\Subscription|false Returns the active Subscription model if valid, or false if no valid subscription exists.
+     * @param string $userId - The UUID of the user whose subscription is being checked.
+     * @return \App\Models\Subscription|false - Returns the active Subscription model if valid, or false if no valid subscription exists.
      */
     public static function subscriptionCheck($userId)
     {

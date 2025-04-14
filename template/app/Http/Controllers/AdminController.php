@@ -15,6 +15,17 @@ use App\Http\Controllers\ServiceProvider;
 
 class AdminController extends Controller
 {
+    /**
+     * Display admin dashboard with statistics.
+     *
+     * Shows key metrics including:
+     * - Total user count
+     * - Active subscriptions count
+     * - Total content count
+     * - Pending reports count
+     *
+     * @return \Illuminate\View\View Returns dashboard view with statistics
+     */
     public function index()
     {
         return view('admin.dashboard', [
@@ -25,6 +36,15 @@ class AdminController extends Controller
         ]); 
     }
     
+    /**
+     * Display content management page with optional search filtering.
+     *
+     * Expected query parameters:
+     * - q: string, optional — Search query for content filtering
+     *
+     * @param \Illuminate\Http\Request $req The incoming request
+     * @return \Illuminate\View\View Returns content management view
+     */
     public function content(Request $req)
     {
         $q = $req->query('q');
@@ -40,6 +60,17 @@ class AdminController extends Controller
         ]);
     }
 
+    /**
+     * Display monthly leaderboard for likes and downloads.
+     *
+     * Shows two separate leaderboards:
+     * - Top content by likes
+     * - Top content by downloads
+     * 
+     * Data is filtered for current month only.
+     *
+     * @return \Illuminate\View\View Returns leaderboard view with rankings
+     */
     public function leaderboard()
     {
         $startDate = Carbon::now()->startOfMonth()->toDateTimeString();
@@ -54,6 +85,15 @@ class AdminController extends Controller
         ]);
     }
 
+    /**
+     * Display subscription management page with optional search filtering.
+     *
+     * Expected query parameters:
+     * - q: string, optional — Search query for subscription filtering
+     *
+     * @param \Illuminate\Http\Request $req The incoming request
+     * @return \Illuminate\View\View Returns subscription management view
+     */
     public function subscription(Request $req)
     {
         $q = $req->query('q');
@@ -69,6 +109,14 @@ class AdminController extends Controller
         ]); 
     }
 
+    /**
+     * Display payment history page.
+     *
+     * Shows all payment records in reverse chronological order
+     * with related subscription information.
+     *
+     * @return \Illuminate\View\View Returns payment history view
+     */
     public function payment()
     {
         $payment = Payment::with('subscription')->orderBy('created_at', 'desc')->get();
@@ -78,6 +126,15 @@ class AdminController extends Controller
         ]); 
     }
 
+    /**
+     * Display user management page with optional search.
+     *
+     * Expected query parameters:
+     * - q: string, optional — Search query for user search.
+     *
+     * @param \Illuminate\Http\Request $req The incoming request
+     * @return \Illuminate\View\View Returns user management view
+     */
     public function users(Request $req)
     {
         $q = $req->query('q');
@@ -91,6 +148,15 @@ class AdminController extends Controller
         ]); 
     }
 
+    /**
+     * Display report management page.
+     *
+     * Shows all reports sorted by:
+     * 1. Pending status (highest priority)
+     * 2. Creation date (newest first)
+     *
+     * @return \Illuminate\View\View Returns report management view
+     */
     public function report()
     {
         $report = Report::orderByRaw("FIELD(status, 'pending') DESC")->orderBy('created_at', 'desc')->get();

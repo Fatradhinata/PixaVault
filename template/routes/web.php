@@ -53,11 +53,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/history_download', [HomeController::class, 'history_download'])->name('history_download');
 
         Route::get('/upload', [ContentController::class, 'upload'])->name('upload');
-        Route::post('/upload', [ContentController::class, 'store']);
         Route::get('/api/tags', [ContentController::class, 'tags']);
+        Route::post('/upload', [ContentController::class, 'store']);
+        Route::post('/content/{id}', [ContentController::class, 'update'])->name('content.update');
+        Route::delete('/content/{id}', [ContentController::class, 'destroy'])->name('content.destroy');
 
         Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
-        Route::post('/content/{id}', [ContentController::class, 'update'])->name('content.update')->middleware('auth');
         Route::delete('/comments/{id}', [CommentController::class, 'destroy'])->name('comments.destroy');
         Route::post('/comment/{commentId}/like', [CommentLikeController::class, 'likeComment']);
         Route::delete('/comment/{commentId}/unlike', [CommentLikeController::class, 'unlikeComment']);
@@ -70,8 +71,6 @@ Route::middleware('auth')->group(function () {
         Route::post('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password.update');
         Route::get('/profile/{id}/followers', [ProfileController::class, 'getFollowers']);
 
-        Route::delete('/content/{id}', [ContentController::class, 'destroy'])->middleware('auth');
-        
         Route::post('/report-content', [ReportController::class, 'store']);
         
         Route::get('/subscription', [SubscriptionController::class, 'index'])->name('subscription');
