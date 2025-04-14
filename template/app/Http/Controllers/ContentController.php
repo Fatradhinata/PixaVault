@@ -379,9 +379,7 @@ class ContentController extends Controller
                 return redirect()
                     ->to(route('pricing') . '#subscribe')
                     ->with('warning', 'You have reached your free limit! <br>Please purchase the subscription to upload more photos.');
-            }
-
-            $user->decrement('free_limit');
+            }            
         }
 
         return view('user.upload');
