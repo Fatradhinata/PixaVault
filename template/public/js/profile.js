@@ -230,7 +230,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // });
 
     const followBtn = document.getElementById("button-follow");
-    
+
 
     followBtn?.addEventListener("click", async function () {
         const userId = followBtn.dataset.userId;

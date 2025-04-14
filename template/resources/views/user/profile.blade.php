@@ -98,9 +98,11 @@
                         @else
                             <div class="d-flex align-items-center">
                                 @if (Auth::user()->following->contains($user->id))
-                                    <button id="button-follow" class="btn-followed" data-user-id="{{ $user->id }}">Followed</button>
+                                    <button id="button-follow" class="btn-followed"
+                                        data-user-id="{{ $user->id }}">Followed</button>
                                 @else
-                                    <button id="button-follow" class="btn-follow" data-user-id="{{ $user->id }}">Follow</button>
+                                    <button id="button-follow" class="btn-follow"
+                                        data-user-id="{{ $user->id }}">Follow</button>
                                 @endif
 
                                 <div class="relative">
@@ -123,8 +125,20 @@
                     </div>
                 </div>
                 <p class="profile-email">
-                    {{ $services->formatShortNumber($user->followers->count()) }} Followers
+                    <span class="followers-count" data-user-id="{{ $user->id }}" style="cursor: pointer;">
+                        {{ $services->formatShortNumber($user->followers->count()) }} Followers
+                    </span>
                 </p>
+                <div id="followersModal" class="followers-modal hidden">
+                    <div class="followers-box">
+                        <div class="followers-header">
+                            <h3>Followers</h3>
+                            <button class="close-btn" onclick="$('#followersModal').fadeOut(200, () => $(this).closest('#followersModal').addClass('hidden'))">×</button>
+                        </div>
+                        <div id="followersList" class="followers-list"></div>
+                    </div>
+                </div>
+
                 <p class="profile-bio collapsed" id="profileBio">
                     {{ $user->bio }}
                 </p>
@@ -194,8 +208,8 @@
                                         <p class="mil-card-title"><span>Uploaded At</span>
                                             {{ date('d/m/y', strtotime($content->created_at)) }}</p>
                                     </div>
-                                    <img src="{{ route('image', $content->photo) }}" class="w-100 shadow-1-strong rounded"
-                                        alt="Photo" loading="lazy" />
+                                    <img src="{{ route('image', $content->photo) }}"
+                                        class="w-100 shadow-1-strong rounded" alt="Photo" loading="lazy" />
                                     <div class="image-profile">
                                         <p class="mil-card-subtitle">{{ $content->name }}</p>
                                     </div>
@@ -308,7 +322,7 @@
                     </div>
                 @endif
             </div>
-            
+
             <div class="tab-content tab-content-stats role-own-profile" id="stats">
                 <h2>Insights</h2>
                 <div class="row gy-4">
@@ -351,7 +365,7 @@
                                     </div>
                                     <h3>{{ $item->title }}</h3>
                                 </div>
-                            </div>  
+                            </div>
                         @endforeach
                     </div>
                 </div>
@@ -368,4 +382,44 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="{{ asset('js/misc.js') }}"></script>
     <script src="{{ asset('js/profile.js') }}"></script>
+    <script>
+        document.querySelector('.followers-count')?.addEventListener('click', async function() {
+            const userId = this.dataset.userId;
+            const modal = document.getElementById('followersModal');
+            const list = document.getElementById('followersList');
+
+            try {
+                const res = await fetch(`{{ url('/profile') }}/${userId}/followers`);
+                const data = await res.json();
+
+                list.innerHTML = '';
+
+                if (data.followers.length === 0) {
+                    list.innerHTML = '<p class="text-center text-muted">No followers yet.</p>';
+                } else {
+                    data.followers.forEach(user => {
+                        const item = document.createElement('div');
+                        item.classList.add('follower-item');
+
+                        item.innerHTML = `
+                    <div class="follower-info">
+                        <img src="${user.photo}" alt="Profile Picture">
+                        <div class="name-block">
+                            <strong>${user.name}</strong>
+                            <small>${user.full_name ?? ''}</small>
+                        </div>
+                    </div>
+                `;
+                        list.appendChild(item);
+                    });
+                }
+
+                $(modal).removeClass('hidden').css('display', 'flex').hide().fadeIn(200);
+
+            } catch (err) {
+                console.error('Gagal load followers', err);
+            }
+        });
+    </script>
+
 @endsection
