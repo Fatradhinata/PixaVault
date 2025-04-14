@@ -138,8 +138,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 title: "Caution",
                 text: "Are you sure want to upload this content?",
                 showCancelButton: true,
-                confirmButtonText: "Continue",
+                confirmButtonText: `<span style="color: black;">Continue</span>`,
                 cancelButtonText: "Cancel",
+                confirmButtonColor: "#bcff00",
             }).then((result) => {
                 if (result.isConfirmed) {
                     upload();
@@ -170,8 +171,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     title: "Success!",
                     text: "File uploaded successfully!",
                     showCancelButton: true,
-                    confirmButtonText: "Back",
+                    confirmButtonText: `<span style="color: black;">Back</span>`,
                     cancelButtonText: "Close",
+                    confirmButtonColor: "#bcff00",
                 }).then((result) => {
                     if (result.isConfirmed) {
                         document.querySelector(".btn-back").click();
