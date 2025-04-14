@@ -9,20 +9,27 @@ use Illuminate\Support\Facades\Auth;
 
 class CommentLikeController extends Controller
 {
-    public function likeComment(Request $request, $commentId)
+    /**
+     * Like a specific comment.
+     *
+     * This method allows a user to like a comment. It first checks if the user has already liked the comment.
+     * If the user has liked the comment previously, a message is returned indicating this. If the user hasn't liked
+     * the comment yet, the like is created and a success message is returned.
+     *
+     * @param  string  $commentId  The UUID of the comment to be liked.
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function likeComment(string $commentId)
     {
-        $userId = Auth::id(); // Ambil ID user yang sedang login
+        $userId = Auth::id();
 
-        // Cek apakah user sudah like komentar ini
         $existingLike = CommentLike::where('comment_id', $commentId)
             ->where('user_id', $userId)
             ->first();
 
-        if ($existingLike) {
+        if ($existingLike)
             return response()->json(['message' => 'You already liked this comment'], 400);
-        }
 
-        // Simpan like baru
         CommentLike::create([
             'comment_id' => $commentId,
             'user_id' => $userId,
@@ -31,11 +38,23 @@ class CommentLikeController extends Controller
         return response()->json(['message' => 'Comment liked successfully']);
     }
 
-    public function unlikeComment(Request $request, $commentId)
+    /**
+     * Unlike a specific comment.
+     *
+     * This method allows a user to remove their like from a comment. It first checks if the user has liked the comment.
+     * If the user has liked the comment, the like is deleted and a success message is returned. If the user hasn't liked
+     * the comment, a message is returned indicating this.
+     *
+     * Expected request data:
+     * - commentId: string, required — the UUID of the comment to unlike.
+     *
+     * @param  string  $commentId  The UUID of the comment to be unliked.
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function unlikeComment(string $commentId)
     {
         $userId = Auth::id();
 
-        // Hapus like jika ada
         $deleted = CommentLike::where('comment_id', $commentId)
             ->where('user_id', $userId)
             ->delete();
