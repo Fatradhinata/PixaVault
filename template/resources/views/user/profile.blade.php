@@ -97,14 +97,11 @@
                             </div>
                         @else
                             <div class="d-flex align-items-center">
-                                @php
-                                    $isFollowing = Auth::user()->following->contains($user->id);
-                                @endphp
-
-                                <button id="button-follow" class="{{ $isFollowing ? 'btn-followed' : 'btn-follow' }}"
-                                    data-user-id="{{ $user->id }}">
-                                    {{ $isFollowing ? 'Followed' : 'Follow' }}
-                                </button>
+                                @if (Auth::user()->following->contains($user->id))
+                                    <button id="button-follow" class="btn-followed" data-user-id="{{ $user->id }}">Followed</button>
+                                @else
+                                    <button id="button-follow" class="btn-follow" data-user-id="{{ $user->id }}">Follow</button>
+                                @endif
 
                                 <div class="relative">
                                     <button class="option-btn dropdown-toggle">

@@ -85,7 +85,6 @@ document.addEventListener("DOMContentLoaded", function () {
         uploadArea.classList.remove("uploaded");
     });
 
-
     // Tagify //
 
     const input = document.querySelector("#tags");
@@ -119,13 +118,12 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     });
 
-
     // Submit handler
 
-    const form = document.querySelector('form');
-    const submitBtn = document.querySelector('button.upload-button');
+    const form = document.querySelector("form");
+    const submitBtn = document.querySelector(".upload-button");
 
-    submitBtn.addEventListener('click', function () {    
+    submitBtn.addEventListener("click", function () {
         const fileInput = document.getElementById("imageInput");
 
         if (fileInput.files.length === 0) {
@@ -135,7 +133,79 @@ document.addEventListener("DOMContentLoaded", function () {
                 text: "No file selected!",
             });
         } else {
-            form.submit();
+            Swal.fire({
+                icon: "info",
+                title: "Caution",
+                text: "Are you sure want to upload this content?",
+                showCancelButton: true,
+                confirmButtonText: `<span style="color: black;">Continue</span>`,
+                cancelButtonText: "Cancel",
+                confirmButtonColor: "#bcff00",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    upload();
+                }
+            });
+            // form.submit();
         }
     });
+
+    function upload() {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = `<div class="loader"></div><span>0%</span>`;
+
+        const formData = new FormData(form);
+        const xhr = new XMLHttpRequest();
+
+        xhr.upload.addEventListener("progress", function (e) {
+            if (e.lengthComputable) {
+                let percent = Math.round((e.loaded / e.total) * 100);
+                submitBtn.innerHTML = `<div class="loader"></div><span>${percent}%</span>`;
+            }
+        });
+
+        xhr.addEventListener("load", function () {
+            if ([200, 302].includes(xhr.status)) {
+                Swal.fire({
+                    icon: "success",
+                    title: "Success!",
+                    text: "File uploaded successfully!",
+                    showCancelButton: true,
+                    confirmButtonText: `<span style="color: black;">Back</span>`,
+                    cancelButtonText: "Close",
+                    confirmButtonColor: "#bcff00",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        document.querySelector(".btn-back").click();
+                    }
+                });
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Failed",
+                    text: `Upload failed (${xhr.status})`,
+                });
+            }
+
+            // reset tombol
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = "Upload";
+        });
+
+        xhr.addEventListener("error", function () {
+            Swal.fire({
+                icon: "error",
+                title: "Failed",
+                text: "Something when wrong while uploading..",
+            });
+
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = "Upload";
+        });
+
+        xhr.open("POST", form.action);
+        xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+
+        xhr.send(formData);
+    }
 });

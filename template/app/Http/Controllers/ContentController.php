@@ -400,7 +400,7 @@ class ContentController extends Controller
     public function store(Request $req)
     {
         $validated = $req->validate([
-            'image' => 'required|image|mimes:jpg,jpeg,png,heic,arw,tiff|min:1024|max:12288',
+            'image' => 'required|image|mimes:jpg,jpeg,png,heic,arw,tiff|min:200|max:12288',
             'name' => 'required|string|max:255',
             'desc' => 'required|string',
             'tags' => 'required|string',
@@ -423,13 +423,10 @@ class ContentController extends Controller
 
             $tagObjects = json_decode($validated['tags']);
             $inputTags = array_map(fn($tag) => htmlspecialchars(trim($tag->value)), $tagObjects);
-
             $tagsJson = json_encode($inputTags);
 
             foreach ($inputTags as $tagName) {
-                $exists = Tag::where('name', $tagName)->exists();
-
-                if (!$exists) {
+                if (!Tag::where('name', $tagName)->exists()) {
                     Tag::create(['name' => $tagName]);
                 }
             }
@@ -443,6 +440,13 @@ class ContentController extends Controller
             ]);
 
             Content::create($data);
+
+            if ($req->ajax()) {
+                return response()->json([
+                    'status' => 'success', 
+                    'message' => 'Photo uploaded successfully!'
+                ], 200);
+            }
 
             return redirect()->route('profile')->with('success', 'Photo uploaded successfully!');
         } catch (\Exception $e) {

@@ -53,6 +53,26 @@
             font-family: 'Poppins', sans-serif;
             padding: 4px 8px;
         }
+
+        .loader {
+            display: inline-block;
+            position: relative;
+            top: 3px;
+            width: 20px;
+            margin-right: 8px;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            border: 4px solid;
+            border-color: #000 #0000;
+            animation: l1 1s infinite;
+        }
+
+        @keyframes l1 {
+            to {
+                transform: rotate(.5turn);
+            }
+        }
+
     </style>
 @endsection
 
@@ -66,7 +86,7 @@
         <div class="upload-content">
             <div class="header">
                 <h5>Upload Photo</h5>
-                <a href="{{ route('profile') . '/' . Auth::id() }}">
+                <a href="{{ route('profile') }}" class="btn-back">
                     <img src="{{ asset('img/icons/back.svg') }}" width="35px" height="35px" alt="back">
                 </a>
             </div>
