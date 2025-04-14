@@ -68,7 +68,14 @@ class ProfileController extends Controller
                 DB::raw('COUNT(DISTINCT f.follower_id) as total_followers')
             )
             ->where('users.id', $userId)
-            ->groupBy('users.id', 'users.name', 'users.email')
+            ->groupBy(
+                'users.id',
+                'users.name',
+                'users.full_name',
+                'users.email',
+                'users.photo',
+                'users.bio'
+            )
             ->first();
         
         return view('user.profile', [
