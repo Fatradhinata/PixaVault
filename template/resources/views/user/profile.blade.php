@@ -123,7 +123,7 @@
                     </div>
                 </div>
                 <p class="profile-email">
-                    {{ $user->email }}
+                    {{ $services->formatShortNumber($user->followers->count()) }} Followers
                 </p>
                 <p class="profile-bio collapsed" id="profileBio">
                     {{ $user->bio }}

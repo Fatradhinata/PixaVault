@@ -222,7 +222,7 @@
                     'src', currentUser?.photo ? `${PROFILE_BASE_URL}/${currentUser.photo}` : tmp_user
                 );
 
-                $('#modal-content .follow').attr('href', `${BASEURL}/profile/${data.id_user}`);
+                $('#modal-content .follow').attr('href', `${BASEURL}/profile?id=${data.id_user}`);
                 $('#modal-content .username').text((data.user) ? data.user.name : 'anonymous');
                 $('#modal-content .downloads').text(data.downloads);
                 $('#modal-content .views').text(data.views);

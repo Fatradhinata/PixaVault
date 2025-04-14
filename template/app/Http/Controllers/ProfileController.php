@@ -87,6 +87,8 @@ class ProfileController extends Controller
 
     public function follow($id)
     {
+        if (!Auth::check()) return response()->json(['redirect' => route('login')]);
+
         $userToFollow = User::find($id);
         if (!$userToFollow) return response()->json(['error' => 'User not found!'], 400);
 

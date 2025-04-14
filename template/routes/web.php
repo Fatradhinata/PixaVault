@@ -38,6 +38,7 @@ Route::get('/comments/{id_content}', [CommentController::class, 'index'])->name(
 Route::get('/content/like/{id}', [ContentController::class, 'like'])->name('content.like');
 Route::get('/content/download/{id}', [ContentController::class, 'download'])->name('image.download');
 Route::get('/content/view/{id}', [ContentController::class, 'showInExplore'])->name('content.redirect');
+Route::get('/follow/{id}', [ProfileController::class, 'follow'])->name('profile.follow');
 
 
 Route::middleware('auth')->group(function () {
@@ -67,7 +68,6 @@ Route::middleware('auth')->group(function () {
         Route::post('/profile/edit', [ProfileController::class, 'update'])->name('profile.update');
         Route::put('/profile/edit', [ProfileController::class, 'changePassword'])->name('profile.password');
         Route::post('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password.update');
-        Route::post('/follow/{id}', [ProfileController::class, 'follow'])->middleware('auth')->name('profile.follow');
         Route::delete('/content/{id}', [ContentController::class, 'destroy'])->middleware('auth');
         
         Route::post('/report-content', [ReportController::class, 'store']);

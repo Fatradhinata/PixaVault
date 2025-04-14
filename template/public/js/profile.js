@@ -261,7 +261,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // === AJAX follow/unfollow ===
         try {
             const res = await fetch(`/follow/${userId}`, {
-                method: 'POST',
+                method: 'GET',
                 headers: {
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
                     'Accept': 'application/json'
