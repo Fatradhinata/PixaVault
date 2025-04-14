@@ -17,7 +17,12 @@ class AdminController extends Controller
 {
     public function index()
     {
-        return view('admin.dashboard'); 
+        return view('admin.dashboard', [
+            'users' => User::count(),
+            'subscription' => Subscription::where('status', 'active')->count(),
+            'content' => Content::count(),
+            'report' => Report::where('status', 'pending')->count(),
+        ]); 
     }
     
     public function content(Request $req)

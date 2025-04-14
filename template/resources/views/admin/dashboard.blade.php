@@ -181,13 +181,9 @@
                                             </svg>
                                         </div>
                                         <h6 class="text-black font-weight-bolder mb-0 mt-3">
-                                            230
+                                            {{ $users }}
                                         </h6>
                                         <span class="text-black text-sm">Total Users</span>
-                                    </div>
-                                    <div class="col-4 text-center">
-
-                                        <h6 class="text-black text-end font-weight-bolder mt-auto mb-0">+55%</h6>
                                     </div>
                                 </div>
                             </div>
@@ -207,13 +203,9 @@
                                             </svg>
                                         </div>
                                         <h6 class="text-black font-weight-bolder mb-0 mt-3">
-                                            1.200
+                                            {{ $subscription }}
                                         </h6>
                                         <span class="text-black text-sm">Paid Subs</span>
-                                    </div>
-                                    <div class="col-4">
-
-                                        <h6 class="text-black text-sm text-end font-weight-bolder mt-auto mb-0">+124%</h6>
                                     </div>
                                 </div>
                             </div>
@@ -236,13 +228,9 @@
 
                                         </div>
                                         <h6 class="text-black font-weight-bolder mb-0 mt-3">
-                                            930
+                                            {{ $content }}
                                         </h6>
                                         <span class="text-black text-sm">Total Content</span>
-                                    </div>
-                                    <div class="col-4">
-
-                                        <h6 class="text-black text-sm text-end font-weight-bolder mt-auto mb-0">+26%</h6>
                                     </div>
                                 </div>
                             </div>
@@ -263,13 +251,9 @@
 
                                         </div>
                                         <h6 class="text-black font-weight-bolder mb-0 mt-3">
-                                            23
+                                            {{ $report }}
                                         </h6>
                                         <span class="text-black text-sm">Total Report</span>
-                                    </div>
-                                    <div class="col-4">
-
-                                        <h6 class="text-black text-sm text-end font-weight-bolder mt-auto mb-0">+6%</h6>
                                     </div>
                                 </div>
                             </div>
