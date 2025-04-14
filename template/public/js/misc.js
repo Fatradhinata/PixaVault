@@ -4,13 +4,15 @@ window.refreshLikeEvent = function () {
             const id = btn.dataset.id;
 
             const response = await fetch(`${BASEURL}/content/like/${id}`);
+            const data = await response.json();
             
-            const { status, like } = await response.json();
-            if (status === 'fail') return console.error('Server error');
+            if ('redirect' in data) {
+                window.location.href = data['redirect'];
+            } else if (data.status === 'success') {
+                return e.querySelector('i').setAttribute('class', data.like ? 'fas fa-heart' : 'far fa-heart');
+            }
 
-            document.querySelectorAll(`.like-btn[data-id="${id}"]`).forEach((b) => {
-                b.querySelector('i').setAttribute('class', like ? 'fas fa-heart' : 'far fa-heart');
-            });
+            return console.error(data.message);
         };
     });
 };
