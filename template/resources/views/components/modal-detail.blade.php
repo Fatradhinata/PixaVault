@@ -233,9 +233,11 @@
 
                 if (currentUser.id !== data.id_user) {
                     $('#modal-detail .edit-btn').hide();
+                    $('#modal-detail .delete-btn').hide();
                     $('#modal-detail .actions-btn .relative').show();
                 } else {
                     $('#modal-detail .edit-btn').show();
+                    $('#modal-detail .delete-btn').show();
                     $('#modal-detail .actions-btn .relative').hide();
                 }
             }
