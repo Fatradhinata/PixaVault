@@ -131,7 +131,7 @@ class DatabaseSeeder extends Seeder
 
 
         $images_selection_id = [
-            'yoll1t6hv2ylgqc8qcpm',
+            'y2mkq9zsutmcs41ijtnb',
             'qwjueey0bqctcclt14sh',
             'txqqlcy3mn47faky1guh',
             'p36woypktoix8bgaabal',
