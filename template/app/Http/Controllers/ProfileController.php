@@ -47,10 +47,9 @@ class ProfileController extends Controller
             ->get();
     }
 
-    public function index($userId = null)
+    public function index(Request $req)
     {
-        if (is_null($userId))
-            $userId = Auth::id();
+        $userId = $req->query('q') ?: Auth::id();
 
         $user = User::with(['achievements', 'contents'])
             ->leftJoin('contents as c', 'users.id', '=', 'c.id_user')

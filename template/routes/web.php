@@ -59,7 +59,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/comment/{commentId}/like', [CommentLikeController::class, 'likeComment']);
         Route::delete('/comment/{commentId}/unlike', [CommentLikeController::class, 'unlikeComment']);
 
-        Route::get('/profile/{userId?}', [ProfileController::class, 'index'])->name('profile');
+        Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
         Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
         Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::post('/profile/edit', [ProfileController::class, 'update'])->name('profile.update');

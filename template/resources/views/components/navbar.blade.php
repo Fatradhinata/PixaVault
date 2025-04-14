@@ -38,7 +38,7 @@
                 @endauth
                 <a href="{{ url('explore') }}" class="mil-top-panel-link mil-explore">Explore</a>
                 @auth
-                    <a href="{{ route('profile', ['id' => Auth::user()->id]) }}" class="mil-top-panel-link mil-pricing mil-top-panel-link-max-sm">View Profile</a>
+                    <a href="{{ route('profile') }}" class="mil-top-panel-link mil-pricing mil-top-panel-link-max-sm">View Profile</a>
                 @endauth
                 <div class="nav-horizontal-dot-wrapper">
                     <div class="nav-horizontal-dot toggleDropdown">

@@ -84,7 +84,7 @@
         <div class="row tab-content active" id="most-likes">
 
             @foreach ($leaderboardLikes as $index => $item)
-                <a href="{{ route('profile', $item['id']) }}" class="leaderboard-row">
+                <a href="{{ route('profile') }}?id={{ $item['id'] }}" class="leaderboard-row">
                     <div class="user-detail">
                         <h3>{{ $index + 1 }}</h3>
                         <div class="user-detail-core">
