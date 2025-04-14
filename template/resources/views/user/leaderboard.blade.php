@@ -66,7 +66,7 @@
 @endsection
 
 @php
-    $following = Auth::user()->following;
+    $following = Auth::user()->following ??  collect([]);
 @endphp
 
 @section('content')

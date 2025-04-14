@@ -46,20 +46,22 @@ document.addEventListener("DOMContentLoaded", function () {
             // === AJAX follow/unfollow ===
             try {
                 const res = await fetch(`/follow/${userId}`, {
-                    method: 'POST',
+                    method: 'GET',
                     headers: {
                         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
                         'Accept': 'application/json'
                     }
                 });
     
-                const result = await res.json();
+                const data = await res.json();
     
-                if (result.status === "followed") {
+                if ("redirect" in data) {
+                    window.location.href = data['redirect'];
+                } else if (data.status === "followed") {
                     this.classList.add("btn-followed");
                     this.classList.remove("btn-follow");
                     this.innerText = "Followed";
-                } else if (result.status === "unfollowed") {
+                } else if (data.status === "unfollowed") {
                     this.classList.add("btn-follow");
                     this.classList.remove("btn-followed");
                     this.innerText = "Follow";

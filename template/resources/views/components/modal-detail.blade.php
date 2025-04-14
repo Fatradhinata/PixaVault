@@ -214,7 +214,7 @@
                 );
 
 
-                $('#modal-detail .follow').attr('href', `${BASEURL}/profile/${data.id_user}`);
+                $('#modal-detail .follow').attr('href', `${BASEURL}/profile?id=${data.id_user}`);
                 $('#modal-detail .username').text(data.user?.name ?? 'anonymous');
 
                 $('#modal-detail .downloads').text(data.downloads);
