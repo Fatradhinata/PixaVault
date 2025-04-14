@@ -134,4 +134,29 @@ class ServiceProvider extends Controller
 
         return [];
     }
+    /**
+     * Format a number into a shorter version using suffixes like k, M, B.
+     *
+     * Examples:
+     * - 986       => "986"
+     * - 1000      => "1k"
+     * - 1234      => "1.2k"
+     * - 15000     => "15k"
+     * - 1050000   => "1.1M"
+     *
+     * @param int|float $number The number to format.
+     * @return string The formatted number with appropriate suffix.
+     */
+    public static function formatShortNumber(int $number)
+    {
+        if ($number < 1000) {
+            return $number;
+        } elseif ($number < 1000000) {
+            return number_format($number / 1000, ($number % 1000 > 99) ? 1 : 0) . 'k';
+        } elseif ($number < 1000000000) {
+            return number_format($number / 1000000, 1) . 'M';
+        } else {
+            return number_format($number / 1000000000, 1) . 'B';
+        }
+    }
 }

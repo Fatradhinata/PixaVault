@@ -3,7 +3,7 @@
 @section('title', 'Pricing')
 
 @section('navbar')
-    @include('components.navbar', ['search' => true])
+    @include('components.navbar')
     <style>
         .mil-top-panel {
             &.mil-active {
