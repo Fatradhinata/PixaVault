@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Content;
+use App\Models\Follow;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -46,10 +47,31 @@ class ProfileController extends Controller
             ->get();
     }
 
-    public function index()
+    public function index($userId = null)
     {
-        $user = Auth::user();
+        if (is_null($userId))
+            $userId = Auth::id();
 
+        $user = User::with(['achievements', 'contents'])
+            ->leftJoin('contents as c', 'users.id', '=', 'c.id_user')
+            ->leftJoin('follows as f', 'users.id', '=', 'f.followed_id')
+            ->select(
+                'users.id',
+                'users.name',
+                'users.full_name',
+                'users.email',
+                'users.photo',
+                'users.bio',
+                DB::raw('COUNT(DISTINCT c.id) as total_uploads'),
+                DB::raw('COALESCE(SUM(c.likes), 0) as total_likes'),
+                DB::raw('COALESCE(SUM(c.views), 0) as total_views'),
+                DB::raw('COALESCE(SUM(c.downloads), 0) as total_downloads'),
+                DB::raw('COUNT(DISTINCT f.follower_id) as total_followers')
+            )
+            ->where('users.id', $userId)
+            ->groupBy('users.id', 'users.name', 'users.email')
+            ->first();
+        
         return view('user.profile', [
             'user' => $user,
             'contents' => $this->getTripleColumn($user->contents),
@@ -57,49 +79,28 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function details(User $id)
-    {
-        return view('user.profile', [
-            'user' => $id,
-            'contents' => $this->getTripleColumn($id->contents),
-            'liked' => $this->getTripleColumn($this->getLikedContent())
-        ]);
-    }
-
     public function follow($id)
     {
         $userToFollow = User::find($id);
-        if (!$userToFollow)
-            return response()->json(['error' => 'User not found!'], 400);
+        if (!$userToFollow) return response()->json(['error' => 'User not found!'], 400);
 
         $currentUser = Auth::user();
+        if ($userToFollow->id == $currentUser->id) return response()->json(['error' => 'You cannot follow yourself'], 400);
+        
+        $follow = Follow::where('follower_id', $currentUser->id)
+                        ->where('followed_id', $userToFollow->id)
+                        ->first();
 
-        if ($userToFollow->id === $currentUser->id)
-            return response()->json(['error' => 'You cannot follow yourself'], 400);
-
-        $alreadyFollowing = DB::table('follows')->where([
-            ['follower_id', $currentUser->id],
-            ['followed_id', $userToFollow->id],
-        ])->exists();
-
-        if ($alreadyFollowing) {
+        if ($follow) {
             // Unfollow
-            DB::table('follows')->where([
-                ['follower_id', $currentUser->id],
-                ['followed_id', $userToFollow->id],
-            ])->delete();
-
+            $follow->delete();
             return response()->json(['status' => 'unfollowed']);
         } else {
             // Follow
-            DB::table('follows')->insert([
-                'id' => (string) Str::uuid(),
+            Follow::create([
                 'follower_id' => $currentUser->id,
                 'followed_id' => $userToFollow->id,
-                'created_at' => now(),
-                'updated_at' => now(),
             ]);
-
             return response()->json(['status' => 'followed']);
         }
     }

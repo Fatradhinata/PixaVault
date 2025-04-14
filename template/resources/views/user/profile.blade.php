@@ -1,4 +1,5 @@
 @extends('templates.user')
+@inject('services', 'App\Http\Controllers\ServiceProvider')
 
 @section('title', 'Profile')
 
@@ -140,7 +141,7 @@
                 <img src="{{ asset('/img/icons/love-black.svg') }}" alt="likes">
                 Likes {{ array_sum(array_map('count', $liked)) }}
             </button>
-            <button class="tab-btn role-own-profile" data-tab="stats">
+            <button class="tab-btn" data-tab="stats">
                 <img src="{{ asset('/img/icons/stats.svg') }}" alt="stats">Stats
             </button>
         </div>
@@ -286,59 +287,52 @@
                         <h3>This user has not liked any photos</h3>
                     </div>
                 @endif
-
             </div>
+            
             <div class="tab-content tab-content-stats role-own-profile" id="stats">
-                <h4>Insights</h4>
-                <div class="tab-content-stats-diagram d-flex flex-wrap justify-content-between">
-                    <div class="card">
-                        <div class="header">
-                            <div class="d-flex flex-column align-items-start">
-                                <h3>Views</h3>
-                                <h1 id="view-count">2,313</h1>
-                            </div>
-                            <select class="dropdown tab-content-stats-dropdown" name="time" id="timeViewFilter">
-                                <option value="weekly">Weekly</option>
-                                <option value="monthly">Monthly</option>
-                                <option value="yearly">Yearly</option>
-                            </select>
+                <h2>Insights</h2>
+                <div class="row gy-4">
+                    <div class="col-md-6 col-xl-3">
+                        <div class="card anal-card">
+                            <h3>Uploads</h3>
+                            <span>{{ $services->formatShortNumber($user->total_uploads) }} Post</span>
                         </div>
-                        <canvas id="viewsChart" height="200px"></canvas>
                     </div>
-                    <div class="card">
-                        <div class="header">
-                            <div class="d-flex flex-column align-items-start">
-                                <h3>Downloads</h3>
-                                <h1 id="download-count">512</h1>
-                            </div>
-                            <select class="dropdown tab-content-stats-dropdown" name="time" id="timeDownloadFilter">
-                                <option value="weekly">Weekly</option>
-                                <option value="monthly">Monthly</option>
-                                <option value="yearly">Yearly</option>
-                            </select>
+                    <div class="col-md-6 col-xl-3">
+                        <div class="card anal-card">
+                            <h3>Likes</h3>
+                            <span>{{ $services->formatShortNumber($user->total_likes) }} Likes</span>
                         </div>
-                        <canvas id="downloadsChart" height="200px"></canvas>
+                    </div>
+                    <div class="col-md-6 col-xl-3">
+                        <div class="card anal-card">
+                            <h3>Views</h3>
+                            <span>{{ $services->formatShortNumber($user->total_views) }} Views</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xl-3">
+                        <div class="card anal-card">
+                            <h3>Downloads</h3>
+                            <span>{{ $services->formatShortNumber($user->total_downloads) }} Downloads</span>
+                        </div>
                     </div>
                 </div>
-                <h4>Badge</h4>
+
+                <br>
+
+                <h2>Badge</h2>
                 <div class="card badge-card">
-                    <div class="badge-card-header">
-                        <p>Achievements</p>
-                        <div>3</div>
-                    </div>
-                    <div class="badge-card-achievements">
-                        <div class="badge-card-achievements-icon">
-                            <img src="{{ asset('/img/icons/achievement-icon-1.svg') }}" alt="achievement-icon-1">
-                            <p>Top Like February 2025</p>
-                        </div>
-                        <div class="badge-card-achievements-icon">
-                            <img src="{{ asset('/img/icons/achievement-icon-2.svg') }}" alt="achievement-icon-2">
-                            <p>Top Download February 2025</p>
-                        </div>
-                        <div class="badge-card-achievements-icon">
-                            <img src="{{ asset('/img/icons/achievement-icon-3.svg') }}" alt="achievement-icon-3">
-                            <p>Top Like March 2025</p>
-                        </div>
+                    <div class="row">
+                        @foreach ($user->achievements as $item)
+                            <div class="col-md-6 col-lg-4 col-xxl-3 card-item">
+                                <div class="card-content tier-{{ $item->tier }}">
+                                    <div class="badge-image">
+                                        <img src="{{ $item->badge }}" alt="badge">
+                                    </div>
+                                    <h3>{{ $item->title }}</h3>
+                                </div>
+                            </div>  
+                        @endforeach
                     </div>
                 </div>
             </div>

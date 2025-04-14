@@ -84,7 +84,8 @@
                                                             class="avatar avatar-sm me-3" loading="lazy" alt="User Profile">
                                                     </div>
                                                     <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm">{{ $item['name'] ?? 'anonymous' }}</h6>
+                                                        <a href="{{ route('admin.users') }}?q={{ $item['id'] }}" 
+                                                            class="mb-0 text-sm fw-bold link">{{ $item['name'] ?? 'anonymous' }}</a>
                                                         <p class="text-xs text-secondary mb-0">{{ $item['email'] ?? '-' }}</p>
                                                     </div>
                                                 </div>
@@ -155,7 +156,8 @@
                                                             class="avatar avatar-sm me-3" loading="lazy" alt="User Profile">
                                                     </div>
                                                     <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm">{{ $item['name'] ?? 'anonymous' }}</h6>
+                                                        <a href="{{ route('admin.users') }}?q={{ $item['id'] }}" 
+                                                            class="mb-0 text-sm fw-bold link">{{ $item['name'] ?? 'anonymous' }}</a>
                                                         <p class="text-xs text-secondary mb-0">{{ $item['email'] ?? '-' }}</p>
                                                     </div>
                                                 </div>

@@ -28,6 +28,7 @@ class AdminController extends Controller
             ->when($q, function ($query, $q) {
                 return $query->orderByRaw('id = ? DESC', [$q]);
             })->get();
+            
 
         return view('admin.content', [
             'content' => $content,
@@ -72,9 +73,13 @@ class AdminController extends Controller
         ]); 
     }
 
-    public function users()
+    public function users(Request $req)
     {
-        $users = User::orderByRaw("FIELD(role, 'admin', 'user')")->get();
+        $q = $req->query('q');
+
+        $users = User::when($q, function ($query, $q) {
+                return $query->orderByRaw('id = ? DESC', [$q]);
+            })->orderByRaw("FIELD(role, 'admin', 'user')")->get();
         
         return view('admin.users', [
             'users' => $users,

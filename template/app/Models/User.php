@@ -4,11 +4,12 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Models\Achievement;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -71,15 +72,20 @@ class User extends Authenticatable
         return $this->hasMany(Subscription::class);
     }
 
-public function followers()
-{
-    return $this->belongsToMany(User::class, 'follows', 'followed_id', 'follower_id');
-}
+    public function achievements()
+    {
+        return $this->hasMany(Achievement::class);
+    }
 
-public function following()
-{
-    return $this->belongsToMany(User::class, 'follows', 'follower_id', 'followed_id');
-}
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'followed_id', 'follower_id');
+    }
+
+    public function following()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'follower_id', 'followed_id');
+    }
 
 
 

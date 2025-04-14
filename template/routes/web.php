@@ -59,14 +59,13 @@ Route::middleware('auth')->group(function () {
         Route::post('/comment/{commentId}/like', [CommentLikeController::class, 'likeComment']);
         Route::delete('/comment/{commentId}/unlike', [CommentLikeController::class, 'unlikeComment']);
 
-        Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+        Route::get('/profile/{userId?}', [ProfileController::class, 'index'])->name('profile');
         Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
         Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::post('/profile/edit', [ProfileController::class, 'update'])->name('profile.update');
         Route::put('/profile/edit', [ProfileController::class, 'changePassword'])->name('profile.password');
-        Route::get('/profile/{id}', [ProfileController::class, 'details'])->name('user.profile');
         Route::post('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password.update');
-        Route::post('/follow/{id}', [ProfileController::class, 'toggleFollow'])->middleware('auth')->name('profile.follow');
+        Route::post('/follow/{id}', [ProfileController::class, 'follow'])->middleware('auth')->name('profile.follow');
         Route::delete('/content/{id}', [ContentController::class, 'destroy'])->middleware('auth');
         
         Route::post('/report-content', [ReportController::class, 'store']);
