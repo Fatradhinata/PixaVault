@@ -49,7 +49,7 @@ class ProfileController extends Controller
 
     public function index(Request $req)
     {
-        $userId = $req->query('q') ?: Auth::id();
+        $userId = $req->query('id') ?: Auth::id();
 
         $user = User::with(['achievements', 'contents'])
             ->leftJoin('contents as c', 'users.id', '=', 'c.id_user')
