@@ -65,6 +65,7 @@ input {
 }
 
 .core {
+  margin: auto 0;
   form {
     display: flex;
     gap: 55px;

@@ -9,7 +9,7 @@ photoTrigger.addEventListener("click", (e) => {
   photoModal.style.display = "flex";
 });
 
-// Hide modal on close button
+// Hide modal on close 
 closeModal.addEventListener("click", () => {
   photoModal.style.display = "none";
 });
