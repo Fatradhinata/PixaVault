@@ -167,7 +167,7 @@
     <script>
         const ICON_EDIT = "{{ asset('img/icons/edit-pen.svg') }}";
         const ICON_CHECK = "{{ asset('img/icons/checklist.svg') }}";
-        const PROFILE_BASE_URL = `{{ asset('storage/profile_photos') }}`;
+        // const PROFILE_BASE_URL = `{{ asset('storage/profile_photos') }}`;
         if (typeof BASEURL === 'undefined') {
             window.BASEURL = `{{ url('/') }}`;
             window.tmp_user = `{{ asset('img/icons/user-elipse.svg') }}`;

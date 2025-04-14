@@ -311,4 +311,29 @@ document.addEventListener("DOMContentLoaded", function () {
     $(document).click(function () {
         $(".dropdown-report").addClass("hidden");
     });
+
+    // Expand Bio when Bio in too length
+    const bio = document.getElementById("profileBio");
+    const toggleBtn = document.getElementById("toggleBio");
+
+    const isOverflowing = bio.scrollHeight > bio.offsetHeight;
+    console.log(isOverflowing)
+    if (isOverflowing) {
+        toggleBtn.classList.remove('d-none')
+    }
+
+    toggleBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        const collapsed = bio.classList.contains("collapsed");
+
+        if (collapsed) {
+            bio.classList.remove("collapsed");
+            bio.classList.add("expanded");
+            toggleBtn.textContent = "View less...";
+        } else {
+            bio.classList.remove("expanded");
+            bio.classList.add("collapsed");
+            toggleBtn.textContent = "View more...";
+        }
+    });
 });
