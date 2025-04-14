@@ -38,7 +38,7 @@ class DatabaseSeeder extends Seeder
             'password' => '$2y$12$GL.0J7JkYJVhzBDL.iU2junCLJrriE9Dm6iLV7irxTG6Eo.U6PTYO',
             'verified_at' => date('Y-m-d H:i:s'),
         ]);
-        
+
 
         Content::insert([
             [
@@ -54,7 +54,7 @@ class DatabaseSeeder extends Seeder
                 'views' => fake()->numberBetween(800, 1000),
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
-            ], 
+            ],
             [
                 'id' => fake()->uuid(),
                 'id_user' => $user_id,
@@ -127,6 +127,9 @@ class DatabaseSeeder extends Seeder
             ],
         ]);
 
+        $this->call(TagSeeder::class);
+
+
         $images_selection_id = [
             'yoll1t6hv2ylgqc8qcpm',
             'qwjueey0bqctcclt14sh',
@@ -181,6 +184,5 @@ class DatabaseSeeder extends Seeder
 
             Content::insert($data);
         }
-
     }
 }

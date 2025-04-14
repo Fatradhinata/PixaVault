@@ -144,10 +144,7 @@
             <button class="tab-btn" data-tab="likes">
                 <img src="{{ asset('/img/icons/love-black.svg') }}" alt="likes">
                 Likes {{ array_sum(array_map('count', $liked)) }}
-            </button>
-            <button class="tab-btn role-own-profile" data-tab="stats">
-                <img src="{{ asset('/img/icons/stats.svg') }}" alt="stats">Stats
-            </button>
+            </button>            
         </div>
         <div class="tab-content-container">
             <div class="tab-content active" id="photos">
@@ -310,60 +307,6 @@
                     </div>
                 @endif
 
-            </div>
-            <div class="tab-content tab-content-stats role-own-profile" id="stats">
-                <h4>Insights</h4>
-                <div class="tab-content-stats-diagram d-flex flex-wrap justify-content-between">
-                    <div class="card">
-                        <div class="header">
-                            <div class="d-flex flex-column align-items-start">
-                                <h3>Views</h3>
-                                <h1 id="view-count">2,313</h1>
-                            </div>
-                            <select class="dropdown tab-content-stats-dropdown" name="time" id="timeViewFilter">
-                                <option value="weekly">Weekly</option>
-                                <option value="monthly">Monthly</option>
-                                <option value="yearly">Yearly</option>
-                            </select>
-                        </div>
-                        <canvas id="viewsChart" height="200px"></canvas>
-                    </div>
-                    <div class="card">
-                        <div class="header">
-                            <div class="d-flex flex-column align-items-start">
-                                <h3>Downloads</h3>
-                                <h1 id="download-count">512</h1>
-                            </div>
-                            <select class="dropdown tab-content-stats-dropdown" name="time" id="timeDownloadFilter">
-                                <option value="weekly">Weekly</option>
-                                <option value="monthly">Monthly</option>
-                                <option value="yearly">Yearly</option>
-                            </select>
-                        </div>
-                        <canvas id="downloadsChart" height="200px"></canvas>
-                    </div>
-                </div>
-                <h4>Badge</h4>
-                <div class="card badge-card">
-                    <div class="badge-card-header">
-                        <p>Achievements</p>
-                        <div>3</div>
-                    </div>
-                    <div class="badge-card-achievements">
-                        <div class="badge-card-achievements-icon">
-                            <img src="{{ asset('/img/icons/achievement-icon-1.svg') }}" alt="achievement-icon-1">
-                            <p>Top Like February 2025</p>
-                        </div>
-                        <div class="badge-card-achievements-icon">
-                            <img src="{{ asset('/img/icons/achievement-icon-2.svg') }}" alt="achievement-icon-2">
-                            <p>Top Download February 2025</p>
-                        </div>
-                        <div class="badge-card-achievements-icon">
-                            <img src="{{ asset('/img/icons/achievement-icon-3.svg') }}" alt="achievement-icon-3">
-                            <p>Top Like March 2025</p>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
