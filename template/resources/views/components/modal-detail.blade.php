@@ -172,6 +172,8 @@
             window.BASEURL = `{{ url('/') }}`;
             window.tmp_user = `{{ asset('img/icons/user-elipse.svg') }}`;
         }
+        
+        const commentCount = document.getElementById("commentCount");
 
         // JS Modal //
         document.addEventListener('DOMContentLoaded', () => {
@@ -544,184 +546,184 @@
                 modal.fadeIn(300);
             });
 
-            document.querySelector(".comment-wrapper")?.addEventListener("click", function(event) {
+            // document.querySelector(".comment-wrapper")?.addEventListener("click", function(event) {
 
-                if (event.target.classList.contains("like-comment-btn")) {
-                    let commentId = event.target.getAttribute("data-comment-id");
-                    let isLiked = event.target.classList.contains("liked");
+            //     if (event.target.classList.contains("like-comment-btn")) {
+            //         let commentId = event.target.getAttribute("data-comment-id");
+            //         let isLiked = event.target.classList.contains("liked");
 
-                    if (!window.isAuthenticated) {
-                        window.location.href = "/login";
-                        return;
-                    }
+            //         if (!window.isAuthenticated) {
+            //             window.location.href = "/login";
+            //             return;
+            //         }
 
-                    let url = isLiked ? `/comment/${commentId}/unlike` : `/comment/${commentId}/like`;
-                    let method = isLiked ? "DELETE" : "POST";
+            //         let url = isLiked ? `/comment/${commentId}/unlike` : `/comment/${commentId}/like`;
+            //         let method = isLiked ? "DELETE" : "POST";
 
-                    console.log(commentId, "Clicked");
+            //         console.log(commentId, "Clicked");
 
-                    fetch(url, {
-                            method: method,
-                            headers: {
-                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
-                                    .getAttribute("content"),
-                                "Content-Type": "application/json"
-                            }
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.message.includes("successfully")) {
-                                let likeCountElement = document.getElementById(
-                                    `like-count-${commentId}`);
-                                let currentLikes = parseInt(likeCountElement.textContent);
+            //         fetch(url, {
+            //                 method: method,
+            //                 headers: {
+            //                     "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+            //                         .getAttribute("content"),
+            //                     "Content-Type": "application/json"
+            //                 }
+            //             })
+            //             .then(response => response.json())
+            //             .then(data => {
+            //                 if (data.message.includes("successfully")) {
+            //                     let likeCountElement = document.getElementById(
+            //                         `like-count-${commentId}`);
+            //                     let currentLikes = parseInt(likeCountElement.textContent);
 
-                                if (isLiked) {
-                                    likeCountElement.textContent = currentLikes - 1;
-                                    event.target.classList.remove("liked", "alr-liked");
-                                } else {
-                                    likeCountElement.textContent = currentLikes + 1;
-                                    event.target.classList.add("liked", "alr-liked");
-                                }
-                            }
-                        })
-                        .catch(error => console.error("Error:", error));
-                }
-            });
+            //                     if (isLiked) {
+            //                         likeCountElement.textContent = currentLikes - 1;
+            //                         event.target.classList.remove("liked", "alr-liked");
+            //                     } else {
+            //                         likeCountElement.textContent = currentLikes + 1;
+            //                         event.target.classList.add("liked", "alr-liked");
+            //                     }
+            //                 }
+            //             })
+            //             .catch(error => console.error("Error:", error));
+            //     }
+            // });
 
-            document.getElementById("commentForm")?.addEventListener("submit", function(event) {
-                event.preventDefault();
+            // document.getElementById("commentForm")?.addEventListener("submit", function(event) {
+            //     event.preventDefault();
 
-                let form = this;
-                let formData = new FormData(form);
-                formData.forEach((value, key) => {
-                    console.log(`${key}:`, value);
-                });
+            //     let form = this;
+            //     let formData = new FormData(form);
+            //     formData.forEach((value, key) => {
+            //         console.log(`${key}:`, value);
+            //     });
 
-                fetch("{{ route('comments.store') }}", {
-                        method: "POST",
-                        headers: {
-                            "X-CSRF-TOKEN": "{{ csrf_token() }}"
-                        },
-                        body: formData
-                    })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error(
-                                `HTTP Error! Status: ${response.status} ${response.statusText}`);
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        if (data.success) {
-                            commentCount.innerHTML = data.comment.total_comment
-                            let commentList = document.getElementById("commentList");
-                            document.getElementById("commentUserName").textContent = data.comment
-                                .user_name;
+            //     fetch("{{ route('comments.store') }}", {
+            //             method: "POST",
+            //             headers: {
+            //                 "X-CSRF-TOKEN": "{{ csrf_token() }}"
+            //             },
+            //             body: formData
+            //         })
+            //         .then(response => {
+            //             if (!response.ok) {
+            //                 throw new Error(
+            //                     `HTTP Error! Status: ${response.status} ${response.statusText}`);
+            //             }
+            //             return response.json();
+            //         })
+            //         .then(data => {
+            //             if (data.success) {
+            //                 commentCount.innerHTML = data.comment.total_comment
+            //                 let commentList = document.getElementById("commentList");
+            //                 document.getElementById("commentUserName").textContent = data.comment
+            //                     .user_name;
 
-                            let newComment = document.createElement("div");
-                            newComment.classList.add("comment-item");
-                            newComment.innerHTML = `
-                                <div class="comment-profile">
-                                    <div class="comment-identity">
-                                        <img src="${data.comment.user_image ?? userImage}" alt="User Profile">
-                                        <p>${data.comment.user_name}</p>
-                                    </div>
-                                    <div class="relative">
-                                        <button class="option-btn dropdown-toggle">
-                                            <img src="${optionsIcon}" alt="">
-                                        </button>
+            //                 let newComment = document.createElement("div");
+            //                 newComment.classList.add("comment-item");
+            //                 newComment.innerHTML = `
+            //                     <div class="comment-profile">
+            //                         <div class="comment-identity">
+            //                             <img src="${data.comment.user_image ?? userImage}" alt="User Profile">
+            //                             <p>${data.comment.user_name}</p>
+            //                         </div>
+            //                         <div class="relative">
+            //                             <button class="option-btn dropdown-toggle">
+            //                                 <img src="${optionsIcon}" alt="">
+            //                             </button>
 
-                                        <div
-                                            class="dropdown-report hidden absolute right-0 mt-2 w-40 bg-white border border-gray-300 rounded shadow-md">
-                                            <p class="block px-4 py-2 text-gray-800 hover:bg-gray-200 report-btn comment-report"
-                                                data-modal-target="modal-report"
-                                                data-id-comment="${data.comment.id}">
-                                                Report Comment
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-flex gap-1 comment-content">
-                                    <p class="comment-text">${data.comment.comment}</p>
-                                    <div class="comment-action d-flex flex-column align-items-center justify-content-center">
-                                        <img class="cursor-pointer like-comment-btn ${data.comment.is_liked ? 'alr-liked liked' : ''}"  data-comment-id="${data.comment.id}" src="${loveIcon}" alt="love-icon">
-                                        <p class="font-weight-bold" id="like-count-${data.comment.id}">${data.comment.likes}</p>
-                                    </div>
-                                </div>
-                                <p class="comment-time-duration">Just now</p>
-                            `;
+            //                             <div
+            //                                 class="dropdown-report hidden absolute right-0 mt-2 w-40 bg-white border border-gray-300 rounded shadow-md">
+            //                                 <p class="block px-4 py-2 text-gray-800 hover:bg-gray-200 report-btn comment-report"
+            //                                     data-modal-target="modal-report"
+            //                                     data-id-comment="${data.comment.id}">
+            //                                     Report Comment
+            //                                 </p>
+            //                             </div>
+            //                         </div>
+            //                     </div>
+            //                     <div class="d-flex gap-1 comment-content">
+            //                         <p class="comment-text">${data.comment.comment}</p>
+            //                         <div class="comment-action d-flex flex-column align-items-center justify-content-center">
+            //                             <img class="cursor-pointer like-comment-btn ${data.comment.is_liked ? 'alr-liked liked' : ''}"  data-comment-id="${data.comment.id}" src="${loveIcon}" alt="love-icon">
+            //                             <p class="font-weight-bold" id="like-count-${data.comment.id}">${data.comment.likes}</p>
+            //                         </div>
+            //                     </div>
+            //                     <p class="comment-time-duration">Just now</p>
+            //                 `;
 
-                            commentList.prepend(newComment);
+            //                 commentList.prepend(newComment);
 
-                            form.reset();
-                        } else {
-                            console.error(data)
-                            console.error(data.success)
-                        }
-                    })
-                    .catch(error => console.error("Error:", error));
-            });
+            //                 form.reset();
+            //             } else {
+            //                 console.error(data)
+            //                 console.error(data.success)
+            //             }
+            //         })
+            //         .catch(error => console.error("Error:", error));
+            // });
 
-            // loadMore Function
-            loadMoreButton.addEventListener("click", function() {
-                commentPage++;
-                console.log(contentId, commentPage)
-                fetchComment(contentId, commentPage, true);
-            });
+            // // loadMore Function
+            // loadMoreButton.addEventListener("click", function() {
+            //     commentPage++;
+            //     console.log(contentId, commentPage)
+            //     fetchComment(contentId, commentPage, true);
+            // });
 
-            function setLoadMoreComment(data, jsonData) {
-                console.log(data)
-                if (data.status === "fail") {
-                    loadMoreButton.style.display = "none";
-                    return;
-                }
+            // function setLoadMoreComment(data, jsonData) {
+            //     console.log(data)
+            //     if (data.status === "fail") {
+            //         loadMoreButton.style.display = "none";
+            //         return;
+            //     }
 
-                if (data.length > 0 && document.getElementById("noCommentsText") != null) {
-                    document.getElementById("noCommentsText").style.display = "none";
-                }
+            //     if (data.length > 0 && document.getElementById("noCommentsText") != null) {
+            //         document.getElementById("noCommentsText").style.display = "none";
+            //     }
 
-                data.forEach(comment => {
-                    console.log(comment)
-                    let newComment = document.createElement("div");
-                    newComment.classList.add("comment-item");
-                    newComment.innerHTML = `
-                            <div class="comment-profile">
-                                <div class="comment-identity">
-                                    <img src="${comment.user_image ?? userImage}" alt="User Profile">
-                                    <p>${comment.user_name}</p>
-                                </div>
-                                <div class="relative">
-                                        <button class="option-btn dropdown-toggle">
-                                            <img src="${optionsIcon}" alt="">
-                                        </button>
+            //     data.forEach(comment => {
+            //         console.log(comment)
+            //         let newComment = document.createElement("div");
+            //         newComment.classList.add("comment-item");
+            //         newComment.innerHTML = `
+            //                 <div class="comment-profile">
+            //                     <div class="comment-identity">
+            //                         <img src="${comment.user_image ?? userImage}" alt="User Profile">
+            //                         <p>${comment.user_name}</p>
+            //                     </div>
+            //                     <div class="relative">
+            //                             <button class="option-btn dropdown-toggle">
+            //                                 <img src="${optionsIcon}" alt="">
+            //                             </button>
 
-                                        <div
-                                            class="dropdown-report hidden absolute right-0 mt-2 w-40 bg-white border border-gray-300 rounded shadow-md">
-                                            <p class="block px-4 py-2 text-gray-800 hover:bg-gray-200 report-btn comment-report"
-                                                data-modal-target="modal-report"
-                                                data-id-comment="${comment.id}">
-                                                Report Comment
-                                            </p>
-                                        </div>
-                                </div>
-                            </div>
-                            <div class="d-flex gap-1 comment-content">
-                                <p class="comment-text">${comment.comment}</p>
-                                <div class="comment-action d-flex flex-column align-items-center justify-content-center">
-                                    <img class="cursor-pointer like-comment-btn ${comment.is_liked ? 'alr-liked liked' : ''}"  data-comment-id="${comment.id}" src="${loveIcon}" alt="love-icon">
-                                    <p class="font-weight-bold" id="like-count-${comment.id}">${comment.likes}</p>
-                                </div>
-                            </div>
-                            <p class="comment-time-duration">${comment.created_at}</p>
-                        `;
+            //                             <div
+            //                                 class="dropdown-report hidden absolute right-0 mt-2 w-40 bg-white border border-gray-300 rounded shadow-md">
+            //                                 <p class="block px-4 py-2 text-gray-800 hover:bg-gray-200 report-btn comment-report"
+            //                                     data-modal-target="modal-report"
+            //                                     data-id-comment="${comment.id}">
+            //                                     Report Comment
+            //                                 </p>
+            //                             </div>
+            //                     </div>
+            //                 </div>
+            //                 <div class="d-flex gap-1 comment-content">
+            //                     <p class="comment-text">${comment.comment}</p>
+            //                     <div class="comment-action d-flex flex-column align-items-center justify-content-center">
+            //                         <img class="cursor-pointer like-comment-btn ${comment.is_liked ? 'alr-liked liked' : ''}"  data-comment-id="${comment.id}" src="${loveIcon}" alt="love-icon">
+            //                         <p class="font-weight-bold" id="like-count-${comment.id}">${comment.likes}</p>
+            //                     </div>
+            //                 </div>
+            //                 <p class="comment-time-duration">${comment.created_at}</p>
+            //             `;
 
-                    commentList.appendChild(newComment);
-                });
+            //         commentList.appendChild(newComment);
+            //     });
 
-                if (!jsonData.hasMore) {
-                    loadMoreButton.style.display = "none";
-                }
-            }
+            //     if (!jsonData.hasMore) {
+            //         loadMoreButton.style.display = "none";
+            //     }
+            // }
 
 
 

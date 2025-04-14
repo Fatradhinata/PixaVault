@@ -202,9 +202,7 @@
             let loadMoreButton = document.querySelector(".comment-load-btn");
             let commentList = document.getElementById("commentList");
 
-
             const photoModal = $("#modal-content");
-            console.log('jansjdasd')
 
             function setField(data) {
                 console.log(data)
@@ -385,6 +383,7 @@
                     console.log("API Response:", jsonData);
 
                     if (jsonData.status === 'success') {
+                        console.log(jsonData.totalComment, 'PLASDpsd')
                         commentCount.innerHTML = jsonData.totalComment
                         if (!jsonData.hasMore) {
                             loadMoreButton.style.display = "none";
@@ -398,7 +397,6 @@
                             setCommentField(jsonData.data);
                         }
                     } else {
-                        console.log(jsonData.status, loadMore, 'asdsadsad')
                         if (jsonData.status == 'fail' && loadMore == false) {
                             loadMoreButton.style.display = "none";
 
@@ -509,7 +507,6 @@
                     console.log(`${key}:`, value);
                 });
 
-                console.log('Fetch Comments')
                 fetch("{{ route('comments.store') }}", {
                         method: "POST",
                         headers: {
@@ -526,6 +523,8 @@
                     })
                     .then(data => {
                         if (data.success) {
+                            console.log(data, 'amsdkmsad')
+                            document.getElementById('noCommentsText').style.display = "none"
                             commentCount.innerHTML = data.comment.total_comment
                             let commentList = document.getElementById("commentList");
                             document.getElementById("commentUserName").textContent = data.comment
