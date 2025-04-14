@@ -207,10 +207,15 @@
 
     @include('components.modal-content')
 
+    <button id="scrollToTopBtn" class="scroll-to-top" title="Go to top">
+        ↑
+    </button>
+
 @endsection
 
 @section('scripts')
     <script src="{{ asset('js/misc.js') }}"></script>
+    <script src="{{ asset('js/scrollToTop.js') }}"></script>
     <script>
         document.querySelectorAll('.tab-btn').forEach(button => {
             button.addEventListener('click', () => {

@@ -67,7 +67,7 @@
 @endsection
 
 @section('content')
-    
+
     <div class="container">
 
         <h3>TRENDING IMAGES</h3>
@@ -75,8 +75,8 @@
         <div class="tab-header">
             <button class="tab-btn active" data-tab="photos">
                 <img src="{{ asset('img/icons/multi-image.svg') }}" alt="multiple image">
-                Photos {{ count($contents[0])+count($contents[1])+count($contents[2]) }}
-            </button>           
+                Photos {{ count($contents[0]) + count($contents[1]) + count($contents[2]) }}
+            </button>
         </div>
 
         <div class="row">
@@ -162,11 +162,13 @@
 
     @include('components.modal-content')
 
+    <button id="scrollToTopBtn" class="scroll-to-top" title="Go to top">
+        ↑
+    </button>
+
 @endsection
 
 @section('scripts')
     <script src="{{ asset('js/misc.js') }}"></script>
-@endsection
-@section('scripts')
-    <script src="{{ asset('js/misc.js') }}"></script>
+    <script src="{{ asset('js/scrollToTop.js') }}"></script>
 @endsection
