@@ -32,14 +32,20 @@
 
                         </div>
                     </div>
+                    <button class="like-btn" data-id=""><i class="far fa-heart"></i></button>
+                    <button class="delete-btn">
+                        <div>
+                            <img src="{{ asset('img/icons/trash.svg') }}" alt="Edit">
+                            <p>Delete</p>
+                        </div>
+                    </button>
+                    <button class="edit-btn">
+                        <div>
+                            <img src="{{ asset('img/icons/edit-pen.svg') }}" alt="Edit">
+                            <p>Edit</p>
+                        </div>
+                    </button>
                 @endauth
-                <button class="like-btn" data-id=""><i class="far fa-heart"></i></button>
-                <button class="edit-btn">
-                    <div>
-                        <img src="{{ asset('img/icons/edit-pen.svg') }}" alt="Edit">
-                        <p>Edit</p>
-                    </div>
-                </button>
                 <button class="download-btn">
                     <div>
                         <img src="{{ asset('img/icons/download.svg') }}" alt="Download Icon">
@@ -223,12 +229,64 @@
 
                 if (currentUser.id !== data.id_user) {
                     $('#modal-detail .edit-btn').hide();
+                    $('#modal-detail .actions-btn .relative').show();
                 } else {
                     $('#modal-detail .edit-btn').show();
+                    $('#modal-detail .actions-btn .relative').hide();
                 }
             }
 
+            // Delete Content when user click delete button
+            $(document).on("click", ".delete-btn", function() {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "This content will be permanently deleted.",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#D94D4C',
+                    cancelButtonColor: '#aaa',
+                    confirmButtonText: `<span style="color: white; font-weight: bold;">Yes, Delete</span>`
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: `${BASEURL}/content/${contentId}`,
+                            type: 'DELETE',
+                            method: 'DELETE',
+                            data: {
+                                _token: $('meta[name="csrf-token"]').attr('content'),
+                            },
+                            success: function(res) {
+                                if (res.success) {
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Deleted!',
+                                        text: res.message,
+                                        timer: 2000,
+                                        showConfirmButton: false,
+                                    }).then(() => {
+                                        location.reload();
+                                    });
 
+
+                                    $(`.content-item:has(.delete-btn[data-id="${contentId}"])`)
+                                        .remove();
+                                }
+                            },
+                            error: function(err) {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Failed',
+                                    text: err.responseJSON?.message ??
+                                        'Failed to delete content',
+                                });
+                            }
+                        });
+                    }
+                });
+            });
+
+
+            // Edit Content when user click Edit Button
             $('.edit-btn').on('click', function() {
                 const modal = $('#modal-detail');
                 const isEditing = modal.hasClass('editing');
@@ -238,7 +296,7 @@
                     // MASUK MODE EDIT
                     modal.addClass('editing');
                     btn.find('p').text('Save Changes');
-                    btn.find('img').attr('src', ICON_CHECK); // <- opsional icon checklist
+                    btn.find('img').attr('src', ICON_CHECK);
                     const titleText = modal.find('.title').text();
                     const descText = modal.find('.content-description').text();
                     const shootBy = modal.find('.shoot-by').text();
@@ -250,7 +308,7 @@
                     modal.find('.shoot-by').replaceWith(
                         `<input class="edit-shootby input-edit" value="${shootBy}">`);
                 } else {
-                    // KONFIRMASI DULU
+                    // KONFIRMASI 
                     Swal.fire({
                         icon: "warning",
                         title: "Caution",
@@ -261,7 +319,6 @@
                         confirmButtonText: `<span style="color: black; font-weight: bold;">Submit</span>`,
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            // AMBIL NILAI
                             const titleVal = modal.find('.edit-title').val();
                             const descVal = modal.find('.edit-desc').val();
                             const shootByVal = modal.find('.edit-shootby').val();

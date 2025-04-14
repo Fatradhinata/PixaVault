@@ -129,7 +129,7 @@ class ContentController extends Controller
         try {
             if (!Auth::check())
                 return response()->json(['redirect' => route('login')], 403);
-            
+
             $id_user = Auth::id();
             $id_content = $id->id;
 
@@ -190,7 +190,6 @@ class ContentController extends Controller
                 echo $imageData;
                 flush();
             }, 200, ['Content-Type' => 'image/webp']);
-
         } catch (\Exception $e) {
             return response()->json(['error' => 'Error fetching image: ' . $e->getMessage()], 500);
         }
@@ -201,13 +200,13 @@ class ContentController extends Controller
         try {
             if (!Auth::check())
                 return response()->json(['redirect' => route('login')], 403);
-    
+
             if (!$id)
                 return response()->json(['error' => 'Data not found!'], 404);
-    
+
             $user = User::find(Auth::id());
             $subscription = ServiceProvider::subscriptionCheck($user->id);
-    
+
             if (!$subscription) {
                 if ($user->free_limit <= 0) {
                     return response()->json(['error' => "You've reached your free limit!"], 403);
@@ -255,7 +254,6 @@ class ContentController extends Controller
                 'Content-Type' => $contentType,
                 'Content-Disposition' => 'attachment; filename="' . $fileName . '"'
             ])->deleteFileAfterSend(true);
-
         } catch (\Exception $e) {
             return response()->json(['error' => 'Error downloading image: ' . $e->getMessage()], 500);
         }
@@ -286,7 +284,7 @@ class ContentController extends Controller
     {
         $startOfMonth = Carbon::now()->startOfMonth()->toDateTimeString();
         $endOfMonth = Carbon::now()->endOfMonth()->toDateTimeString();
-        
+
         $contents = Content::select('contents.*', DB::raw('CASE WHEN likes.id IS NOT NULL THEN 1 ELSE 0 END as is_liked'))
             ->leftJoin(
                 'likes',
@@ -300,7 +298,8 @@ class ContentController extends Controller
                 "CASE 
                     WHEN contents.created_at BETWEEN ? AND ? THEN 0 
                     ELSE 1 
-                END", [$startOfMonth, $endOfMonth]
+                END",
+                [$startOfMonth, $endOfMonth]
             )
             ->orderByDesc('downloads')
             ->orderByDesc('views')
@@ -374,7 +373,7 @@ class ContentController extends Controller
     {
         $user = User::find(Auth::id());
         $subscription = ServiceProvider::subscriptionCheck($user->id);
-    
+
         if (!$subscription) {
             if ($user->free_limit <= 0) {
                 return redirect()
@@ -413,17 +412,17 @@ class ContentController extends Controller
         try {
             $user = User::find(Auth::id());
             $subscription = ServiceProvider::subscriptionCheck($user->id);
-        
+
             if (!$subscription) {
                 if ($user->free_limit <= 0) {
                     return redirect()
                         ->to(route('pricing') . '#subscribe')
                         ->with('warning', 'You have reached your free limit! <br>Please purchase the subscription to upload more photos.');
                 }
-    
+
                 $user->decrement('free_limit');
             }
-            
+
             $tagObjects = json_decode($validated['tags']);
             $inputTags = array_map(fn($tag) => htmlspecialchars(trim($tag->value)), $tagObjects);
 
@@ -453,22 +452,24 @@ class ContentController extends Controller
         }
     }
 
-    public function destroy(Request $req)
+    public function destroy($id)
     {
-        $id = Content::find($req->input('id'));
-        if (!$id) return redirect()->back()->with('error', 'Data not found!');
+        $content = Content::find($id);
+        if (!$content) {
+            return response()->json(['success' => false, 'message' => 'Content not found!'], 404);
+        }
 
         try {
-            if (Auth::user()->role == 'admin') {
-                Cloudinary::destroy($id->photo);
+            if (Auth::user()->role === 'admin' || Auth::id() === $content->id_user) {
+                Cloudinary::destroy($content->photo);
 
-                $id->delete();
-                return redirect()->back()->with('success', 'Content deleted successfully!');
+                $content->delete();
+                return response()->json(['success' => true, 'message' => 'Content deleted successfully!']);
             }
 
-            return redirect()->back()->with('warning', 'You are not authorized to delete this content!');
+            return response()->json(['success' => false, 'message' => 'You are not authorized to delete this content!'], 403);
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Something went wrong! Please try again.');
+            return response()->json(['success' => false, 'message' => 'Something went wrong!'], 500);
         }
     }
 }

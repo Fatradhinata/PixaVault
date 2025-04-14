@@ -3742,7 +3742,8 @@ load more
 }
 
 .modal-header .download-btn,
-.modal-header .edit-btn {
+.modal-header .edit-btn, 
+.modal-header .delete-btn {
   display: flex;
   align-items: center;
   gap: 30px;
@@ -3800,6 +3801,21 @@ load more
 
   &:hover {
     background-color: #bbff00b8 !important
+  }
+}
+
+.modal-header .delete-btn {
+  background-color: #D94D4C !important;
+  color: white;
+
+  img {
+    width: 24px;
+    height: 24px;
+    filter: brightness(0) saturate(100%) invert(99%) sepia(3%) saturate(127%) hue-rotate(174deg) brightness(118%) contrast(100%);
+  }
+
+  &:hover {
+    background-color: #d94c4cc0 !important
   }
 }
 

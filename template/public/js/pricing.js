@@ -1,11 +1,10 @@
 function payNow(amountUSD) {
-  fetch("https://api.exchangerate-api.com/v4/latest/USD") // Ambil kurs terbaru
+  fetch("https://api.exchangerate-api.com/v4/latest/USD") 
       .then(response => response.json())
       .then(data => {
-          let exchangeRate = data.rates.IDR; // Ambil nilai tukar USD ke IDR
-          let amountIDR = Math.round(amountUSD * exchangeRate); // Konversi USD ke IDR
+          let exchangeRate = data.rates.IDR;
+          let amountIDR = Math.round(amountUSD * exchangeRate);
 
-          // Kirim ke backend Laravel
           fetch("{{ route('payment.create') }}", {
               method: "POST",
               headers: {

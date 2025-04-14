@@ -67,6 +67,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/profile/{id}', [ProfileController::class, 'details'])->name('user.profile');
         Route::post('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password.update');
         Route::post('/follow/{id}', [ProfileController::class, 'toggleFollow'])->middleware('auth')->name('profile.follow');
+        Route::delete('/content/{id}', [ContentController::class, 'destroy'])->middleware('auth');
         
         Route::post('/report-content', [ReportController::class, 'store']);
         

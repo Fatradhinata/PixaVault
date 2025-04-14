@@ -346,7 +346,7 @@
     </div>
 
     @include('components.modal-detail')
-    {{-- @include('components.modal-content') --}}
+    @include('components.modal-content')
 
 @endsection
 

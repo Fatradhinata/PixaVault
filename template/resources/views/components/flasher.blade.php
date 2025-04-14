@@ -287,11 +287,11 @@
             });
 
             setTimeout(() => {
-                $('.alert .cancel-icon')[0].click();
+                $('.alert .cancel-icon')[0]?.click();
             }, 4000);
 
             setTimeout(() => {
-                $('.top-alert .cancel-icon')[0].click();
+                $('.top-alert .cancel-icon')[0]?.click();
             }, 4000);
         });
     </script>
