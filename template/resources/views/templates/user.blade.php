@@ -46,25 +46,31 @@
                 <img src="{{ asset('img/foto/jan-derungs-XMwAnYLHShE-unsplash.jpg') }}" class="mil-bg-img mil-parallax"
                     alt="image" style="object-position: top" data-value-1="-25%" data-value-2="23%" />
                 <div class="mil-overlay"></div>
-                <div class="container mil-p-60-70">
+                <div class="container mil-p-30-0">
                     <div class="mil-background-grid"></div>
                     <div class="row align-items-start d-flex flex-column-reverse">
-                        <div class="col-lg-8">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="mil-footer-navigation mil-up mil-mb-30">
-                                        <nav>
-                                            <ul>
-                                                <li><a href="{{ route('home') }}">Home</a></li>
-                                                <li><a href="{{ route('explore') }}">Explore</a></li>
-                                                <li><a href="{{ route('trending') }}">Trending</a></li>
-                                                <li><a href="{{ route('leaderboard') }}">Leaderboard</a></li>
-                                                <li><a href="{{ route('pricing') }}">Pricing</a></li>
-                                            </ul>
-                                        </nav>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="mil-footer-navigation mil-mb-30">
+                            <nav>
+                               <p class="footer-description">Pixavault is a photo gallery website that stores many high-quality photos that can be downloaded by users.</p>
+                                <ul class="social-media">
+                                    <li>
+                                        <a href="#">
+                                            <img src="{{ asset('img/icons/facebook-icon.svg') }}" alt="Facebook-icon">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <img src="{{ asset('img/icons/x-icon.svg') }}" alt="x-icon">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <img src="{{ asset('img/icons/instagram-icon.svg') }}"
+                                                alt="Instagram-icon">
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
                         </div>
                         <div class="col-lg-4 mb-4">
                             <a href="home-1.html" class="col-lg-4 d-flex justify-content-left">
@@ -78,8 +84,13 @@
                     <div class="mil-footer-bottom">
                         <p class="mil-light-soft mil-mb-15">
                             © {{ date('Y') }}. All rights reserved.
-                        </p>                      
-                    </div>                    
+                        </p>
+                        <div class="terms-list">
+                            <a href="#">Terms</a>
+                            <a href="#">Privacy</a>
+                            <a href="#">Cookies</a>
+                        </div>
+                    </div>
                 </div>
             </footer>
             <!-- footer end -->

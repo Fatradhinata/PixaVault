@@ -904,6 +904,18 @@ spaces
   }
 }
 
+.mil-p-30-0 {
+  padding-top: 30px !important;
+  padding-bottom: 0px !important;
+}
+
+@media screen and (max-width: 992px) {
+  .mil-p-30-0 {
+    padding-top: 30px !important;
+    padding-bottom: 0px !important;
+  }
+}
+
 .mil-p-120-60 {
   padding-top: 120px;
   padding-bottom: 60px;
@@ -2136,9 +2148,29 @@ footer .mil-bg-img {
 .mil-footer-navigation {
   position: relative;
   display: flex;
-  padding-bottom: 30px;
   /* border-bottom: 5px solid rgba(255, 255, 255, 0.1);
   border-image: repeating-linear-gradient(-45deg, transparent, transparent 1px, rgba(255, 255, 255, 0.1) 1px, rgba(255, 255, 255, 0.1) 3px) 5; */
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+    .footer-description {
+      color: white;
+      max-width: 50%;
+    }
+
+    .social-media {
+      img {
+        cursor: pointer;
+
+        &:hover {
+          filter: brightness(.9);
+        }
+      }
+    }
+  }
 }
 
 .mil-footer-navigation nav ul {
@@ -2211,6 +2243,18 @@ footer .mil-bg-img {
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  .terms-list {
+    display: flex;
+    color: white;
+    gap: 20px;
+
+    a {
+      &:hover {
+        color: #D9D9D9;
+      }
+    }
+  }
 }
 
 .mil-footer-bottom ul {
@@ -3742,7 +3786,7 @@ load more
 }
 
 .modal-header .download-btn,
-.modal-header .edit-btn, 
+.modal-header .edit-btn,
 .modal-header .delete-btn {
   display: flex;
   align-items: center;
@@ -4525,4 +4569,3 @@ load more
   opacity: 1;
   visibility: visible;
 }
-

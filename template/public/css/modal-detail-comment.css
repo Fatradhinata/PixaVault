@@ -10,17 +10,22 @@
     align-items: center;
     gap: 10px;
 
+    h3 {
+      font-size: 22px;
+      font-weight: 600;
+    }
+
     div {
       display: flex;
       justify-content: center;
       align-items: center;
       background-color: #D9D9D9;
       border-radius: 100px;
-      height: 34px;
-      width: 34px;
+      height: 26px;
+      width: 26px;
 
       p {
-        font-size: 20px;
+        font-size: 16px;
         font-family: 'Poppins';
         color: #000;
         font-weight: 600;
