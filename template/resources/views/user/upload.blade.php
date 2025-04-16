@@ -101,8 +101,9 @@
                         <div class="upload-area">
                             <img src="{{ asset('img/icons/camera.svg') }}" alt="icon-cam">
                             <p>Drag & Drop<br>photo to Upload<br>or <span>browse</span></p>
+                            <em>accept: .jpg, .jpeg, .png, .heic, .arw, .tiff</em>
                         </div>
-                        <input type="file" name="image" id="imageInput" accept="image/*" required hidden>
+                        <input type="file" name="image" id="imageInput" accept=".jpg,.jpeg,.png,.heic,.arw,.tiff" required hidden>
                         <div class="file-detail-wrapper" style="display: none;">
                             <div class="file-detail">
                                 <img src="{{ asset('img/icons/document-jpg.svg') }}" width="46px" height="46px" alt="doc-jpg" data-icon-jpg="{{ asset('img/icons/document-jpg.svg') }}"

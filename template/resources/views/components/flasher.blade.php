@@ -275,13 +275,13 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             $('.alert .cancel-icon').on('click', function() {
-                $(this).closest('.alert').fadeOut(300, function() {
+                $(this).closest('.alert').fadeOut(500, function() {
                     $(this).remove()
                 });
             });
 
             $('.top-alert .cancel-icon').on('click', function() {
-                $(this).closest('.top-alert').fadeOut(300, function() {
+                $(this).closest('.top-alert').fadeOut(500, function() {
                     $(this).remove()
                 });
             });

@@ -37,11 +37,14 @@ document.addEventListener("DOMContentLoaded", function () {
     // }
 
     function handleFile(file) {
-        if (file && file.type.startsWith("image/")) {
+        if (
+            file && 
+            file.type.startsWith("image/") &&
+            ['jpg','jpeg','png','heic','arw','tiff'].includes(file.name.split(".").pop().toLowerCase())
+        ) {
             const reader = new FileReader();
             reader.onload = (e) => {
                 uploadArea.innerHTML = `<img src="${e.target.result}" alt="uploaded-image" style="max-width: -webkit-fill-available; max-height: inherit; object-fit: contain; border-radius: 8px;">`;
-
                 uploadArea.classList.add("uploaded");
 
                 const iconJpg = fileIcon.dataset.iconJpg;
@@ -68,7 +71,11 @@ document.addEventListener("DOMContentLoaded", function () {
             };
             reader.readAsDataURL(file);
         } else {
-            alert("Please upload a valid image file.");
+            Swal.fire({
+                icon: "warning",
+                title: "Warning!",
+                text: "Please upload a valid image file",
+            });
         }
     }
 
@@ -80,6 +87,7 @@ document.addEventListener("DOMContentLoaded", function () {
         uploadArea.innerHTML = `
             <img src="/img/icons/camera.svg" alt="icon-cam">
             <p>Drag & Drop<br>photo to Upload<br>or <span>browse</span></p>
+            <em>accept: .jpg, .jpeg, .png, .heic, .arw, .tiff</em>
         `;
 
         uploadArea.classList.remove("uploaded");
@@ -153,19 +161,20 @@ document.addEventListener("DOMContentLoaded", function () {
     function upload() {
         submitBtn.disabled = true;
         submitBtn.innerHTML = `<div class="loader"></div><span>0%</span>`;
-
+        
         const formData = new FormData(form);
         const xhr = new XMLHttpRequest();
+        const progress = submitBtn.querySelector('span');
 
         xhr.upload.addEventListener("progress", function (e) {
             if (e.lengthComputable) {
                 let percent = Math.round((e.loaded / e.total) * 100);
-                submitBtn.innerHTML = `<div class="loader"></div><span>${percent}%</span>`;
+                progress.innerHTML = `${percent}%`;
             }
         });
 
         xhr.addEventListener("load", function () {
-            if ([200, 302].includes(xhr.status)) {
+            if (xhr.status === 200) {
                 Swal.fire({
                     icon: "success",
                     title: "Success!",
@@ -180,10 +189,26 @@ document.addEventListener("DOMContentLoaded", function () {
                     }
                 });
             } else {
+                let errorMessages = "";
+                try {
+                    let res = JSON.parse(xhr.responseText);
+
+                    if (res.errors) {
+                        const allErrors = Object.values(res.errors).flat();
+                        errorMessages = allErrors
+                            .map((msg) => `• ${msg}`)
+                            .join("<br>");
+                    } else {
+                        errorMessages = `Upload failed (${xhr.status})`;
+                    }
+                } catch (e) {
+                    errorMessages = `Upload failed (${xhr.status})`;
+                }
+
                 Swal.fire({
                     icon: "error",
                     title: "Failed",
-                    text: `Upload failed (${xhr.status})`,
+                    html: errorMessages,
                 });
             }
 
